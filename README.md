@@ -1,6 +1,7 @@
 # MAKILING BARANGAY RECORD MANAGEMENT AND ISSUANCE SYSTEM
-this is our capstone project 
+this is our capstone project for barangay makiling bro
 
-Arcillas
-Ignacio
-Galang
+MEMBERS:
+BRO Arcillas
+BRO Ignacio
+BRO Galang
