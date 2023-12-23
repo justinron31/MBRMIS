@@ -1,0 +1,229 @@
+/* POPPIN FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: #76C28C;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Set minimum height to fill the viewport */
+}
+
+
+/*TOP NAV BAR*/
+#nav-bar {
+    background-color: #fff;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+}
+
+#logcon {
+    display: flex;
+    align-items: center;
+}
+
+.stafflog {
+    background-color: #266E60;
+    color: #fff;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.stafflog:hover {
+    background-color: #153e36;
+}
+
+.adminlog {
+    background-color: #5183AD;
+    color: #fff;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.adminlog:hover {
+    background-color: #2f5575;
+}
+
+.logoname {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+/* Responsive Styles */
+@media only screen and (max-width: 600px) {
+    #nav-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #logcon {
+        margin-bottom: 0;
+    }
+
+    .logoname {
+        margin-left: 0;
+        font-size: 20px;
+    }
+
+    .stafflog {
+        margin-top: 5px;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    .adminlog {
+        margin-top: 5px;
+        margin-bottom: 15px;
+        font-size: 14px;
+    }
+
+    .logo {
+        width: 30px;
+        /* Adjust logo size for smaller screens */
+        height: 30px;
+        margin-right: 5px;
+    }
+}
+
+/* Additional media query for even smaller screens (e.g., iPhones in portrait mode) */
+@media only screen and (max-width: 400px) {
+    .logoname {
+        font-size: 18px;
+    }
+
+    .stafflog {
+        font-size: 12px;
+    }
+
+    .adminlog {
+        font-size: 12px;
+    }
+}
+
+
+/*LOGIN FORM*/
+.login-container {
+    max-width: 400px;
+    margin: 35px auto 0;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.logo-container {
+    text-align: center;
+}
+
+.login-text {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.logo1 {
+    width: 50%;
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #266E60;
+    outline: none;
+    box-shadow: 0 0 5px #266E60;
+}
+
+.login-button {
+    width: 100%;
+    background-color: #266E60;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 600;
+    justify-content: center;
+}
+
+.login-button:hover {
+    background-color: #18433b;
+}
+
+/*FORGOT PASS AND REGISTER */
+
+.register-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.forgot-password {
+    text-align: right;
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+.forgot-password a,
+.register-link a {
+    text-decoration: underline;
+    color: #266E60;
+    /* Set the color to match your design */
+}
+
+.forgot-password a:hover,
+.register-link a:hover {
+    color: #205b4f;
+    /* Set the hover color to match your design */
+}
+
+
+
+/*FOOTER */
+footer {
+    background-color: #266E60;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    margin-top: auto;
+
+}
+
+footer p {
+    margin: 0;
+    font-size: 12px;
+}
