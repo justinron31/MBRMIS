@@ -4,7 +4,7 @@ body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   min-height: 100vh;
 }
 
@@ -15,18 +15,33 @@ nav {
   padding: 0 15px;
   position: fixed;
   width: 100%;
-  
+  top: 0;
+  box-shadow: -3px 13px 29px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: -3px 13px 29px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: -3px 13px 29px 0px rgba(0, 0, 0, 0.3);
 }
+
+.dash {
+  margin-top: 70px;
+  margin-left: 20px;
+  text-align: left;
+  font-size: 200%;
+}
+
+p {
+  text-align: center;
+}
+
 
 .logoname {
   font-size: 20px;
-  font-weight: bold;  
+  font-weight: bold;
 }
 
 .logo {
   width: 40px;
   height: 40px;
-  margin-right: 10px;  
+  margin-right: 10px;
 }
 
 #logcon {
@@ -37,7 +52,7 @@ nav {
 #nav-links {
   display: flex;
   align-items: center;
-  padding-right: 30px;  
+  padding-right: 40px;
 }
 
 .nav-link {
@@ -45,23 +60,82 @@ nav {
   color: #000;
   font-weight: normal;
   margin-left: 30px;
-  transition: font-weight 0.3s ease;  
+  transition: font-weight 0.3s ease;
+
 }
 
 .nav-link:hover {
   font-weight: bold;
+  color: #266E60;
 }
-  
+
 #nav-links {
-  margin-left: auto;  
+  margin-left: auto;
 }
 
 
+/*HOME SECTION*/
+#home {
+  background-image:linear-gradient( rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1) ), url(../images/makiling.jpg);
+  width: 100%;
+  height: auto;
+  padding-top: auto;
+  display: block;
+  line-height: 40px;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.welcome {
+  padding: 250px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: 800;
+  margin: 0;
+  display: block;
+
+}
+
+.lorem {
+  font-size: medium;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+
+}
+
+.big {
+  margin: 0;
+  padding: 0px;
+
+}
+
+#butt {
+  padding: 10px 20px;
+  margin: 0;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+  box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
+}
+
+#butt:hover {
+  background-color: #266E60;
+  color: #fff;
+}
 
 
-
-
-
+/*SERVICES*/
+.text1 {
+  text-align: center;
+  font-size: x-large;
+}
 
 
 
@@ -77,7 +151,7 @@ footer {
 
 footer p {
   margin: 0;
-  font-size: 12px;  
+  font-size: 12px;
 }
 
 
@@ -85,84 +159,84 @@ footer p {
 @media (max-width: 768px) {
   #nav-bar {
     flex-direction: column;
-    align-items: flex-start; 
+    align-items: flex-start;
   }
-  
+
   #nav-links {
     flex-direction: column;
     align-items: flex-start;
     margin-top: 10px;
   }
-  
+
   .nav-link {
-    margin: 5px 0; 
+    margin: 5px 0;
     font-size: 14px;
   }
-  
+
 }
 
 @media (max-width: 576px) {
 
-    .logoname,
+  .logoname,
+  .nav-link {
+    font-size: 12px;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  #nav-links {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .nav-link {
+    margin: 0 5px;
+  }
+
+  @media (width: 280px) and (height: 653px) {
+
+    #nav-bar {
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    #nav-links {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
     .nav-link {
+      margin: 3px 0;
       font-size: 12px;
     }
-    
-    .logo {
-      width: 30px;
-      height: 30px;
-    }
-  
-    #nav-links {
-      flex-direction: row;
-      align-items: center;
-    }
-    
-    .nav-link {
-      margin: 0 5px;
-    }
+  }
 
-    @media (width: 280px) and (height: 653px) {
-
-        #nav-bar {
-          flex-direction: column;
-          padding: 10px;
-        }
-      
-        #nav-links {
-          flex-direction: column;
-          align-items: flex-start; 
-        }
-      
-        .nav-link {
-          margin: 3px 0;
-          font-size: 12px;
-        }
-}
-
-@media (width: 717px) and (height: 512px) {
+  @media (width: 717px) and (height: 512px) {
 
     #nav-bar {
       padding: 5px 10px;
     }
-    
+
     .logo {
       width: 30px;
       height: 30px;
     }
-  
+
     .logoname {
-      font-size: 16px;  
+      font-size: 16px;
     }
-  
+
     #nav-links .nav-link {
       margin-left: 15px;
       font-size: 14px;
     }
-  
+
     footer p {
       font-size: 10px;
     }
-  
+
   }
 }
