@@ -1,7 +1,10 @@
-let age = 17;
-let isRegistered = false;
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let sum = 0;
+let i = 0;
 
-if(isRegistered && age >= 18) alert("Valid Voter")
-else if(!isRegistered && age >= 18) alert("Register First")
-else if(isRegistered && age < 18) alert("Invalid Voter")
-else if(!isRegistered && age < 18) alert("Non Voter")
+while(arr[i]){
+    sum+= arr[i];
+    i++;
+}
+
+alert(sum);

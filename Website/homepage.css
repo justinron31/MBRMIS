@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 /*?NAV TOP----------------------------------------------------------------------------------------------------------------------*/
 nav {
   background-color: #fff;
@@ -111,8 +115,9 @@ p {
     width: 100%;
     padding: 15px 5px;
     margin: 10px;
-    justify-content: center;
+    justify-content: left;
     display: inline;
+    display: flex;
   }
 
   .nav-link {
@@ -361,15 +366,21 @@ p {
 /**SERVICES--------------------------------------------------------------------------------------------------------------*/
 
 #service {
-  padding: 30px;
-  padding-top: 10px;
+  padding: 80px 50px;
+
 }
 
 .text1 {
   text-align: center;
-  font-size: 30px;
+  font-size: 35px;
   font-weight: 700;
-  margin: 15px;
+  margin: 0;
+
+}
+
+.text2 {
+  text-align: center;
+  margin-top: 0;
 }
 
 .serviceCon {
@@ -455,8 +466,7 @@ p {
   transform: scale(1.1);
 }
 
-
-
+/*RESPONSIVE*/
 
 
 
@@ -469,6 +479,176 @@ p {
 
 
 
+/**MISSION VISION----------------------------------------------------------------------------------*/
+#main {
+  background-color: rgba(118, 194, 140, 0.5);
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.aboutus {
+  padding: 15px;
+  background-color: #266E60;
+  color: #fff;
+  text-align: center;
+
+
+}
+
+.abouttext {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+}
+
+.containermv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 10px;
+
+}
+
+.missionCon {
+  display: flex;
+  width: 70%;
+  margin: 20px;
+  margin-top: 70px;
+  justify-content: center;
+
+}
+
+.content {
+  text-align: right;
+  width: 60%;
+  align-items: center;
+}
+
+.mhead,
+.mpar {
+  margin: 0;
+}
+
+.mpar {
+  display: inline;
+}
+
+.mlogo {
+  margin-left: 20px;
+}
+
+.mlogcon {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.visionCon {
+  display: flex;
+  width: 70%;
+  margin: 20px;
+  margin-bottom: 70px;
+  justify-content: center;
+
+}
+
+.content1 {
+  text-align: left;
+  width: 60%;
+  align-items: center;
+}
+
+.vhead,
+.vpar {
+  margin: 0;
+}
+
+.vpar {
+  display: inline;
+}
+
+.vlogo {
+  margin-right: 20px;
+  display: block;
+}
+
+.vlogcon {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/**MISSION VISION END----------------------------------------------------------------------------------*/
+
+
+
+
+/**ABOUT US MORE----------------------------------------------------------------------------------*/
+
+.contact1 {
+  padding: 15px;
+  background-color: #266E60;
+  color: #fff;
+  text-align: center;
+}
+
+.contacttext {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0;
+  text-align: center;
+}
+
+.contentContain {
+  display: flex;
+  margin: 40px 40px;
+}
+
+.iframeCon {
+  flex: 1;
+}
+
+.contactInfoContainer {
+  flex: 1;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.locationAndEmail {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contactustext  {
+  margin: 5px;
+}
+
+.locationText p {
+  width: 40%;
+  text-align: center;
+  display: flex;
+}
+
+.locationText {
+  margin: 5px
+}
+
+.locationcon img,
+.emailcon img,
+.phonecon img {
+  width: 75px;
+}
+
+.phonecon{
+  margin-top: 40px;
+}
+
+
+ 
 
 
 
@@ -482,6 +662,7 @@ p {
 
 
 
+/**ABOUT US MORE END----------------------------------------------------------------------------------*/
 
 
 
