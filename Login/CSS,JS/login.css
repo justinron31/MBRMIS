@@ -336,7 +336,7 @@ footer p {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); /* Center the element */
-    background-image: url(../images/loader.gif);
+    background-image: url(../../Images/loader.gif);
     mix-blend-mode: multiply;
     background-repeat: no-repeat;
     background-position: center;

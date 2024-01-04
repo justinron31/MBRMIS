@@ -4,10 +4,10 @@ $(window).on('load', function() {
     $('#status').fadeOut();
 
     
-    $('#preloader').delay(350).fadeOut('slow');
+    $('#preloader').delay(150).fadeOut('slow');
 
 
-    $('body').delay(350).css({'overflow':'visible'});
+    $('body').delay(150).css({'overflow':'visible'});
 });
 
 /*AUTO FOCUS*/

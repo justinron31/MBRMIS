@@ -192,7 +192,7 @@ p {
 }
 
 #home {
-  background-image: linear-gradient(rgba(28, 171, 97, 0.337), rgba(16, 201, 87, 0.233)), url(../images/makiling.jpg);
+  background-image: linear-gradient(rgba(28, 171, 97, 0.337), rgba(16, 201, 87, 0.233)), url(../../Images/makiling.jpg);
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -1016,3 +1016,29 @@ footer p {
 }
 
 /*&FOOTER END-------------------------------------------------------------------------------------------------*/
+
+
+/**LOADER ANIMATION*/
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 999;
+}
+
+#status {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); 
+  background-image: url(../../Images/loader.gif);
+  mix-blend-mode: multiply;
+  background-repeat: no-repeat;
+  background-position: center;
+}
