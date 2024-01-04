@@ -4,6 +4,7 @@
 <head>
     <!--LOGO TAB-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
     <!-- META TAGS BRO -->
     <meta charset="UTF-8" />
@@ -19,6 +20,13 @@
 </head>
 
 <body>
+
+    <!--LOADER-->
+<div id="preloader">
+    <div id="status">&nbsp;</div>
+  </div>
+
+
     <nav>
         <!--NAVBAR-->
         <div id="nav-bar">
@@ -26,7 +34,7 @@
                 <img class="logo" src="../images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
-            <a href="loginStaff.html"><button class="stafflog">Staff Login</button></a>
+            <a href="loginStaff.html"><button class="switchButton" role="button"><span class="text">ADMIN LOGIN</span><span>STAFF LOGIN</span></button></a>
         </div>
     </nav>
 
@@ -37,7 +45,7 @@
             <p class="login-text">ADMIN LOGIN</p>
         </div>
         <form class="login-form" action="#" method="post">
-            <input type="text" id="id" name="id" placeholder="ID" required>
+            <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <button type="submit" class="login-button">LOGIN</button>
             <br/>
@@ -50,6 +58,8 @@
     <footer>
         <p>&copy; 2024 BARANGAY MAKILING RECORD MANAGEMENT AND ISSUANCE SYSTEM | All rights reserved.</p>
     </footer>
+
+    <script src="login.js"></script>
 
 </body>
 
