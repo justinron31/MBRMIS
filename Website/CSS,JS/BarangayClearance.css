@@ -1,15 +1,16 @@
+/* POPPIN FONTS */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  flex-direction: column;
-  overflow-x: hidden;
+    background-color: #76C28C;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
 }
 
-html {
-  scroll-behavior: smooth;
-}
 
 /*?NAV TOP----------------------------------------------------------------------------------------------------------------------*/
 nav {
@@ -181,295 +182,231 @@ p {
   }
 
 }
+
 /*?NAV TOP END----------------------------------------------------------------------------------------------------------------------*/
 
 
 
+/*?REGISTER FORM------------------------------------------------------------------------------------------------*/
+.login-container {
+    width: 50%;
+    margin: 100px auto 0;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    
+}
 
-/*?MAIN SECTION -----------------------------------------------------------------------------------------------------------------------------*/
-.h1{
-  font-size: 50px;
+.logo-container {
+    text-align: center;
+}
+
+.login-text {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+.logo1 {
+    width: 50%;
+    -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #15917a;
+    outline: none;
+    box-shadow: 0 0 5px #266E60;
+}
+
+.login-button {
+    width: 100%;
+    background-color: #266E60;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 600;
+    justify-content: center;
+}
+
+.login-button:hover {
+    background-color: #15917a;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
 
-
-
-
-/*?MAIN SECTION END -----------------------------------------------------------------------------------------------------------------------------*/
-
-
-
-/*&FOOTER -------------------------------------------------------------------------------------------------*/
-/*BOTTOM FOOTER*/
-footer {
-  background-color: #266E60;
-  color: #fff;
-  text-align: center;
-  padding: 0;
-
+/*DESCRIPTION TEXT AREA*/
+.purpose {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  resize: vertical; 
+  height: 70px; 
+  max-height: 200px;
 }
 
-.footer-content {
+textarea:focus {
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266E60;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+
+/*DATE AND TIME PICKER*/
+aeon-datepicker {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+}
+
+aeon-datepicker input {
+  flex: 1; 
+  margin-right:10px;
+}
+.timePick {
+  margin-right: 0; 
+}
+
+
+
+
+
+
+/*?REGISTER FORM END------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+/*FOOTER */
+footer {
+    background-color: #266E60;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    margin-top: auto;
 
 }
 
 footer p {
-  margin: 0;
-  font-size: 12px;
-}
-
-.terms {
-  text-decoration: none;
-  color: #fff;
-  font-size: 12px;
-  transition: color 0.3s ease;
-}
-
-.terms:hover {
-
-  text-decoration: underline;
-}
-
-
-/*BLACK FOOTER*/
-.fcontain {
-  background-color: black;
-  margin: 0;
-  padding: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.cont {
-  text-align: center;
-  display: flex;
-
-}
-
-.logo1 {
-  width: 150px;
-  height: auto;
-
-}
-
-.logocon {
-  display: block;
-  padding-left: 50px;
-}
-
-.logname1 {
-  margin: 0;
-  padding: 0;
-  font-size: 20px;
-}
-
-.footer-links {
-  display: flex;
-  font-size: 12px;
-  padding: 10px 50px;
-
-}
-
-.sitemap,
-.about-us,
-.follow-us {
-  flex-direction: column;
-  text-align: left;
-  padding-left: 100px;
-
-}
-
-.sitemap ul,
-.about-us ul,
-.follow-us ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sitemap h2,
-.about-us h2,
-.follow-us h2 {
-  margin-bottom: 5px;
-}
-
-.sitemap li,
-.about-us li,
-.follow-us li {
-  margin-bottom: 6px;
-
-}
-
-.footer-links a {
-  text-decoration: none;
-  color: #fff;
-  transition: color 0.3s, text-decoration 0.3s;
-}
-
-.footer-links a:hover {
-  color: #76C28C;
-  text-decoration: underline;
-}
-
-.footer-links img {
-  margin-right: 5px;
-  width: 20px;
-  vertical-align: middle;
-}
-
-/*RESPONSIVE*/
-
-@media only screen and (max-width: 768px) {
-
-  footer p {
     margin: 0;
     font-size: 12px;
-  }
-
-  .terms {
-    text-decoration: none;
-    color: #fff;
-    font-size: 12px;
-    transition: color 0.3s ease;
-  }
+}
 
 
-  /*BLACK FOOTER*/
-  .cont {
-    padding: 15px 20px;
-  }
+/*LOADER ANIMATION*/
 
-  .fcontain {
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 999;
+}
+
+#status {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the element */
+    background-image: url(../../Images/loader.gif);
+    mix-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+/*DROPDOWN REGISTER*/
+
+.selectbox {
+    background-color: #ffffff;
+    width: 100%;
     padding: 10px;
-  }
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #757575; 
+}
 
-  .logo1 {
-    width: 150px;
-    height: auto;
+.selectbox:focus {
+    border-color: #15917a;
+    outline: none;
+    box-shadow: 0 0 5px #266E60;
+}
 
-  }
+.selectbox::after {
+    content: '\25BC'; 
+    position: absolute;
+    top: 50%;
+    right: 10px; 
+    transform: translateY(-50%);
+    color: #757575; 
+}
 
-  .logocon {
-    display: block;
-    padding-left: 50px;
-  }
+/*DATA CONSENT*/
+.login-container1 {
+    max-width: 600px;
+    margin: 35px auto 0;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+.login-text1{
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #333;
+    text-align: center;
+}
 
-  .logname1 {
-    margin: 0;
-    padding: 0;
-    font-size: 15px;
-    white-space: nowrap;
-  }
-
-  .footer-links {
-    display: flex;
+.dataprivacy{
     font-size: 12px;
-  }
-
-  .sitemap,
-  .about-us,
-  .follow-us {
-    flex-direction: column;
-    text-align: left;
-    padding-left: 60px;
-
-  }
-
-  .sitemap ul,
-  .about-us ul,
-  .follow-us ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    white-space: nowrap;
-  }
-
-  .sitemap h2,
-  .about-us h2,
-  .follow-us h2 {
-    margin-bottom: 5px;
-    white-space: nowrap;
-  }
-
-  .footer-links img {
-    width: 15px;
-
-  }
+    text-align: justify;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 500;
 }
 
 
 
-@media only screen and (max-width: 426px) {
-
-  /*FOOTER*/
-  /*BOTTOM FOOTER*/
-  footer {
-    background-color: #266E60;
-    color: #fff;
-    text-align: center;
-    padding: 0;
-
-  }
-
-  .footer-content {
-    display: block;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    text-align: center;
-  }
-
-  footer p {
-    margin: 0;
-    font-size: 10px;
-    text-align: center;
-    display: block;
-    padding-top: 5px;
-  }
-
-  .terms {
-    text-decoration: none;
-    color: #fff;
-    font-size: 10px;
-    transition: color 0.3s ease;
-
-  }
-
-  .terms:hover {
-    text-decoration: underline;
-  }
 
 
-@media only screen and (max-width: 320px) {
 
-  .sitemap,
-  .about-us,
-  .follow-us {
-    padding: 5px 10px;
-  }
-
-  .footer-links {
-    padding-bottom: 0px;
-
-  }
-
-  .cont {
-    padding-bottom: 0px;
-  }
-
-  footer p {
-    font-size: 9px;
-  }
-
-  .footer-content {
-    line-height: 15px;
-  }
-}
-
-}
-/*&FOOTER END-------------------------------------------------------------------------------------------------*/
