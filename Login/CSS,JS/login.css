@@ -377,6 +377,31 @@ footer p {
     color: #757575; 
 }
 
+/*DATA CONSENT*/
+.login-container1 {
+    max-width: 600px;
+    margin: 35px auto 0;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+.login-text1{
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #333;
+    text-align: center;
+}
+
+.dataprivacy{
+    font-size: 12px;
+    text-align: justify;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 500;
+}
 
 
 
