@@ -297,7 +297,84 @@ aeon-datepicker input {
 }
 
 
+/*CHECK BOX CAPTCHA*/
+.checkInfo {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 
+
+.checkInfo input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border:0.5px solid #c9c9c9;
+}
+
+
+.checkInfo:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+
+.checkInfo input:checked ~ .checkmark {
+  background-color: #266E60;
+}
+
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+
+.checkInfo input:checked ~ .checkmark:after {
+  display: block;
+}
+
+
+.checkInfo .checkmark:after {
+  left: 4.5px;
+  top: 2px;
+  width: 3px;
+  height: 6px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+a {
+  color: black;  
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.checkInfo{
+  
+}
 
 
 
