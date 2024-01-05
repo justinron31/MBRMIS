@@ -362,7 +362,9 @@ p {
 
 #service {
   padding: 80px 50px;
-
+  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
+-webkit-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
+-moz-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
 }
 
 .text1 {
@@ -595,21 +597,29 @@ p {
 
 .iframeCon {
   flex: 1;
+  margin-top: 15px;
 }
 
 .contactInfoContainer {
   flex: 1;
   text-align: center;
-  margin-top: 60px;
+  margin-top: 80px;
 }
 
 .locationAndEmail {
   display: flex;
   justify-content: space-between;
 }
+#contactus{
+  padding-bottom: 10px;
+  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
+-webkit-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
+-moz-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
+}
 
-.contactustext  {
+.contactustext {
   margin: 5px;
+  
 }
 
 .locationText p {
@@ -628,12 +638,12 @@ p {
   width: 75px;
 }
 
-.phonecon{
+.phonecon {
   margin-top: 40px;
 }
 
 
- 
+
 
 
 
@@ -1036,7 +1046,7 @@ footer p {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%); 
+  transform: translate(-50%, -50%);
   background-image: url(../../Images/loader.gif);
   mix-blend-mode: multiply;
   background-repeat: no-repeat;
