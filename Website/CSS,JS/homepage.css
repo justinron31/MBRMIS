@@ -38,6 +38,8 @@ p {
   width: 40px;
   height: 40px;
   margin-right: 10px;
+  -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 #logcon {
@@ -782,6 +784,11 @@ footer p {
   margin-right: 5px;
   width: 20px;
   vertical-align: middle;
+}
+
+.contactlogo{
+  -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 /*RESPONSIVE*/
