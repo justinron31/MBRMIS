@@ -8,6 +8,11 @@
   <meta name="keywords" content="Web Development, Barangay Management System" />
   <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
+
+ <!-- IMPORTS-->
+ <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
   <!--CSS-->
   <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
   <link rel="stylesheet" href="../Website/CSS,JS/homepage.css" />
@@ -27,13 +32,26 @@
     <div id="status">&nbsp;</div>
 </div>
 
+<!--OVERLAY MENU-->
+<div id="myNav" class="overlay">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <div class="overlay-content">
+    <a href="#home" id="homeButton" onclick="closeNav()" >Home</a>
+    <a href="#service" id="servicesButton" onclick="closeNav()">Services</a>
+    <a href="trackRequest.html">Track Request</a>
+    <a href="#contactus" id="contactusButton" onclick="closeNav()">Contact Us</a>
+  </div>
+</div>
+
   <!--NAVBAR-->
   <nav>
 
     <div id="logcon">
       <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
       <h1 class="logoname">BARANGAY MAKILING ISSUANCE</h1>
-      <img class="menu" src="../Images/menu.png" alt="burger menu" />
+      <i class='bx bx-menu-alt-right' onclick="openNav()"></i>
+
+
     </div>
 
     <div id="nav-links">
@@ -114,7 +132,7 @@
 
 
 
-  <!-- MISSION/VISION-->
+<!--  MISSION/VISION-->
   <div id="main">
 
     <div class="aboutus">
@@ -163,7 +181,7 @@
   </div>
 
 
-  <!--  CONTACT US-->
+  <!--CONTACT US-->
   <div id="contactus">
 
     <div class="contact1">
@@ -172,19 +190,17 @@
   
     <div class="contentContain">
   
-      <div class="iframeCon">
+     
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d600.5459669674277!2d121.13649585055009!3d14.154099380363487!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd6563a59099b3%3A0xe0998984f7947af0!2sMakiling%20Barangay%20Hall!5e0!3m2!1sen!2sph!4v1703999998638!5m2!1sen!2sph"
-          width="600" height="450"
-          style="border:0; border-radius: 10px; margin:30px;  box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
-          -webkit-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
-          -moz-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);" allowfullscreen="" loading="lazy"
+         
+           allowfullscreen="" loading="fast"
           referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
+      
   
       <div class="contactInfoContainer">
         
-        <div class="locationAndEmail">
+        
           <div class="locationcon">
             <img src="../Images/gps.png" class="contactlogo" alt="location logo">
             <h1 class="contactustext">ADDRESS</h1>
@@ -200,7 +216,7 @@
               barangaymakiling@gmail.com
             </p>
           </div>
-        </div>
+        
   
         <div class="phonecon">
           <img src="../Images/phone.png" class="contactlogo" alt="phone logo">
@@ -216,15 +232,6 @@
     </div>
   </div>
   
-
-
-
-
-
-
-
-
-
 
   <footer>
 

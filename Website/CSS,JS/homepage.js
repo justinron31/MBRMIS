@@ -83,3 +83,13 @@ $(window).on('load', function() {
 
   $('body').delay(10).css({'overflow':'visible'});
 });
+
+
+/*BURGER MENU*/
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}

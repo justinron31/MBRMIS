@@ -5,10 +5,15 @@ body {
   font-family: 'Poppins', sans-serif;
   flex-direction: column;
   overflow-x: hidden;
+
 }
 
 html {
   scroll-behavior: smooth;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 /*?NAV TOP----------------------------------------------------------------------------------------------------------------------*/
@@ -21,6 +26,7 @@ nav {
   width: 100%;
   top: 0;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  z-index: 999;
 }
 
 
@@ -39,7 +45,7 @@ p {
   height: 40px;
   margin-right: 10px;
   -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
-    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 #logcon {
@@ -67,13 +73,18 @@ p {
   color: #266E60;
 }
 
-.menu {
-  width: 35px;
+.bx.bx-menu-alt-right {
+  color: black;
+  font-size: 40px;
+  padding-left: 25px;
   display: none;
-  margin: 10px;
-  padding-left: 10px;
+  -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
+.overlay-content {
+  display: none;
+}
 
 
 /* Responsive styles for phones */
@@ -87,7 +98,7 @@ p {
 
   .nav-link {
     font-weight: 600;
-
+    margin-left: 50px;
   }
 
   .logoname {
@@ -161,10 +172,68 @@ p {
     padding: 10px;
   }
 
-  .menu {
-    justify-content: center;
+
+  .bx.bx-menu-alt-right {
     display: inline;
   }
+
+  .overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 9999999;
+    top: 0;
+    left: 0;
+    background-color: rgba(38, 110, 96, 1);
+    overflow-x: hidden;
+    transition: 0.2s;
+  }
+
+  .overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    display: block;
+  }
+
+
+  .overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 30px;
+    color: #fff;
+    display: block;
+    transition: 0.1s;
+  }
+
+  .overlay a:hover,
+  .overlay a:focus {
+    color: #5183AD;
+    font-weight: bold;
+
+  }
+
+  .overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 50px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .overlay a {
+      font-size: 20px
+    }
+
+    .overlay .closebtn {
+      font-size: 40px;
+      top: 15px;
+      right: 35px;
+    }
+  }
+
 }
 
 
@@ -364,9 +433,9 @@ p {
 
 #service {
   padding: 80px 50px;
-  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
--webkit-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
--moz-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
+  box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.51) inset;
+  -webkit-box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.51) inset;
+  -moz-box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.51) inset;
 }
 
 .text1 {
@@ -436,8 +505,6 @@ p {
 
 }
 
-
-
 .buttService {
   padding: 15px 35px;
   margin: 10px 0px;
@@ -456,11 +523,80 @@ p {
 }
 
 /*RESPONSIVE*/
+@media only screen and (max-width: 1024px) {
 
+  #service {
+    padding: 50px 50px;
+  }
+}
 
+@media only screen and (max-width: 768px) {
 
+  #service {
+    padding: 20px 20px;
+    padding-bottom: 30px;
+  }
 
+  .text1 {
+    font-size: 30px;
+  }
 
+  .text2 {
+    font-size: 14px;
+  }
+
+  .concon {
+    padding: 30px 20px;
+    margin: 3px;
+    height: 50%;
+  }
+
+  .sed {
+    padding: 30px 20px;
+    margin: 3px;
+    height: 50%;
+
+  }
+
+  .headService {
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  .sedula {
+    font-size: 15px;
+    margin-top: 6px !important;
+    line-height: 17px;
+
+  }
+
+}
+
+@media only screen and (max-width: 768px) {
+
+  .serviceCon {
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+  }
+  
+  .text1 {
+    font-size: 25px;
+  }
+  
+  .text2 {
+    font-size: 12px;
+  }
+  
+  .concon,
+  .sed {
+    padding: 20px 20px;
+    margin: 10px;
+    width: 80%;
+  }
+
+}
 
 
 /**SERVICES END--------------------------------------------------------------------------------------------------------------*/
@@ -570,6 +706,85 @@ p {
   height: auto;
 }
 
+@media only screen and (max-width: 1024px) {
+
+
+  .aboutus {
+    padding: 5px;
+  }
+
+  .abouttext {
+    font-size: 20px;
+
+  }
+
+  .pService {
+    font-size: 12px;
+  }
+
+  .sedula {
+    margin-top: 10px;
+  }
+
+}
+
+
+@media only screen and (max-width: 768px) {
+
+  .containermv {
+    padding: 0px;
+
+  }
+
+  .content,
+  .content1 {
+    text-align: center;
+    width: 80%;
+    text-align: justify;
+  }
+
+
+
+  .mlogo,
+  .vlogo {
+    display: none;
+
+  }
+
+  .missionCon {
+    margin-top: 30px;
+  }
+
+  .visionCon {
+    margin-bottom: 30px;
+  }
+
+}
+
+@media only screen and (max-width: 426px) {
+
+  .mhead, .vhead{
+    font-size: 25px;
+  }
+
+.mpar, .vpar{
+  font-size: 15px;
+}
+
+.visionCon {
+  width: 100%;
+  
+  margin-bottom: 40px;
+}
+
+.missionCon {
+  width: 100%;
+  
+  margin-top: 30px;
+}
+}
+
+
 
 /**MISSION VISION END----------------------------------------------------------------------------------*/
 
@@ -600,28 +815,26 @@ p {
 .iframeCon {
   flex: 1;
   margin-top: 15px;
+
 }
 
 .contactInfoContainer {
   flex: 1;
   text-align: center;
-  margin-top: 80px;
+  margin-top: 10px;
 }
 
-.locationAndEmail {
-  display: flex;
-  justify-content: space-between;
-}
-#contactus{
+
+#contactus {
   padding-bottom: 10px;
-  box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
--webkit-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
--moz-box-shadow: 0px 0px 28px -4px rgba(0,0,0,0.51) inset;
+  box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.51) inset;
+  -webkit-box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.51) inset;
+  -moz-box-shadow: 0px 0px 28px -4px rgba(0, 0, 0, 0.51) inset;
 }
 
 .contactustext {
   margin: 5px;
-  
+
 }
 
 .locationText p {
@@ -640,23 +853,86 @@ p {
   width: 75px;
 }
 
-.phonecon {
-  margin-top: 40px;
+
+iframe {
+  width: 50%;
+  height: 500px; 
+  border: 0;
+  border-radius: 10px;
+  margin: 30px;
+  box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 1px 3px 14px 0px rgba(0, 0, 0, 0.25);
+  background-color: none;
 }
 
 
+@media only screen and (max-width: 1024px) {
 
+  .locationcon img,
+  .emailcon img,
+  .phonecon img {
+    width: 50px;
+  }
 
+  iframe {
+    width: 50%;
+    height: 400px; 
+  }
+  .contacttext {
+    font-size: 20px;
 
+  }
 
+  .contact1 {
+    padding: 10px;
 
+  }
 
+  .contactustext {
 
+    font-size: 20px;
 
+  }
 
+  .locationText {
+    font-size: 12px;
 
+  }
 
+  .contactInfoContainer {
+    flex: 1;
+    text-align: center;
+    margin-top: 55px;
+  }
 
+  .phonecon {
+    margin-top: 0;
+  }
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+ .contentContain{
+  margin: 20px;
+ }
+}
+
+@media only screen and (max-width: 426px) {
+
+  .contentContain {
+    display: inline;
+    margin: 40px 40px;
+  }
+
+  iframe {
+    
+    margin:50px 20px -20px 20px;
+    width: 73%;
+    height: 250px; 
+}
+}
 
 
 /**ABOUT US MORE END----------------------------------------------------------------------------------*/
@@ -786,9 +1062,9 @@ footer p {
   vertical-align: middle;
 }
 
-.contactlogo{
+.contactlogo {
   -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
-    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 /*RESPONSIVE*/
@@ -810,11 +1086,12 @@ footer p {
 
   /*BLACK FOOTER*/
   .cont {
-    padding: 15px 20px;
+    padding: 5px 20px;
+    padding-top: 15px;
   }
 
   .fcontain {
-    padding: 10px;
+    padding: 5px;
   }
 
   .logo1 {
@@ -845,7 +1122,7 @@ footer p {
   .follow-us {
     flex-direction: column;
     text-align: left;
-    padding-left: 60px;
+    padding-left: 40px;
 
   }
 
@@ -863,6 +1140,13 @@ footer p {
   .follow-us h2 {
     margin-bottom: 5px;
     white-space: nowrap;
+  }
+
+  .sitemap li,
+  .about-us li,
+  .follow-us li {
+    margin-bottom: 8px;
+
   }
 
   .footer-links img {
