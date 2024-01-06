@@ -16,19 +16,6 @@ window.onload = function() {
   };
   
 
-/* DROPDOWN COLOR CHANGE*/
-function changeFontColor() {
-    var selectBox = document.getElementById("genderSelect");
-    var selectedOption = selectBox.options[selectBox.selectedIndex].value;
-
-    if (selectedOption === "Male" || selectedOption === "Female") {
-        selectBox.style.color = "#000000"; // Set font color to black
-    } else {
-        selectBox.style.color = "#757575"; // Set font color to the default color
-    }
-}
-
-
 /*DATE AND TIME PICKER */
 // Function to format the date and time
 function formatDateTime(date) {
@@ -94,3 +81,16 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
   });
+
+
+ /* DROPDOWN COLOR CHANGE*/
+function changeFontColor() {
+  var selectBox = document.getElementById("bussSelect");
+  var selectedOption = selectBox.options[selectBox.selectedIndex].value;
+
+  if (selectedOption === "Sole Proprietorship" || selectedOption === "Partnership" || selectedOption === "Corporation" || selectedOption === "Cooperative") {
+      selectBox.style.color = "#000000"; 
+  } else {
+      selectBox.style.color = "#757575"; 
+  }
+}

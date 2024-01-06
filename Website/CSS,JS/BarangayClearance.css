@@ -292,7 +292,7 @@ aeon-datepicker input {
   flex: 1; 
   margin-right:10px;
 }
-.timePick {
+.time {
   margin-right: 0; 
 }
 
@@ -372,9 +372,7 @@ a {
   cursor: pointer;
 }
 
-.checkInfo{
-  
-}
+
 
 
 
@@ -483,7 +481,60 @@ footer p {
 }
 
 
+/*TRACK REQUEST*/
+.trackName{
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: bolder;
+  color: #333;
+  text-align: center;
+}
+.trackHead{
+  margin:0;
+}
+.trackingNum{
+  font-size: 20px;
+  margin-top:0;
+  margin-bottom: 10px;
+}
 
+.trackIns{
+  font-size: 15px;
+    text-align: justify;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 500;
+}
 
+.trackCon {
+  width: 50%;
+  margin: 25px auto 0;
+  padding: 20px 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  
+  color: black;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+  
+}
 
 

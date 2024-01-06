@@ -18,11 +18,11 @@
   <link rel="stylesheet" href="/Website/CSS,JS/BarangayClearance.css" />
   <script src="/Website/CSS,JS/BarangayClearance.js"></script>
 
- <!-- CAPTCHA-->
- <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <!-- CAPTCHA-->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
-  <title>Request for Barangay Clearance</title>
+  <title>Request for Business Permit</title>
 </head>
 
 <body>
@@ -55,7 +55,7 @@
   <div class="login-container">
     <div class="logo-container">
 
-      <p class="login-text">Request for Barangay Clearance</p>
+      <p class="login-text">Request for Business Permit</p>
       <hr>
     </div>
 
@@ -66,6 +66,21 @@
       <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required>
       <label for="contNum">Contact Number</label>
       <input type="text" id="id" name="contNum" placeholder="Enter your Contact number" required>
+      <label for="bname">Business Name</label>
+      <input type="text" id="id" name="bname" placeholder="Enter your Business Name" required>
+      <label for="nbus">Nature of Business</label>
+      <input type="text" id="id" name="nbus" placeholder="Enter your Nature of Business" required>
+      <label for="badd">Business Address</label>
+      <input type="text" id="id" name="badd" placeholder="Enter your Business Address" required>
+
+      <label for="badd">Business Ownership</label>
+      <select class="selectbox" id="bussSelect" required onchange="changeFontColor()">
+        <option value="">Select</option>
+        <option value="Sole Proprietorship">Sole Proprietorship</option>
+        <option value="Partnership">Partnership</option>
+        <option value="Corporation">Corporation</option>
+        <option value="Cooperative">Cooperative</option>
+      </select>
 
       <label for="datepicker">Pick-Up Date and Time</label>
       <aeon-datepicker>
@@ -76,8 +91,7 @@
         <input class="time" type="time" id="timepicker" />
       </aeon-datepicker>
 
-      <label for="purpose">Purpose Description</label>
-      <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
+
 
       <label class="checkInfo"> I have read and agree to the <a href="#"><strong>Terms and Conditions</strong></a> and
         data privacy policy.
@@ -89,7 +103,7 @@
         <input type="checkbox">
         <span class="checkmark"></span>
       </label>
-      
+
       <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
       <br>
       <button type="submit" class="login-button">SUBMIT</button>
