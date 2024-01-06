@@ -11,23 +11,16 @@ html {
   scroll-behavior: smooth;
 }
 
-/*?NAV TOP----------------------------------------------------------------------------------------------------------------------*/
-nav {
+/*?HEADER TOP----------------------------------------------------------------------------------------------------------------------*/
+.headerDash {
   background-color: #fff;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 15px;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
-
-
-p {
-  text-align: center;
-}
-
 
 .logoname {
   font-size: 20px;
@@ -38,6 +31,8 @@ p {
   width: 40px;
   height: 40px;
   margin-right: 10px;
+  -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 #logcon {
@@ -45,35 +40,40 @@ p {
   align-items: center;
 }
 
-#nav-links {
+.usercon {
   display: flex;
   align-items: center;
-  padding-right: 40px;
-  margin-left: auto;
+  
 }
 
-.nav-link {
-  text-decoration: none;
-  color: #000;
-  font-weight: normal;
-  margin-left: 30px;
-  transition: font-weight 0.3s ease;
+.user {
+  width: 30px;
+  height: 30px;
+  margin-left: 10px; 
+  -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
-.nav-link:hover {
+.userName {
+  font-size: 16px;
   font-weight: bold;
-  color: #266E60;
-}
-
-.menu {
-  width: 35px;
-  display: none;
-  margin: 10px;
-  padding-left: 10px;
 }
 
 
 
+/*?HEADER TOP END----------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+/*?SIDEBAR ----------------------------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+/*?SIDEBAR END ----------------------------------------------------------------------------------------------------------------------*/
 
 
 
