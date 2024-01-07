@@ -259,6 +259,8 @@ img {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
+  flex-grow: 1;
+  
 }
 
 .cards .card {
@@ -288,6 +290,9 @@ img {
   font-size: 45px;
   color: #299b63;
 }
+
+/* Calendar */
+
 
 
 
