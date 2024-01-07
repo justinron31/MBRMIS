@@ -12,7 +12,8 @@
   <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
-
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
   <!--CSS-->
   <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
   <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
@@ -20,6 +21,7 @@
   <!--JAVASCRIPT-->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
 
   <title>MAKILING BRMI SYSTEM</title>
@@ -151,55 +153,77 @@
     </div>
   </div>
 
-  <div class="tiles">
-    <article class="tile">
-      <div class="tile-header">
-        <i class="ph-lightning-light"></i>
-        <h3>
-          <span>Electricity</span>
-          <span>UrkEnergo LTD.</span>
-        </h3>
+  <div class="container">
+    <!--div class="calendar"></div-->
+    <div class="title-dasboard">
+      <h5>Dashboard</h5>
+    </div>
+    <div class="main">
+      <div class="cards">
+        <div class="card">
+          <div class="icon-box">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="card-content">
+            <!--data will replaced by php -->
+            <div class="number">1217</div>
+            <div class="card-name">Population</div>
+          </div>
+          
+        </div>
+        <div class="card">
+          <div class="icon-box">
+            <i class="fas fa-vote-yea"></i>
+          </div>
+          <div class="card-content">
+            <!--data will replaced by php -->
+            <div class="number">42</div>
+            <div class="card-name">Voters</div>
+          </div>
+          
+        </div>
+        <div class="card">
+          <div class="icon-box">
+            <i class="fas fa-female"></i>
+          </div>
+          <div class="card-content">
+            <!--data will replaced by php -->
+            <div class="number">6238</div>
+            <div class="card-name">Female</div>
+          </div>
+          
+        </div>
+        <div class="card">
+          <div class="icon-box">
+            <i class="fas fa-male"></i>
+          </div>
+          <div class="card-content">
+            <!--data will replaced by php -->
+            <div class="number">4500</div>
+            <div class="card-name">Male</div>
+          </div>
+          
+        </div>
+        
       </div>
-      <a href="#">
-        <span>Go to service</span>
-        <span class="icon-button">
-          <i class="ph-caret-right-bold"></i>
-        </span>
-      </a>
-    </article>
-    <article class="tile">
-      <div class="tile-header">
-        <i class="ph-fire-simple-light"></i>
-        <h3>
-          <span>Heating Gas</span>
-          <span>Gazprom UA</span>
-        </h3>
+
+      
+      <div class="charts">
+        <div class="chart">
+          <h2>Pending File Request</h2>
+          <div>
+            <canvas id="lineChart"></canvas>
+          </div>
+        </div>
+        
       </div>
-      <a href="#">
-        <span>Go to service</span>
-        <span class="icon-button">
-          <i class="ph-caret-right-bold"></i>
-        </span>
-      </a>
-    </article>
-    <article class="tile">
-      <div class="tile-header">
-        <i class="ph-file-light"></i>
-        <h3>
-          <span>Tax online</span>
-          <span>Kharkov 62 str.</span>
-        </h3>
-      </div>
-      <a href="#">
-        <span>Go to service</span>
-        <span class="icon-button">
-          <i class="ph-caret-right-bold"></i>
-        </span>
-      </a>
-    </article>
+      
+    </div>
+
+    
   </div>
 
-
+  
   <!--CONTENT-->
 </div>
 
