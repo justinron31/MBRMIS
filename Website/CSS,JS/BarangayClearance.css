@@ -1,0 +1,540 @@
+/* POPPIN FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    background-color: #76C28C;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    
+}
+
+
+/*?NAV TOP----------------------------------------------------------------------------------------------------------------------*/
+nav {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 15px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+
+p {
+  text-align: center;
+}
+
+
+.logoname {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+}
+
+#logcon {
+  display: flex;
+  align-items: center;
+}
+
+#nav-links {
+  display: flex;
+  align-items: center;
+  padding-right: 40px;
+  margin-left: auto;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #000;
+  font-weight: normal;
+  margin-left: 30px;
+  transition: font-weight 0.3s ease;
+}
+
+.nav-link:hover {
+  font-weight: bold;
+  color: #266E60;
+}
+
+.menu {
+  width: 35px;
+  display: none;
+  margin: 10px;
+  padding-left: 10px;
+}
+
+
+
+/* Responsive styles for phones */
+@media only screen and (max-width: 938px) {
+  #nav-links {
+    width: 100%;
+    padding: 25px;
+    padding-left: 1px;
+
+  }
+
+  .nav-link {
+    font-weight: 600;
+
+  }
+
+  .logoname {
+    display: none;
+  }
+
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    margin-right: -10px;
+    margin-left: 10px;
+  }
+}
+
+
+@media only screen and (max-width: 768px) {
+  nav {
+    padding: 0 15px;
+    position: fixed;
+    width: 100%;
+  }
+
+  #nav-links {
+    width: 100%;
+    padding: 15px 5px;
+    margin: 10px;
+    justify-content: left;
+    display: inline;
+    display: flex;
+  }
+
+  .nav-link {
+    font-weight: 600;
+    padding-right: 20px;
+
+  }
+
+  .logoname {
+    display: none;
+  }
+
+
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+
+}
+
+
+@media only screen and (max-width: 426px) {
+  nav {
+    background-color: #fff;
+  }
+
+  #nav-links {
+    display: none;
+
+  }
+
+  .logoname {
+    display: inline;
+    width: 100%;
+    margin-left: 10px;
+    font-size: 17px;
+  }
+
+  .logo {
+    margin-left: -10px;
+    padding: 10px;
+  }
+
+  .menu {
+    justify-content: center;
+    display: inline;
+  }
+}
+
+
+@media only screen and (max-width: 376px) {
+  .menu {
+    padding: 10px;
+    margin-right: 20px;
+  }
+
+  .logoname {
+    font-size: 15px;
+    line-height: 20px;
+
+  }
+
+}
+
+/*?NAV TOP END----------------------------------------------------------------------------------------------------------------------*/
+
+
+
+/*?REGISTER FORM------------------------------------------------------------------------------------------------*/
+.login-container {
+    width: 50%;
+    margin: 100px auto 0;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    
+}
+
+.logo-container {
+    text-align: center;
+}
+
+.login-text {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-align: left;
+}
+
+.logo1 {
+    width: 50%;
+    -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+}
+
+.login-form {
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: #15917a;
+    outline: none;
+    box-shadow: 0 0 5px #266E60;
+}
+
+.login-button {
+    width: 100%;
+    background-color: #266E60;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 600;
+    justify-content: center;
+}
+
+.login-button:hover {
+    background-color: #15917a;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+
+/*DESCRIPTION TEXT AREA*/
+.purpose {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  resize: vertical; 
+  height: 70px; 
+  max-height: 200px;
+}
+
+textarea:focus {
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266E60;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+
+/*DATE AND TIME PICKER*/
+aeon-datepicker {
+  display: flex;
+  align-items: center;
+}
+
+aeon-datepicker input {
+  flex: 1; 
+  margin-right:10px;
+}
+.time {
+  margin-right: 0; 
+}
+
+
+/*CHECK BOX CAPTCHA*/
+.checkInfo {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+.checkInfo input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: #eee;
+  border:0.5px solid #c9c9c9;
+}
+
+
+.checkInfo:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+
+.checkInfo input:checked ~ .checkmark {
+  background-color: #266E60;
+}
+
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+
+.checkInfo input:checked ~ .checkmark:after {
+  display: block;
+}
+
+
+.checkInfo .checkmark:after {
+  left: 4.5px;
+  top: 2px;
+  width: 3px;
+  height: 6px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+a {
+  color: black;  
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+
+
+
+/*?REGISTER FORM END------------------------------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+/*FOOTER */
+footer {
+    background-color: #266E60;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+    margin-top: auto;
+
+}
+
+footer p {
+    margin: 0;
+    font-size: 12px;
+}
+
+
+/*LOADER ANIMATION*/
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    z-index: 999;
+}
+
+#status {
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center the element */
+    background-image: url(../../Images/loader.gif);
+    mix-blend-mode: multiply;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+/*DROPDOWN REGISTER*/
+
+.selectbox {
+    background-color: #ffffff;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #757575; 
+}
+
+.selectbox:focus {
+    border-color: #15917a;
+    outline: none;
+    box-shadow: 0 0 5px #266E60;
+}
+
+.selectbox::after {
+    content: '\25BC'; 
+    position: absolute;
+    top: 50%;
+    right: 10px; 
+    transform: translateY(-50%);
+    color: #757575; 
+}
+
+/*DATA CONSENT*/
+.login-container1 {
+    max-width: 600px;
+    margin: 35px auto 0;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+.login-text1{
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+    color: #333;
+    text-align: center;
+}
+
+.dataprivacy{
+    font-size: 12px;
+    text-align: justify;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+
+/*TRACK REQUEST*/
+.trackName{
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: bolder;
+  color: #333;
+  text-align: center;
+}
+.trackHead{
+  margin:0;
+}
+.trackingNum{
+  font-size: 20px;
+  margin-top:0;
+  margin-bottom: 10px;
+}
+
+.trackIns{
+  font-size: 15px;
+    text-align: justify;
+    margin-bottom: 30px;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.trackCon {
+  width: 50%;
+  margin: 25px auto 0;
+  padding: 20px 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  
+  color: black;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+  
+}
+
+

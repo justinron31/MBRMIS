@@ -70,3 +70,26 @@ $(document).ready(function() {
     });
   });
 
+ 
+
+/*LOADER ANIMATION*/
+$(window).on('load', function() { 
+
+  $('#status').fadeOut();
+
+  
+  $('#preloader').delay(10).fadeOut('fast');
+
+
+  $('body').delay(10).css({'overflow':'visible'});
+});
+
+
+/*BURGER MENU*/
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}
