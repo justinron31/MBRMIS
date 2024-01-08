@@ -47,5 +47,27 @@ if (window.innerWidth < 800) {
 sidebarLockBtn.addEventListener("click", toggleLock);
 sidebar.addEventListener("mouseleave", hideSidebar);
 sidebar.addEventListener("mouseenter", showSidebar);
-sidebarOpenBtn.addEventListener("click", toggleSidebar);
 sidebarCloseBtn.addEventListener("click", toggleSidebar);
+
+
+//sidebaractive
+document.addEventListener("DOMContentLoaded", function () {
+  const menuItems = document.querySelectorAll(".menu_item .item");
+
+  const overviewItem = document.querySelector(".menu_item .item.active");
+  if (overviewItem) {
+    overviewItem.classList.add("active");
+  }
+
+  menuItems.forEach((item) => {
+    item.addEventListener("click", function () {
+      // Remove the "active" class from all items
+      menuItems.forEach((menuItem) => {
+        menuItem.classList.remove("active");
+      });
+
+      // Add the "active" class to the clicked item
+      item.classList.add("active");
+    });
+  });
+});
