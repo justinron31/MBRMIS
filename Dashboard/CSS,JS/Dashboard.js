@@ -10,10 +10,10 @@ const toggleLock = () => {
   // If the sidebar is not locked
   if (!sidebar.classList.contains("locked")) {
     sidebar.classList.add("hoverable");
-    sidebarLockBtn.classList.replace("bx-lock-alt", "bx-lock-open-alt");
+    sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
   } else {
     sidebar.classList.remove("hoverable");
-    sidebarLockBtn.classList.replace("bx-lock-open-alt", "bx-lock-alt");
+    sidebarLockBtn.classList.replace("bx-lock-open-alt", "bxs-lock-alt");
   }
 };
 
