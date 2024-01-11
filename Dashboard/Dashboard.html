@@ -17,6 +17,7 @@
   <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
   <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
 
+
   <!--JAVASCRIPT-->
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
@@ -53,7 +54,7 @@
                 <span>Overview</span>
               </a>
             </li>
-          
+
             <li class="item">
               <a href="#" class="link flex">
                 <i>
@@ -124,7 +125,6 @@
             </li>
           </ul>
 
-          
           <ul class="menu_item">
             <div class="menu_title flex">
               <span class="title">System</span>
@@ -138,8 +138,8 @@
             </li>
             <li class="item ">
               <a href="#" class="link flex">
-                <i class="bx bx-log-out"></i>
-                <span >Logout</span>
+                <i class='bx bxs-exit bx-rotate-180'></i>
+                <span>Logout</span>
               </a>
             </li>
           </ul>
@@ -147,25 +147,188 @@
       </div>
     </nav>
 
-    <!-- TOP HEAD-->
+    <!-- MAIN CONTENT-->
     <div class="headermain">
-      <h1 class="maintitle">
-        Dashboard
-      </h1>
-      <div class="header">
-        <h1 class="topHead">
-          Admin
-        </h1>
-        <div class="logoHead">
-          <img src="../Images/user.png" alt="logo_img" />
+
+      <div class="headerTop">
+        <div class="header">
+
+          <h1 class="maintitle">
+            DASHBOARD
+          </h1>
+
+          <div class="access">
+            <p class="tophead">Admin</p>
+            <div class="logoHead">
+              <img src="../Images/user.png" alt="logo_img" />
+            </div>
+          </div>
+
         </div>
+
+
+
+      </div>
+
+
+      <!-- MAIN CONTENT -->
+
+      <div class="supermaincontain">
+
+        <div class="cards">
+
+
+          <div class="card">
+            <div class="icon-box">
+              <span class="material-symbols-outlined">
+                group
+              </span>
+            </div>
+            <div class="card-content">
+              <div class="number">1217</div>
+              <div class="card-name">Population</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="icon-box1">
+              <span class="material-symbols-outlined">
+                man
+              </span>
+            </div>
+            <div class="card-content">
+              <div class="number">563</div>
+              <div class="card-name">Male</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="icon-box1">
+              <span class="material-symbols-outlined">
+                woman
+              </span>
+            </div>
+            <div class="card-content">
+              <div class="number">563</div>
+              <div class="card-name">Female</div>
+            </div>
+          </div>
+
+          <div class="cardVoters">
+
+            <div class="con1">
+              <div class="icon-box2">
+                <span class="material-symbols-outlined">
+                  person_check
+                </span>
+              </div>
+
+              <div class="card-content">
+                <div class="number1">563</div>
+                <div class="card-name1">Voters</div>
+              </div>
+              
+            </div>
+            <div class="con1">
+              <div class="icon-box2">
+                <span class="material-symbols-outlined">
+                  person_cancel
+                </span>
+              </div>
+
+              <div class="card-content">
+                <div class="number1">563</div>
+                <div class="card-name1">Non - Voters</div>
+              </div>
+              
+            </div>
+           
+
+          </div>
+
+        </div>
+
+
+        <!--LOWER CONTENT-->
+        <div class="lowerCon">
+          <div class="Pending">
+
+            <div class="Req">
+
+              <div class="reqHead">
+                <div class="card-nameR">PENDING FILE REQUEST</div>
+                <div class="seeMore"> <a href="#">See more</a></div>
+              </div>
+
+              <div class="reqItem">
+                <div class="reqIcon">
+                  <span class="material-symbols-outlined">
+                    badge
+                  </span>
+                  <div class="pendingTitle">
+                    Barangay Certificates
+                  </div>
+                  <div class="numberP">12</div>
+                </div>
+
+                <div class="reqIcon">
+                  <span class="material-symbols-outlined">
+                    clinical_notes
+                  </span>
+                  <div class="pendingTitle">
+                    Certificate of Residency
+                  </div>
+                  <div class="numberP">18</div>
+                </div>
+
+                <div class="reqIcon">
+                  <span class="material-symbols-outlined">
+                    card_membership
+                  </span>
+                  <div class="pendingTitle">
+                    Brgy. Business Clearance
+                  </div>
+                  <div class="numberP">8</div>
+                </div>
+
+                <div class="reqIcon">
+                  <span class="material-symbols-outlined">
+                    lab_profile
+                  </span>
+                  <div class="pendingTitle">
+                    Community Tax Certificate
+                  </div>
+                  <div class="numberP">3</div>
+                </div>
+
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!--CALENDAR-->
+          <div id="calendar">
+            <div class="calendarBg">
+              <div id="calendar-header">
+                <span id="month-prev" class="change-month">&lt;</span>
+                <h1 id="month" onclick="showCurrentDate()"></h1>
+                <span id="month-next" class="change-month">&gt;</span>
+              </div>
+              <div id="days"></div>
+              <div id="calendar-body"></div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+
       </div>
     </div>
-
-    <!--CONTENT-->
-  </div>
-
-
 </body>
 
 
