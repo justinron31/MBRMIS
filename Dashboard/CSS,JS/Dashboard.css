@@ -511,7 +511,7 @@ img {
   padding: 10px 35px;
   display: flex;
   flex-direction: column;
-  padding-right: 10px;
+  padding-right: 0px;
 }
 
 .reqItem {
@@ -595,7 +595,7 @@ img {
 #calendar {
   padding: 10px;
   padding-right: 35px;
-  padding-left: 10px;
+  padding-left: 20px;
   width: 50%;
   display: inline-block;
   vertical-align: top; 
