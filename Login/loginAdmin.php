@@ -45,7 +45,7 @@
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
             <p class="login-text">ADMIN LOGIN</p>
         </div>
-        <form class="login-form" action="#" method="post">
+        <form class="login-form" action="../Php/adminLogin.php" method="post">
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <button type="submit" class="login-button">LOGIN</button>

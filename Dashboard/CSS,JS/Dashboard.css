@@ -10,7 +10,8 @@
 
 body {
   min-height: 100vh;
-  background: #76C28C;
+  background: rgb(118,194,140);
+background: radial-gradient(circle, rgba(118,194,140,1) 0%, rgba(38,110,96,0.7679446778711485) 100%);
 }
 
 /* Pre css */
@@ -473,7 +474,7 @@ img {
   font-size: 25px;
   font-weight: 900;
   text-align: right;
-  color: #299B63;
+  color: #377fb9;
 }
 
 .card-name1 {
@@ -488,7 +489,7 @@ img {
   font-size: 50px;
   font-weight: 800;
   text-align: right;
-  color: #299B63;
+  color: #377fb9;
 }
 
 .card-name {
@@ -612,7 +613,7 @@ img {
   font-size: 50px;
   font-weight: 800;
   text-align: bottom;
-  color: #299B63;
+  color: #377fb9;
 }
 
 .reqIcon .numberP {
@@ -662,6 +663,7 @@ img {
   color: #fff;
   text-align: center;
   font-weight: 900;
+  cursor: default;
 }
 
 
@@ -681,11 +683,12 @@ img {
   background-color: #fff;
   text-align: center;
   border-radius: 10px;
+  cursor: default;
   
 }
 
 #calendar-body div.today {
-  background-color: #299B63;
+  background-color: #377fb9;
   color: #fff;
   border-radius:20px;
   font-weight: 900;
