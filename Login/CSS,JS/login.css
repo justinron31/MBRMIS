@@ -2,13 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-    background-color: #76C28C;
+    background: rgb(118, 194, 140);
+    background: radial-gradient(circle, rgba(118, 194, 140, 1) 0%, rgba(38, 110, 96, 0.7679446778711485) 100%);
     margin: 0;
     font-family: 'Poppins', sans-serif;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    
+
 }
 
 
@@ -21,7 +22,7 @@ body {
     align-items: center;
     padding: 0px 15px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    
+
 }
 
 
@@ -55,7 +56,7 @@ body {
     font-size: 15px;
     font-weight: 600;
     transition: background-color 0.3s;
-    
+
 }
 
 .adminlog:hover {
@@ -115,6 +116,7 @@ body {
 }
 
 
+
 @media only screen and (max-width: 426px) {
     .logoname {
         font-size: 18px;
@@ -128,7 +130,7 @@ body {
         font-size: 12px;
     }
 
-    .switchButton{
+    .switchButton {
         margin-bottom: 10px;
     }
 }
@@ -136,17 +138,29 @@ body {
 
 
 
+
 /*LOGIN FORM*/
 .login-container {
-    max-width: 400px;
-    margin: 35px auto 0;
+    max-width: 100%;
+    margin: 70px auto 0;
     padding: 20px 40px;
     background-color: #fff;
     border-radius: 10px;
     text-align: center;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-    
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
+
+.login-containerReg {
+    max-width: 100%;
+    margin: 70px 30% 0;
+    padding: 20px 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+
 
 .logo-container {
     text-align: center;
@@ -161,6 +175,7 @@ body {
 }
 
 .logo1 {
+    padding-top: 20px;
     width: 50%;
     -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
     filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
@@ -168,6 +183,7 @@ body {
 
 .login-form {
     margin-top: 20px;
+    
 }
 
 input {
@@ -197,6 +213,8 @@ input:focus {
     transition: background-color 0.3s;
     font-weight: 600;
     justify-content: center;
+    -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 .login-button:hover {
@@ -205,73 +223,95 @@ input:focus {
 }
 
 
+.savePass{
+    width: 100%;
+    background-color: #266E60;
+    color: #fff;
+    padding: 10px;
+   margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 600;
+    justify-content: center;
+    -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+}
+
+.savePass:hover {
+    background-color: #15917a;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
 
 /* BUTTON SWITCH */
 /* CSS */
 .switchButton {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #15917a;
-  color: #18181a;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 10px 12px ;
-  text-decoration: none;
-  cursor: pointer;
-  background: #fff;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #15917a;
+    color: white;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 10px 12px;
+    text-decoration: none;
+    cursor: pointer;
+    background: #266E60;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border-radius: 10px;
 }
 
 .switchButton span:first-child {
-  position: relative;
-  transition: color 3ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 10;
+    position: relative;
+    transition: color 3ms cubic-bezier(0.48, 0, 0.12, 1);
+    z-index: 10;
 }
 
 .switchButton span:last-child {
-  color: white;
-  display: block;
-  position: absolute;
-  bottom: 0;
-  transition: all 5ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 100;
-  opacity: 0;
-  top: 60%;
-  left: 50%;
-  transform: translateY(50%) translateX(-50%);
-  height: auto;
-  padding:10px;
-  text-wrap: nowrap;
-  
+    color: black;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    transition: all 5ms cubic-bezier(0.48, 0, 0.12, 1);
+    z-index: 100;
+    opacity: 0;
+    top: 60%;
+    left: 50%;
+    transform: translateY(50%) translateX(-50%);
+    height: auto;
+    padding: 10px;
+    text-wrap: nowrap;
+
 }
 
 .switchButton:after {
-  content: "";
-  position: absolute;
-  bottom: -50%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #205b4f;
-  transform-origin: bottom center;
-  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
-  transform: skewY(9.3deg) scaleY(0);
-  z-index: 50;
+    content: "";
+    position: absolute;
+    bottom: -50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    transform-origin: bottom center;
+    transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+    transform: skewY(9.3deg) scaleY(0);
+    z-index: 50;
 }
 
 .switchButton:hover:after {
-  transform-origin: bottom center;
-  transform: skewY(9.3deg) scaleY(2);
+    transform-origin: bottom center;
+    transform: skewY(9.3deg) scaleY(2);
 }
 
 .switchButton:hover span:last-child {
-  transform: translateX(-50%) translateY(-100%);
-  opacity: 1;
-  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+    transform: translateX(-50%) translateY(-100%);
+    opacity: 1;
+    transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
 }
 
 
@@ -288,19 +328,20 @@ input:focus {
     text-align: right;
     font-size: 12px;
     margin-top: -5px;
+    
 }
 
 .forgot-password a,
 .register-link a {
     text-decoration: underline;
     color: #266E60;
-    /* Set the color to match your design */
+ 
 }
 
 .forgot-password a:hover,
 .register-link a:hover {
     color: #205b4f;
-    /* Set the hover color to match your design */
+    
 }
 
 
@@ -339,7 +380,8 @@ footer p {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%); /* Center the element */
+    transform: translate(-50%, -50%);
+    /* Center the element */
     background-image: url(../../Images/loader.gif);
     mix-blend-mode: multiply;
     background-repeat: no-repeat;
@@ -357,7 +399,7 @@ footer p {
     border: 1px solid #ddd;
     border-radius: 5px;
     box-sizing: border-box;
-    color: #757575; 
+    color: #757575;
 }
 
 .selectbox:focus {
@@ -367,12 +409,12 @@ footer p {
 }
 
 .selectbox::after {
-    content: '\25BC'; 
+    content: '\25BC';
     position: absolute;
     top: 50%;
-    right: 10px; 
+    right: 10px;
     transform: translateY(-50%);
-    color: #757575; 
+    color: #757575;
 }
 
 /*DATA CONSENT*/
@@ -385,7 +427,8 @@ footer p {
     text-align: center;
     box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
-.login-text1{
+
+.login-text1 {
     margin-top: 10px;
     font-size: 20px;
     font-weight: bolder;
@@ -393,16 +436,10 @@ footer p {
     text-align: center;
 }
 
-.dataprivacy{
+.dataprivacy {
     font-size: 12px;
     text-align: justify;
     margin-bottom: 30px;
     margin-top: 10px;
     font-weight: 500;
 }
-
-
-
-
-
-
