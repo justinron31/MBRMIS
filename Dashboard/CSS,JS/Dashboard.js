@@ -202,7 +202,5 @@ function closeLogoutModal() {
 }
 
 function logout() {
-
-
   window.location.href = '../Login/loginAdmin.html';
 }
