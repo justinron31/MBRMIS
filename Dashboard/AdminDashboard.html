@@ -27,6 +27,17 @@
 </head>
 
 <body>
+  <!--  MODAL POPUP-->
+  <div id="overlay" class="overlay"></div>
+  <div id="logoutModal" class="modal">
+    <div class="modal-message">
+      <p>Do you want to logout?</p>
+    </div>
+    <div class="modal-buttons">
+      <button class="yes" onclick="logout()">Yes</button>
+      <button class="no" onclick="closeLogoutModal()">No</button>
+    </div>
+  </div>
 
   <!-- SIDEBAR-->
   <div class="masterCOn">
@@ -138,7 +149,7 @@
             </li>
             <li class="item ">
               <a href="#" class="link flex">
-                <i class='bx bxs-report' ></i>
+                <i class='bx bxs-report'></i>
                 <span>Reporting View</span>
               </a>
             </li>
@@ -155,7 +166,7 @@
                 <span>Settings</span>
               </a>
             </li>
-            <li class="item ">
+            <li class="item " onclick="openLogoutModal()">
               <a href="#" class="link flex">
                 <i class='bx bxs-exit bx-rotate-180'></i>
                 <span>Logout</span>
@@ -246,7 +257,7 @@
                 <div class="number1">563</div>
                 <div class="card-name1">Voters</div>
               </div>
-              
+
             </div>
             <div class="con1">
               <div class="icon-box2">
@@ -259,9 +270,9 @@
                 <div class="number1">563</div>
                 <div class="card-name1">Non - Voters</div>
               </div>
-              
+
             </div>
-           
+
 
           </div>
 

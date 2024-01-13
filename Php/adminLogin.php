@@ -1,28 +1,28 @@
 <?php
-require_once 'db.php';
+// Include the database connection
+include 'db.php';
 
+// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id = $_POST['id'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $sql = "SELECT * FROM staff WHERE username = '$id'";
+    // Hash the password (use password_hash for better security)
+    $hashedPassword = md5($password);
+
+    // SQL query to check user credentials
+    $sql = "SELECT * FROM staff WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $hashed_password = $row['password'];
-
-        if (password_verify($password, $hashed_password)) {
-
-            echo "Login successful!";
-        } else {
-
-            echo "Invalid password";
-        }
+    if ($result->num_rows == 1) {
+        // Login successful
+        header("Location: /MBRMIS/Dashboard/AdminDashboard.html"); // Redirect to index.html on successful login
+        exit();
     } else {
-
-        echo "Invalid ID";
+        // Invalid credentials
+        echo "Invalid username or password";
     }
 }
 
+// Close the database connection
 $conn->close();
