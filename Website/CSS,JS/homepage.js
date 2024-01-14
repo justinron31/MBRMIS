@@ -16,9 +16,45 @@ $(document).ready(function() {
   });
 });
 
+/*HOME BUTTON1*/
+$(document).ready(function() {
+  var servicesLink = $("#homeButton1");
+  var servicesSection = $("#home");
+  var navbarHeight = $("#nav-links").height();
+  var margin = 0; // Adjust the margin value as needed
+
+  servicesLink.click(function(event) {
+    event.preventDefault();
+
+    var targetPosition = servicesSection.offset().top;
+
+    $('html, body').animate({
+      scrollTop: targetPosition - navbarHeight - margin
+    }, 350); // Adjust the animation duration as needed
+  });
+});
+
 /*SERVICE BUTTON */
   $(document).ready(function() {
     var servicesLink = $("#servicesButton");
+    var servicesSection = $("#service");
+    var navbarHeight = $("#nav-links").height();
+    var margin = 0; // Adjust the margin value as needed
+
+    servicesLink.click(function(event) {
+      event.preventDefault();
+
+      var targetPosition = servicesSection.offset().top;
+
+      $('html, body').animate({
+        scrollTop: targetPosition - navbarHeight - margin
+      }, 350); // Adjust the animation duration as needed
+    });
+  });
+
+  /*SERVICE BUTTON1 */
+  $(document).ready(function() {
+    var servicesLink = $("#servicesButton1");
     var servicesSection = $("#service");
     var navbarHeight = $("#nav-links").height();
     var margin = 0; // Adjust the margin value as needed
@@ -70,6 +106,24 @@ $(document).ready(function() {
     });
   });
 
+   /*CONTACT US1*/
+   $(document).ready(function() {
+    var aboutUsButton = $("#contactusButton1");
+    var mainSection = $("#contactus");
+    var navbarHeight = $("#nav-links").height();
+    var margin = 0; // Adjust the margin value as needed
+
+    aboutUsButton.click(function(event) {
+      event.preventDefault();
+
+      var targetPosition = mainSection.offset().top;
+
+      $('html, body').animate({
+        scrollTop: targetPosition - navbarHeight - margin
+      }, 350); // Adjust the animation duration as needed
+    });
+  });
+
  
 
 /*LOADER ANIMATION*/
@@ -83,3 +137,13 @@ $(window).on('load', function() {
 
   $('body').delay(10).css({'overflow':'visible'});
 });
+
+
+/*BURGER MENU*/
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}

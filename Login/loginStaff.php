@@ -6,6 +6,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+
     <!-- META TAGS BRO -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,8 +17,16 @@
     <!-- CSS / JAVASCRIPT -->
     <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
 
-    <title>Login - Admin</title>
+
+    <title>Login - Staff</title>
 </head>
+
+<?php
+session_start();
+$error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
+unset($_SESSION['error_message']);
+?>
+
 
 <body>
 
@@ -34,8 +43,8 @@
                 <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
-            <a href="loginStaff.html"><button class="switchButton" role="button"><span class="text">ADMIN
-                        LOGIN</span><span>STAFF LOGIN</span></button></a>
+            <a href="loginAdmin.php"><button class="switchButton" role="button"><span class="text">STAFF
+                        LOGIN</span><span>ADMIN LOGIN</span></button></a>
         </div>
     </nav>
 
@@ -43,17 +52,23 @@
     <div class="login-container">
         <div class="logo-container">
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
-            <p class="login-text">ADMIN LOGIN</p>
+            <p class="login-text">STAFF LOGIN</p>
         </div>
-        <form class="login-form" action="#" method="post">
+        <form class="login-form" action="../Php/staffLogin.php" method="post">
+
+            <?php if (!empty($error_message)): ?>
+            <div class="error-message" style="color: red;"><?php echo $error_message; ?></div>
+            <?php endif;?>
+
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
+            <p class="forgot-password"><a href="resetPassword.html">Forget Password?</a></p>
             <button type="submit" class="login-button">LOGIN</button>
-            <br />
-            <br />
 
+            <p class="register-link">Don’t have an account? <a href="staffRegister.php">Register here</a></p>
         </form>
     </div>
+    <br />
 
     <!-- FOOTER BRO-->
     <footer>
@@ -61,7 +76,6 @@
     </footer>
 
     <script src="../Login/CSS,JS/login.js"></script>
-
 </body>
 
 </html>
