@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hashedPassword = md5($password);
 
     // SQL query to fetch data
-    $sql = "SELECT * FROM staff WHERE username = '$username' AND password = '$password'";
+    $sql = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {

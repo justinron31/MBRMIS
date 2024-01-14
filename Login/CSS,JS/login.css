@@ -460,3 +460,9 @@ footer p {
     margin-top: -10px;
     margin-bottom: 15px;
 }
+
+.error-input {
+    border-color: red;
+    outline: none;
+    box-shadow: 0 0 5px red;
+}

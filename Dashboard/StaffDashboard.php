@@ -23,7 +23,7 @@
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
 
 
-    <title>MAKILING BRMI SYSTEM - ADMIN</title>
+    <title>MAKILING BRMI SYSTEM - STAFF</title>
 </head>
 
 
@@ -51,7 +51,7 @@ if (isset($_SESSION['user_name'])) {
             <p>Do you want to logout?</p>
         </div>
         <div class="modal-buttons">
-            <button class="yes" onclick="logout()">Yes</button>
+            <button class="yes" onclick="logout1()">Yes</button>
             <button class="no" onclick="closeLogoutModal()">No</button>
         </div>
     </div>
@@ -153,24 +153,7 @@ if (isset($_SESSION['user_name'])) {
                         </li>
                     </ul>
 
-                    <ul class="menu_item">
-                        <div class="menu_title flex">
-                            <span class="title">Others</span>
-                            <span class="line"></span>
-                        </div>
-                        <li class="item">
-                            <a href="#" class="link flex">
-                                <i class='bx bxs-user-detail'></i>
-                                <span>Manage System User</span>
-                            </a>
-                        </li>
-                        <li class="item ">
-                            <a href="#" class="link flex">
-                                <i class='bx bxs-report'></i>
-                                <span>Reporting View</span>
-                            </a>
-                        </li>
-                    </ul>
+
 
                     <ul class="menu_item">
                         <div class="menu_title flex">
@@ -206,7 +189,7 @@ if (isset($_SESSION['user_name'])) {
 
                     <div class="access">
                         <p class="name">
-                            Admin
+                            Staff
                             <?php echo $userName; ?>
 
                         </p>

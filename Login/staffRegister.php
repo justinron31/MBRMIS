@@ -15,8 +15,9 @@
     <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
     <!-- CSS / JAVASCRIPT -->
+
     <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
-    <script src="/Login/CSS,JS/login.js"></script>
+    <script src="../Login/CSS,JS/login.js"></script>
 
 
     <title>Registration - Staff</title>
@@ -24,10 +25,10 @@
 
 <body>
 
-    <!--LOADER-->
-    <!--<div id="preloader">
+    <!-- LOADER-->
+    <div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>-->
+    </div>
 
 
     <nav>
@@ -50,20 +51,24 @@
             <hr>
         </div>
 
-        <form class="login-form" action="#" method="post">
-            <input type="text" id="id" name="fname" placeholder="Firstname" autofocus required>
-            <input type="text" id="id" name="lname" placeholder="Lastname" required>
-            <input type="text" id="id" name="idnum" placeholder="ID number" required>
-            <input type="text" id="id" name="email" placeholder="Email" required>
+        <form class="login-form" action="../Php/staffReg.php" method="post"
+            onsubmit="return validatePassword() && validateEmail();">
+            <input type="text" id="name" name="fname" placeholder="Firstname" oninput="capitalizeFirstLetter('name')"
+                autofocus required>
+            <input type="text" id="lname" name="lname" placeholder="Lastname" oninput="capitalizeFirstLetter('lname')"
+                required>
+            <input type="text" id="idnum" name="idnum" placeholder="ID number" oninput="capitalizeFirstLetter('idnum')"
+                required>
+            <input type="text" id="email" name="email" placeholder="Email" required>
 
-            <select class="selectbox" id="genderSelect" required onchange="changeFontColor()">
+            <select class="selectbox" id="genderSelect" name="gender" required onchange="changeFontColor()">
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
 
             <input type="password" id="password" name="password" placeholder="Password" required>
-            <input type="password" id="password" name="cpassword" placeholder="Confirm Password" required>
+            <input type="password" id="confirmPassword" name="cpassword" placeholder="Confirm Password" required>
             <button type="submit" class="login-button">SUBMIT</button>
             <br>
             <br>

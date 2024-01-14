@@ -186,7 +186,7 @@ document.getElementById('month').addEventListener('click', showCurrentDate);
 
 renderCalendar();
 
-//LOGOUT MODAL POPUP
+// LOGOUT MODAL POPUP
 function openLogoutModal() {
   var modal = document.getElementById('logoutModal');
   var overlay = document.getElementById('overlay');
@@ -204,6 +204,12 @@ function closeLogoutModal() {
 function logout() {
   window.location.href = '../Login/loginAdmin.php';
 }
+function logout1() {
+  window.location.href = '../Login/loginStaff.php';
+}
+
+
+
 
 
 /*LOADER ANIMATION*/

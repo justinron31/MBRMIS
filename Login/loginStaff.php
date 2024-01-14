@@ -21,6 +21,13 @@
     <title>Login - Staff</title>
 </head>
 
+<?php
+session_start();
+$error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
+unset($_SESSION['error_message']);
+?>
+
+
 <body>
 
     <!--LOADER-->
@@ -47,11 +54,17 @@
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
             <p class="login-text">STAFF LOGIN</p>
         </div>
-        <form class="login-form" action="#" method="post">
+        <form class="login-form" action="../Php/staffLogin.php" method="post">
+
+            <?php if (!empty($error_message)): ?>
+            <div class="error-message" style="color: red;"><?php echo $error_message; ?></div>
+            <?php endif;?>
+
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <p class="forgot-password"><a href="resetPassword.html">Forget Password?</a></p>
             <button type="submit" class="login-button">LOGIN</button>
+
             <p class="register-link">Don’t have an account? <a href="staffRegister.php">Register here</a></p>
         </form>
     </div>
