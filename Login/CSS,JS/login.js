@@ -1,20 +1,20 @@
 /*LOADER ANIMATION*/
-$(window).on('load', function() { 
+$(window).on('load', function () {
 
     $('#status').fadeOut();
 
-    
-    $('#preloader').delay(150).fadeOut('slow');
+
+    $('#preloader').delay(150).fadeOut('fast');
 
 
-    $('body').delay(150).css({'overflow':'visible'});
+    $('body').delay(150).css({ 'overflow': 'visible' });
 });
 
 /*AUTO FOCUS*/
-window.onload = function() {
+window.onload = function () {
     document.getElementById("name").focus();
-  };
-  
+};
+
 
 /* DROPDOWN COLOR CHANGE*/
 function changeFontColor() {
@@ -28,3 +28,4 @@ function changeFontColor() {
     }
 }
 
+/*ERROR CREDENTIALS */

@@ -47,7 +47,7 @@ body {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transition: all 0.3s ease;
   border-radius: 0px 0px 10px 0px;
-  z-index: 998;
+  z-index: 997;
   flex: 1;
 }
 
@@ -265,14 +265,28 @@ li.item.active a {
   margin-right: 10px
 }
 
+p.name {
+  font-size: 16px;
+  color: #266E60;
+  font-weight: 900;
+  text-wrap: nowrap;
+  justify-content: right;
+  text-align: right;
+  white-space: nowrap;
+}
+
+
 .logoHead,
 img {
   width: 30px;
   height: 30px;
+
 }
 
 .logoHead {
   margin-left: 10px;
+  left: 96%;
+  position: inherit;
 }
 
 .access .tophead {
@@ -289,12 +303,24 @@ img {
   display: flex;
   align-items: center;
   position: fixed;
-  left: 93%;
-
+  left: 91%;
+  width: fit-content;
 }
 
+.name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: right;
+  justify-content: flex-end;
+  margin-left: -10px;
+}
 
+.access .name {
+  position: absolute;
+  right: -93px;
 
+}
 
 /** TOP HEAD END ------------------------------------------------------------------------------------------------------*/
 
@@ -731,6 +757,32 @@ img {
 
 }
 
+/*LOADER ANIMATION*/
+
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 1000;
+}
+
+#status {
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* Center the element */
+  background-image: url(../../Images/loader.gif);
+  mix-blend-mode: multiply;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 
 /*MODAL POPUP*/
 .overlay {
@@ -741,7 +793,7 @@ img {
   width: 100%;
   height: 100%;
   background-color: rgba(19, 83, 52, 0.8);
-  z-index: 999;
+  z-index: 998;
 }
 
 .modal {
@@ -754,7 +806,7 @@ img {
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
+  z-index: 998;
 }
 
 .modal-message {

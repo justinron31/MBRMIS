@@ -202,5 +202,18 @@ function closeLogoutModal() {
 }
 
 function logout() {
-  window.location.href = '../Login/loginAdmin.html';
+  window.location.href = '../Login/loginAdmin.php';
 }
+
+
+/*LOADER ANIMATION*/
+$(window).on('load', function () {
+
+  $('#status').fadeOut();
+
+
+  $('#preloader').delay(150).fadeOut('slow');
+
+
+  $('body').delay(150).css({ 'overflow': 'visible' });
+});

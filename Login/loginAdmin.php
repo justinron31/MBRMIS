@@ -6,7 +6,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-
     <!-- META TAGS BRO -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,13 +15,20 @@
 
     <!-- CSS / JAVASCRIPT -->
     <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
-    <script src="/Login/CSS,JS/login.js"></script>
+
+    <title>Login - Admin</title>
 
 
-    <title>Registration - Staff</title>
 </head>
 
+<?php
+session_start();
+$error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
+unset($_SESSION['error_message']);
+?>
+
 <body>
+
 
     <!--LOADER-->
     <div id="preloader">
@@ -37,47 +43,41 @@
                 <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
-            <a href="loginStaff.html"><button class="switchButton" role="button"><span class="text">REGISTER
-                        </span><span> LOGIN</span></button></a>
+            <a href="loginStaff.php"><button class="switchButton" role="button"><span class="text">ADMIN
+                        LOGIN</span><span>STAFF LOGIN</span></button></a>
         </div>
     </nav>
 
     <!--LOGIN FORM-->
-    <div class="login-containerReg">
+    <div class="login-container">
         <div class="logo-container">
-            
-            <p class="login-text">STAFF REGISTRATION</p>
-            <hr>
+            <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
+            <p class="login-text">ADMIN LOGIN</p>
         </div>
+        <form class="login-form" action="../Php/adminLogin.php" method="post">
 
-        <form class="login-form" action="#" method="post">
-            <input type="text" id="id" name="fname" placeholder="Firstname" autofocus required>
-            <input type="text" id="id" name="lname" placeholder="Lastname" required>
-            <input type="text" id="id" name="idnum" placeholder="ID number" required>
-            <input type="text" id="id" name="email" placeholder="Email" required>
-            
-            <select class="selectbox" id="genderSelect" required onchange="changeFontColor()">
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-            
+            <?php if (!empty($error_message)): ?>
+            <div class="error-message" style="color: red;"><?php echo $error_message; ?></div>
+            <?php endif;?>
+
+
+            <input type="text" id="username" name="username" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
-            <input type="password" id="password" name="cpassword" placeholder="Confirm Password" required>
-            <button type="submit" class="login-button">SUBMIT</button>
-           <br>
-           <br>
-         
+            <button type="submit" class="login-button">LOGIN</button>
+            <br />
+            <br />
+
         </form>
+
     </div>
-    <br />
 
     <!-- FOOTER BRO-->
     <footer>
         <p>&copy; 2024 BARANGAY MAKILING RECORD MANAGEMENT AND ISSUANCE SYSTEM | All rights reserved.</p>
     </footer>
 
-  
+    <script src="../Login/CSS,JS/login.js"></script>
+
 </body>
 
 </html>
