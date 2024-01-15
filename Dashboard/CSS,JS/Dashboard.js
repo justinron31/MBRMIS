@@ -202,11 +202,31 @@ function closeLogoutModal() {
 }
 
 function logout() {
-  window.location.href = '../Login/loginAdmin.php';
+  // Add AJAX request to terminate the session
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // Redirect to the login page after successful logout
+      window.location.href = '../Login/loginAdmin.html';
+    }
+  };
+  xhr.open('GET', '\\MBRMIS\\Php\\logout.php', true);
+  xhr.send();
 }
+
 function logout1() {
-  window.location.href = '../Login/loginStaff.php';
+  // Add AJAX request to terminate the session
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      // Redirect to the login page after successful logout
+      window.location.href = '../Login/loginStaff.html';
+    }
+  };
+  xhr.open('GET', '\\MBRMIS\\Php\\logout.php', true);
+  xhr.send();
 }
+
 
 
 

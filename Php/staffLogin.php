@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_name'] = $name;
 
             // Redirect to the dashboard with a welcome message
-            header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
+            header("Location: /MBRMIS/Dashboard/StaffDashboard.html");
             exit();
         } else {
             $_SESSION['error_message'] = "Invalid Credentials";
@@ -39,5 +39,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 
 // Redirect to login page with error message
-header("Location: /MBRMIS/Login/loginStaff.php");
+header("Location: /MBRMIS/Login/loginStaff.html");
 exit();

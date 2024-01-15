@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Hash the entered password (replace this with a more secure method like bcrypt)
-    $hashedPassword = md5($password);
+    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
     // SQL query to fetch data
     $sql = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
@@ -18,11 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         $name = $row['name'];
 
-        // Set the user's name in the session variable
         $_SESSION['user_name'] = $name;
 
-        // Redirect to the dashboard with a welcome message
-        header("Location: /MBRMIS/Dashboard/AdminDashboard.php");
+        header("Location: /MBRMIS/Dashboard/AdminDashboard.html");
         exit();
     } else {
         $_SESSION['error_message'] = "Invalid Credentials";
@@ -31,6 +29,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 
-// Redirect to login page with error message
-header("Location: /MBRMIS/Login/loginAdmin.php");
+header("Location: /MBRMIS/Login/loginAdmin.html");
 exit();

@@ -43,7 +43,7 @@ unset($_SESSION['error_message']);
                 <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
-            <a href="loginAdmin.php"><button class="switchButton" role="button"><span class="text">STAFF
+            <a href="loginAdmin.html"><button class="switchButton" role="button"><span class="text">STAFF
                         LOGIN</span><span>ADMIN LOGIN</span></button></a>
         </div>
     </nav>
@@ -57,7 +57,9 @@ unset($_SESSION['error_message']);
         <form class="login-form" action="../Php/staffLogin.php" method="post">
 
             <?php if (!empty($error_message)): ?>
-            <div class="error-message" style="color: red;"><?php echo $error_message; ?></div>
+            <div class="error-message" style="color: red;">
+                <?php echo $error_message; ?>
+            </div>
             <?php endif;?>
 
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
@@ -65,7 +67,7 @@ unset($_SESSION['error_message']);
             <p class="forgot-password"><a href="resetPassword.html">Forget Password?</a></p>
             <button type="submit" class="login-button">LOGIN</button>
 
-            <p class="register-link">Don’t have an account? <a href="staffRegister.php">Register here</a></p>
+            <p class="register-link">Don’t have an account? <a href="staffRegister.html">Register here</a></p>
         </form>
     </div>
     <br />

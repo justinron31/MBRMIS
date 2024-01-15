@@ -80,3 +80,4 @@ function validateEmail() {
 
     return true;
 }
+
