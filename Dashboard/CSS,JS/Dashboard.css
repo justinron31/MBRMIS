@@ -854,3 +854,36 @@ img {
 
 
 /** MAIN CONTENT END------------------------------------------------------------------------------------------------------*/
+
+/*LOGIN GOODS POPUP*/
+/* CSS for Popup */
+.popup {
+  display: none;
+  position: fixed;
+  left: 50%;
+  background-color: #4CAF50;
+  color: #fff;
+  font-weight: 700;
+  padding: 25px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  z-index: 999;
+  cursor: default;
+  animation: fadeInOut 3s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
+  /* Add transition property for opacity */
+}
+
+@keyframes fadeInOut {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  20%,
+  80% {
+    opacity: 1;
+  }
+}

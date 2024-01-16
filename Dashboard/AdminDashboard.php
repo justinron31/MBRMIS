@@ -27,17 +27,47 @@
 </head>
 
 
+<!--LOGIN PHP -->
 <?php
 session_start();
 
+$loginSuccess = false;
+
 if (isset($_SESSION['user_name'])) {
     $userName = $_SESSION['user_name'];
+
+    // Check if the login message should be displayed
+    if (isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true) {
+        $loginSuccess = true;
+
+        // Reset the session variable to avoid displaying the message on page refresh
+        $_SESSION['show_login_message'] = false;
+    }
 } else {
-    $userName = "User";
+    $userName = "no username";
 }
 ?>
 
 <body>
+
+    <!-- JavaScript for Popup -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($loginSuccess): ?>
+        // Show the popup if login is successful
+        var loginPopup = document.getElementById('loginPopup');
+        if (loginPopup) {
+            loginPopup.style.display = 'block';
+            // Hide the popup after 3 seconds (adjust the time as needed)
+            setTimeout(function() {
+                loginPopup.style.display = 'none';
+            }, 3000);
+        }
+        <?php endif;?>
+    });
+    </script>
+
+
 
     <!--LOADER-->
     <div id="preloader">
@@ -67,6 +97,7 @@ if (isset($_SESSION['user_name'])) {
                 <i class="bx bxs-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
                 <i class="bx bx-x" id="sidebar-close" title="lock Sidebar"></i>
             </div>
+
 
             <!--SIDEBAR CONTENT-->
             <div class="menu_container">
@@ -203,7 +234,9 @@ if (isset($_SESSION['user_name'])) {
                     <h1 class="maintitle">
                         DASHBOARD
                     </h1>
-
+                    <div id="loginPopup" class="popup">
+                        <p>Login successfully!</p>
+                    </div>
                     <div class="access">
                         <p class="name">
                             Admin
@@ -380,6 +413,9 @@ if (isset($_SESSION['user_name'])) {
 
             </div>
         </div>
+
+
+
 </body>
 
 
