@@ -31,41 +31,50 @@
 <?php
 session_start();
 
-$loginSuccess = false;
-
-if (isset($_SESSION['user_name'])) {
-    $userName = $_SESSION['user_name'];
-
-    // Check if the login message should be displayed
-    if (isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true) {
-        $loginSuccess = true;
-
-        // Reset the session variable to avoid displaying the message on page refresh
-        $_SESSION['show_login_message'] = false;
-    }
-} else {
-    $userName = "no username";
+// Check if the user is not logged in as admin
+if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin') {
+    // Redirect to login page
+    header("Location: /MBRMIS/Login/loginStaff.php");
+    exit();
 }
+
+$userName = $_SESSION['user_name'];
+
+// Check if the login message should be displayed
+$showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true;
+
+// Reset the session variable to avoid displaying the message on page refresh
+$_SESSION['show_login_message'] = false;
 ?>
+
 
 <body>
 
     <!-- JavaScript for Popup -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($loginSuccess): ?>
-        // Show the popup if login is successful
+        <?php if ($showLoginMessage): ?>
         var loginPopup = document.getElementById('loginPopup');
         if (loginPopup) {
             loginPopup.style.display = 'block';
-            // Hide the popup after 3 seconds (adjust the time as needed)
+
+            // Trigger the slide-up animation after 2 seconds
+            setTimeout(function() {
+                loginPopup.classList.add('slide-up');
+            }, 1500);
+
+            // Hide the popup after 3 seconds
             setTimeout(function() {
                 loginPopup.style.display = 'none';
-            }, 3000);
+            }, 2000);
         }
         <?php endif;?>
     });
     </script>
+
+    <!--BACK BUTTON-->
+
+
 
 
 
@@ -225,6 +234,12 @@ if (isset($_SESSION['user_name'])) {
             </div>
         </nav>
 
+        <!--LOGIN MESSAGE-->
+        <div id="loginPopup" class="popup">
+            <p>Login successfully!</p>
+        </div>
+
+
         <!-- MAIN CONTENT-->
         <div class="headermain">
 
@@ -234,9 +249,7 @@ if (isset($_SESSION['user_name'])) {
                     <h1 class="maintitle">
                         DASHBOARD
                     </h1>
-                    <div id="loginPopup" class="popup">
-                        <p>Login successfully!</p>
-                    </div>
+
                     <div class="access">
                         <p class="name">
                             Admin

@@ -29,13 +29,26 @@ unset($_SESSION['error_message']);
 
 if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
 ?>
-<script>
-    alert("You are already logged in. Please logout first.");
-    window.location.href = "/MBRMIS/Dashboard/AdminDashboard.php";
-</script>
-<?php endif; ?>
+<?php endif;?>
 
 <body>
+
+    <script>
+    var userRole = "<?php echo isset($_SESSION['user_type']) ? $_SESSION['user_type'] : ''; ?>";
+
+
+    // Check if the user is already logged in and redirect accordingly
+    if (userRole === "admin") {
+        alert("Your are currently logged in. Logout first.");
+        window.location.href = "/MBRMIS/Dashboard/AdminDashboard.php";
+    } else if (userRole === "staff") {
+        alert("Your are currently logged in. Logout first.");
+        window.location.href = "/MBRMIS/Dashboard/StaffDashboard.php";
+    } else {
+        // Handle other roles or show an error message
+        console.error("Invalid user role. Please contact support.");
+    }
+    </script>
 
     <!--LOADER-->
     <div id="preloader">

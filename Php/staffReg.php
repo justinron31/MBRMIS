@@ -14,7 +14,7 @@ $sql = "INSERT INTO staff (firstname, lastname, idnumber, email, gender, pass) V
 if ($conn->query($sql) === true) {
     echo '<script>';
     echo 'alert("Registered successfully!");';
-    echo 'window.location.href = "/MBRMIS/Login/loginStaff.html";';
+    echo 'window.location.href = "/MBRMIS/Login/loginStaff.php";';
     echo '</script>';
     exit;
 } else {

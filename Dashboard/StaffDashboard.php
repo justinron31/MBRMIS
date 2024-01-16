@@ -27,17 +27,53 @@
 </head>
 
 
+<!--LOGIN PHP -->
 <?php
 session_start();
 
-if (isset($_SESSION['user_name'])) {
-    $userName = $_SESSION['user_name'];
-} else {
-    $userName = "User";
+// Check if the user is not logged in as admin
+if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'staff') {
+    // Redirect to login page
+    header("Location: /MBRMIS/Login/loginStaff.php");
+    exit();
 }
+
+$userName = $_SESSION['user_name'];
+
+// Check if the login message should be displayed
+$showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true;
+
+// Reset the session variable to avoid displaying the message on page refresh
+$_SESSION['show_login_message'] = false;
 ?>
 
 <body>
+
+    <!-- JavaScript for Popup -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($showLoginMessage): ?>
+        var loginPopup = document.getElementById('loginPopup');
+        if (loginPopup) {
+            loginPopup.style.display = 'block';
+
+            // Trigger the slide-up animation after 2 seconds
+            setTimeout(function() {
+                loginPopup.classList.add('slide-up');
+            }, 1500);
+
+            // Hide the popup after 3 seconds
+            setTimeout(function() {
+                loginPopup.style.display = 'none';
+            }, 2000);
+        }
+        <?php endif;?>
+    });
+    </script>
+
+    <!--BACK BUTTON-->
+
+
 
     <!--LOADER-->
     <div id="preloader">
@@ -176,6 +212,12 @@ if (isset($_SESSION['user_name'])) {
                 </div>
             </div>
         </nav>
+
+
+        <!--LOGIN MESSAGE-->
+        <div id="loginPopup" class="popup">
+            <p>Login successfully!</p>
+        </div>
 
         <!-- MAIN CONTENT-->
         <div class="headermain">

@@ -207,14 +207,12 @@ function logout() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState == 4 && xhr.status == 200) {
       // Redirect to the login page after successful logout
-      window.location.href = '../Login/loginStaff.html';
+      window.location.href = '..\\Login\\loginStaff.php';
     }
   };
   xhr.open('GET', '\\MBRMIS\\Php\\logout.php', true);
   xhr.send();
 }
-
-
 
 
 

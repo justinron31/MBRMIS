@@ -861,29 +861,46 @@ img {
   display: none;
   position: fixed;
   left: 50%;
+  transform: translateX(-50%);
   background-color: #4CAF50;
   color: #fff;
   font-weight: 700;
-  padding: 25px;
-  padding-bottom: 20px;
+  margin-top: 3px;
+  padding: 20px;
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   z-index: 999;
   cursor: default;
-  animation: fadeInOut 3s ease-in-out;
-  transition: opacity 0.5s ease-in-out;
-  /* Add transition property for opacity */
+  animation: slideDownAnimation 0.5s ease-in-out;
+  /* Set the animation duration */
+}
+@keyframes slideDownAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    /* Adjust the initial position */
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
-@keyframes fadeInOut {
+/* Add a separate keyframe for the slide-up animation */
+@keyframes slideUpAnimation {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 
-  0%,
   100% {
     opacity: 0;
+    transform: translate(-50%, -100%);
   }
+}
 
-  20%,
-  80% {
-    opacity: 1;
-  }
+/* Add a class to trigger the slide-up animation when needed */
+.popup.slide-up {
+  animation: slideUpAnimation 0.5s ease-in-out;
 }

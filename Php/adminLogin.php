@@ -16,8 +16,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $adminResult->fetch_assoc(); // Corrected line
         $name = $row['name'];
 
+        $_SESSION['show_login_message'] = true;
         $_SESSION['user_name'] = $name;
         $_SESSION['user_type'] = 'admin';
+
+        // Assign user role to userRole variable
+
         header("Location: /MBRMIS/Dashboard/AdminDashboard.php");
         exit();
     }
@@ -40,23 +44,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Fetch and display the name
             $name = $row['firstname'];
 
-            // Set the user's name in the session variable
+            $_SESSION['show_login_message'] = true;
             $_SESSION['user_name'] = $name;
             $_SESSION['user_type'] = 'staff';
-            $_SESSION['show_login_message'] = true; // Set this variable to true to display the message
+
+            // Assign user role to userRole variable
 
             // Redirect to the dashboard with a welcome message
-            header("Location: /MBRMIS/Dashboard/StaffDashboard.html");
+            header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
             exit();
         } else {
             $_SESSION['error_message'] = "Invalid Credentials";
         }
     } else {
-        $_SESSION['error_message'] = "fuck u";
+        $_SESSION['error_message'] = "Invalid Credentials";
     }
 
     // No user found with the entered credentials
-    header("Location: /MBRMIS/Login/loginStaff.html"); // Adjust the login page URL as needed
+    header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
 }
 
