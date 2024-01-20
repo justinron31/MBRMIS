@@ -418,10 +418,6 @@ $_SESSION['show_login_message'] = false;
                         </div>
                     </div>
 
-
-
-
-
                 </div>
 
             </div>

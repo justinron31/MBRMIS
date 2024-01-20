@@ -51,6 +51,19 @@ body {
   flex: 1;
 }
 
+.headerTop {
+  background: #fff;
+  align-items: center;
+  padding: 12px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  position: fixed;
+  top: 0;
+  border-radius: 0px 0px 0px 10px;
+  width: 100%;
+  display: flex;
+}
+
+
 .sidebar.close {
   width: calc(55px + 20px);
 }
@@ -237,19 +250,8 @@ li.item.active a {
   transition: width 0.3s ease;
 }
 
-.headerTop {
-  background: #fff;
-  align-items: center;
-  padding: 12px;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-  position: fixed;
-  top: 0;
-  border-radius: 0px 0px 0px 10px;
-  width: 100%;
-  display: flex;
-}
 
-.sidebar.close+.headermain {
+.sidebar.close~.headermain {
   width: 96.1%;
 }
 
@@ -852,7 +854,6 @@ img {
 }
 
 
-
 /** MAIN CONTENT END------------------------------------------------------------------------------------------------------*/
 
 /*LOGIN GOODS POPUP*/
@@ -874,6 +875,7 @@ img {
   animation: slideDownAnimation 0.5s ease-in-out;
   /* Set the animation duration */
 }
+
 @keyframes slideDownAnimation {
   0% {
     opacity: 0;
