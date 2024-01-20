@@ -79,9 +79,9 @@ $_SESSION['show_login_message'] = false;
 
 
     <!--LOADER-->
-    <div id="preloader">
+    <!--   <div id="preloader">
         <div id="status">&nbsp;</div>
-    </div>
+    </div>-->
 
     <!--  MODAL POPUP-->
     <div id="overlay" class="overlay"></div>
@@ -198,12 +198,14 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">Others</span>
                             <span class="line"></span>
                         </div>
+
                         <li class="item">
-                            <a href="#" class="link flex">
+                            <a href="/MBRMIS/Dashboard/ManageUser.php" class="link flex">
                                 <i class='bx bxs-user-detail'></i>
                                 <span>Manage System User</span>
                             </a>
                         </li>
+
                         <li class="item ">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-report'></i>
@@ -217,12 +219,14 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">System</span>
                             <span class="line"></span>
                         </div>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i class="bx bx-cog"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
+
                         <li class="item " onclick="openLogoutModal()">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-exit bx-rotate-180'></i>
