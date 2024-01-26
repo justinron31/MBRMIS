@@ -18,10 +18,37 @@
     <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
 
 
-    <title>Login - Staff</title>
+    <title>Login</title>
 </head>
 
+<?php
+session_start();
+
+$error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
+unset($_SESSION['error_message']);
+
+if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
+?>
+<?php endif;?>
+
 <body>
+
+    <script>
+    var userRole = "<?php echo isset($_SESSION['user_type']) ? $_SESSION['user_type'] : ''; ?>";
+
+
+    // Check if the user is already logged in and redirect accordingly
+    if (userRole === "admin") {
+        alert("Your are currently logged in. Logout first.");
+        window.location.href = "/MBRMIS/Dashboard/AdminDashboard.php";
+    } else if (userRole === "staff") {
+        alert("Your are currently logged in. Logout first.");
+        window.location.href = "/MBRMIS/Dashboard/StaffDashboard.php";
+    } else {
+        // Handle other roles or show an error message
+        console.error("Invalid user role. Please contact support.");
+    }
+    </script>
 
     <!--LOADER-->
     <div id="preloader">
@@ -36,8 +63,7 @@
                 <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
-            <a href="loginAdmin.html"><button class="switchButton" role="button"><span class="text">STAFF
-                        LOGIN</span><span>ADMIN LOGIN</span></button></a>
+
         </div>
     </nav>
 
@@ -47,11 +73,19 @@
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
             <p class="login-text">STAFF LOGIN</p>
         </div>
-        <form class="login-form" action="#" method="post">
+        <form class="login-form" action="../Php/adminLogin.php" method="post">
+
+            <?php if (!empty($error_message)): ?>
+            <div class="error-message" style="color: red;">
+                <?php echo $error_message; ?>
+            </div>
+            <?php endif;?>
+
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <p class="forgot-password"><a href="resetPassword.html">Forget Password?</a></p>
             <button type="submit" class="login-button">LOGIN</button>
+
             <p class="register-link">Don’t have an account? <a href="staffRegister.html">Register here</a></p>
         </form>
     </div>

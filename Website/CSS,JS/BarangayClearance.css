@@ -2,13 +2,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-    background-color: #76C28C;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    
+  background-color: #76C28C;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
 }
 
 
@@ -40,7 +40,7 @@ p {
   height: 40px;
   margin-right: 10px;
   -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
-    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 #logcon {
@@ -189,70 +189,70 @@ p {
 
 /*?REGISTER FORM------------------------------------------------------------------------------------------------*/
 .login-container {
-    width: 50%;
-    margin: 100px auto 0;
-    padding: 20px 40px;
-    background-color: #fff;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-    
+  width: 50%;
+  margin: 100px auto 0;
+  padding: 20px 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+
 }
 
 .logo-container {
-    text-align: center;
+  text-align: center;
 }
 
 .login-text {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-    text-align: left;
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
 }
 
 .logo1 {
-    width: 50%;
-    -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
-    filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+  width: 50%;
+  -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
+  filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
 
 .login-form {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 input:focus {
-    border-color: #15917a;
-    outline: none;
-    box-shadow: 0 0 5px #266E60;
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266E60;
 }
 
 .login-button {
-    width: 100%;
-    background-color: #266E60;
-    color: #fff;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-weight: 600;
-    justify-content: center;
+  width: 100%;
+  background-color: #266E60;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 600;
+  justify-content: center;
 }
 
 .login-button:hover {
-    background-color: #15917a;
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  background-color: #15917a;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 }
 
 
@@ -260,12 +260,12 @@ input:focus {
 .purpose {
   width: 100%;
   padding: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
-  resize: vertical; 
-  height: 70px; 
+  resize: vertical;
+  height: 70px;
   max-height: 200px;
 }
 
@@ -289,11 +289,12 @@ aeon-datepicker {
 }
 
 aeon-datepicker input {
-  flex: 1; 
-  margin-right:10px;
+  flex: 1;
+  margin-right: 10px;
 }
+
 .time {
-  margin-right: 0; 
+  margin-right: 0;
 }
 
 
@@ -328,16 +329,16 @@ aeon-datepicker input {
   height: 15px;
   width: 15px;
   background-color: #eee;
-  border:0.5px solid #c9c9c9;
+  border: 0.5px solid #c9c9c9;
 }
 
 
-.checkInfo:hover input ~ .checkmark {
+.checkInfo:hover input~.checkmark {
   background-color: #ccc;
 }
 
 
-.checkInfo input:checked ~ .checkmark {
+.checkInfo input:checked~.checkmark {
   background-color: #266E60;
 }
 
@@ -349,7 +350,7 @@ aeon-datepicker input {
 }
 
 
-.checkInfo input:checked ~ .checkmark:after {
+.checkInfo input:checked~.checkmark:after {
   display: block;
 }
 
@@ -367,7 +368,7 @@ aeon-datepicker input {
 }
 
 a {
-  color: black;  
+  color: black;
   text-decoration: underline;
   cursor: pointer;
 }
@@ -386,103 +387,105 @@ a {
 
 /*FOOTER */
 footer {
-    background-color: #266E60;
-    color: #fff;
-    text-align: center;
-    padding: 5px;
-    margin-top: auto;
+  background-color: #266E60;
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  margin-top: auto;
 
 }
 
 footer p {
-    margin: 0;
-    font-size: 12px;
+  margin: 0;
+  font-size: 12px;
 }
 
 
 /*LOADER ANIMATION*/
 
 #preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 999;
 }
 
 #status {
-    width: 250px;
-    height: 250px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); /* Center the element */
-    background-image: url(../../Images/loader.gif);
-    mix-blend-mode: multiply;
-    background-repeat: no-repeat;
-    background-position: center;
+  width: 250px;
+  height: 250px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* Center the element */
+  background-image: url(../../Images/loader.gif);
+  mix-blend-mode: multiply;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 
 /*DROPDOWN REGISTER*/
 
 .selectbox {
-    background-color: #ffffff;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    color: #757575; 
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #757575;
 }
 
 .selectbox:focus {
-    border-color: #15917a;
-    outline: none;
-    box-shadow: 0 0 5px #266E60;
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266E60;
 }
 
 .selectbox::after {
-    content: '\25BC'; 
-    position: absolute;
-    top: 50%;
-    right: 10px; 
-    transform: translateY(-50%);
-    color: #757575; 
+  content: '\25BC';
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #757575;
 }
 
 /*DATA CONSENT*/
 .login-container1 {
-    max-width: 600px;
-    margin: 35px auto 0;
-    padding: 20px 40px;
-    background-color: #fff;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-}
-.login-text1{
-    margin-top: 10px;
-    font-size: 20px;
-    font-weight: bolder;
-    color: #333;
-    text-align: center;
+  max-width: 600px;
+  margin: 35px auto 0;
+  padding: 20px 40px;
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
 }
 
-.dataprivacy{
-    font-size: 12px;
-    text-align: justify;
-    margin-bottom: 30px;
-    margin-top: 10px;
-    font-weight: 500;
+.login-text1 {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bolder;
+  color: #333;
+  text-align: center;
+}
+
+.dataprivacy {
+  font-size: 12px;
+  text-align: justify;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  font-weight: 500;
 }
 
 
 /*TRACK REQUEST*/
-.trackName{
+.trackName {
   margin-top: 10px;
   margin-bottom: 5px;
   font-size: 20px;
@@ -490,21 +493,23 @@ footer p {
   color: #333;
   text-align: center;
 }
-.trackHead{
-  margin:0;
+
+.trackHead {
+  margin: 0;
 }
-.trackingNum{
+
+.trackingNum {
   font-size: 20px;
-  margin-top:0;
+  margin-top: 0;
   margin-bottom: 10px;
 }
 
-.trackIns{
+.trackIns {
   font-size: 15px;
-    text-align: justify;
-    margin-bottom: 30px;
-    margin-top: 10px;
-    font-weight: 500;
+  text-align: justify;
+  margin-bottom: 30px;
+  margin-top: 10px;
+  font-weight: 500;
 }
 
 .trackCon {
@@ -514,7 +519,7 @@ footer p {
   background-color: #fff;
   border-radius: 10px;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
-  
+
 }
 
 table {
@@ -522,19 +527,18 @@ table {
   width: 100%;
 }
 
-th, td {
+th,
+td {
   padding: 10px;
   text-align: left;
 }
 
 th {
-  
+
   color: black;
 }
 
 tr:nth-child(even) {
   background-color: #f2f2f2;
-  
+
 }
-
-

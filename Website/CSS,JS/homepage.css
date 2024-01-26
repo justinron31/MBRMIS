@@ -5,11 +5,11 @@ body {
   font-family: 'Poppins', sans-serif;
   flex-direction: column;
   overflow-x: hidden;
-
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 
   ::-webkit-scrollbar {
     display: none;
@@ -116,6 +116,7 @@ p {
 
 
 @media only screen and (max-width: 768px) {
+
   nav {
     padding: 0 15px;
     position: fixed;
@@ -175,6 +176,7 @@ p {
 
   .bx.bx-menu-alt-right {
     display: inline;
+    padding-left: 100px;
   }
 
   .overlay {
@@ -194,7 +196,6 @@ p {
     top: 25%;
     width: 100%;
     text-align: center;
-    margin-top: 30px;
     display: block;
   }
 
@@ -234,6 +235,11 @@ p {
     }
   }
 
+  .logooverlay {
+    width: 20%;
+    height: auto;
+  }
+
 }
 
 
@@ -249,7 +255,28 @@ p {
 
   }
 
+  .bx.bx-menu-alt-right {
+    padding-left: 90px;
+    font-size: 30px;
+  }
+
 }
+
+@media only screen and (max-width: 320px) {
+
+  .logoname {
+    text-wrap: nowrap;
+
+  }
+
+  .bx.bx-menu-alt-right {
+    padding-left: 35px;
+
+  }
+}
+
+
+
 
 /*?NAV TOP END----------------------------------------------------------------------------------------------------------------------*/
 
@@ -420,9 +447,9 @@ p {
   }
 
   #butt {
-    padding: 10px 20px;
+    padding: 15px 50px;
     margin: 10px 0px;
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -473,26 +500,11 @@ p {
 
 }
 
-
-.headService {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 900;
-}
-
-.sedula {
-  line-height: 20px;
-  margin: 0;
-  font-size: 20px;
-  font-weight: 900;
-}
-
-.sed {
+.concon1 {
   background-color: #266E60;
   color: #fff;
   text-align: center;
   padding: 50px 20px;
-  padding-top: 40px;
   margin: 10px;
   width: 20%;
   border-radius: 10px;
@@ -500,10 +512,18 @@ p {
   transition: ease-in-out;
 }
 
-.sed:hover {
+.concon1:hover {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 
 }
+
+
+.headService {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+
 
 .buttService {
   padding: 15px 35px;
@@ -522,13 +542,40 @@ p {
   transform: scale(1.1);
 }
 
-/*RESPONSIVE*/
-@media only screen and (max-width: 1024px) {
 
-  #service {
-    padding: 50px 50px;
+
+
+/*RESPONSIVE*/
+@media only screen and (max-width: 1440px) {
+  .headService {
+    font-size: 16px;
+  }
+
+  .pService {
+    font-size: 15px;
+  }
+
+  .concon1 {
+    padding-top: 30px;
+  }
+
+  .buttService {
+
+    margin-top: 0px;
   }
 }
+
+
+
+@media only screen and (max-width: 1024px) {
+  #service {
+    padding: 50px 20px;
+  }
+
+
+}
+
+
 
 @media only screen and (max-width: 768px) {
 
@@ -551,46 +598,38 @@ p {
     height: 50%;
   }
 
-  .sed {
-    padding: 30px 20px;
-    margin: 3px;
-    height: 50%;
-
-  }
 
   .headService {
     font-size: 17px;
     line-height: 20px;
   }
 
-  .sedula {
-    font-size: 15px;
-    margin-top: 6px !important;
-    line-height: 17px;
-
-  }
 
 }
 
 @media only screen and (max-width: 768px) {
 
+
   .serviceCon {
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
+    flex-direction: column;
+    /* Stack children vertically */
+    align-items: center;
+    /* Center items horizontally */
+    justify-content: center;
+    /* Center items vertically */
   }
-  
+
   .text1 {
     font-size: 25px;
   }
-  
+
   .text2 {
     font-size: 12px;
   }
-  
+
   .concon,
-  .sed {
+  .concon1 {
     padding: 20px 20px;
     margin: 10px;
     width: 80%;
@@ -763,25 +802,27 @@ p {
 
 @media only screen and (max-width: 426px) {
 
-  .mhead, .vhead{
+  .mhead,
+  .vhead {
     font-size: 25px;
   }
 
-.mpar, .vpar{
-  font-size: 15px;
-}
+  .mpar,
+  .vpar {
+    font-size: 15px;
+  }
 
-.visionCon {
-  width: 100%;
-  
-  margin-bottom: 40px;
-}
+  .visionCon {
+    width: 100%;
 
-.missionCon {
-  width: 100%;
-  
-  margin-top: 30px;
-}
+    margin-bottom: 40px;
+  }
+
+  .missionCon {
+    width: 100%;
+
+    margin-top: 30px;
+  }
 }
 
 
@@ -821,7 +862,7 @@ p {
 .contactInfoContainer {
   flex: 1;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 
@@ -856,7 +897,7 @@ p {
 
 iframe {
   width: 50%;
-  height: 500px; 
+  height: 500px;
   border: 0;
   border-radius: 10px;
   margin: 30px;
@@ -877,8 +918,9 @@ iframe {
 
   iframe {
     width: 50%;
-    height: 400px; 
+    height: 400px;
   }
+
   .contacttext {
     font-size: 20px;
 
@@ -903,7 +945,7 @@ iframe {
   .contactInfoContainer {
     flex: 1;
     text-align: center;
-    margin-top: 55px;
+    margin-top: 45px;
   }
 
   .phonecon {
@@ -914,9 +956,9 @@ iframe {
 
 @media only screen and (max-width: 1024px) {
 
- .contentContain{
-  margin: 20px;
- }
+  .contentContain {
+    margin: 20px;
+  }
 }
 
 @media only screen and (max-width: 426px) {
@@ -927,11 +969,20 @@ iframe {
   }
 
   iframe {
-    
-    margin:50px 20px -20px 20px;
+
+    margin: 50px 20px -20px 20px;
     width: 73%;
-    height: 250px; 
+    height: 250px;
+  }
 }
+
+@media only screen and (max-width: 320px) {
+
+  iframe {
+    margin: 50px 0px -20px 20px;
+    width: 65%;
+    height: 250px;
+  }
 }
 
 
@@ -1115,6 +1166,7 @@ footer p {
   .footer-links {
     display: flex;
     font-size: 12px;
+    padding-top: 0px;
   }
 
   .sitemap,
@@ -1198,11 +1250,13 @@ footer p {
   }
 
 
+
   /*BLACK FOOTER*/
 
   html,
   body {
     overflow-x: hidden;
+
   }
 
   .fcontain {
@@ -1211,12 +1265,14 @@ footer p {
     padding: 10px;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
   }
 
   .cont {
     text-align: center;
     display: block;
     padding: 10px;
+    padding-bottom: 0px;
 
   }
 
@@ -1238,7 +1294,8 @@ footer p {
 
   .footer-links {
     font-size: 10px;
-
+    padding-top: 10px;
+    padding-bottom: 0px;
   }
 
   .sitemap,
@@ -1260,13 +1317,14 @@ footer p {
   .sitemap h2,
   .about-us h2,
   .follow-us h2 {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .sitemap li,
   .about-us li,
   .follow-us li {
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    font-size: 11px;
 
   }
 
@@ -1290,12 +1348,12 @@ footer p {
 
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 376px) {
 
   .sitemap,
   .about-us,
   .follow-us {
-    padding: 5px 10px;
+    padding: 5px 15px;
   }
 
   .footer-links {
@@ -1314,6 +1372,22 @@ footer p {
   .footer-content {
     line-height: 15px;
   }
+}
+
+@media only screen and (max-width: 320px) {
+
+  .sitemap,
+  .about-us,
+  .follow-us {
+    padding: 5px 10px;
+  }
+
+  .bx.bx-menu-alt-right {
+    padding-right: 25px;
+    font-size: 30px;
+  }
+
+
 }
 
 /*&FOOTER END-------------------------------------------------------------------------------------------------*/
