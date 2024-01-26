@@ -5,11 +5,11 @@ body {
   font-family: 'Poppins', sans-serif;
   flex-direction: column;
   overflow-x: hidden;
-
 }
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 
   ::-webkit-scrollbar {
     display: none;
@@ -116,6 +116,7 @@ p {
 
 
 @media only screen and (max-width: 768px) {
+
   nav {
     padding: 0 15px;
     position: fixed;
@@ -175,6 +176,7 @@ p {
 
   .bx.bx-menu-alt-right {
     display: inline;
+    padding-left: 25px;
   }
 
   .overlay {
@@ -194,7 +196,6 @@ p {
     top: 25%;
     width: 100%;
     text-align: center;
-    margin-top: 30px;
     display: block;
   }
 
@@ -234,6 +235,11 @@ p {
     }
   }
 
+  .logooverlay {
+    width: 20%;
+    height: auto;
+  }
+
 }
 
 
@@ -249,7 +255,17 @@ p {
 
   }
 
+  .bx.bx-menu-alt-right {
+    padding-left: 15px;
+    font-size: 30px;
+  }
+
 }
+
+
+
+
+
 
 /*?NAV TOP END----------------------------------------------------------------------------------------------------------------------*/
 
@@ -420,9 +436,9 @@ p {
   }
 
   #butt {
-    padding: 10px 20px;
+    padding: 15px 50px;
     margin: 10px 0px;
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -574,21 +590,27 @@ p {
 
 @media only screen and (max-width: 768px) {
 
+
+
+
   .serviceCon {
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
+    flex-direction: column;
+    /* Stack children vertically */
+    align-items: center;
+    /* Center items horizontally */
+    justify-content: center;
+    /* Center items vertically */
   }
-  
+
   .text1 {
     font-size: 25px;
   }
-  
+
   .text2 {
     font-size: 12px;
   }
-  
+
   .concon,
   .sed {
     padding: 20px 20px;
@@ -763,25 +785,27 @@ p {
 
 @media only screen and (max-width: 426px) {
 
-  .mhead, .vhead{
+  .mhead,
+  .vhead {
     font-size: 25px;
   }
 
-.mpar, .vpar{
-  font-size: 15px;
-}
+  .mpar,
+  .vpar {
+    font-size: 15px;
+  }
 
-.visionCon {
-  width: 100%;
-  
-  margin-bottom: 40px;
-}
+  .visionCon {
+    width: 100%;
 
-.missionCon {
-  width: 100%;
-  
-  margin-top: 30px;
-}
+    margin-bottom: 40px;
+  }
+
+  .missionCon {
+    width: 100%;
+
+    margin-top: 30px;
+  }
 }
 
 
@@ -821,7 +845,7 @@ p {
 .contactInfoContainer {
   flex: 1;
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 
@@ -856,7 +880,7 @@ p {
 
 iframe {
   width: 50%;
-  height: 500px; 
+  height: 500px;
   border: 0;
   border-radius: 10px;
   margin: 30px;
@@ -877,8 +901,9 @@ iframe {
 
   iframe {
     width: 50%;
-    height: 400px; 
+    height: 400px;
   }
+
   .contacttext {
     font-size: 20px;
 
@@ -903,7 +928,7 @@ iframe {
   .contactInfoContainer {
     flex: 1;
     text-align: center;
-    margin-top: 55px;
+    margin-top: 45px;
   }
 
   .phonecon {
@@ -914,9 +939,9 @@ iframe {
 
 @media only screen and (max-width: 1024px) {
 
- .contentContain{
-  margin: 20px;
- }
+  .contentContain {
+    margin: 20px;
+  }
 }
 
 @media only screen and (max-width: 426px) {
@@ -927,11 +952,20 @@ iframe {
   }
 
   iframe {
-    
-    margin:50px 20px -20px 20px;
+
+    margin: 50px 20px -20px 20px;
     width: 73%;
-    height: 250px; 
+    height: 250px;
+  }
 }
+
+@media only screen and (max-width: 320px) {
+
+  iframe {
+    margin: 50px 0px -20px 20px;
+    width: 65%;
+    height: 250px;
+  }
 }
 
 
@@ -1115,6 +1149,7 @@ footer p {
   .footer-links {
     display: flex;
     font-size: 12px;
+    padding-top: 0px;
   }
 
   .sitemap,
@@ -1203,6 +1238,7 @@ footer p {
   html,
   body {
     overflow-x: hidden;
+
   }
 
   .fcontain {
@@ -1211,12 +1247,14 @@ footer p {
     padding: 10px;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
   }
 
   .cont {
     text-align: center;
     display: block;
     padding: 10px;
+    padding-bottom: 0px;
 
   }
 
@@ -1238,7 +1276,8 @@ footer p {
 
   .footer-links {
     font-size: 10px;
-
+    padding-top: 10px;
+    padding-bottom: 0px;
   }
 
   .sitemap,
@@ -1260,13 +1299,14 @@ footer p {
   .sitemap h2,
   .about-us h2,
   .follow-us h2 {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
   }
 
   .sitemap li,
   .about-us li,
   .follow-us li {
-    margin-bottom: 6px;
+    margin-bottom: 10px;
+    font-size: 11px;
 
   }
 
@@ -1290,12 +1330,12 @@ footer p {
 
 }
 
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 376px) {
 
   .sitemap,
   .about-us,
   .follow-us {
-    padding: 5px 10px;
+    padding: 5px 15px;
   }
 
   .footer-links {
@@ -1314,6 +1354,22 @@ footer p {
   .footer-content {
     line-height: 15px;
   }
+}
+
+@media only screen and (max-width: 320px) {
+
+  .sitemap,
+  .about-us,
+  .follow-us {
+    padding: 5px 10px;
+  }
+
+  .bx.bx-menu-alt-right {
+    padding-right: 25px;
+    font-size: 30px;
+  }
+
+
 }
 
 /*&FOOTER END-------------------------------------------------------------------------------------------------*/
