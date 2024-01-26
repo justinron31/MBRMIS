@@ -176,7 +176,7 @@ p {
 
   .bx.bx-menu-alt-right {
     display: inline;
-    padding-left: 25px;
+    padding-left: 100px;
   }
 
   .overlay {
@@ -256,13 +256,24 @@ p {
   }
 
   .bx.bx-menu-alt-right {
-    padding-left: 15px;
+    padding-left: 90px;
     font-size: 30px;
   }
 
 }
 
+@media only screen and (max-width: 320px) {
 
+  .logoname {
+    text-wrap: nowrap;
+
+  }
+
+  .bx.bx-menu-alt-right {
+    padding-left: 35px;
+
+  }
+}
 
 
 
@@ -489,26 +500,11 @@ p {
 
 }
 
-
-.headService {
-  margin: 0;
-  font-size: 20px;
-  font-weight: 900;
-}
-
-.sedula {
-  line-height: 20px;
-  margin: 0;
-  font-size: 20px;
-  font-weight: 900;
-}
-
-.sed {
+.concon1 {
   background-color: #266E60;
   color: #fff;
   text-align: center;
   padding: 50px 20px;
-  padding-top: 40px;
   margin: 10px;
   width: 20%;
   border-radius: 10px;
@@ -516,10 +512,18 @@ p {
   transition: ease-in-out;
 }
 
-.sed:hover {
+.concon1:hover {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 
 }
+
+
+.headService {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 900;
+}
+
 
 .buttService {
   padding: 15px 35px;
@@ -538,13 +542,40 @@ p {
   transform: scale(1.1);
 }
 
-/*RESPONSIVE*/
-@media only screen and (max-width: 1024px) {
 
-  #service {
-    padding: 50px 50px;
+
+
+/*RESPONSIVE*/
+@media only screen and (max-width: 1440px) {
+  .headService {
+    font-size: 16px;
+  }
+
+  .pService {
+    font-size: 15px;
+  }
+
+  .concon1 {
+    padding-top: 30px;
+  }
+
+  .buttService {
+
+    margin-top: 0px;
   }
 }
+
+
+
+@media only screen and (max-width: 1024px) {
+  #service {
+    padding: 50px 20px;
+  }
+
+
+}
+
+
 
 @media only screen and (max-width: 768px) {
 
@@ -567,30 +598,16 @@ p {
     height: 50%;
   }
 
-  .sed {
-    padding: 30px 20px;
-    margin: 3px;
-    height: 50%;
-
-  }
 
   .headService {
     font-size: 17px;
     line-height: 20px;
   }
 
-  .sedula {
-    font-size: 15px;
-    margin-top: 6px !important;
-    line-height: 17px;
-
-  }
 
 }
 
 @media only screen and (max-width: 768px) {
-
-
 
 
   .serviceCon {
@@ -612,7 +629,7 @@ p {
   }
 
   .concon,
-  .sed {
+  .concon1 {
     padding: 20px 20px;
     margin: 10px;
     width: 80%;
@@ -1231,6 +1248,7 @@ footer p {
   .terms:hover {
     text-decoration: underline;
   }
+
 
 
   /*BLACK FOOTER*/

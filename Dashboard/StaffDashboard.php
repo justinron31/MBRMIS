@@ -164,7 +164,7 @@ $_SESSION['show_login_message'] = false;
                                         card_membership
                                     </span>
                                 </i>
-                                <span>Brgy. Business Clearance</span>
+                                <span>First Time Job Seeker</span>
                             </a>
                         </li>
                         <li class="item">
@@ -226,7 +226,7 @@ $_SESSION['show_login_message'] = false;
                 <div class="header">
 
                     <h1 class="maintitle">
-                        DASHBOARD
+                        OVERVIEW
                     </h1>
 
                     <div class="access">
@@ -362,7 +362,7 @@ $_SESSION['show_login_message'] = false;
                                         card_membership
                                     </span>
                                     <div class="pendingTitle">
-                                        Brgy. Business Clearance
+                                        First Time Job Seeker
                                     </div>
                                     <div class="numberP">8</div>
                                 </div>

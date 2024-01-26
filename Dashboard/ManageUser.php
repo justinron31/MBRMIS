@@ -13,17 +13,23 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
+
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
+    <link rel="stylesheet" href="../Dashboard/CSS,JS/Table.css" />
 
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Table.js" defer></script>
 
 
-    <title>MAKILING BRMI SYSTEM - ADMIN</title>
+
+
+    <title>MAKILING BRMI SYSTEM - Manage Users</title>
 </head>
 
 
@@ -49,31 +55,6 @@ $_SESSION['show_login_message'] = false;
 
 
 <body>
-
-    <!-- JavaScript for Popup -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($showLoginMessage): ?>
-        var loginPopup = document.getElementById('loginPopup');
-        if (loginPopup) {
-            loginPopup.style.display = 'block';
-
-            // Trigger the slide-up animation after 2 seconds
-            setTimeout(function() {
-                loginPopup.classList.add('slide-up');
-            }, 1500);
-
-            // Hide the popup after 3 seconds
-            setTimeout(function() {
-                loginPopup.style.display = 'none';
-            }, 2000);
-        }
-        <?php endif;?>
-    });
-    </script>
-
-    <!--BACK BUTTON-->
-
 
 
     <!--  MODAL POPUP-->
@@ -109,8 +90,8 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">Dashboard</span>
                             <span class="line"></span>
                         </div>
-                        <li class="item active">
-                            <a href="#" class="link flex">
+                        <li class="item ">
+                            <a href="/MBRMIS/Dashboard/AdminDashboard.php" class="link flex">
                                 <i class="bx bxs-dashboard"></i>
                                 <span>Overview</span>
                             </a>
@@ -191,14 +172,12 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">Others</span>
                             <span class="line"></span>
                         </div>
-
-                        <li class="item">
-                            <a href="/MBRMIS/Dashboard/ManageUser.php" class="link flex">
+                        <li class="item active">
+                            <a href="#" class="link flex">
                                 <i class='bx bxs-user-detail'></i>
                                 <span>Manage System User</span>
                             </a>
                         </li>
-
                         <li class="item ">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-report'></i>
@@ -212,15 +191,13 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">System</span>
                             <span class="line"></span>
                         </div>
-
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i class="bx bx-cog"></i>
                                 <span>Settings</span>
                             </a>
                         </li>
-
-                        <li class="item " onclick="openLogoutModal()">
+                        <li class="item1 " onclick="openLogoutModal()">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-exit bx-rotate-180'></i>
                                 <span>Logout</span>
@@ -231,11 +208,6 @@ $_SESSION['show_login_message'] = false;
             </div>
         </nav>
 
-        <!--LOGIN MESSAGE-->
-        <div id="loginPopup" class="popup">
-            <p>Login successfully!</p>
-        </div>
-
 
         <!-- MAIN CONTENT-->
         <div class="headermain">
@@ -244,7 +216,7 @@ $_SESSION['show_login_message'] = false;
                 <div class="header">
 
                     <h1 class="maintitle">
-                        OVERVIEW
+                        MANAGE SYSTEM USER
                     </h1>
 
                     <div class="access">
@@ -265,163 +237,130 @@ $_SESSION['show_login_message'] = false;
             </div>
 
 
-            <!-- MAIN CONTENT -->
+            <!-- TABLE MAIN -->
 
             <div class="supermaincontain">
 
-                <div class="cards">
 
 
-                    <div class="card">
-                        <div class="icon-box">
-                            <span class="material-symbols-outlined">
-                                group
-                            </span>
+                <!--TABLE-->
+                <main class="table" id="customers_table">
+
+                    <section class="table__header">
+
+                        <!-- SEARCH BAR-->
+                        <div class="input-group">
+                            <input type="search" placeholder="Search...">
+                            <i class='bx bx-search-alt'></i>
                         </div>
-                        <div class="card-content">
-                            <div class="number">1217</div>
-                            <div class="card-name">Population</div>
+
+                    </section>
+
+                    <div class="tableHead">
+                        <!--TOTAL USER-->
+                        <?php
+include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+
+$sql = "SELECT firstname, lastname, idnumber, email, gender FROM staff";
+$result = $conn->query($sql);
+
+if ($result) {
+    $totalUsers = $result->num_rows;
+}
+echo "<h1 class='titleTable'>Total user: " . $totalUsers . "</h1>";
+?>
+
+                        <div class="export__file">
+                            <button type="button" class="export__file-btn" title="Export File" onclick="togglePopup()">
+                                <i class='bx bxs-file-export'></i>
+                                <p class="exportTitle">Export</p>
+                            </button>
+                        </div>
+
+                        <div class="popupEX" id="popupEX">
+                            <div class="popup-content">
+
+                                <p>EXCEL</p>
+                                <img src="/MBRMIS/Images/excel.png" alt="excel logo">
+                            </div>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="icon-box1">
-                            <span class="material-symbols-outlined">
-                                man
-                            </span>
-                        </div>
-                        <div class="card-content">
-                            <div class="number">563</div>
-                            <div class="card-name">Male</div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="icon-box1">
-                            <span class="material-symbols-outlined">
-                                woman
-                            </span>
-                        </div>
-                        <div class="card-content">
-                            <div class="number">563</div>
-                            <div class="card-name">Female</div>
-                        </div>
-                    </div>
-
-                    <div class="cardVoters">
-
-                        <div class="con1">
-                            <div class="icon-box2">
-                                <span class="material-symbols-outlined">
-                                    person_check
-                                </span>
-                            </div>
-
-                            <div class="card-content">
-                                <div class="number1">563</div>
-                                <div class="card-name1">Voters</div>
-                            </div>
-
-                        </div>
-                        <div class="con1">
-                            <div class="icon-box2">
-                                <span class="material-symbols-outlined">
-                                    person_cancel
-                                </span>
-                            </div>
-
-                            <div class="card-content">
-                                <div class="number1">563</div>
-                                <div class="card-name1">Non - Voters</div>
-                            </div>
-
-                        </div>
+                    <section class="table__body">
 
 
-                    </div>
 
-                </div>
+                        <!--TABLE CONTENT-->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Email <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Action </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
 
 
-                <!--LOWER CONTENT-->
-                <div class="lowerCon">
-                    <div class="Pending">
+                                <?php
+include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-                        <div class="Req">
+$sql = "SELECT firstname, lastname, idnumber, email, gender, account_status FROM staff";
+$result = $conn->query($sql);
 
-                            <div class="reqHead">
-                                <div class="card-nameR">PENDING FILE REQUEST</div>
-                                <div class="seeMore"> <a href="#">See more</a></div>
-                            </div>
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
+        $uniqueId = 'edit_' . $row["idnumber"];
+        echo "<tr>" .
+            "<td>" . $row["idnumber"] . "</td>" .
+            "<td>" . $row["firstname"] . "</td>" .
+            "<td>" . $row["lastname"] . "</td>" .
+            "<td>" . $row["gender"] . "</td>" .
+            "<td>" . $row["email"] . "</td>" .
+            "<td><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i></td>" .
+            "</tr>";
+    }
+    $result->close();
+} else {
+    echo "<tr><td colspan='7'>No data found</td></tr>";
+}
 
-                            <div class="reqItem">
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        badge
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Barangay Certificates
+$conn->close();
+?>
+                                <!--POPUP FORM ACCOUNT EDIT-->
+                                <div id="customEditModal" class="custom-modal">
+                                    <div class="custom-modal-content">
+                                        <span class="custom-close" onclick="closeCustomModal()">&times;</span>
+                                        <h2>Edit Account Status</h2>
+                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
+                                            <input type="hidden" id="customUserId" name="customUserId" value="">
+                                            <label for="customStatus">Account Status:</label>
+                                            <select id="customStatus" name="customStatus">
+                                                <option value="Activated">Activated</option>
+                                                <option value="Deactivated">Deactivated</option>
+                                            </select>
+                                            <button type="submit">Update</button>
+                                        </form>
                                     </div>
-                                    <div class="numberP">12</div>
-                                </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        clinical_notes
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Certificate of Residency
-                                    </div>
-                                    <div class="numberP">18</div>
-                                </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        card_membership
-                                    </span>
-                                    <div class="pendingTitle">
-                                        First Time Job Seeker
-                                    </div>
-                                    <div class="numberP">8</div>
-                                </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        lab_profile
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Community Tax Certificate
-                                    </div>
-                                    <div class="numberP">3</div>
                                 </div>
 
 
-                            </div>
 
-                        </div>
 
-                    </div>
+                            </tbody>
+                        </table>
+                    </section>
+                </main>
 
-                    <!--CALENDAR-->
-                    <div id="calendar">
-                        <div class="calendarBg">
-                            <div id="calendar-header">
-                                <span id="month-prev" class="change-month">&lt;</span>
-                                <h1 id="month" onclick="showCurrentDate()"></h1>
-                                <span id="month-next" class="change-month">&gt;</span>
-                            </div>
-                            <div id="days"></div>
-                            <div id="calendar-body"></div>
-                        </div>
-                    </div>
-
-                </div>
 
             </div>
-        </div>
-
-
-
 </body>
 
 
