@@ -479,7 +479,7 @@ img {
   color: #299b63;
 }
 
-/* Calendar */
+/* CALENDAR */
 
 
 
@@ -893,6 +893,10 @@ img {
 .modal-buttons button.no:hover {
   transform: scale(1.1);
 }
+
+/*TABLE*/
+
+
 
 
 /** MAIN CONTENT END------------------------------------------------------------------------------------------------------*/
