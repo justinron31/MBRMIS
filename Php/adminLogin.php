@@ -27,34 +27,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check the staff database
-    $staffQuery = "SELECT * FROM staff WHERE idnumber = '$username'";
+    $staffQuery = "SELECT id, firstname, pass, account_status FROM staff WHERE idnumber = '$username'";
     $staffResult = $conn->query($staffQuery);
 
     if ($staffResult->num_rows == 1) {
         // Staff found
-        $row = $staffResult->fetch_assoc(); // Corrected line
+        $row = $staffResult->fetch_assoc();
 
-        // Fetch the hashed password from the database
-        $storedHashedPassword = $row['pass'];
+        // Check the account status
+        $accountStatus = $row['account_status'];
 
-        // Verify entered password against hashed password
-        if (password_verify($password, $storedHashedPassword)) {
-            // Passwords match, login successful
+        if ($accountStatus === 'active') {
+            // Fetch the hashed password from the database
+            $storedHashedPassword = $row['pass'];
 
-            // Fetch and display the name
-            $name = $row['firstname'];
+            // Verify entered password against hashed password
+            if (password_verify($password, $storedHashedPassword)) {
+                // Passwords match, login successful
 
-            $_SESSION['show_login_message'] = true;
-            $_SESSION['user_name'] = $name;
-            $_SESSION['user_type'] = 'staff';
+                // Fetch and display the name
+                $name = $row['firstname'];
 
-            // Assign user role to userRole variable
+                $_SESSION['show_login_message'] = true;
+                $_SESSION['user_name'] = $name;
+                $_SESSION['user_type'] = 'staff';
 
-            // Redirect to the dashboard with a welcome message
-            header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
-            exit();
+                // Assign user role to userRole variable
+
+                // Redirect to the dashboard with a welcome message
+                header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
+                exit();
+            } else {
+                $_SESSION['error_message'] = "Invalid Credentials";
+            }
         } else {
-            $_SESSION['error_message'] = "Invalid Credentials";
+            $_SESSION['error_message'] = "Your account is deactivated. Please contact the admin.";
         }
     } else {
         $_SESSION['error_message'] = "Invalid Credentials";

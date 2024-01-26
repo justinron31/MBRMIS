@@ -13,6 +13,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
+
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
@@ -21,8 +22,11 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
+
+
 
 
     <title>MAKILING BRMI SYSTEM - Manage Users</title>
@@ -193,7 +197,7 @@ $_SESSION['show_login_message'] = false;
                                 <span>Settings</span>
                             </a>
                         </li>
-                        <li class="item " onclick="openLogoutModal()">
+                        <li class="item1 " onclick="openLogoutModal()">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-exit bx-rotate-180'></i>
                                 <span>Logout</span>
@@ -250,17 +254,11 @@ $_SESSION['show_login_message'] = false;
                             <i class='bx bx-search-alt'></i>
                         </div>
 
-
                     </section>
 
-                    <section class="table__body">
-
+                    <div class="tableHead">
                         <!--TOTAL USER-->
-                        <div class="tableHead">
-
-
-
-                            <?php
+                        <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
 $sql = "SELECT firstname, lastname, idnumber, email, gender FROM staff";
@@ -272,27 +270,27 @@ if ($result) {
 echo "<h1 class='titleTable'>Total user: " . $totalUsers . "</h1>";
 ?>
 
-
-
-                            <div class="export__file">
-                                <button type="button" class="export__file-btn" title="Export File"
-                                    onclick="togglePopup()">
-                                    <i class='bx bxs-file-export'></i>
-                                    <p class="exportTitle">Export</p>
-                                </button>
-                            </div>
-
-                            <div class="popupEX" id="popupEX">
-                                <div class="popup-content">
-
-                                    <p>EXCEL</p>
-                                    <img src="/MBRMIS/Images/excel.png" alt="excel logo">
-                                </div>
-                            </div>
-
-
+                        <div class="export__file">
+                            <button type="button" class="export__file-btn" title="Export File" onclick="togglePopup()">
+                                <i class='bx bxs-file-export'></i>
+                                <p class="exportTitle">Export</p>
+                            </button>
                         </div>
 
+                        <div class="popupEX" id="popupEX">
+                            <div class="popup-content">
+
+                                <p>EXCEL</p>
+                                <img src="/MBRMIS/Images/excel.png" alt="excel logo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <section class="table__body">
+
+
+
+                        <!--TABLE CONTENT-->
                         <table>
                             <thead>
                                 <tr>
@@ -307,36 +305,54 @@ echo "<h1 class='titleTable'>Total user: " . $totalUsers . "</h1>";
                             </thead>
 
                             <tbody>
+
+
                                 <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender FROM staff";
+$sql = "SELECT firstname, lastname, idnumber, email, gender, account_status FROM staff";
 $result = $conn->query($sql);
 
 if ($result) {
-    if ($result->num_rows > 0) {
-        // Output data of each row
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>" . $row["idnumber"] . "</td>";
-            echo "<td>" . $row["firstname"] . "</td>";
-            echo "<td>" . $row["lastname"] . "</td>";
-            echo "<td>" . $row["gender"] . "</td>";
-            echo "<td>" . $row["email"] . "</td>";
-            echo "<td><p class='status delivered'>Activated</p></td>";
-            echo "<td><i class='bx bxs-edit'></i></td>";
-            echo "</tr>";
-        }
-    } else {
-        echo "<tr><td colspan='7'>No data found</td></tr>";
+    while ($row = $result->fetch_assoc()) {
+        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
+        $uniqueId = 'edit_' . $row["idnumber"];
+        echo "<tr>" .
+            "<td>" . $row["idnumber"] . "</td>" .
+            "<td>" . $row["firstname"] . "</td>" .
+            "<td>" . $row["lastname"] . "</td>" .
+            "<td>" . $row["gender"] . "</td>" .
+            "<td>" . $row["email"] . "</td>" .
+            "<td><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i></td>" .
+            "</tr>";
     }
     $result->close();
 } else {
-    echo "Error: " . $conn->error;
+    echo "<tr><td colspan='7'>No data found</td></tr>";
 }
 
 $conn->close();
 ?>
+                                <!--POPUP FORM ACCOUNT EDIT-->
+                                <div id="customEditModal" class="custom-modal">
+                                    <div class="custom-modal-content">
+                                        <span class="custom-close" onclick="closeCustomModal()">&times;</span>
+                                        <h2>Edit Account Status</h2>
+                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
+                                            <input type="hidden" id="customUserId" name="customUserId" value="">
+                                            <label for="customStatus">Account Status:</label>
+                                            <select id="customStatus" name="customStatus">
+                                                <option value="Activated">Activated</option>
+                                                <option value="Deactivated">Deactivated</option>
+                                            </select>
+                                            <button type="submit">Update</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
 
                             </tbody>
                         </table>
