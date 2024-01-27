@@ -79,67 +79,137 @@ function closePopupOutside(event) {
 }
 
 
-/*FORM ACCOUNT STATUS EDIT*/
+
+/* FORM ACCOUNT STATUS EDIT */
+$(document).mousedown(function (event) {
+    var modal = $('#customEditModal');
+    if (!modal.is(event.target) && modal.has(event.target).length === 0) {
+        closeCustomModal();
+    }
+});
+
 function openCustomModal(userId, currentStatus) {
+    // Fetch user information before opening the modal
+    fetchUserInfo(userId);
+
     $('#customUserId').val(userId);
     $('#customStatus').val(currentStatus);
-    $('#customEditModal').css('display', 'block');
+
+    // Function to update button state based on the selected value
+    function updateButtonState(selectedValue) {
+        $('#updateButton').prop('disabled', selectedValue === currentStatus);
+    }
+
+    // Set the available options in the dropdown based on the current status
+    if (currentStatus === 'Activated') {
+
+        $('#customStatus option[value="Deactivated"]').prop('disabled', false);
+    } else {
+        $('#customStatus option[value="Activated"]').prop('disabled', false);
+
+    }
+
+    // Update button state based on the initially selected value
+    updateButtonState(currentStatus);
+
+    // Bind the change event to dynamically update button state
+    $('#customStatus').on('change', function () {
+        var selectedValue = $(this).val();
+        updateButtonState(selectedValue);
+    });
+
+    $('#customEditModal').show(); // Use .show() to display the modal
 }
 
+
 function closeCustomModal() {
-    $('#customEditModal').css('display', 'none');
+    $('#customEditModal').hide(); // Use .hide() to hide the modal
+}
+
+
+
+
+// Function to fetch user information
+function fetchUserInfo(userId) {
+    $.ajax({
+        type: 'POST',
+        url: '/MBRMIS/Php/fetchUserInfo.php', // Create a new PHP file to handle this request
+        data: { userId: userId },
+        dataType: 'json',
+        success: function (data) {
+            // Display the first name and last name in the modal
+            $('#customUserName').text('Name: ' + data.firstName + ' ' + data.lastName);
+        },
+        error: function (error) {
+            console.log('Error fetching user information: ', error);
+        }
+    });
 }
 
 $(document).ready(function () {
+    // Check for session storage value on page load
+    var showMessage = sessionStorage.getItem('showCustomPopup');
+    if (showMessage) {
+        // Show a custom popup if the value is set
+        showCustomPopup(showMessage);
+        // Clear the session storage value
+        sessionStorage.removeItem('showCustomPopup');
+    }
+
     $('#customEditForm').submit(function (e) {
         e.preventDefault(); // Prevent the default form submission
 
-        // Serialize the form data
-        var formData = $(this).serialize();
+        // Display a confirmation prompt
+        var confirmation = confirm("Are you sure you want to update the account status?");
 
-        // Send an AJAX request to updateAstatus.php
-        $.ajax({
-            type: 'POST',
-            url: '/MBRMIS/Php/updateAstatus.php',
-            data: formData,
-            dataType: 'json', // Specify that you expect JSON in the response
-            success: function (data) {
-                // Check the status in the response
-                if (data.status === 'success') {
-                    // Update the status in the table using DOM manipulation
-                    var userId = $('#customUserId').val();
-                    var newStatus = data.data.account_status;
-                    $('.status_' + userId).text(newStatus);
+        if (confirmation) {
+            // User clicked OK, proceed with the update
 
-                    // Close the modal
-                    closeCustomModal();
+            // Serialize the form data
+            var formData = $(this).serialize();
 
-                    // Show a custom success popup
-                    showCustomPopup(data.message);
-                } else {
+            // Send an AJAX request to updateAstatus.php
+            $.ajax({
+                type: 'POST',
+                url: '/MBRMIS/Php/updateAstatus.php',
+                data: formData,
+                dataType: 'json', // Specify that you expect JSON in the response
+                success: function (data) {
+                    // Check the status in the response
+                    if (data.status === 'success') {
+                        // Set session storage value
+                        sessionStorage.setItem('showCustomPopup', data.message);
+                        // Close the modal
+                        closeCustomModal();
+                        // Refresh the page
+                        location.reload();
+                    } else {
+                        // Show a custom error popup
+                        showCustomPopup(data.message);
+                    }
+                },
+                error: function (error) {
+                    console.log('Error updating status: ', error);
+
                     // Show a custom error popup
-                    showCustomPopup(data.message);
+                    showCustomPopup('Error updating account status');
                 }
-            },
-            error: function (error) {
-                console.log('Error updating status: ', error);
-
-                // Show a custom error popup
-                showCustomPopup('Error updating account status');
-            }
-        });
+            });
+        }
     });
+
+    // Function to show a custom popup
+    function showCustomPopup(message) {
+        var popupContainer = $('<div class="custom-popup"></div>').text(message);
+        $('body').append(popupContainer);
+
+        // Display the popup and remove it after a certain time
+        popupContainer.fadeIn(300).delay(2500).fadeOut(300, function () {
+            $(this).remove();
+        });
+    }
 });
 
-// Function to show a custom popup
-function showCustomPopup(message) {
-    var popupContainer = $('<div class="custom-popup"></div>').text(message);
-    $('body').append(popupContainer);
 
-    // Display the popup and remove it after a certain time
-    popupContainer.fadeIn(300).delay(2500).fadeOut(300, function () {
-        $(this).remove();
-    });
-}
 
 

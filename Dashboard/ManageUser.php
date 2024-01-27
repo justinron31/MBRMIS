@@ -334,11 +334,12 @@ if ($result) {
 
 $conn->close();
 ?>
-                                <!--POPUP FORM ACCOUNT EDIT-->
+                                <!-- POPUP FORM ACCOUNT EDIT -->
                                 <div id="customEditModal" class="custom-modal">
                                     <div class="custom-modal-content">
-                                        <span class="custom-close" onclick="closeCustomModal()">&times;</span>
-                                        <h2>Edit Account Status</h2>
+
+                                        <h2 class="editAccountTitle">Edit Account Status</h2>
+                                        <p id="customUserName"></p>
                                         <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
                                             <input type="hidden" id="customUserId" name="customUserId" value="">
                                             <label for="customStatus">Account Status:</label>
@@ -346,11 +347,10 @@ $conn->close();
                                                 <option value="Activated">Activated</option>
                                                 <option value="Deactivated">Deactivated</option>
                                             </select>
-                                            <button type="submit">Update</button>
+                                            <button id="updateButton" class="updateButton" type="submit">Update</button>
                                         </form>
                                     </div>
                                 </div>
-
 
 
 
