@@ -235,20 +235,3 @@ $(window).on('load', function () {
 
 /*EXPORT TABLE TO EXCEL*/
 
-function exportToExcel() {
-  // Ask the user if they want to export the table to Excel
-  var userResponse = window.confirm("Export the table to Excel?");
-
-  if (userResponse) {
-    // Get the table data
-    var table = document.getElementById('dataTable');
-    // Convert table to worksheet
-    var ws = XLSX.utils.table_to_sheet(table);
-    // Create a workbook with one sheet (our table)
-    var wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    // Save workbook to Excel file
-    XLSX.writeFile(wb, 'exported_table.xlsx');
-  }
-}
-
