@@ -281,7 +281,8 @@ echo "<h1 class='titleTable'>Total user: " . $totalUsers . "</h1>";
                             <div class="popup-content">
 
                                 <p>EXCEL</p>
-                                <img src="/MBRMIS/Images/excel.png" alt="excel logo">
+                                <img src="/MBRMIS/Images/excel.png" alt="excel logo" onclick="exportToExcel()"
+                                    style="cursor: pointer;">
                             </div>
                         </div>
                     </div>

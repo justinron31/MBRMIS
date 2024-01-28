@@ -33,22 +33,71 @@ function changeFontColor() {
 function validatePassword() {
     var passwordInput = document.getElementById("password");
     var confirmPasswordInput = document.getElementById("confirmPassword");
+    var validationPopup = document.getElementById("validationPopup");
 
     var password = passwordInput.value;
     var confirmPassword = confirmPasswordInput.value;
 
     if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        passwordInput.classList.add("error-input"); // Add the error class to password field
-        confirmPasswordInput.classList.add("error-input"); // Add the error class to confirm password field
+        validationPopup.style.display = "block";
+        passwordInput.classList.add("error-input");
+        confirmPasswordInput.classList.add("error-input");
+
+
+        setTimeout(function () {
+            validationPopup.classList.add('slide-up');
+        }, 2000);
+
+
+        setTimeout(function () {
+            validationPopup.style.display = "none";
+            validationPopup.classList.remove('slide-up');
+        }, 2500);
         return false;
     } else {
-        passwordInput.classList.remove("error-input"); // Remove the error class from password field if it was previously added
-        confirmPasswordInput.classList.remove("error-input"); // Remove the error class from confirm password field if it was previously added
+        validationPopup.style.display = "none";
+        passwordInput.classList.remove("error-input");
+        confirmPasswordInput.classList.remove("error-input");
     }
 
     return true;
 }
+
+
+
+/*EMAIL VERIFY*/
+function validateEmail() {
+    var emailInput = document.getElementById("email");
+    var validationPopup = document.getElementById("validationPopup1");
+
+    var email = emailInput.value;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        validationPopup.style.display = "block";
+        emailInput.classList.add("error-input");
+
+
+        setTimeout(function () {
+            validationPopup.classList.add('slide-up');
+        }, 2000);
+
+
+        setTimeout(function () {
+            validationPopup.style.display = "none";
+            validationPopup.classList.remove('slide-up');
+        }, 2500);
+
+        return false;
+    } else {
+        validationPopup.style.display = "none";
+        emailInput.classList.remove("error-input");
+    }
+
+    return true;
+}
+
+
 
 /*CAPITALIZED FIRST LETTER*/
 function capitalizeFirstLetter(inputId) {
@@ -62,26 +111,80 @@ function capitalizeFirstLetter(inputId) {
     inputElement.value = capitalizedValue;
 }
 
-/*EMAIL VERIFY*/
-function validateEmail() {
-    var emailInput = document.getElementById("email");
-    var email = emailInput.value;
-
-    // Regular expression for basic email validation
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailRegex.test(email)) {
-        alert("Please enter a valid email address");
-        emailInput.classList.add("error-input"); // Add the error class
-        return false;
-    } else {
-        emailInput.classList.remove("error-input"); // Remove the error class if it was previously added
-    }
-
-    return true;
+/*CAPITALIZE ALL*/
+function capitalizeInput(input) {
+    // Capitalize the entered text
+    input.value = input.value.toUpperCase();
 }
 
 
-/*RECORD LOGIN*/
+
+/*REGISTER MESSAGE*/
+document.addEventListener("DOMContentLoaded", function () {
+    // Check if the URL contains a query parameter indicating a successful registration
+    var urlParams = new URLSearchParams(window.location.search);
+
+    // Check if the registration parameter is set to success
+    if (urlParams.has('registration') && urlParams.get('registration') === 'success') {
+        // Display the popup
+        var registerPopup = document.getElementById("registerPopup");
+        if (registerPopup) {
+            // Add any additional logic or styling here if needed
+            registerPopup.style.display = "block";
+
+            // Trigger the slide-up animation after a short delay
+            setTimeout(function () {
+                registerPopup.classList.add('slide-up');
+            }, 1500);  // Adjust the delay as needed
+
+            // Hide the popup after the animation duration (adjust as needed)
+            setTimeout(function () {
+                registerPopup.style.display = "none";
+            }, 2000);  // Adjust the duration of the animation
+        }
+    }
+});
+
+
+/*LOGOUT MESSAGE*/
+function getQueryParam(name) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.has(name) ? urlParams.get(name) : null;
+}
+
+// Function to display the logout popup if the query parameter is present
+function displayLogoutPopup() {
+    const logoutParam = getQueryParam('logout');
+
+    if (logoutParam === 'true') {
+        // Show the popup with slide-up animation
+        showLogoutPopupWithAnimation();
+    }
+}
+
+// Function to display the logout popup with slide-up animation
+function showLogoutPopupWithAnimation() {
+    var popup = document.getElementById('LogoutPopup');
+    if (popup) {
+        popup.style.display = 'block';
+
+        // Trigger the slide-up animation after a short delay
+        setTimeout(function () {
+            popup.classList.add('slide-up');
+        }, 1500);
+
+        // Hide the popup after the animation duration (adjust as needed)
+        setTimeout(function () {
+            popup.style.display = 'none';
+            // Remove the slide-up class to reset the animation for future displays
+            popup.classList.remove('slide-up');
+        }, 2000);
+    }
+}
+
+// Call the function to display the logout popup when the page loads
+document.addEventListener('DOMContentLoaded', displayLogoutPopup);
+
+
 
 

@@ -12,14 +12,14 @@ $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $sql = "INSERT INTO staff (firstname, lastname, idnumber, email, gender, pass) VALUES ('$fname', '$lname', '$idnum', '$email', '$gender', '$password')";
 
 if ($conn->query($sql) === true) {
-    echo '<script>';
-    echo 'alert("Registered successfully!");';
-    echo 'window.location.href = "/MBRMIS/Login/loginStaff.php";';
-    echo '</script>';
+    // Registration successful
+    header('Location: /MBRMIS/Login/loginStaff.php?registration=success');
     exit;
 } else {
+    // Registration failed
     echo '<script>';
     echo 'alert("Registration failed. Please try again.");';
+    echo 'window.location.href = "/MBRMIS/Login/staffRegister.html";';
     echo '</script>';
 }
 

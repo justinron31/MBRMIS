@@ -67,6 +67,18 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
         </div>
     </nav>
 
+    <!--REGISTER MESSAGE-->
+    <div id="registerPopup" class="popup1">
+        <p>Registered successfully!</p>
+    </div>
+
+    <!--LOGOUT MESSAGE-->
+    <div id="LogoutPopup" class="popup1">
+        <p>Logout Successfully!</p>
+    </div>
+
+
+
     <!--LOGIN FORM-->
     <div class="login-container">
         <div class="logo-container">

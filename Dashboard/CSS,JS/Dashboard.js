@@ -203,18 +203,21 @@ function closeLogoutModal() {
 
 function logout() {
   // Add AJAX request to terminate the session
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      // Redirect to the login page after successful logout
-      window.location.href = '..\\Login\\loginStaff.php';
-    }
-  };
-  xhr.open('GET', '\\MBRMIS\\Php\\logout.php', true);
-  xhr.send();
+  fetch('../Php/logout.php')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Logout failed');
+      }
+      return response.text();
+    })
+    .then(data => {
+      // Redirect to the login page immediately with the logout parameter
+      window.location.href = '../Login/loginStaff.php?logout=true';
+    })
+    .catch(error => {
+      console.error('Logout error:', error);
+    });
 }
-
-
 
 
 /*LOADER ANIMATION*/
@@ -229,4 +232,23 @@ $(window).on('load', function () {
   $('body').delay(150).css({ 'overflow': 'visible' });
 });
 
+
+/*EXPORT TABLE TO EXCEL*/
+
+function exportToExcel() {
+  // Ask the user if they want to export the table to Excel
+  var userResponse = window.confirm("Export the table to Excel?");
+
+  if (userResponse) {
+    // Get the table data
+    var table = document.getElementById('dataTable');
+    // Convert table to worksheet
+    var ws = XLSX.utils.table_to_sheet(table);
+    // Create a workbook with one sheet (our table)
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    // Save workbook to Excel file
+    XLSX.writeFile(wb, 'exported_table.xlsx');
+  }
+}
 
