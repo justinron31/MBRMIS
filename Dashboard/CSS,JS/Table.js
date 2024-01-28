@@ -203,10 +203,12 @@ $(document).ready(function () {
         var popupContainer = $('<div class="custom-popup"></div>').text(message);
         $('body').append(popupContainer);
 
-        // Display the popup and remove it after a certain time
-        popupContainer.fadeIn(300).delay(2500).fadeOut(300, function () {
-            $(this).remove();
-        });
+        // Display the popup with slide-up animation and remove it after a certain time
+        popupContainer.css('display', 'none').fadeIn(200, function () {
+            $(this).animate({ top: '-20px', opacity: 0 }, 300, function () {
+                $(this).remove();
+            });
+        }).delay(2000);
     }
 });
 
