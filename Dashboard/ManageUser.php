@@ -267,7 +267,7 @@ $result = $conn->query($sql);
 if ($result) {
     $totalUsers = $result->num_rows;
 }
-echo "<h1 class='titleTable'>Total user: " . $totalUsers . "</h1>";
+echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
 ?>
 
                         <div class="export__file">
