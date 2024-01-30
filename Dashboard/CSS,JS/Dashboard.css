@@ -791,8 +791,7 @@ img {
   display: none;
   position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 0;width: 100%;
   height: 100%;
   background-color: rgba(19, 83, 52, 0.8);
   z-index: 998;
@@ -805,7 +804,7 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #f4f4f4;
-  padding: 20px;
+  padding: 30px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 998;

@@ -35,6 +35,22 @@
     <div id="status">&nbsp;</div>
   </div>
 
+
+  <!-- MODAL POPUP-->
+  <div id="overlay" class="overlay1"></div>
+  <div id="logoutModal" class="modal">
+    <div class="modal-message">
+      <h3>Confirmation</h3>
+      <p class="no-asterisk">Are you a registered voter here in Barangay Makiling?</p>
+      <p>If yes, you will be redirect to the fill out form.</p>
+      <p>If not, go to <strong>Makiling Hall for registration of Voters ID</strong>.</p>
+    </div>
+    <div class="modal-buttons">
+      <button class="yes">Yes</button>
+      <button class="no">No</button>
+    </div>
+  </div>
+s
   <!--OVERLAY MENU-->
   <div id="myNav" class="overlay">
 
@@ -58,10 +74,10 @@
     </div>
 
     <div id="nav-links">
-      <a href="#home" class="nav-link" id="homeButton">Home</a>
-      <a href="#service" class="nav-link" id="servicesButton">Services</a>
-      <a href="trackRequest.html" class="nav-link">Track Request</a>
-      <a href="#contactus" class="nav-link" id="contactusButton">Contact Us</a>
+      <a href="/MBRMIS/Website/homepage.html#home" class="nav-link" id="homeButton">Home</a>
+      <a href="/MBRMIS/Website/homepage.html#service" class="nav-link" id="servicesButton">Services</a>
+      <a href="/MBRMIS/Website/trackRequest.html" class="nav-link">Track Request</a>
+      <a href="/MBRMIS/Website/homepage.html#contactus" class="nav-link" id="contactusButton">Contact Us</a>
     </div>
 
   </nav>
@@ -75,26 +91,26 @@
     </div>
 
     <form class="login-form" action="#" method="post">
-      <label for="fname">Firstname</label>
+      <label for="fname" class="required">Firstname</label>
       <input type="text" id="fname" name="fname" placeholder="Enter your Firstname" autofocus required>
-      <label for="lname">Lastname</label>
+      <label for="lname" class="required">Lastname</label>
       <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required>
-      <label for="contNum">Contact Number</label>
+      <label for="contNum" class="required">Contact Number</label>
       <input type="text" id="id" name="contNum" placeholder="Enter your Contact number" required>
 
-      <label for="datepicker">Pick-Up Date and Time</label>
+      <label for="datepicker" class="required">Pick-Up Date and Time</label>
       <aeon-datepicker>
         <label for="datepicker"></label>
-        <input type="date" id="datepicker" />
+        <input type="date" id="datepicker" required />
 
         <label for="timepicker"></label>
-        <input class="time" type="time" id="timepicker" />
+        <input class="time" type="time" id="timepicker" required />
       </aeon-datepicker>
 
-      <label for="purpose">Purpose Description</label>
+      <label for="purpose" class="required">Purpose Description</label>
       <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
 
-      <label for="avatar">Upload Barangay ID</label>
+      <label for="avatar" class="required">Upload Barangay ID</label>
       <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
 
 

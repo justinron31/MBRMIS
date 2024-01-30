@@ -75,24 +75,32 @@
         <form class="login-form" action="../Php/staffReg.php" method="post"
             onsubmit="return validatePassword() && validateEmail();">
 
-            <input type="text" id="name" name="fname" placeholder="Firstname" oninput="capitalizeFirstLetter('name')"
-                autofocus required>
+            <label class="required">Firstname</label>
+            <input type="text" id="name" name="fname" placeholder="Enter Firstname"
+                oninput="capitalizeFirstLetter('name')" autofocus required>
 
-            <input type="text" id="lname" name="lname" placeholder="Lastname" oninput="capitalizeFirstLetter('lname')"
-                required>
+            <label class="required">Lastname</label>
+            <input type="text" id="lname" name="lname" placeholder="Enter Lastname"
+                oninput="capitalizeFirstLetter('lname')" required>
 
-            <input type="text" id="idnum" name="idnum" placeholder="ID number"
+            <label class="required">ID Number</label>
+            <input type="text" id="idnum" name="idnum" placeholder="Enter ID number"
                 oninput="validateIDNumber(); capitalizeInput(this);" required>
 
-            <input type="text" id="email" name="email" placeholder="Email" oninput="validateEmail();" required>
+            <label class="required">Email</label>
+            <input type="text" id="email" name="email" placeholder="Enter Email" oninput="validateEmail();" required>
 
-            <select class="selectbox" id="genderSelect" name="gender" required onchange="changeFontColor()">
+            <label class="required">Gender</label>
+            <select class="selectbox" id="genderSelect" name="Select Gender" required onchange="changeFontColor()">
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
             </select>
 
-            <input type="password" id="password" name="password" placeholder="Password" required>
+            <label class="required">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required>
+
+            <label class="required">Confirm Password</label>
             <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
                 oninput="validatePassword();" required>
             <button type="submit" class="login-button">SUBMIT</button>
