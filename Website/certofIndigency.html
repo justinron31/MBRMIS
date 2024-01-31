@@ -36,21 +36,36 @@
   </div>
 
 
-  <!-- MODAL POPUP-->
-  <div id="overlay" class="overlay1"></div>
-  <div id="logoutModal" class="modal">
-    <div class="modal-message">
-      <h3>Confirmation</h3>
-      <p class="no-asterisk">Are you a registered voter here in Barangay Makiling?</p>
-      <p>If yes, you will be redirect to the fill out form.</p>
-      <p>If not, go to <strong>Makiling Hall for registration of Voters ID</strong>.</p>
-    </div>
-    <div class="modal-buttons">
-      <button class="yes">Yes</button>
-      <button class="no">No</button>
-    </div>
+<!-- MODAL POPUP1-->
+<div id="overlay" class="overlay1"></div>
+<div id="logoutModal" class="modal">
+  <div class="modal-message">
+    <h3>Confirmation</h3>
+    <p class="no-asterisk">Are you a registered voter here in Barangay Makiling?</p>
+    <p>If yes, you will be redirected to fill out the form.</p>
+    <p>If not, go to <strong>Makiling Hall for registration of Voters ID</strong>.</p>
   </div>
-s
+  <div class="modal-buttons">
+    <button class="yes" onclick="hideModal()">Yes</button>
+    <button class="no" onclick="showSecondModal()">No</button>
+  </div>
+</div>
+
+<!-- MODAL POPUP2-->
+<div id="overlay2" class="overlay2"></div>
+<div id="logoutModal2" class="modal1">
+  <div class="modal-message">
+    <h3>Confirmation</h3>
+    <p class="no-asterisk">Please visit the About us section to know more about the location of Barangay Makiling hall.</p> 
+    <p class="no-asterisk">Thank you.</p>
+  </div>
+  <div class="modal-buttons">
+    <button class="yes" onclick="redirectToHomePage()">OKAY</button>
+  </div>
+</div>
+
+
+  
   <!--OVERLAY MENU-->
   <div id="myNav" class="overlay">
 

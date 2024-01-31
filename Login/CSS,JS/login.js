@@ -274,11 +274,11 @@ function validatePassword() {
         passwordInput.classList.remove("error-input");
         confirmPasswordInput.classList.remove("error-input");
 
-        // Reset the focus color and shadow
-        passwordInput.style.borderColor = ''; // Reset to the default border color
-        passwordInput.style.boxShadow = ''; // Reset to the default box shadow
-        confirmPasswordInput.style.borderColor = ''; // Reset to the default border color
-        confirmPasswordInput.style.boxShadow = ''; // Reset to the default box shadow
+    
+        passwordInput.style.borderColor = ''; 
+        passwordInput.style.boxShadow = ''; 
+        confirmPasswordInput.style.borderColor = ''; 
+        confirmPasswordInput.style.boxShadow = ''; 
         submitBtn.disabled = false;
     }
 

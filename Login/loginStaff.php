@@ -63,7 +63,6 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
                 <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
-
         </div>
     </nav>
 

@@ -1,4 +1,5 @@
-/*LOADER ANIMATION*/
+// ─── Loader Animation ────────────────────────────────────────────────────────
+
 $(window).on('load', function () {
 
   $('#status').fadeOut();
@@ -10,14 +11,18 @@ $(window).on('load', function () {
   $('body').delay(150).css({ 'overflow': 'visible' });
 });
 
-/*AUTO FOCUS*/
+
+
+// ─── Auto Focus ──────────────────────────────────────────────────────────────
+
 window.onload = function () {
   document.getElementById("fname").focus();
 };
 
 
-/*DATE AND TIME PICKER */
-// Function to format the date and time
+
+// ─── Date And Time Picker ────────────────────────────────────────────────────
+
 function formatDateTime(date) {
   const formattedDate = date.toISOString().split('T')[0];
   const hours = String(date.getHours()).padStart(2, '0');
@@ -28,7 +33,9 @@ function formatDateTime(date) {
   };
 }
 
-/*REMOVE SUNDAY DATES*/
+
+// ─── Remove Sunday Dates ─────────────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function () {
 
   var datepicker = document.getElementById('datepicker');
@@ -45,7 +52,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/*  RESTRICT PAST DATE AND TIME */
+  // ─── Restrict Past Date And Time ─────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', function () {
   var datepicker = document.getElementById('datepicker');
   var timepicker = document.getElementById('timepicker');
@@ -83,7 +91,8 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* DROPDOWN COLOR CHANGE*/
+ // ─── Dropdown Color Change ───────────────────────────────────────────────────
+
 function changeFontColor() {
   var selectBox = document.getElementById("bussSelect");
   var selectedOption = selectBox.options[selectBox.selectedIndex].value;
@@ -95,11 +104,52 @@ function changeFontColor() {
   }
 }
 
-/*BURGER MENU*/
+
+// ─── Burger Menu ─────────────────────────────────────────────────────────────
+
 function openNav() {
   document.getElementById("myNav").style.width = "100%";
 }
 
 function closeNav() {
   document.getElementById("myNav").style.width = "0%";
+}
+
+
+// ─── Prompt Confirmation Message Modal ───────────────────────────────────────
+
+window.onload = function() {
+  var overlay = document.getElementById("overlay");
+  var modal = document.getElementById("logoutModal");
+
+  overlay.style.display = "block";
+  modal.style.display = "block";
+};
+
+function hideModal() {
+  var overlay = document.getElementById("overlay");
+  var modal = document.getElementById("logoutModal");
+
+  overlay.style.animation = "fadeOut 0.5s ease-out";
+  modal.style.animation = "fadeOut 0.5s ease-out";
+
+  overlay.addEventListener("animationend", function() {
+    overlay.style.display = "none";
+  });
+
+  modal.addEventListener("animationend", function() {
+    modal.style.display = "none";
+  });
+}
+
+function showSecondModal() {
+  var overlay2 = document.getElementById("overlay2");
+  var modal2 = document.getElementById("logoutModal2");
+
+  overlay2.style.display = "block";
+  modal2.style.display = "block";
+}
+
+function redirectToHomePage() {
+  window.location.href = "homepage.html#contactus";
 }
