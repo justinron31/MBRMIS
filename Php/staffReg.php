@@ -5,7 +5,7 @@ $fname = $_POST['fname'];
 $lname = $_POST['lname'];
 $idnum = $_POST['idnum'];
 $email = $_POST['email'];
-$gender = $_POST['gender'];
+$gender = $_POST['genderSelect'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 // Insert data into database

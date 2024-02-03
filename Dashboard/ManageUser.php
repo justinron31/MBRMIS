@@ -277,14 +277,7 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                             </button>
                         </div>
 
-                        <div class="popupEX" id="popupEX">
-                            <div class="popup-content">
 
-                                <p>EXCEL</p>
-                                <img src="/MBRMIS/Images/excel.png" alt="excel logo" onclick="exportToExcel()"
-                                    style="cursor: pointer;">
-                            </div>
-                        </div>
                     </div>
 
                     <section class="table__body">
