@@ -6,7 +6,6 @@
   <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
-
   <!-- META TAGS BRO -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,94 +20,175 @@
   <!-- CAPTCHA-->
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
+  <!-- IMPORTS-->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <title>Request for Certificate of Residency</title>
 </head>
 
 <body>
-
   <!--LOADER-->
   <div id="preloader">
     <div id="status">&nbsp;</div>
   </div>
 
+  <!--ALERT MESSAGE-->
+  <div id="alerPopup" class="popup1">
+    <p>Please choose a date and time in the future.</p>
+  </div>
+
+  <!--ALERT MESSAGE 1-->
+  <div id="alerPopup1" class="popup1">
+    <p>Sundays are not allowed. Please choose another date.</p>
+  </div>
+
+  <!-- MODAL POPUP1-->
+  <div id="overlay" class="overlay1"></div>
+  <div id="logoutModal" class="modal">
+    <div class="modal-message">
+      <h3>Confirmation</h3>
+      <p class="no-asterisk">
+        Are you a registered voter here in Barangay Makiling?
+      </p>
+      <p>
+        If <strong>yes</strong>, you will be redirected to fill out the form.
+      </p>
+      <p>
+        If <strong>no</strong>, go to Makiling Hall for registration of Voters
+        ID.
+      </p>
+    </div>
+    <div class="modal-buttons">
+      <button class="yes" onclick="hideModal()">Yes</button>
+      <button class="no" onclick="showSecondModal()">No</button>
+    </div>
+  </div>
+
+  <!-- MODAL POPUP2-->
+  <div id="overlay2" class="overlay2"></div>
+  <div id="logoutModal2" class="modal1">
+    <h3>Confirmation</h3>
+    <p class="about-text">
+      If you have not yet registered as a voter, please visit the Barangay
+      Hall to complete the necessary registration process. For more
+      information, refer to the <strong>"About Us"</strong> section.
+    </p>
+    <br />
+    <div class="modal-buttons">
+      <button class="yes" onclick="redirectToHomePage()">About Us</button>
+    </div>
+  </div>
+  <!--OVERLAY MENU-->
+  <div id="myNav" class="overlay">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="overlay-content">
+      <img class="logooverlay" src="../Images/logo.png" alt="Makiling logo" />
+      <a href="/MBRMIS/Website/homepage.html#home" id="homeButton1" onclick="closeNav()">Home</a>
+      <a href="/MBRMIS/Website/homepage.html#service" id="servicesButton1" onclick="closeNav()">Services</a>
+      <a href="/MBRMIS/Website/trackRequest.html">Track Request</a>
+      <a href="/MBRMIS/Website/homepage.html#contactus" id="contactusButton1" onclick="closeNav()">Contact Us</a>
+    </div>
+  </div>
 
   <!-- NAV-->
   <nav>
-
     <div id="logcon">
       <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
-      <h1 class="logoname">BARANGAY MAKILING </h1>
-      <img class="menu" src="../Images/menu.png" alt="burger menu" />
+      <h1 class="logoname">BARANGAY MAKILING</h1>
+      <i class="bx bx-menu-alt-right" onclick="openNav()"></i>
     </div>
 
     <div id="nav-links">
       <a href="/MBRMIS/Website/homepage.html#home" class="nav-link" id="homeButton">Home</a>
       <a href="/MBRMIS/Website/homepage.html#service" class="nav-link" id="servicesButton">Services</a>
-      <a href="#" class="nav-link">Track Request</a>
+      <a href="/MBRMIS/Website/trackRequest.html" class="nav-link">Track Request</a>
       <a href="/MBRMIS/Website/homepage.html#contactus" class="nav-link" id="contactusButton">Contact Us</a>
     </div>
-
   </nav>
 
   <!--LOGIN FORM-->
   <div class="login-container">
     <div class="logo-container">
-
       <p class="login-text">Request for Certificate of Residency</p>
-      <hr>
+      <hr />
     </div>
 
-    <form class="login-form" action="#" method="post">
-      <label for="fname">Firstname</label>
-      <input type="text" id="fname" name="fname" placeholder="Enter your Firstname" autofocus required>
-      <label for="lname">Lastname</label>
-      <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required>
-      <label for="contNum">Contact Number</label>
-      <input type="text" id="id" name="contNum" placeholder="Enter your Contact number" required>
+    <form id="myForm" action="" method="post">
+      <label for="fname" class="required">Firstname</label>
+      <input type="text" id="fname" name="fname" placeholder="Enter your Firstname" autofocus required />
 
-      <label for="datepicker">Pick-Up Date and Time</label>
+      <label for="lname" class="required">Lastname</label>
+      <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required />
+
+      <label for="contNum" class="required">Contact Number</label>
+      <input type="text" id="id" name="contNum" placeholder="Enter your Contact number" required />
+
+      <label for="datepicker" class="required">Pick-Up Date and Time</label>
       <aeon-datepicker>
         <label for="datepicker"></label>
-        <input type="date" id="datepicker" />
+        <input type="date" id="datepicker" required />
 
         <label for="timepicker"></label>
-        <input class="time" type="time" id="timepicker" />
+        <input class="time" type="time" id="timepicker" required />
       </aeon-datepicker>
 
-      <label for="purpose">Purpose Description</label>
+      <label for="purpose" class="required">Purpose Description</label>
       <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
 
-      <label for="avatar">Upload Barangay ID</label>
-      <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+      <div class="uploader">
+        <div class="uploadContent1">
+          <label class="required1" for="avatar">Upload Voter's ID</label>
+          <div id="image-preview">
+            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
+              onchange="previewImage()" />
+            <img id="preview" />
+          </div>
+        </div>
 
-      <label class="checkInfo"> I have read and agree to the <a href="#"><strong>Terms and Conditions</strong></a> and
-        data privacy policy.
-        <input type="checkbox">
-        <span class="checkmark"></span>
-      </label>
+        <div class="uploadContent">
+          <label for="contNum" class="required">Voter's ID Number</label>
+          <input type="text" id="id" name="contNum" placeholder="Enter your Voter's  ID Number" required />
+        </div>
+      </div>
 
-      <label class="checkInfo"> I confirm that all information I have provided is accurate.
-        <input type="checkbox">
-        <span class="checkmark"></span>
-      </label>
+      <div class="checkbox">
+        <div class="firstCheck">
+          <input type="checkbox" id="termsCheckbox" required />
+          <label for="checkbox">I have read and agree to the
+            <a href="#"><strong>Terms and Conditions</strong></a> and data privacy
+            policy.</label>
 
-      <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div>
-      <br>
-      <button type="submit" class="login-button">SUBMIT</button>
-      <br>
-      <br>
+        </div>
 
+        <div class="secondCheck">
+          <input type="checkbox" id="accuracyCheckbox" required />
+          <label for="checkbox">I have read and agree to the
+            I confirm that all information I have provided is accurate.</label>
+
+        </div>
+
+      </div>
+
+      <!-- ─── Captcha ──────────────────────────── -->
+      <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->
+
+      <br />
+      <button type="submit" id="submitBtn" class="login-button">
+        SUBMIT
+      </button>
+      <br />
+      <br />
     </form>
   </div>
   <br />
 
   <!-- FOOTER BRO-->
   <footer>
-    <p>&copy; 2024 BARANGAY MAKILING HEALTHCARE AND ISSUANCE SYSTEM | All rights reserved.</p>
+    <p>
+      &copy; 2024 BARANGAY MAKILING HEALTHCARE AND ISSUANCE SYSTEM | All
+      rights reserved.
+    </p>
   </footer>
-
-
 </body>
 
 </html>

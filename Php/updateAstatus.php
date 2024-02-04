@@ -17,12 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($fetchResult) {
             $updatedData = $fetchResult->fetch_assoc();
-            echo json_encode(['status' => 'success', 'message' => 'Status updated successfully', 'data' => $updatedData]);
+            echo json_encode(['status' => 'success', 'message' => 'Account Status updated successfully!', 'data' => $updatedData]);
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Error fetching updated data: ' . $conn->error]);
         }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Error updating status: ' . $conn->error]);
+        echo json_encode(['status' => 'error', 'message' => 'Error updating Account status: ' . $conn->error]);
     }
 }
 

@@ -49,7 +49,6 @@ sidebar.addEventListener("mouseleave", hideSidebar);
 sidebar.addEventListener("mouseenter", showSidebar);
 sidebarCloseBtn.addEventListener("click", toggleSidebar);
 
-
 //sidebaractive
 document.addEventListener("DOMContentLoaded", function () {
   const menuItems = document.querySelectorAll(".menu_item .item");
@@ -72,16 +71,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 /*CALENDAR*/
 let date = new Date();
 
 function renderCalendar() {
   date.setDate(1);
 
-  const monthDays = document.getElementById('calendar-body');
-  const month = document.getElementById('month');
-  const daysElement = document.getElementById('days');
+  const monthDays = document.getElementById("calendar-body");
+  const month = document.getElementById("month");
+  const daysElement = document.getElementById("days");
 
   const lastDay = new Date(
     date.getFullYear(),
@@ -106,34 +104,26 @@ function renderCalendar() {
   const nextDays = 7 - lastDayIndex - 1;
 
   const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
-  const days = [
-    'S',
-    'M',
-    'T',
-    'W',
-    'T',
-    'F',
-    'S'
-  ];
+  const days = ["S", "M", "T", "W", "T", "F", "S"];
 
   month.innerText = `${months[date.getMonth()]} ${date.getFullYear()}`;
-  daysElement.innerHTML = days.map(day => `<div>${day}</div>`).join('');
+  daysElement.innerHTML = days.map((day) => `<div>${day}</div>`).join("");
 
-  let dates = '';
+  let dates = "";
 
   for (let x = firstDayIndex; x > 0; x--) {
     dates += `<div class='prev-date'>${prevLastDay - x + 1}</div>`;
@@ -157,76 +147,73 @@ function renderCalendar() {
   monthDays.innerHTML = dates;
 }
 
-
 function showCurrentDate() {
   date = new Date();
   renderCalendar();
 }
 
-document.getElementById('month-prev').addEventListener('click', () => {
-  document.getElementById('calendar-body').classList.add('fade-out');
+document.getElementById("month-prev").addEventListener("click", () => {
+  document.getElementById("calendar-body").classList.add("fade-out");
   setTimeout(() => {
     date.setMonth(date.getMonth() - 1);
     renderCalendar();
-    document.getElementById('calendar-body').classList.remove('fade-out');
+    document.getElementById("calendar-body").classList.remove("fade-out");
   }, 10);
 });
 
-document.getElementById('month-next').addEventListener('click', () => {
-  document.getElementById('calendar-body').classList.add('fade-out');
+document.getElementById("month-next").addEventListener("click", () => {
+  document.getElementById("calendar-body").classList.add("fade-out");
   setTimeout(() => {
     date.setMonth(date.getMonth() + 1);
     renderCalendar();
-    document.getElementById('calendar-body').classList.remove('fade-out');
+    document.getElementById("calendar-body").classList.remove("fade-out");
   }, 10);
 });
 
-
-document.getElementById('month').addEventListener('click', showCurrentDate);
+document.getElementById("month").addEventListener("click", showCurrentDate);
 
 renderCalendar();
 
 // LOGOUT MODAL POPUP
 function openLogoutModal() {
-  var modal = document.getElementById('logoutModal');
-  var overlay = document.getElementById('overlay');
-  modal.style.display = 'block';
-  overlay.style.display = 'block';
+  var modal = document.getElementById("logoutModal");
+  var overlay = document.getElementById("overlay");
+  modal.style.display = "block";
+  overlay.style.display = "block";
 }
 
 function closeLogoutModal() {
-  var modal = document.getElementById('logoutModal');
-  var overlay = document.getElementById('overlay');
-  modal.style.display = 'none';
-  overlay.style.display = 'none';
+  var modal = document.getElementById("logoutModal");
+  var overlay = document.getElementById("overlay");
+  modal.style.display = "none";
+  overlay.style.display = "none";
 }
 
 function logout() {
   // Add AJAX request to terminate the session
-  var xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4 && xhr.status == 200) {
-      // Redirect to the login page after successful logout
-      window.location.href = '..\\Login\\loginStaff.php';
-    }
-  };
-  xhr.open('GET', '\\MBRMIS\\Php\\logout.php', true);
-  xhr.send();
+  fetch("../Php/logout.php")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Logout failed");
+      }
+      return response.text();
+    })
+    .then((data) => {
+      // Redirect to the login page immediately with the logout parameter
+      window.location.href = "../Login/loginStaff.php?logout=true";
+    })
+    .catch((error) => {
+      console.error("Logout error:", error);
+    });
 }
 
-
-
-
 /*LOADER ANIMATION*/
-$(window).on('load', function () {
+$(window).on("load", function () {
+  $("#status").fadeOut();
 
-  $('#status').fadeOut();
+  $("#preloader").delay(150).fadeOut("slow");
 
-
-  $('#preloader').delay(150).fadeOut('slow');
-
-
-  $('body').delay(150).css({ 'overflow': 'visible' });
+  $("body").delay(150).css({ overflow: "visible" });
 });
 
-
+/*EXPORT TABLE TO EXCEL*/
