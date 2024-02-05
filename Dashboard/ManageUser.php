@@ -192,7 +192,7 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
                         <li class="item">
-                            <a href="#" class="link flex">
+                            <a href="/MBRMIS/Dashboard/AdminSettings.php" class="link flex">
                                 <i class="bx bx-cog"></i>
                                 <span>Settings</span>
                             </a>

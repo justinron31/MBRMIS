@@ -845,3 +845,46 @@ img {
 .popup.slide-up {
   animation: slideUpAnimation 0.5s ease-in-out;
 }
+
+/* ─── Settings Profile ────────────────────────────────────── */
+.table__header h1 {
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+main.table1 {
+  height: fit-content;
+  background-color: white;
+  backdrop-filter: blur(7px);
+  box-shadow: 0 0.4rem 0.8rem #0005;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  margin: 0px 30px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input:focus {
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266e60;
+}
+
+.profileCon {
+  padding: 25px;
+}

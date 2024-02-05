@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Check the admin database using prepared statement
-    $adminQuery = $conn->prepare("SELECT * FROM admin WHERE username = ? AND password = ?");
+    $adminQuery = $conn->prepare("SELECT id, firstname FROM admin WHERE username = ? AND password = ?");
     $adminQuery->bind_param("ss", $username, $password);
     $adminQuery->execute();
     $adminResult = $adminQuery->get_result();
@@ -15,9 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($adminResult->num_rows == 1) {
         // Admin found
         $row = $adminResult->fetch_assoc();
-        $name = $row['name'];
+        $user_id = $row['id'];
+        $name = $row['firstname'];
 
         $_SESSION['show_login_message'] = true;
+        $_SESSION['user_id'] = $user_id; // Set the User ID in the session
         $_SESSION['user_name'] = $name;
         $_SESSION['user_type'] = 'admin';
 
@@ -34,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($staffResult->num_rows == 1) {
         // Staff found
         $row = $staffResult->fetch_assoc();
+        $user_id = $row['id'];
         $accountStatus = $row['account_status'];
 
         if ($accountStatus === 'Activated') {
@@ -43,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $name = $row['firstname'];
 
                 $_SESSION['show_login_message'] = true;
+                $_SESSION['user_id'] = $user_id; 
                 $_SESSION['user_name'] = $name;
                 $_SESSION['user_type'] = 'staff';
 
