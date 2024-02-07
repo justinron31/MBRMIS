@@ -107,13 +107,27 @@
     recordActivity(userId, "View");
   }
 
+ // Function to record printing activity
+  function printDocument(userId) {
+    // Implement print logic here
+    recordActivity(userId, "Print");
+  }
+
+  // Function to record exporting activity
+  function exportTable(userId) {
+    // Implement export logic here
+    recordActivity(userId, "Export");
+  }
+
   // Example usage:
   // Assume these are triggered by user actions
   createRecord("user123");
   deleteRecord("record456", "user456");
   updateRecord("record789", "user789");
   viewRecord("record012", "user012");
+  printDocument("user123");
+  exportTable("user456");
 </script>
-
+    
 </body>
 </html>
