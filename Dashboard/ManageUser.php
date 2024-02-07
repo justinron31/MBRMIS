@@ -23,6 +23,7 @@
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
 
@@ -261,7 +262,7 @@ $_SESSION['show_login_message'] = false;
                         <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender FROM staff";
+$sql = "SELECT * FROM staff";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -293,6 +294,7 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                     <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Email <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Role <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Account Status <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Action </th>
                                 </tr>
@@ -304,7 +306,7 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                 <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender, account_status FROM staff";
+$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role, account_status FROM staff";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -317,6 +319,7 @@ if ($result) {
             "<td>" . $row["lastname"] . "</td>" .
             "<td>" . $row["gender"] . "</td>" .
             "<td>" . $row["email"] . "</td>" .
+            "<td>" . $row["staff_role"] . "</td>" .
             "<td><p class='status $class'>" . $row["account_status"] . "</p></td>" .
             "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i></td>" .
             "</tr>";
@@ -331,17 +334,37 @@ $conn->close();
                                 <!-- POPUP FORM ACCOUNT EDIT -->
                                 <div id="customEditModal" class="custom-modal">
                                     <div class="custom-modal-content">
-
-                                        <h2 class="editAccountTitle">Edit Account Status</h2>
+                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
                                         <p id="customUserName"></p>
                                         <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
-                                            <input type="hidden" id="customUserId" name="customUserId" value="">
-                                            <label for="customStatus">Account Status:</label>
-                                            <select id="customStatus" name="customStatus">
-                                                <option value="Activated">Activated</option>
-                                                <option value="Deactivated">Deactivated</option>
-                                            </select>
-                                            <button id="updateButton" class="updateButton" type="submit">Update</button>
+
+                                            <div class="updatecon">
+                                                <div class="accountstatus">
+                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
+                                                    <label for="customRole">Role:</label>
+                                                    <select id="customRole" name="customRole">
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Staff">Staff</option>
+                                                    </select>
+
+
+                                                </div>
+
+                                                <div class="rolestatus">
+
+                                                    <label for="customStatus">Account Status:</label>
+                                                    <select id="customStatus" name="customStatus">
+                                                        <option value="Activated">Activated</option>
+                                                        <option value="Deactivated">Deactivated</option>
+                                                    </select>
+
+                                                </div>
+
+
+                                                <button id="updateButton" class="updateButton"
+                                                    type="submit">Update</button>
+                                            </div>
+
                                         </form>
                                     </div>
                                 </div>
