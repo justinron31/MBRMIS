@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Activity Logs</title>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    .delete-btn, .view-btn, .create-btn, .update-btn {
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 2px;
+    }
+</style>
+</head>
+<body>
+
+<h2>User Activity Logs</h2>
+
+<table id="activityTable">
+  <tr>
+    <th>ID</th>
+    <th>User ID</th>
+    <th>Date</th>
+    <th>Category</th>
+    <th>Action</th>
+    <th>Tracking Number</th>
+  </tr>
+</table>
+
+<script>
+  // Function to add a new row to the table with activity data
+  function addRow(id, userId, date, category, action, trackingNumber) {
+    var table = document.getElementById("activityTable");
+    var row = table.insertRow(-1); // Insert new row at the end of the table
+    var idCell = row.insertCell(0);
+    var userIdCell = row.insertCell(1);
+    var dateCell = row.insertCell(2);
+    var categoryCell = row.insertCell(3);
+    var actionCell = row.insertCell(4);
+    var trackingNumberCell = row.insertCell(5);
+    
+    idCell.innerHTML = id;
+    userIdCell.innerHTML = userId;
+    dateCell.innerHTML = date;
+    categoryCell.innerHTML = category;
+    actionCell.innerHTML = action;
+    trackingNumberCell.innerHTML = trackingNumber;
+  }
+
+  // Function to record user activity
+  function recordActivity(userId, action) {
+    var table = document.getElementById("activityTable");
+    var date = new Date().toLocaleString();
+    var row = table.insertRow(-1);
+    var idCell = row.insertCell(0);
+    var userIdCell = row.insertCell(1);
+    var dateCell = row.insertCell(2);
+    var categoryCell = row.insertCell(3);
+    var actionCell = row.insertCell(4);
+    var trackingNumberCell = row.insertCell(5);
+
+    idCell.innerHTML = "-";
+    userIdCell.innerHTML = userId;
+    dateCell.innerHTML = date;
+    categoryCell.innerHTML = "Activity";
+    actionCell.innerHTML = action;
+    trackingNumberCell.innerHTML = "-";
+  }
+
+  // Function to delete a record
+  function deleteRecord(recordId, userId) {
+    // Implement deletion logic here
+    recordActivity(userId, "Delete");
+  }
+
+  // Function to create a record
+  function createRecord(userId) {
+    // Implement creation logic here
+    recordActivity(userId, "Create");
+  }
+
+  // Function to update a record
+  function updateRecord(recordId, userId) {
+    // Implement update logic here
+    recordActivity(userId, "Update");
+  }
+
+  // Function to view a record
+  function viewRecord(recordId, userId) {
+    // Implement view logic here
+    recordActivity(userId, "View");
+  }
+
+  // Example usage:
+  // Assume these are triggered by user actions
+  createRecord("user123");
+  deleteRecord("record456", "user456");
+  updateRecord("record789", "user789");
+  viewRecord("record012", "user012");
+</script>
+
+</body>
+</html>
