@@ -165,3 +165,14 @@ function previewImage() {
     preview.style.display = "none"; // Hide the image preview
   }
 }
+
+// ─── Number Validate ──────────────────────────────────────────
+function validateContactNumber(input) {
+  // Remove non-numeric characters
+  input.value = input.value.replace(/[^0-9]/g, "");
+
+  // Limit the length to 11 digits
+  if (input.value.length > 11) {
+    input.value = input.value.slice(0, 11);
+  }
+}
