@@ -23,6 +23,7 @@
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
 
@@ -54,11 +55,55 @@ $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_lo
 $_SESSION['show_login_message'] = false;
 ?>
 
-
 <!-- MESSAGE-->
 <div id="loginPopup" class="popup">
     <p>Details Updated Successfully!</p>
 </div>
+
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup" class="popup2">
+    <p>Passwords do not match!</p>
+</div>
+
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup1" class="popup">
+    <p>Password Successfully Updated!</p>
+</div>
+
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup3" class="popup2">
+    <p>Incorrect current password. Please try again.</p>
+</div>
+
+
+<?php
+
+
+// Check for session variables and display popups accordingly
+if (isset($_SESSION['password_updated'])) {
+    echo '<script>
+            // Display the "Password Successfully Updated!" popup
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup1").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup1").style.display = "none";
+                }, 3000); // Hide the popup after 3 seconds
+            });
+          </script>';
+    unset($_SESSION['password_updated']); // Clear the session variable
+} elseif (isset($_SESSION['incorrect_password'])) {
+    echo '<script>
+            // Display the "Incorrect current password. Please try again." popup
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup3").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup3").style.display = "none";
+                }, 3000); // Hide the popup after 3 seconds
+            });
+          </script>';
+    unset($_SESSION['incorrect_password']); // Clear the session variable
+}
+?>
 
 <body>
 
@@ -218,6 +263,8 @@ $_SESSION['show_login_message'] = false;
         <!-- MAIN CONTENT-->
         <div class="headermain">
 
+
+
             <div class="headerTop">
                 <div class="header">
 
@@ -305,8 +352,8 @@ $_SESSION['show_login_message'] = false;
                         <div class="firstcon">
                             <div class="f1">
                                 <label class="required">Age</label>
-                                <input type="text" id="age" name="age"
-                                    value="<?php echo isset($row["age"]) ? $row["age"] : ''; ?>" disabled />
+                                <input type="text" id="age" name="age" maxlength="2" oninput="validateAge(this)
+                                    value=" <?php echo isset($row["age"]) ? $row["age"] : ''; ?>" disabled />
                             </div>
 
                             <div class="f2">
@@ -323,32 +370,43 @@ $_SESSION['show_login_message'] = false;
                             </form>
                         </div>
 
-
                         <div class="passCon" id="passCon" style="display: none;">
                             <button type=" button" class="reset__password-btn" onclick="toggleForm()">Reset
                                 Password</button>
                         </div>
 
+
+
+
+
+
+
                         <div class="passForm" id="passForm" style="display: none;">
-                            <form method="POST" action="">
-                            </form>
-                            <br>
-                            <div class="passForm__group">
-                                <label for="currentPassword">Current Password</label>
-                                <input type="password" id="currentPassword" name="currentPassword" required>
-                            </div>
-                            <div class="passForm__group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword" name="newPassword" required>
-                            </div>
-                            <div class="passForm__group">
-                                <label for="confirmPassword">Confirm Password</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword" required>
-                            </div>
-                            <button type="submit" class="reset__password-btn" name="changePassword">Change
-                                Password</button>
+                            <form id="passForm1" method="post" action="/MBRMIS/Php/updatePassword.php">
+
+                                <br>
+                                <div class="passForm__group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" id="currentPassword" name="currentPassword"
+                                        placeholder="Enter Current Password" required>
+                                </div>
+                                <div class="passForm__group">
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="pass" name="pass" placeholder="Enter Password" required>
+                                </div>
+                                <div class="passForm__group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" id="cpass" name="cpass" placeholder="Confirm Password"
+                                        oninput="validatePassword();" required>
+                                </div>
+                                <button type=" submit" id="resetButton" class="reset__password-btn"
+                                    name="changePassword">Change
+                                    Password</button>
                             </form>
                         </div>
+
+
+
 
                     </div>
                     <?php else : ?>

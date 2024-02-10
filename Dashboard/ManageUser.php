@@ -295,6 +295,7 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                     <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Email <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Role <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Account Status <span class="icon-arrow">&UpArrow;</span></th>
@@ -308,7 +309,7 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                 <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role, account_status FROM staff";
+$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status FROM staff";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -320,6 +321,7 @@ if ($result) {
             "<td>" . $row["firstname"] . "</td>" .
             "<td>" . $row["lastname"] . "</td>" .
             "<td>" . $row["gender"] . "</td>" .
+              "<td>" . $row["age"] . "</td>" .
             "<td>" . $row["email"] . "</td>" .
             "<td>" . $row["staff_role"] . "</td>" .
             "<td><p class='status $class'>" . $row["account_status"] . "</p></td>" .

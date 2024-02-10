@@ -306,6 +306,65 @@ function toggleForm() {
     // Hide the form
     passForm.style.display = "none";
     resetBtn.innerText = "Reset Password";
-    resetBtn.style.backgroundColor = ""; // Reset to default background color
+    resetBtn.style.backgroundColor = "";
+  }
+}
+
+// ─── Confirmpassword ──────────────────────────────────────────
+function validatePassword() {
+  var passwordInput = document.getElementById("pass");
+  var confirmPasswordInput = document.getElementById("cpass");
+  var validationPopup = document.getElementById("validationPopup");
+  var submitBtn = document.getElementById("resetButton");
+
+  var password = passwordInput.value;
+  var confirmPassword = confirmPasswordInput.value;
+
+  if (confirmPassword !== "" && password !== confirmPassword) {
+    validationPopup.style.display = "block";
+    passwordInput.classList.add("error-input");
+    confirmPasswordInput.classList.add("error-input");
+
+    // Change the focus color and shadow to red
+    passwordInput.style.borderColor = "red";
+    passwordInput.style.boxShadow = "0 0 5px red";
+    confirmPasswordInput.style.borderColor = "red";
+    confirmPasswordInput.style.boxShadow = "0 0 5px red";
+
+    submitBtn.disabled = true;
+
+    setTimeout(function () {
+      validationPopup.classList.add("slide-up");
+    }, 2000);
+
+    setTimeout(function () {
+      validationPopup.style.display = "none";
+      validationPopup.classList.remove("slide-up");
+    }, 2500);
+
+    return false;
+  } else {
+    validationPopup.style.display = "none";
+    passwordInput.classList.remove("error-input");
+    confirmPasswordInput.classList.remove("error-input");
+
+    passwordInput.style.borderColor = "";
+    passwordInput.style.boxShadow = "";
+    confirmPasswordInput.style.borderColor = "";
+    confirmPasswordInput.style.boxShadow = "";
+    submitBtn.disabled = false;
+  }
+
+  return true;
+}
+
+// ─── Validateage ──────────────────────────────────────────────
+function validateAge(input) {
+  // Remove non-numeric characters
+  input.value = input.value.replace(/\D/g, "");
+
+  // Limit to two digits
+  if (input.value.length > 2) {
+    input.value = input.value.slice(0, 2);
   }
 }

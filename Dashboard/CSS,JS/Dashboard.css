@@ -800,12 +800,13 @@ img {
   display: none;
   position: fixed;
   left: 50%;
+  top: 0.1%;
   transform: translateX(-50%);
   background-color: #4caf50;
   color: #fff;
   font-weight: 700;
   margin-top: 3px;
-  padding: 20px;
+  padding: 20px 20px;
   border-radius: 10px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
@@ -914,4 +915,56 @@ label {
   border-color: #15917a;
   outline: none;
   box-shadow: 0 0 5px #266e60;
+}
+
+/* ─── Settings Profile ────────────────────────────────────── */
+.popup2 {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 0.1%;
+  transform: translateX(-50%);
+  background-color: red;
+  color: #fff;
+  font-weight: 700;
+  margin-top: 3px;
+  padding: 20px 20px;
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  z-index: 990;
+  cursor: default;
+  animation: slideDownAnimation 0.5s ease-in-out;
+  /* Set the animation duration */
+}
+
+@keyframes slideDownAnimation {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+    /* Adjust the initial position */
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+/* Add a separate keyframe for the slide-up animation */
+@keyframes slideUpAnimation {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+}
+
+/* Add a class to trigger the slide-up animation when needed */
+.popup2.slide-up {
+  animation: slideUpAnimation 0.5s ease-in-out;
 }
