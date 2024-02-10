@@ -330,7 +330,7 @@ if (isset($_SESSION['password_updated'])) {
 
                             <div class="f2">
                                 <label class="required">Email</label>
-                                <input type="text" id="email" name="email"
+                                <input type="text" id="email" name="email" oninput="validateEmail();"
                                     value="<?php echo isset($row["email"]) ? $row["email"] : ''; ?>" disabled />
                             </div>
                         </div>
@@ -352,7 +352,7 @@ if (isset($_SESSION['password_updated'])) {
                         <div class="firstcon">
                             <div class="f1">
                                 <label class="required">Age</label>
-                                <input type="text" id="age" name="age" maxlength="2" oninput="validateAge(this)
+                                <input type="text" id="age" name="age" maxlength="2" oninput="validateAge(this)"
                                     value=" <?php echo isset($row["age"]) ? $row["age"] : ''; ?>" disabled />
                             </div>
 

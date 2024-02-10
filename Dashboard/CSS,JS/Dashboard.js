@@ -238,8 +238,10 @@ function toggleEdit() {
     passCon.style.display = "flex";
 
     for (const input of inputs) {
-      input.disabled = false;
-      input.addEventListener("input", enableSaveButton);
+      if (input.id !== "idnum" && input.id !== "email") {
+        input.disabled = false;
+        input.addEventListener("input", enableSaveButton);
+      }
     }
 
     dropdown.disabled = false;
@@ -252,8 +254,10 @@ function toggleEdit() {
     passForm.style.display = "none";
 
     for (const input of inputs) {
-      input.disabled = true;
-      input.removeEventListener("input", enableSaveButton);
+      if (input.id !== "idnum" && input.id !== "email") {
+        input.disabled = true;
+        input.removeEventListener("input", enableSaveButton);
+      }
     }
 
     dropdown.disabled = true;
