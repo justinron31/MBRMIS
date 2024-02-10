@@ -214,9 +214,9 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
                         <li class="item">
-                            <a href="/MBRMIS/Dashboard/AdminSettings.php" class="link flex">
-                                <i class="bx bx-cog"></i>
-                                <span>Settings</span>
+                            <a href="/MBRMIS/Dashboard/AdminProfile.php" class="link flex">
+                                <i class='bx bxs-user'></i>
+                                <span>Profile</span>
                             </a>
                         </li>
 

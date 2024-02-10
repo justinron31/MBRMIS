@@ -55,6 +55,11 @@ $_SESSION['show_login_message'] = false;
 ?>
 
 
+<!-- MESSAGE-->
+<div id="loginPopup" class="popup">
+    <p>Details Updated Successfully!</p>
+</div>
+
 <body>
 
 
@@ -193,9 +198,9 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
                         <li class="item active">
-                            <a href="/MBRMIS/Dashboard/AdminSettings.php" class="link flex">
-                                <i class="bx bx-cog"></i>
-                                <span>Settings</span>
+                            <a href="#" class="link flex">
+                                <i class='bx bxs-user'></i>
+                                <span>Profile</span>
                             </a>
                         </li>
                         <li class="item1 " onclick="openLogoutModal()">
@@ -243,46 +248,126 @@ $_SESSION['show_login_message'] = false;
             <div class="supermaincontain">
 
                 <?php
-    include 'C:\xampp\htdocs\MBRMIS\Php\admindb.php';
-    ?>
+                include 'C:\xampp\htdocs\MBRMIS\Php\admindb.php';
+
+                ?>
 
                 <main class="table1" id="customers_table">
-
                     <section class="table__header">
-                        <h1>PROFILE INFORMATION </h1>
+                        <h1 class="profileTitle">PROFILE INFORMATION </h1>
                         <div class="export__file">
-                            <button type="button" class="export__file-btn">
+                            <button type="button" class="export__file-btn" id="editButton" onclick="toggleEdit()">
                                 <p class="exportTitle"><strong>EDIT</strong></p>
                             </button>
+
+
+                            <form method="POST" action="">
+                                <button type="submit" class="export__file-btn1" id="saveButton" name="saveButton"
+                                    style="display: none;" disabled>
+                                    <p class="exportTitle"><strong>SAVE</strong></p>
+                                </button>
+
                         </div>
                     </section>
 
                     <div class="profileCon">
                         <?php if ($result->num_rows > 0) : ?>
                         <?php $row = $result->fetch_assoc(); ?>
-                        <label class="required">ID number</label>
-                        <input type="text" id="idnum" name="idnum"
-                            value="<?php echo isset($row["username"]) ? $row["username"] : ''; ?>" disabled />
 
-                        <label class="required">Firstname</label>
-                        <input type="text" id="fname" name="fname"
-                            value="<?php echo isset($row["firstname"]) ? $row["firstname"] : ''; ?>" disabled />
+                        <div class="firstcon">
+                            <div class="f1">
+                                <label class="required">ID number</label>
+                                <input type="text" id="idnum" name="idnum"
+                                    value="<?php echo isset($row["idnumber"]) ? $row["idnumber"] : ''; ?>" disabled />
+                            </div>
 
-                        <label class="required">Lastname</label>
-                        <input type="text" id="lname" name="lname"
-                            value="<?php echo isset($row["lastname"]) ? $row["lastname"] : ''; ?>" disabled />
-                        <?php else : ?>
-                        <p>No results found</p>
-                        <?php endif; ?>
+                            <div class="f2">
+                                <label class="required">Email</label>
+                                <input type="text" id="email" name="email"
+                                    value="<?php echo isset($row["email"]) ? $row["email"] : ''; ?>" disabled />
+                            </div>
+                        </div>
+
+                        <div class="firstcon">
+                            <div class="f1">
+                                <label class="required">Firstname</label>
+                                <input type="text" id="fname" name="fname"
+                                    value="<?php echo isset($row["firstname"]) ? $row["firstname"] : ''; ?>" disabled />
+                            </div>
+
+                            <div class="f2">
+                                <label class="required">Lastname</label>
+                                <input type="text" id="lname" name="lname"
+                                    value="<?php echo isset($row["lastname"]) ? $row["lastname"] : ''; ?>" disabled />
+                            </div>
+                        </div>
+
+                        <div class="firstcon">
+                            <div class="f1">
+                                <label class="required">Age</label>
+                                <input type="text" id="age" name="age"
+                                    value="<?php echo isset($row["age"]) ? $row["age"] : ''; ?>" disabled />
+                            </div>
+
+                            <div class="f2">
+                                <label class="required">Gender</label>
+                                <select id="gender" name="gender" disabled>
+                                    <option value="Male"
+                                        <?php echo isset($row["gender"]) && $row["gender"] === "Male" ? "selected" : ""; ?>>
+                                        Male</option>
+                                    <option value="Female"
+                                        <?php echo isset($row["gender"]) && $row["gender"] === "Female" ? "selected" : ""; ?>>
+                                        Female</option>
+                                </select>
+                            </div>
+                            </form>
+                        </div>
+
+
+                        <div class="passCon" id="passCon" style="display: none;">
+                            <button type=" button" class="reset__password-btn" onclick="toggleForm()">Reset
+                                Password</button>
+                        </div>
+
+                        <div class="passForm" id="passForm" style="display: none;">
+                            <form method="POST" action="">
+                            </form>
+                            <br>
+                            <div class="passForm__group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" name="currentPassword" required>
+                            </div>
+                            <div class="passForm__group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" name="newPassword" required>
+                            </div>
+                            <div class="passForm__group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+                            <button type="submit" class="reset__password-btn" name="changePassword">Change
+                                Password</button>
+                            </form>
+                        </div>
+
                     </div>
+                    <?php else : ?>
+                    <p>No results found</p>
+                    <?php endif; ?>
 
-                </main>
+
             </div>
 
 
 
+            </main>
         </div>
 </body>
+
+
+
+</div>
+
 
 
 

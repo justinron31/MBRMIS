@@ -848,7 +848,6 @@ img {
 
 /* ─── Settings Profile ────────────────────────────────────── */
 .table__header h1 {
-  margin-left: 10px;
   white-space: nowrap;
 }
 
@@ -859,7 +858,8 @@ main.table1 {
   box-shadow: 0 0.4rem 0.8rem #0005;
   border-radius: 0.8rem;
   overflow: hidden;
-  margin: 0px 30px;
+  margin: auto auto;
+  width: 50%;
 }
 
 label {
@@ -870,7 +870,7 @@ label {
   font-weight: 600;
 }
 
-input {
+.profileCon input {
   width: 100%;
   padding: 10px;
   margin-bottom: 16px;
@@ -879,7 +879,7 @@ input {
   box-sizing: border-box;
 }
 
-input:focus {
+.profileCon input:focus {
   border-color: #15917a;
   outline: none;
   box-shadow: 0 0 5px #266e60;
@@ -887,4 +887,31 @@ input:focus {
 
 .profileCon {
   padding: 25px;
+}
+
+.firstcon,
+.passCon {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.f1,
+.f2 {
+  display: flex;
+  flex-direction: column;
+  width: 49%;
+}
+
+#gender {
+  height: 42px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+}
+
+#gender:focus {
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266e60;
 }

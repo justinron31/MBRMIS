@@ -283,6 +283,58 @@ thead th.asc span.icon-arrow {
   border: none;
 }
 
+.export__file-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.export__file-btn1:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none; /* Disable pointer events */
+}
+
+.export__file-btn1 {
+  background-color: #4caf50;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  position: fixed;
+  top: 10px;
+  right: 75px;
+  margin: 10px;
+  display: none;
+}
+
+.export__file-btn1:hover:not(:disabled) {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+
+.export__file-btn1 i,
+.export__file-btn1 p {
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+}
+
+.export__file-btn1 p {
+  font-size: 14px;
+}
+
+.export__file-btn1 i {
+  margin-right: 5px;
+}
+
+.export__file1 {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 10px;
+  border: none;
+}
+
 /*BUTTON EDIT FORM*/
 .edit-icon {
   font-size: 20px;
@@ -408,4 +460,21 @@ thead th.asc span.icon-arrow {
 
 .editAccountTitle {
   font-size: 20px;
+}
+
+/* ─── Reset Pass Button ───────────────────────────────────── */
+.reset__password-btn {
+  background-color: #377fb9;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  color: white;
+  font-weight: 600;
+}
+
+.reset__password-btn:hover {
+  background-color: #336996;
+  transform: scale(1.05);
 }

@@ -6,10 +6,11 @@ $lname = $_POST['lname'];
 $idnum = $_POST['idnum'];
 $email = $_POST['email'];
 $gender = $_POST['genderSelect'];
+$age = $_POST['age'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
 // Insert data into database
-$sql = "INSERT INTO staff (firstname, lastname, idnumber, email, gender, pass) VALUES ('$fname', '$lname', '$idnum', '$email', '$gender', '$password')";
+$sql = "INSERT INTO staff (firstname, lastname, idnumber, email, gender,age, pass) VALUES ('$fname', '$lname', '$idnum', '$email', '$gender','$age', '$password')";
 
 if ($conn->query($sql) === true) {
     // Registration successful

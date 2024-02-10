@@ -216,4 +216,96 @@ $(window).on("load", function () {
   $("body").delay(150).css({ overflow: "visible" });
 });
 
-/*EXPORT TABLE TO EXCEL*/
+// ─── Edit Profile ─────────────────────────────────────────────
+function toggleEdit() {
+  const saveButton = document.getElementById("saveButton");
+  const editButton = document.getElementById("editButton");
+  const passCon = document.getElementById("passCon");
+  const inputs = document.getElementsByTagName("input");
+  const dropdown = document.getElementById("gender");
+
+  const initialValues = [];
+  for (const input of inputs) {
+    initialValues.push(input.value);
+    input.setAttribute("data-initial-value", input.value);
+  }
+  dropdown.setAttribute("data-initial-value", dropdown.value);
+
+  if (editButton.textContent.trim() === "EDIT") {
+    editButton.innerHTML = "<p class='exportTitle'><strong>X</strong></p>";
+    editButton.style.backgroundColor = "red";
+    saveButton.style.display = "block";
+    passCon.style.display = "flex";
+
+    for (const input of inputs) {
+      input.disabled = false;
+      input.addEventListener("input", enableSaveButton);
+    }
+
+    dropdown.disabled = false;
+    dropdown.addEventListener("change", enableSaveButton);
+  } else {
+    editButton.innerHTML = "<p class='exportTitle'><strong>EDIT</strong></p>";
+    editButton.style.backgroundColor = "";
+    saveButton.style.display = "none";
+    passCon.style.display = "none";
+    passForm.style.display = "none";
+
+    for (const input of inputs) {
+      input.disabled = true;
+      input.removeEventListener("input", enableSaveButton);
+    }
+
+    dropdown.disabled = true;
+    dropdown.removeEventListener("change", enableSaveButton);
+  }
+}
+
+function enableSaveButton() {
+  const saveButton = document.getElementById("saveButton");
+  const inputs = document.getElementsByTagName("input");
+  const dropdown = document.getElementById("gender");
+  let hasChanges = false;
+
+  for (const input of inputs) {
+    const currentInputValue = input.value;
+    const initialValue = input.getAttribute("data-initial-value");
+
+    if (currentInputValue !== initialValue) {
+      hasChanges = true;
+      break;
+    }
+  }
+
+  if (
+    hasChanges ||
+    dropdown.value !== dropdown.getAttribute("data-initial-value")
+  ) {
+    saveButton.disabled = false;
+  } else {
+    saveButton.disabled = true;
+  }
+}
+
+saveButton.disabled = true; // Set save button disabled by default
+
+dropdown.addEventListener("change", enableSaveButton);
+
+// ─── CHANGE PASSWORD ─────────────────────────────────────────────
+function toggleForm() {
+  var passForm = document.getElementById("passForm");
+  var passCon = document.getElementById("passCon");
+  var resetBtn = document.querySelector(".reset__password-btn");
+
+  if (passForm.style.display === "none" || passForm.style.display === "") {
+    // Show the form
+    passForm.style.display = "block";
+    resetBtn.innerText = "X";
+    resetBtn.style.backgroundColor = "red";
+  } else {
+    // Hide the form
+    passForm.style.display = "none";
+    resetBtn.innerText = "Reset Password";
+    resetBtn.style.backgroundColor = ""; // Reset to default background color
+  }
+}
