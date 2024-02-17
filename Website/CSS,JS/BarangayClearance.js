@@ -50,11 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
       datepicker.style.borderColor = "red";
       datepicker.style.boxShadow = "0 0 5px red";
     } else {
-      // It's not in the past, reset the styles to default
-      datepicker.style.borderColor = ""; // Set to default border color
-      datepicker.style.boxShadow = ""; // Remove the box shadow
-      timepicker.style.borderColor = ""; // Set to default border color
-      timepicker.style.boxShadow = ""; // Remove the box shadow
+      datepicker.style.borderColor = "";
+      datepicker.style.boxShadow = "";
+      timepicker.style.borderColor = "";
+      timepicker.style.boxShadow = "";
     }
   });
 

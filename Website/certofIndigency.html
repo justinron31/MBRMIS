@@ -76,7 +76,7 @@
     <p class="about-text">
       If you have not yet registered as a voter, please visit the Barangay
       Hall to complete the necessary registration process. For more
-      information, refer to the <strong>"About Us"</strong> section.
+      information, refer to the <strong>"Contact Us"</strong> section.
     </p>
     <br />
     <div class="modal-buttons">
@@ -121,17 +121,19 @@
 
     <form id="myForm" action="" method="post">
 
+      <!-- ─── Name ─────────────────────── -->
       <label for="fname" class="required">Firstname</label>
       <input type="text" id="fname" name="fname" placeholder="Enter your Firstname" autofocus required />
 
       <label for="lname" class="required">Lastname</label>
       <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required />
 
+      <!-- ─── Contact Number ───────────── -->
       <label for="contNum" class="required">Contact Number</label>
       <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
         oninput="validateContactNumber(this)" required />
 
-
+      <!-- ─── Datatime ─────────────────────────────────────────── -->
       <label for="datepicker" class="required">Pick-Up Date and Time</label>
       <aeon-datepicker>
         <label for="datepicker"></label>
@@ -141,9 +143,11 @@
         <input class="time" type="time" id="timepicker" required />
       </aeon-datepicker>
 
+      <!-- ─── Purpose ──────────────────── -->
       <label for="purpose" class="required">Purpose Description</label>
       <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
 
+      <!-- ─── Upload Id ────────────────── -->
       <div class="uploader">
         <div class="uploadContent1">
           <label class="required1" for="avatar">Upload Voter's ID</label>
@@ -154,13 +158,14 @@
           </div>
         </div>
 
+        <!-- ─── Id Number ────────── -->
         <div class="uploadContent">
           <label for="contNum" class="required">Voter's ID Number</label>
           <input type="text" id="id" name="contNum" placeholder="Enter your Voter's  ID Number" required />
         </div>
       </div>
 
-
+      <!-- ─── Checkbox ─────────────────────────────────────────── -->
       <div class="checkbox">
         <div class="firstCheck">
           <input type="checkbox" id="termsCheckbox" required />
@@ -178,8 +183,6 @@
         </div>
 
       </div>
-
-
 
 
       <!-- ─── Captcha ──────────────────────────── -->

@@ -299,7 +299,7 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                     <th> Email <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Role <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Account Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Action </th>
+                                    <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
@@ -325,7 +325,7 @@ if ($result) {
             "<td>" . $row["email"] . "</td>" .
             "<td>" . $row["staff_role"] . "</td>" .
             "<td><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i></td>" .
+           "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
             "</tr>";
     }
     $result->close();
@@ -367,7 +367,7 @@ $conn->close();
 
                                                 <button id="updateButton" class="updateButton"
                                                     type="submit">Update</button>
-                                            </div>
+
 
                                         </form>
                                     </div>

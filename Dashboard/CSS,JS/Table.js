@@ -221,3 +221,22 @@ $(document).ready(function () {
       .delay(2000);
   }
 });
+
+// ─── Delete User ──────────────────────────────────────────────
+function deleteUser(id) {
+  if (confirm("Are you sure you want to delete this user?")) {
+    $.ajax({
+      url: "/MBRMIS/Php/deleteUser.php",
+      type: "POST",
+      data: { id: id },
+      success: function (response) {
+        if (response == 1) {
+          alert("User deleted successfully");
+          location.reload();
+        } else {
+          alert("There was an error. Please try again.");
+        }
+      },
+    });
+  }
+}

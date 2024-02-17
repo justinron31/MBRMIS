@@ -371,7 +371,7 @@ if (isset($_SESSION['password_updated'])) {
                         </div>
 
                         <div class="passCon" id="passCon" style="display: none;">
-                            <button type=" button" class="reset__password-btn" onclick="toggleForm()">Reset
+                            <button type=" button" class="reset__password-btn" onclick="toggleForm()">Change
                                 Password</button>
                         </div>
 
@@ -400,8 +400,8 @@ if (isset($_SESSION['password_updated'])) {
                                         oninput="validatePassword();" required>
                                 </div>
                                 <button type=" submit" id="resetButton" class="reset__password-btn"
-                                    name="changePassword">Change
-                                    Password</button>
+                                    name="changePassword">Save changes
+                                </button>
                             </form>
                         </div>
 
