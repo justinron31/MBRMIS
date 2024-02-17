@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2024 at 10:27 AM
+-- Generation Time: Feb 17, 2024 at 09:45 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,23 +24,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `resident_indigency`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE `resident_indigency` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
+  `pickup_datetime` datetime NOT NULL,
+  `purpose_description` text NOT NULL,
+  `voters_id_image` blob NOT NULL,
+  `voters_id_number` varchar(20) NOT NULL,
+  `datetime_created` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `resident_indigency`
 --
 
-INSERT INTO `admin` (`id`, `username`, `name`, `password`) VALUES
-(1, '123', 'Ron', 'qwe'),
-(2, '123123', 'Mcvince', 'qweqwe');
+INSERT INTO `resident_indigency` (`id`, `firstname`, `lastname`, `contact_number`, `pickup_datetime`, `purpose_description`, `voters_id_image`, `voters_id_number`, `datetime_created`) VALUES
+(32, '123', '123', '123', '2024-03-01 12:31:00', '123123', 0x2f78616d70702f6874646f63732f4d42524d49532f436572744f66496e646967656e63792f766f7465727349445f53637265656e73686f745f323032342d30312d31375f3232333833392e706e67, '123', '2024-02-17 08:29:25');
 
 -- --------------------------------------------------------
 
@@ -55,30 +59,31 @@ CREATE TABLE `staff` (
   `idnumber` varchar(20) NOT NULL,
   `email` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
+  `age` int(100) NOT NULL,
   `pass` varchar(255) NOT NULL,
+  `staff_role` enum('Admin','Staff') DEFAULT 'Staff',
   `dateCreated` timestamp NOT NULL DEFAULT current_timestamp(),
-  `account_status` enum('Activated','Deactivated') DEFAULT NULL
+  `last_login_timestamp` timestamp NULL DEFAULT NULL,
+  `account_status` enum('Activated','Deactivated') DEFAULT 'Activated'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `pass`, `dateCreated`, `account_status`) VALUES
-(9, 'Jeah', 'Arcillas', '123jeah', 'jeah@gmail.com', 'Female', '$2y$10$W6yGugw3CZKHbVNvvZLng.TLq2aNY1RPwCxL6w1yhXH4XpKyGRht6', '2024-01-24 06:48:23', 'Activated'),
-(10, 'Koji', 'Ignacious', 'ijok', 'ijok@gmail.com', 'Male', '$2y$10$jRiuOa3i2P4UVAZlXZ4NUuUw74Fz5us5GC2r7JE7LCfFWXiUXpvHO', '2024-01-24 06:51:04', 'Deactivated'),
-(11, 'Johnny', 'Barayray', 'jc123', 'jc@gmail.com', 'Male', '$2y$10$S.mtLamDwHjmJL1UCyoZ7.vHqaiSjyaLw/boq6dMfeIJw.mnQPDf2', '2024-01-25 05:04:22', 'Deactivated'),
-(12, 'Maple', 'Marquez', 'maplejr', 'jr@gmail.com', 'Male', '$2y$10$e5nNfNn0/ZsWZbFYLU05neRM/7jJf/LuLd.R4s7r/ynAjVthqdzBa', '2024-01-25 10:44:33', 'Activated'),
-(13, 'Ronron', 'Ron', '123123', 'ron@gmail.com', 'Male', '$2y$10$DiuqgrLYBI4X8f9U2QA8E.Zs.Qq.aQcKi5He3aLi2TUri4lB/ohdS', '2024-01-27 08:56:25', 'Activated');
+INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `age`, `pass`, `staff_role`, `dateCreated`, `last_login_timestamp`, `account_status`) VALUES
+(57, 'Ron', 'Galang', '123', 'ron@gmail.com', 'Male', 21, '$2y$10$rMHNxgDnPoAwQFS4PzX7r.xOaU.Ct./M1pCYxN8jOiNFPZTFTOAUC', 'Admin', '2024-02-17 05:15:24', '2024-02-17 07:03:03', 'Activated'),
+(59, 'Mc', 'Vince', 'qwe', 'mc@gmail.com', 'Male', 31, '$2y$10$xGD/g.TBuBqDI83OMbcaSOa3fKoJa1MGAGQNtSqeMqZMR8RRudiB2', 'Admin', '2024-02-17 05:20:03', '2024-02-17 06:42:19', 'Activated'),
+(61, 'Jc', 'Cj', '123123', 'jc@gmail.com', 'Female', 11, '$2y$10$SPi1jlazT0Vt2psNsno.Nejw51A/0Wf5s/.ZEejv6MI6NwB9NFSDO', 'Staff', '2024-02-17 05:20:38', '2024-02-17 06:42:39', 'Activated');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `resident_indigency`
 --
-ALTER TABLE `admin`
+ALTER TABLE `resident_indigency`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -92,16 +97,16 @@ ALTER TABLE `staff`
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `resident_indigency`
 --
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `resident_indigency`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
