@@ -196,16 +196,7 @@ if (isset($_SESSION['password_updated'])) {
                                 <span>First Time Job Seeker</span>
                             </a>
                         </li>
-                        <li class="item">
-                            <a href="#" class="link flex">
-                                <i>
-                                    <span class="material-symbols-outlined">
-                                        lab_profile
-                                    </span>
-                                </i>
-                                <span>Community Tax Certificate</span>
-                            </a>
-                        </li>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
