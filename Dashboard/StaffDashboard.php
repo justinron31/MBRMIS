@@ -167,16 +167,7 @@ $_SESSION['show_login_message'] = false;
                                 <span>First Time Job Seeker</span>
                             </a>
                         </li>
-                        <li class="item">
-                            <a href="#" class="link flex">
-                                <i>
-                                    <span class="material-symbols-outlined">
-                                        lab_profile
-                                    </span>
-                                </i>
-                                <span>Community Tax Certificate</span>
-                            </a>
-                        </li>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -198,8 +189,8 @@ $_SESSION['show_login_message'] = false;
                         </div>
                         <li class="item">
                             <a href="#" class="link flex">
-                                <i class="bx bx-cog"></i>
-                                <span>Settings</span>
+                                <i class='bx bxs-user-detail'></i>
+                                <span>Manage System User</span>
                             </a>
                         </li>
                         <li class="item " onclick="openLogoutModal()">
