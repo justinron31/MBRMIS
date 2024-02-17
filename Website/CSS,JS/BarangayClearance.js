@@ -129,6 +129,7 @@ function hideModal() {
 
   modal.addEventListener("animationend", function () {
     modal.style.display = "none";
+    document.getElementById("fname").focus();
   });
 }
 
