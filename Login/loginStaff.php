@@ -34,19 +34,21 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
 <body>
 
     <script>
-    var userRole = "<?php echo isset($_SESSION['user_type']) ? $_SESSION['user_type'] : ''; ?>";
+    session_start();
 
-
-    // Check if the user is already logged in and redirect accordingly
-    if (userRole === "admin") {
-        alert("Your are currently logged in. Logout first.");
-        window.location.href = "/MBRMIS/Dashboard/AdminDashboard.php";
-    } else if (userRole === "staff") {
-        alert("Your are currently logged in. Logout first.");
-        window.location.href = "/MBRMIS/Dashboard/StaffDashboard.php";
+    if (isset($_SESSION['user_type'])) {
+        // User is already logged in
+        if ($_SESSION['last_login_timestamp'] < time() - 3600) {
+            // Last session activity was more than hour ago
+            session_unset(); // unset $_SESSION variable for the run-time 
+            session_destroy(); // destroy session data in storage
+        } else {
+            $_SESSION['last_login_timestamp'] = time(); // update last activity time stamp
+        }
     } else {
-        // Handle other roles or show an error message
-        console.error("Invalid user role. Please contact support.");
+        // User is not logged in
+        $_SESSION['user_type'] = $user_type; // set user type
+        $_SESSION['last_login_timestamp'] = time(); // set current time
     }
     </script>
 

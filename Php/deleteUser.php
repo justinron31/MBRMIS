@@ -10,9 +10,11 @@
         $stmt->bind_param("s", $id);
 
         if ($stmt->execute()) {
-            echo 1;
+            // Echo a JSON response
+            echo json_encode(array("status" => "success", "message" => "User deleted successfully"));
         } else {
-            echo 0;
+            // Echo a JSON response
+            echo json_encode(array("status" => "error", "message" => "Error deleting user"));
         }
 
         $stmt->close();

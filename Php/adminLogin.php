@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Check the staff database using prepared statement
-    $staffQuery = $conn->prepare("SELECT id, firstname, pass, account_status, staff_role FROM staff WHERE idnumber = ?");
+    $staffQuery = $conn->prepare("SELECT id, firstname, pass, account_status, staff_role, last_login_timestamp FROM staff WHERE idnumber = ?");
     $staffQuery->bind_param("s", $username);
     $staffQuery->execute();
     $staffResult = $staffQuery->get_result();
@@ -26,9 +26,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['show_login_message'] = true;
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['user_name'] = $name;
+                $_SESSION['last_login_timestamp'] = $row['last_login_timestamp']; // Store last login timestamp in session
 
                 // Set $_SESSION['user_type'] based on the role value
                 $_SESSION['user_type'] = strtolower($role);
+
+                // Update last login timestamp
+                $updateLoginTimestamp = $conn->prepare("UPDATE staff SET last_login_timestamp = NOW() WHERE id = ?");
+                $updateLoginTimestamp->bind_param("i", $user_id);
+                $updateLoginTimestamp->execute();
 
                 // Redirect based on user type
                 if ($_SESSION['user_type'] === 'admin') {

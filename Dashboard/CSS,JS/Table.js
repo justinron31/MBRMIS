@@ -1,3 +1,4 @@
+// ─── Table Sort And Function ──────────────────────────────────
 const search = document.querySelector(".input-group input"),
   table_rows = document.querySelectorAll("tbody tr"),
   table_headings = document.querySelectorAll("thead th");
@@ -63,7 +64,7 @@ function sortTable(column, sort_asc) {
     );
 }
 
-/*EXPORT BUTTON POPUP*/
+// ─── Export Popup ─────────────────────────────────────────────
 
 function togglePopup() {
   var popup = document.getElementById("popupEX");
@@ -88,7 +89,7 @@ function closePopupOutside(event) {
   }
 }
 
-/* FORM ACCOUNT STATUS EDIT */
+// ─── Form Account Status Edit ─────────────────────────────────
 $(document).mousedown(function (event) {
   var modal = $("#customEditModal");
   if (!modal.is(event.target) && modal.has(event.target).length === 0) {
@@ -210,7 +211,6 @@ $(document).ready(function () {
     var popupContainer = $('<div class="custom-popup"></div>').text(message);
     $("body").append(popupContainer);
 
-    // Display the popup with slide-up animation and remove it after a certain time
     popupContainer
       .css("display", "none")
       .fadeIn(200, function () {
@@ -224,19 +224,48 @@ $(document).ready(function () {
 
 // ─── Delete User ──────────────────────────────────────────────
 function deleteUser(id) {
-  if (confirm("Are you sure you want to delete this user?")) {
+  // Display a confirmation prompt
+  var confirmation = confirm("Are you sure you want to delete this user?");
+
+  if (confirmation) {
     $.ajax({
-      url: "/MBRMIS/Php/deleteUser.php",
       type: "POST",
+      url: "/MBRMIS/Php/deleteUser.php",
       data: { id: id },
-      success: function (response) {
-        if (response == 1) {
-          alert("User deleted successfully");
+      dataType: "json", // Specify that you expect JSON in the response
+      success: function (data) {
+        // Check the status in the response
+        if (data.status === "success") {
+          // Set session storage value
+          sessionStorage.setItem("showCustomPopup", data.message);
+          // Refresh the page
           location.reload();
         } else {
-          alert("There was an error. Please try again.");
+          // Show a custom error popup
+          showCustomPopup(data.message);
         }
+      },
+      error: function (error) {
+        console.log("Error deleting user: ", error);
+
+        // Show a custom error popup
+        showCustomPopup("Error deleting user");
       },
     });
   }
+}
+
+// Function to show a custom popup
+function showCustomPopup(message) {
+  var popupContainer = $('<div class="custom-popup"></div>').text(message);
+  $("body").append(popupContainer);
+
+  popupContainer
+    .css("display", "none")
+    .fadeIn(200, function () {
+      $(this).animate({ top: "-20px", opacity: 0 }, 300, function () {
+        $(this).remove();
+      });
+    })
+    .delay(2000);
 }
