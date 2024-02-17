@@ -1,36 +1,58 @@
 <?php
-include 'db.php';
 session_start();
+include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
+    $username = $_POST['id'];
     $password = $_POST['password'];
 
-    // Hash the entered password (replace this with a more secure method like bcrypt)
-    $hashedPassword = md5($password);
+    // Check the staff database using prepared statement
+    $staffQuery = $conn->prepare("SELECT id, firstname, pass, account_status, staff_role FROM staff WHERE idnumber = ?");
+    $staffQuery->bind_param("s", $username);
+    $staffQuery->execute();
+    $staffResult = $staffQuery->get_result();
 
-    // SQL query to fetch data
-    $sql = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($sql);
+    if ($staffResult->num_rows == 1) {
+        // Staff found
+        $row = $staffResult->fetch_assoc();
+        $user_id = $row['id'];
+        $accountStatus = $row['account_status'];
 
-    if ($result->num_rows == 1) {
-        // Fetch and display the name
-        $row = $result->fetch_assoc();
-        $name = $row['name'];
+        if ($accountStatus === 'Activated') {
+            if (password_verify($password, $row['pass'])) {
+                $name = $row['firstname'];
+                $role = $row['staff_role'];
 
-        // Set the user's name in the session variable
-        $_SESSION['user_name'] = $name;
+                $_SESSION['show_login_message'] = true;
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['user_name'] = $name;
 
-        // Redirect to the dashboard with a welcome message
-        header("Location: /MBRMIS/Dashboard/AdminDashboard.php");
-        exit();
+                // Set $_SESSION['user_type'] based on the role value
+                $_SESSION['user_type'] = strtolower($role);
+
+                // Redirect based on user type
+                if ($_SESSION['user_type'] === 'admin') {
+                    header("Location: /MBRMIS/Dashboard/AdminDashboard.php");
+                } elseif ($_SESSION['user_type'] === 'staff') {
+                    header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
+                } else {
+                    $_SESSION['error_message'] = "Invalid role";
+                    header("Location: /MBRMIS/Login/loginStaff.php");
+                }
+
+                exit();
+            } else {
+                $_SESSION['error_message'] = "Invalid Credentials.";
+            }
+        } else {
+            $_SESSION['error_message'] = "Account Deactivated. Please contact the admin.";
+        }
     } else {
-        $_SESSION['error_message'] = "Invalid Credentials";
+        $_SESSION['error_message'] = "ERROR.";
     }
+
+    header("Location: /MBRMIS/Login/loginStaff.php");
+    exit();
 }
 
 $conn->close();
-
-// Redirect to login page with error message
-header("Location: /MBRMIS/Login/loginAdmin.php");
-exit();

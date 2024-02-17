@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--LOGO TAB-->
+  <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-...." crossorigin="anonymous" />
+
+
+
+  <!-- META TAGS BRO -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Barangay management system for makiling" />
+  <meta name="keywords" content="Web Development, Barangay Management System" />
+  <meta name="authors" content="Arcillas, Galang, Ignacio" />
+
+  <!-- CSS / JAVASCRIPT -->
+  <link rel="stylesheet" href="/MBRMIS/Website/CSS,JS/BarangayClearance.css" />
+  <script src="/MBRMIS/Website/CSS,JS/BarangayClearance.js"></script>
+
+  <!-- CAPTCHA-->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <!-- IMPORTS-->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+  <title>Request for Business Permit</title>
+</head>
+
+<body>
+
+  <!--LOADER-->
+  <div id="preloader">
+    <div id="status">&nbsp;</div>
+  </div>
+
+
+  <!--OVERLAY MENU-->
+  <div id="myNav" class="overlay">
+
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <div class="overlay-content">
+      <img class="logooverlay" src="../Images/logo.png" alt="Makiling logo" />
+      <a href="/MBRMIS/Website/homepage.html#home" id="homeButton1" onclick="closeNav()">Home</a>
+      <a href="/MBRMIS/Website/homepage.html#service" id="servicesButton1" onclick="closeNav()">Services</a>
+      <a href="/MBRMIS/Website/trackRequest.html">Track Request</a>
+      <a href="/MBRMIS/Website/homepage.html#contactus" id="contactusButton1" onclick="closeNav()">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- NAV-->
+  <nav>
+
+    <div id="logcon">
+      <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+      <h1 class="logoname">BARANGAY MAKILING </h1>
+      <i class='bx bx-menu-alt-right' onclick="openNav()"></i>
+    </div>
+
+    <div id="nav-links">
+      <a href="/MBRMIS/Website/homepage.html#home" class="nav-link" id="homeButton">Home</a>
+      <a href="/MBRMIS/Website/homepage.html#service" class="nav-link" id="servicesButton">Services</a>
+      <a href="/MBRMIS/Website/trackRequest.html" class="nav-link">Track Request</a>
+      <a href="/MBRMIS/Website/homepage.html#contactus" class="nav-link" id="contactusButton">Contact Us</a>
+    </div>
+
+  </nav>
+
+
+  <!--ALERT MESSAGE-->
+  <div id="alerPopup" class="popup1">
+    <p>Please choose a date and time in the future.</p>
+  </div>
+
+  <!--ALERT MESSAGE 1-->
+  <div id="alerPopup1" class="popup1">
+    <p>Sundays are not allowed. Please choose another date.</p>
+  </div>
+
+  <!--ALERT MESSAGE 2-->
+  <div id="alerPopup2" class="popup1">
+    <p>Please agree to the terms and confirm the accuracy of information.</p>
+  </div>
+
+
+
+  <!-- FORM-->
+
+  <div class="login-container">
+    <div class="logo-container">
+
+      <p class="login-text">Request for First Time Job Seeker Certificate</p>
+      <hr>
+    </div>
+    <form id="myForm" action="" method="post">
+
+      <!-- ─── Name ─────────────────────── -->
+      <div class="uploader">
+        <div class="uploadContent1">
+          <label for="fname" class="required">Firstname</label>
+          <input type="text" id="fname" name="fname" placeholder="Enter your Firstname" autofocus required />
+        </div>
+
+        <div class="uploadContent">
+          <label for="lname" class="required">Lastname</label>
+          <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required />
+        </div>
+      </div>
+
+
+      <!-- ─── Birthdate ────────────────── -->
+      <div class="uploader">
+
+        <div class="uploadContent">
+          <label for="datepicker" class="required">Birthdate</label>
+          <aeon-datepicker>
+            <label for="datepicker"></label>
+            <input type="date" id="Bdatepicker" required />
+          </aeon-datepicker>
+        </div>
+
+        <!-- ─── Age ──────────────── -->
+        <div class="uploadContent1">
+          <label for="age" class="required">Age</label>
+          <input type="text" id="id" name="age" placeholder="Enter your Age" required />
+        </div>
+
+        <!-- ─── Gender ───────────── -->
+        <div class="uploadContent">
+          <label for="sex" class="required">Sex / Gender </label>
+          <select class="selectbox" id="bussSelect" onchange="changeFontColor('bussSelect')">
+            <option value="">Select Gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+
+      </div>
+
+      <!-- ─── Contact Number ───────────── -->
+      <div class="uploader">
+
+        <div class="uploadContent1">
+          <label for="contNum" class="required">Contact Number</label>
+          <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
+            oninput="validateContactNumber(this)" required />
+        </div>
+
+        <!-- ─── Civil Status ─────── -->
+        <div class="uploadContent">
+          <label for="badd" class="required">Civil Status </label>
+          <select class="selectbox" id="bussSelect1" onchange="changeFontColor('bussSelect1')">
+            <option value="">Select Civil Status</option>
+            <option value="Married">Married</option>
+            <option value="Single">Single</option>
+            <option value="Divorced">Divorced</option>
+            <option value="Widowed">Widowed</option>
+          </select>
+        </div>
+
+      </div>
+
+
+      <!-- ─── Address ──────────────────────── -->
+      <div class="uploader">
+
+        <div class="uploadContent1">
+          <label for="add" class="required">Address</label>
+          <input type="text" id="id" name="age" placeholder="Enter your complete Address" required />
+        </div>
+
+        <div class="uploadContent">
+          <label for="badd" class="required">Years / Months Residency (given address) </label>
+          <select class="selectbox" id="bussSelect2" onchange="changeFontColor('bussSelect2')">
+            <option value="">Select Years/Months</option>
+            <option value="1">1 Year</option>
+            <option value="2">2 year</option>
+            <option value="3">3 year</option>
+          </select>
+        </div>
+
+      </div>
+
+
+      <!-- ─── Education ────────────────── -->
+      <div class="uploader">
+
+        <div class="uploadContent1">
+          <label for="edu" class="required">Educational Attainment</label>
+          <input type="text" id="id" name="edu" placeholder="Enter your educational attainment" required />
+        </div>
+
+        <div class="uploadContent">
+          <label for="course" class="required">Course (if applicable, put “NA” if not applicable)</label>
+          <input type="text" id="id" name="course" placeholder="Enter your course" required />
+        </div>
+
+      </div>
+
+
+      <!-- ─── Question ─────────────────── -->
+      <div class="question-container">
+        <label for="quest" id="quest" class="required"><strong>Question:</strong> Are you a beneficiary of a JobStart
+          Program under RA No. 10869, otherwise known as "An Act Institutionalizing the Nationwide Implementation of
+          the
+          JobStart Philippines Program and Providing Funds Therefor"? (Please check appropriate box)</label>
+
+        <div class="radio-options">
+          <label for="yesRadio"><strong>Yes</strong></label>
+          <input type="radio" id="yesRadio" name="jobStartBeneficiary" value="yes" required />
+
+          <label for="noRadio"><strong>No</strong></label>
+          <input type="radio" id="noRadio" name="jobStartBeneficiary" value="no" required />
+
+        </div>
+      </div>
+
+
+      <!-- ─── Datetime ─────────────────── -->
+      <label for="datepicker" class="required">Pick-Up Date and Time</label>
+      <aeon-datepicker>
+        <label for="datepicker"></label>
+        <input type="date" id="datepicker" required />
+
+        <label for="timepicker"></label>
+        <input class="time" type="time" id="timepicker" required />
+      </aeon-datepicker>
+
+      <!-- ─── Upload Id ─────────────────── -->
+      <div class="uploader">
+        <div class="uploadContent1">
+          <label class="required1" for="avatar">Upload Valid ID</label>
+          <div id="image-preview">
+            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
+              onchange="previewImage()" />
+            <img id="preview" />
+          </div>
+        </div>
+
+        <!-- ─── Id Number ────────── -->
+        <div class="uploadContent">
+          <label for="contNum" class="required">ID Number</label>
+          <input type="text" id="id" name="contNum" placeholder="Enter your ID Number" required />
+        </div>
+      </div>
+
+      <!-- ─── Checkbox ─────────────────── -->
+      <div class="checkbox">
+        <div class="firstCheck">
+          <input type="checkbox" id="termsCheckbox" required />
+          <label for="checkbox">I have read and agree to the <a href=""><strong> terms and conditions </strong></a> and
+            data privacy policy.
+          </label>
+
+        </div>
+
+        <div class="secondCheck">
+          <input type="checkbox" id="accuracyCheckbox" required />
+          <label for="checkbox">I confirm that all information I have provided is accurate.</label>
+
+        </div>
+
+      </div>
+
+      <!-- ─── Captcha ──────────────────────────── -->
+      <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->
+
+      <br />
+
+      <!-- ─── Submit Button ────────────── -->
+      <button type="submit" id="submitBtn" class="login-button">
+        SUBMIT
+      </button>
+      <br />
+      <br />
+    </form>
+
+  </div>
+  <br />
+
+  <!-- FOOTER BRO-->
+  <footer>
+    <p>&copy; 2024 BARANGAY MAKILING HEALTHCARE AND ISSUANCE SYSTEM | All rights reserved.</p>
+  </footer>
+
+
+</body>
+
+</html>

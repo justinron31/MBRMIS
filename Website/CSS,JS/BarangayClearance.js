@@ -1,96 +1,177 @@
-/*LOADER ANIMATION*/
-$(window).on('load', function() { 
+// ─── Loader Animation ────────────────────────────────────────────────────────
 
-    $('#status').fadeOut();
+$(window).on("load", function () {
+  $("#status").fadeOut();
 
-    
-    $('#preloader').delay(150).fadeOut('slow');
+  $("#preloader").delay(150).fadeOut("slow");
 
-
-    $('body').delay(150).css({'overflow':'visible'});
+  $("body").delay(150).css({ overflow: "visible" });
 });
 
-/*AUTO FOCUS*/
-window.onload = function() {
-    document.getElementById("fname").focus();
-  };
-  
+// ─── Auto Focus ──────────────────────────────────────────────────────────────
 
-/*DATE AND TIME PICKER */
-// Function to format the date and time
+window.onload = function () {
+  document.getElementById("fname").focus();
+};
+
+// ─── Date And Time Picker ────────────────────────────────────────────────────
+
 function formatDateTime(date) {
-    const formattedDate = date.toISOString().split('T')[0];
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    return {
-        dateString: formattedDate,
-        timeString: `${hours}:${minutes}`
-    };
+  const formattedDate = date.toISOString().split("T")[0];
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  return {
+    dateString: formattedDate,
+    timeString: `${hours}:${minutes}`,
+  };
 }
 
-/*REMOVE SUNDAY DATES*/
-document.addEventListener('DOMContentLoaded', function () {
+// ─── Restrict Past Date And Time ─────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function () {
+  var datepicker = document.getElementById("datepicker");
+  var timepicker = document.getElementById("timepicker");
 
-    var datepicker = document.getElementById('datepicker');
+  datepicker.addEventListener("input", function () {
+    var currentDate = new Date();
+    var selectedDate = new Date(datepicker.value);
 
-    datepicker.addEventListener('input', function () {
+    currentDate.setHours(0, 0, 0, 0);
+    selectedDate.setHours(0, 0, 0, 0);
 
-      var selectedDate = new Date(datepicker.value);
-   
-      if (selectedDate.getDay() === 0) {
-        alert('No Operations every Sundays. Please choose another date.');
-        datepicker.value = ''; 
-      }
-    });
+    if (selectedDate < currentDate) {
+      showCustomAlert("alerPopup");
+      datepicker.value = "";
+      timepicker.value = "";
+      datepicker.style.borderColor = "red";
+      datepicker.style.boxShadow = "0 0 5px red";
+    } else if (selectedDate.getDay() === 0) {
+      showCustomAlert("alerPopup1");
+      datepicker.value = "";
+      datepicker.style.borderColor = "red";
+      datepicker.style.boxShadow = "0 0 5px red";
+    } else {
+      datepicker.style.borderColor = "";
+      datepicker.style.boxShadow = "";
+      timepicker.style.borderColor = "";
+      timepicker.style.boxShadow = "";
+    }
   });
 
+  timepicker.addEventListener("input", function () {
+    var currentDate = new Date();
+    var selectedDate = new Date(datepicker.value + "T" + timepicker.value);
 
-/*  RESTRICT PAST DATE AND TIME */
-document.addEventListener('DOMContentLoaded', function () {
-    var datepicker = document.getElementById('datepicker');
-    var timepicker = document.getElementById('timepicker');
-
-    datepicker.addEventListener('input', function () {
-      var currentDate = new Date();
-      var selectedDate = new Date(datepicker.value);
-
-     
-      currentDate.setHours(0, 0, 0, 0);
-      selectedDate.setHours(0, 0, 0, 0);
-
-      if (selectedDate < currentDate) {
-        alert('Please choose a date and time in the future.');
-        datepicker.value = '';
-        timepicker.value = '';
-      } else if (selectedDate.getDay() === 0) {
-        alert('Sundays are not allowed. Please choose another date.');
-        datepicker.value = '';
-        timepicker.value = '';
-      }
-    });
-
-    timepicker.addEventListener('input', function () {
-      var currentDate = new Date();
-      var selectedDate = new Date(datepicker.value + 'T' + timepicker.value);
-
-      // Check if the selected time is in the past
-      if (selectedDate < currentDate) {
-        alert('Please choose a date and time in the future.');
-        
-        timepicker.value = '';
-      }
-    });
+    // Check if the selected time is in the past
+    if (selectedDate < currentDate) {
+      showCustomAlert("alerPopup");
+      timepicker.value = "";
+      timepicker.style.borderColor = "red";
+      timepicker.style.boxShadow = "0 0 5px red";
+    } else {
+      // It's not in the past, reset the styles to default
+      timepicker.style.borderColor = ""; // Set to default border color
+      timepicker.style.boxShadow = ""; // Remove the box shadow
+    }
   });
+});
 
+function showCustomAlert(alertId) {
+  var customAlert = document.getElementById(alertId);
+  customAlert.style.display = "block";
 
- /* DROPDOWN COLOR CHANGE*/
-function changeFontColor() {
-  var selectBox = document.getElementById("bussSelect");
+  setTimeout(function () {
+    customAlert.style.display = "none";
+  }, 3000); // Hide the alert after 3 seconds
+}
+
+// ─── Dropdown Color Change ───────────────────────────────────────────────────
+function changeFontColor(dropDownId) {
+  var selectBox = document.getElementById(dropDownId);
   var selectedOption = selectBox.options[selectBox.selectedIndex].value;
 
-  if (selectedOption === "Sole Proprietorship" || selectedOption === "Partnership" || selectedOption === "Corporation" || selectedOption === "Cooperative") {
-      selectBox.style.color = "#000000"; 
+  if (selectedOption !== "") {
+    selectBox.style.color = "#000000";
   } else {
-      selectBox.style.color = "#757575"; 
+    selectBox.style.color = "#757575";
+  }
+}
+
+// ─── Burger Menu ─────────────────────────────────────────────────────────────
+
+function openNav() {
+  document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+  document.getElementById("myNav").style.width = "0%";
+}
+
+// ─── Prompt Confirmation Message Modal ───────────────────────────────────────
+
+window.onload = function () {
+  var overlay = document.getElementById("overlay");
+  var modal = document.getElementById("logoutModal");
+
+  overlay.style.display = "block";
+  modal.style.display = "block";
+};
+
+function hideModal() {
+  var overlay = document.getElementById("overlay");
+  var modal = document.getElementById("logoutModal");
+
+  overlay.style.animation = "fadeOut 0.5s ease-out";
+  modal.style.animation = "fadeOut 0.5s ease-out";
+
+  overlay.addEventListener("animationend", function () {
+    overlay.style.display = "none";
+  });
+
+  modal.addEventListener("animationend", function () {
+    modal.style.display = "none";
+  });
+}
+
+function showSecondModal() {
+  var overlay2 = document.getElementById("overlay2");
+  var modal2 = document.getElementById("logoutModal2");
+
+  overlay2.style.display = "block";
+  modal2.style.display = "block";
+}
+
+function redirectToHomePage() {
+  window.location.href = "homepage.html#contactus";
+}
+
+// ─── Id Upload Preview ────────────────────────────────────────
+function previewImage() {
+  var preview = document.getElementById("preview");
+  var fileInput = document.getElementById("avatar");
+  var file = fileInput.files[0];
+
+  if (file) {
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+      preview.src = e.target.result;
+    };
+
+    reader.readAsDataURL(file);
+    preview.style.display = "block"; // Show the image preview
+  } else {
+    preview.src = "";
+    preview.style.display = "none"; // Hide the image preview
+  }
+}
+
+// ─── Number Validate ──────────────────────────────────────────
+function validateContactNumber(input) {
+  // Remove non-numeric characters
+  input.value = input.value.replace(/[^0-9]/g, "");
+
+  // Limit the length to 11 digits
+  if (input.value.length > 11) {
+    input.value = input.value.slice(0, 11);
   }
 }
