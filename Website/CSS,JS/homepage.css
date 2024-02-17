@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   flex-direction: column;
   overflow-x: hidden;
 }
@@ -25,15 +25,14 @@ nav {
   position: fixed;
   width: 100%;
   top: 0;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   z-index: 999;
 }
-
 
 p {
   text-align: center;
 }
-
 
 .logoname {
   font-size: 20px;
@@ -70,7 +69,7 @@ p {
 
 .nav-link:hover {
   font-weight: bold;
-  color: #266E60;
+  color: #266e60;
 }
 
 .bx.bx-menu-alt-right {
@@ -86,14 +85,12 @@ p {
   display: none;
 }
 
-
 /* Responsive styles for phones */
 @media only screen and (max-width: 938px) {
   #nav-links {
     width: 100%;
     padding: 25px;
     padding-left: 1px;
-
   }
 
   .nav-link {
@@ -105,7 +102,6 @@ p {
     display: none;
   }
 
-
   .logo {
     width: 50px;
     height: 50px;
@@ -114,9 +110,7 @@ p {
   }
 }
 
-
 @media only screen and (max-width: 768px) {
-
   nav {
     padding: 0 15px;
     position: fixed;
@@ -135,21 +129,17 @@ p {
   .nav-link {
     font-weight: 600;
     padding-right: 20px;
-
   }
 
   .logoname {
     display: none;
   }
 
-
   .logo {
     width: 50px;
     height: 50px;
   }
-
 }
-
 
 @media only screen and (max-width: 426px) {
   nav {
@@ -158,7 +148,6 @@ p {
 
   #nav-links {
     display: none;
-
   }
 
   .logoname {
@@ -172,7 +161,6 @@ p {
     margin-left: -10px;
     padding: 10px;
   }
-
 
   .bx.bx-menu-alt-right {
     display: inline;
@@ -199,7 +187,6 @@ p {
     display: block;
   }
 
-
   .overlay a {
     padding: 8px;
     text-decoration: none;
@@ -211,9 +198,8 @@ p {
 
   .overlay a:hover,
   .overlay a:focus {
-    color: #5183AD;
+    color: #5183ad;
     font-weight: bold;
-
   }
 
   .overlay .closebtn {
@@ -225,7 +211,7 @@ p {
 
   @media screen and (max-height: 450px) {
     .overlay a {
-      font-size: 20px
+      font-size: 20px;
     }
 
     .overlay .closebtn {
@@ -239,9 +225,7 @@ p {
     width: 20%;
     height: auto;
   }
-
 }
-
 
 @media only screen and (max-width: 376px) {
   .menu {
@@ -252,35 +236,25 @@ p {
   .logoname {
     font-size: 15px;
     line-height: 20px;
-
   }
 
   .bx.bx-menu-alt-right {
     padding-left: 90px;
     font-size: 30px;
   }
-
 }
 
 @media only screen and (max-width: 320px) {
-
   .logoname {
     text-wrap: nowrap;
-
   }
 
   .bx.bx-menu-alt-right {
     padding-left: 35px;
-
   }
 }
 
-
-
-
 /*?NAV TOP END----------------------------------------------------------------------------------------------------------------------*/
-
-
 
 /* *HOME SECTION ----------------------------------------------------------------------------------------------------------------------------------*/
 .containerH {
@@ -290,7 +264,11 @@ p {
 }
 
 #home {
-  background-image: linear-gradient(rgba(28, 171, 97, 0.337), rgba(16, 201, 87, 0.233)), url(../../Images/makiling.jpg);
+  background-image: linear-gradient(
+      rgba(28, 171, 97, 0.337),
+      rgba(16, 201, 87, 0.233)
+    ),
+    url(../../Images/makiling.jpg);
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -300,7 +278,6 @@ p {
   padding: 200px;
   margin-top: 25px;
   align-items: center;
-
 }
 
 .lorem {
@@ -338,18 +315,13 @@ p {
   transform: scale(1.1);
 }
 
-
-
-
 /* Responsive Styles */
 
 @media only screen and (max-width: 1024px) {
-
   .welcome {
     padding: 150px;
     font-size: 20px;
     margin-top: 25px;
-
   }
 
   .lorem {
@@ -369,27 +341,22 @@ p {
   }
 }
 
-
 @media only screen and (max-width: 768px) {
-
   .welcome {
     padding: 100px;
     margin-top: 50px;
-
   }
 
   .lorem {
     font-size: 15px;
     font-weight: 500;
     line-height: 20px;
-
   }
 
   .big {
     margin: 0;
     font-size: 25px;
     white-space: nowrap;
-
   }
 
   #butt {
@@ -400,21 +367,17 @@ p {
 }
 
 @media only screen and (max-width: 430px) {
-
   .welcome {
     padding: 70px 50px;
     margin-top: 50px;
     padding-bottom: 50px;
     text-align: center;
-
-
   }
 
   .big {
     white-space: normal;
     font-size: 20px;
     width: 100%;
-
   }
 
   .lorem {
@@ -422,7 +385,6 @@ p {
     margin: 0;
     text-align: center;
     display: inline-block;
-
   }
 
   #butt {
@@ -430,20 +392,15 @@ p {
     margin: 10px 0px;
     font-size: 12px;
   }
-
 }
 
 @media only screen and (max-width: 320px) {
-
   .big {
     font-size: 15px;
-
-
   }
 
   .lorem {
     font-size: 10px;
-
   }
 
   #butt {
@@ -454,7 +411,6 @@ p {
 }
 
 /** HOME SECTION END----------------------------------------------------------------------------------------------------------------------------------*/
-
 
 /**SERVICES--------------------------------------------------------------------------------------------------------------*/
 
@@ -470,7 +426,6 @@ p {
   font-size: 35px;
   font-weight: 700;
   margin: 0;
-
 }
 
 .text2 {
@@ -484,46 +439,46 @@ p {
 }
 
 .concon {
-  background-color: #266E60;
+  background-color: #266e60;
   color: #fff;
   text-align: center;
   padding: 50px 20px;
   margin: 10px;
   width: 20%;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   transition: ease-in-out;
 }
 
 .concon:hover {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
 
 .concon1 {
-  background-color: #266E60;
+  background-color: #266e60;
   color: #fff;
   text-align: center;
   padding: 50px 20px;
   margin: 10px;
   width: 20%;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
+    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
   transition: ease-in-out;
 }
 
 .concon1:hover {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
 }
-
 
 .headService {
   margin: 0;
   font-size: 18px;
   font-weight: 900;
 }
-
 
 .buttService {
   padding: 15px 35px;
@@ -542,9 +497,6 @@ p {
   transform: scale(1.1);
 }
 
-
-
-
 /*RESPONSIVE*/
 @media only screen and (max-width: 1440px) {
   .headService {
@@ -560,25 +512,21 @@ p {
   }
 
   .buttService {
-
     margin-top: 0px;
   }
 }
-
-
 
 @media only screen and (max-width: 1024px) {
   #service {
     padding: 50px 20px;
   }
 
-
+  .headService {
+    font-size: 13px;
+  }
 }
 
-
-
 @media only screen and (max-width: 768px) {
-
   #service {
     padding: 20px 20px;
     padding-bottom: 30px;
@@ -598,18 +546,13 @@ p {
     height: 50%;
   }
 
-
   .headService {
     font-size: 17px;
     line-height: 20px;
   }
-
-
 }
 
 @media only screen and (max-width: 768px) {
-
-
   .serviceCon {
     display: flex;
     flex-direction: column;
@@ -634,14 +577,9 @@ p {
     margin: 10px;
     width: 80%;
   }
-
 }
 
-
 /**SERVICES END--------------------------------------------------------------------------------------------------------------*/
-
-
-
 
 /**MISSION VISION----------------------------------------------------------------------------------*/
 #main {
@@ -653,11 +591,9 @@ p {
 
 .aboutus {
   padding: 15px;
-  background-color: #266E60;
+  background-color: #266e60;
   color: #fff;
   text-align: center;
-
-
 }
 
 .abouttext {
@@ -674,7 +610,6 @@ p {
   flex-direction: column;
   text-align: center;
   padding: 10px;
-
 }
 
 .missionCon {
@@ -683,7 +618,6 @@ p {
   margin: 20px;
   margin-top: 70px;
   justify-content: center;
-
 }
 
 .content {
@@ -710,14 +644,12 @@ p {
   height: auto;
 }
 
-
 .visionCon {
   display: flex;
   width: 70%;
   margin: 20px;
   margin-bottom: 70px;
   justify-content: center;
-
 }
 
 .content1 {
@@ -746,15 +678,12 @@ p {
 }
 
 @media only screen and (max-width: 1024px) {
-
-
   .aboutus {
     padding: 5px;
   }
 
   .abouttext {
     font-size: 20px;
-
   }
 
   .pService {
@@ -764,15 +693,11 @@ p {
   .sedula {
     margin-top: 10px;
   }
-
 }
 
-
 @media only screen and (max-width: 768px) {
-
   .containermv {
     padding: 0px;
-
   }
 
   .content,
@@ -782,12 +707,9 @@ p {
     text-align: justify;
   }
 
-
-
   .mlogo,
   .vlogo {
     display: none;
-
   }
 
   .missionCon {
@@ -797,11 +719,9 @@ p {
   .visionCon {
     margin-bottom: 30px;
   }
-
 }
 
 @media only screen and (max-width: 426px) {
-
   .mhead,
   .vhead {
     font-size: 25px;
@@ -825,18 +745,13 @@ p {
   }
 }
 
-
-
 /**MISSION VISION END----------------------------------------------------------------------------------*/
-
-
-
 
 /**ABOUT US MORE----------------------------------------------------------------------------------*/
 
 .contact1 {
   padding: 15px;
-  background-color: #266E60;
+  background-color: #266e60;
   color: #fff;
   text-align: center;
 }
@@ -856,7 +771,6 @@ p {
 .iframeCon {
   flex: 1;
   margin-top: 15px;
-
 }
 
 .contactInfoContainer {
@@ -864,7 +778,6 @@ p {
   text-align: center;
   margin-top: 15px;
 }
-
 
 #contactus {
   padding-bottom: 10px;
@@ -875,7 +788,6 @@ p {
 
 .contactustext {
   margin: 5px;
-
 }
 
 .locationText p {
@@ -885,7 +797,7 @@ p {
 }
 
 .locationText {
-  margin: 5px
+  margin: 5px;
 }
 
 .locationcon img,
@@ -893,7 +805,6 @@ p {
 .phonecon img {
   width: 75px;
 }
-
 
 iframe {
   width: 50%;
@@ -907,9 +818,7 @@ iframe {
   background-color: none;
 }
 
-
 @media only screen and (max-width: 1024px) {
-
   .locationcon img,
   .emailcon img,
   .phonecon img {
@@ -923,23 +832,18 @@ iframe {
 
   .contacttext {
     font-size: 20px;
-
   }
 
   .contact1 {
     padding: 10px;
-
   }
 
   .contactustext {
-
     font-size: 20px;
-
   }
 
   .locationText {
     font-size: 12px;
-
   }
 
   .contactInfoContainer {
@@ -951,25 +855,21 @@ iframe {
   .phonecon {
     margin-top: 0;
   }
-
 }
 
 @media only screen and (max-width: 1024px) {
-
   .contentContain {
     margin: 20px;
   }
 }
 
 @media only screen and (max-width: 426px) {
-
   .contentContain {
     display: inline;
     margin: 40px 40px;
   }
 
   iframe {
-
     margin: 50px 20px -20px 20px;
     width: 73%;
     height: 250px;
@@ -977,7 +877,6 @@ iframe {
 }
 
 @media only screen and (max-width: 320px) {
-
   iframe {
     margin: 50px 0px -20px 20px;
     width: 65%;
@@ -985,19 +884,15 @@ iframe {
   }
 }
 
-
 /**ABOUT US MORE END----------------------------------------------------------------------------------*/
-
-
 
 /*&FOOTER------------------------------------------------------------------------------------------------------------*/
 /*BOTTOM FOOTER*/
 footer {
-  background-color: #266E60;
+  background-color: #266e60;
   color: #fff;
   text-align: center;
   padding: 0;
-
 }
 
 .footer-content {
@@ -1005,7 +900,6 @@ footer {
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-
 }
 
 footer p {
@@ -1021,10 +915,8 @@ footer p {
 }
 
 .terms:hover {
-
   text-decoration: underline;
 }
-
 
 /*BLACK FOOTER*/
 .fcontain {
@@ -1039,13 +931,11 @@ footer p {
 .cont {
   text-align: center;
   display: flex;
-
 }
 
 .logo1 {
   width: 150px;
   height: auto;
-
 }
 
 .logocon {
@@ -1063,7 +953,6 @@ footer p {
   display: flex;
   font-size: 12px;
   padding: 10px 50px;
-
 }
 
 .sitemap,
@@ -1072,7 +961,6 @@ footer p {
   flex-direction: column;
   text-align: left;
   padding-left: 100px;
-
 }
 
 .sitemap ul,
@@ -1093,7 +981,6 @@ footer p {
 .about-us li,
 .follow-us li {
   margin-bottom: 6px;
-
 }
 
 .footer-links a {
@@ -1103,7 +990,7 @@ footer p {
 }
 
 .footer-links a:hover {
-  color: #76C28C;
+  color: #76c28c;
   text-decoration: underline;
 }
 
@@ -1121,7 +1008,6 @@ footer p {
 /*RESPONSIVE*/
 
 @media only screen and (max-width: 768px) {
-
   footer p {
     margin: 0;
     font-size: 12px;
@@ -1133,7 +1019,6 @@ footer p {
     font-size: 12px;
     transition: color 0.3s ease;
   }
-
 
   /*BLACK FOOTER*/
   .cont {
@@ -1148,7 +1033,6 @@ footer p {
   .logo1 {
     width: 150px;
     height: auto;
-
   }
 
   .logocon {
@@ -1175,7 +1059,6 @@ footer p {
     flex-direction: column;
     text-align: left;
     padding-left: 40px;
-
   }
 
   .sitemap ul,
@@ -1198,27 +1081,21 @@ footer p {
   .about-us li,
   .follow-us li {
     margin-bottom: 8px;
-
   }
 
   .footer-links img {
     width: 15px;
-
   }
 }
 
-
-
 @media only screen and (max-width: 426px) {
-
   /*FOOTER*/
   /*BOTTOM FOOTER*/
   footer {
-    background-color: #266E60;
+    background-color: #266e60;
     color: #fff;
     text-align: center;
     padding: 0;
-
   }
 
   .footer-content {
@@ -1242,21 +1119,17 @@ footer p {
     color: #fff;
     font-size: 10px;
     transition: color 0.3s ease;
-
   }
 
   .terms:hover {
     text-decoration: underline;
   }
 
-
-
   /*BLACK FOOTER*/
 
   html,
   body {
     overflow-x: hidden;
-
   }
 
   .fcontain {
@@ -1273,7 +1146,6 @@ footer p {
     display: block;
     padding: 10px;
     padding-bottom: 0px;
-
   }
 
   .logo1 {
@@ -1325,7 +1197,6 @@ footer p {
   .follow-us li {
     margin-bottom: 10px;
     font-size: 11px;
-
   }
 
   .footer-links a {
@@ -1335,7 +1206,7 @@ footer p {
   }
 
   .footer-links a:hover {
-    color: #76C28C;
+    color: #76c28c;
     text-decoration: underline;
   }
 
@@ -1344,12 +1215,9 @@ footer p {
     width: 20px;
     vertical-align: middle;
   }
-
-
 }
 
 @media only screen and (max-width: 376px) {
-
   .sitemap,
   .about-us,
   .follow-us {
@@ -1358,7 +1226,6 @@ footer p {
 
   .footer-links {
     padding-bottom: 0px;
-
   }
 
   .cont {
@@ -1375,7 +1242,6 @@ footer p {
 }
 
 @media only screen and (max-width: 320px) {
-
   .sitemap,
   .about-us,
   .follow-us {
@@ -1386,12 +1252,9 @@ footer p {
     padding-right: 25px;
     font-size: 30px;
   }
-
-
 }
 
 /*&FOOTER END-------------------------------------------------------------------------------------------------*/
-
 
 /**LOADER ANIMATION*/
 
