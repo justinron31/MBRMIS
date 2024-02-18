@@ -518,6 +518,7 @@ footer p {
 .popup2 {
   display: none;
   position: fixed;
+  text-align: center;
   left: 50%;
   transform: translateX(-50%);
   background-color: red;

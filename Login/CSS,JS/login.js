@@ -286,3 +286,40 @@ function validateAge(input) {
     input.value = input.value.slice(0, 2);
   }
 }
+
+// ─── Password Conditions ──────────────────────────────────────
+function validatePassword1() {
+  var passwordInput = document.getElementById("password");
+  var validationPopup = document.getElementById("validationPopup4");
+  var submitBtn = document.querySelector(".login-button");
+
+  var password = passwordInput.value.trim();
+  var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+  if (password === "") {
+    // Hide the validation popup and reset styles when input is empty
+    validationPopup.style.display = "none";
+    passwordInput.classList.remove("error-input");
+    passwordInput.style.borderColor = "";
+    passwordInput.style.boxShadow = "";
+    submitBtn.disabled = false;
+  } else if (!passwordRegex.test(password)) {
+    // Display a message for invalid password format
+    validationPopup.style.display = "block";
+    passwordInput.classList.add("error-input");
+
+    // Change the focus color and shadow to red
+    passwordInput.style.borderColor = "red";
+    passwordInput.style.boxShadow = "0 0 5px red";
+
+    // Disable the submit button
+    submitBtn.disabled = true;
+  } else {
+    // Hide the validation popup and reset styles when password is valid
+    validationPopup.style.display = "none";
+    passwordInput.classList.remove("error-input");
+    passwordInput.style.borderColor = "";
+    passwordInput.style.boxShadow = "";
+    submitBtn.disabled = false;
+  }
+}

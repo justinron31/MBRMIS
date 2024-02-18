@@ -265,8 +265,8 @@ p {
 
 #home {
   background-image: linear-gradient(
-      rgba(28, 171, 97, 0.337),
-      rgba(16, 201, 87, 0.233)
+      rgba(28, 171, 97, 0.2),
+      rgba(16, 201, 87, 0.1)
     ),
     url(../../Images/makiling.jpg);
   width: 100%;
@@ -313,6 +313,7 @@ p {
 
 #butt:hover {
   transform: scale(1.1);
+  cursor: pointer;
 }
 
 /* Responsive Styles */
@@ -495,6 +496,7 @@ p {
 
 .buttService:hover {
   transform: scale(1.1);
+  cursor: pointer;
 }
 
 /*RESPONSIVE*/

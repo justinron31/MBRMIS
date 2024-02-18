@@ -47,7 +47,7 @@
             <p class="login-text">RESET PASSWORD</p>
         </div>
         <form class="login-form" action="#" method="post">
-            <input type="text" id="id" name="Email" placeholder="Registered Email" autofocus required>
+            <input type="text" id="id" name="Email" placeholder="Enter registered email" autofocus required>
             <button type="submit" class="login-button">RESET PASSWORD</button>
             <p class="register-link"><a href="loginStaff.php">Login here</a></p>
 

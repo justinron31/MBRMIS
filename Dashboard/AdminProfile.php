@@ -173,7 +173,7 @@ if (isset($_SESSION['password_updated'])) {
                                         badge
                                     </span>
                                 </i>
-                                <span>Barangay Certificates</span>
+                                <span>Certificate of Indigency</span>
                             </a>
                         </li>
                         <li class="item">

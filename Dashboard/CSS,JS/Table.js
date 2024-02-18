@@ -138,9 +138,15 @@ function fetchUserInfo(userId, callback) {
     data: { userId: userId },
     dataType: "json",
     success: function (data) {
-      // Display the first name and last name in the modal
-      $("#customUserName").text(
-        "Name: " + data.firstName + " " + data.lastName
+      // Display the first name, last name, last login timestamp and date created in the modal
+      $("#customUserName").html(
+        "<strong>Name:</strong> " + data.firstName + " " + data.lastName
+      );
+      $("#lastLoginTimestamp").html(
+        "<strong>Last Login:</strong> " + data.lastLoginTimestamp
+      );
+      $("#dateCreated").html(
+        "<strong>Date Created: </strong>" + data.dateCreated
       );
 
       // Call the callback with the updated role

@@ -38,14 +38,17 @@
 <?php
 session_start();
 
-// Check if the user is not logged in as admin
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin') {
+// Check if the user is not logged in as admin or if idnumber is not set
+if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin' || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
 }
 
 $userName = $_SESSION['user_name'];
+
+// Add idnumber to the session
+$idNumber = $_SESSION['idnumber'];
 
 // Check if the login message should be displayed
 $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true;
@@ -123,7 +126,7 @@ $_SESSION['show_login_message'] = false;
                                         badge
                                     </span>
                                 </i>
-                                <span>Barangay Certificates</span>
+                                <span>Certificate of Indigency</span>
                             </a>
                         </li>
                         <li class="item">
@@ -275,9 +278,6 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                     </div>
 
                     <section class="table__body">
-
-
-
                         <!--TABLE CONTENT-->
                         <table>
                             <thead>
@@ -289,18 +289,20 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                     <th> Age <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Email <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Role <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-
                                 <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status FROM staff";
+$idnum = $_SESSION['idnumber'];
+
+$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum'";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -308,14 +310,15 @@ if ($result) {
         $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
         $uniqueId = 'edit_' . $row["idnumber"];
         echo "<tr>" .
-            "<td>" . $row["idnumber"] . "</td>" .
+           "<td><strong>" . $row["idnumber"] . "</strong></td>" .
             "<td>" . $row["firstname"] . "</td>" .
             "<td>" . $row["lastname"] . "</td>" .
             "<td>" . $row["gender"] . "</td>" .
               "<td>" . $row["age"] . "</td>" .
             "<td>" . $row["email"] . "</td>" .
-            "<td>" . $row["staff_role"] . "</td>" .
-            "<td><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
+            "<td>" . $row["last_login_timestamp"] . "</td>" .
+             "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
             "</tr>";
     }
@@ -331,6 +334,8 @@ $conn->close();
                                     <div class="custom-modal-content">
                                         <h2 class="editAccountTitle">Edit Account Role and Status </h2>
                                         <p id="customUserName"></p>
+
+                                        <p id="dateCreated"></p>
                                         <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
 
                                             <div class="updatecon">

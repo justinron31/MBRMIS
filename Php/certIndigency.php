@@ -25,12 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $purpose_description = $_POST['purpose'];
     $voters_id_number = $_POST['voteId'];
 
-    // Handle the image upload
-$target_dir = "/xampp/htdocs/MBRMIS/CertOfIndigency/";
-
-if (!file_exists($target_dir)) {
-    mkdir($target_dir, 0777, true);
-}
+  
 
 $original_filename = basename($_FILES["avatar"]["name"]);
 $target_file = $target_dir . "votersID_" . str_replace(' ', '_', $original_filename);

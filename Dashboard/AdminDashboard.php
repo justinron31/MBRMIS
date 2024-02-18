@@ -141,7 +141,7 @@ $_SESSION['show_login_message'] = false;
                                         badge
                                     </span>
                                 </i>
-                                <span>Barangay Certificates</span>
+                                <span>Certificate of Indigency</span>
                             </a>
                         </li>
                         <li class="item">

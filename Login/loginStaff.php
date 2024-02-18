@@ -96,7 +96,7 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
 
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
-            <p class="forgot-password"><a href="resetPassword.html">Forget Password?</a></p>
+            <p class="forgot-password"><a href="resetPassword.php">Forget Password?</a></p>
             <button type="submit" class="login-button">LOGIN</button>
 
             <p class="register-link">Don’t have an account? <a href="staffRegister.html">Register here</a></p>
