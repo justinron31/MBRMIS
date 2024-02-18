@@ -60,6 +60,10 @@
     <p>Entered Email Address is already taken.</p>
   </div>
 
+
+
+
+
   <!--LOGIN FORM-->
   <div class="login-containerReg">
     <div class="logo-container">
@@ -117,7 +121,12 @@
 
 
       <label class="required">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter Password" required />
+      <p id="validationPopup4">Password must contain at least <strong>one uppercase letter</strong>, <strong>one
+          lowercase
+          letter</strong>, <strong>one digit</strong>, and at least <strong>8
+          characters long.</strong></p>
+      <input type="password" id="password" name="password" placeholder="Enter Password" required
+        oninput="validatePassword1()" />
 
       <label class="required">Confirm Password</label>
       <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"

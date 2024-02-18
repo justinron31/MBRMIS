@@ -144,7 +144,7 @@ $_SESSION['show_login_message'] = false;
                                         badge
                                     </span>
                                 </i>
-                                <span>Barangay Certificates</span>
+                                <span>Certificate of Indigency</span>
                             </a>
                         </li>
                         <li class="item">
@@ -188,10 +188,11 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
                         <li class="item">
-                            <a href="#" class="link flex">
-                                <i class='bx bxs-user-detail'></i>
-                                <span>Manage System User</span>
+                            <a href="" class="link flex">
+                                <i class='bx bxs-user'></i>
+                                <span>Profile</span>
                             </a>
+                        </li>
                         </li>
                         <li class="item " onclick="openLogoutModal()">
                             <a href="#" class="link flex">

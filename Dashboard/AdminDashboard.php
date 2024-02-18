@@ -22,6 +22,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
 
+    </script>
 
     <title>MAKILING BRMI SYSTEM - ADMIN</title>
 </head>
@@ -141,7 +142,7 @@ $_SESSION['show_login_message'] = false;
                                         badge
                                     </span>
                                 </i>
-                                <span>Barangay Certificates</span>
+                                <span>Certificate of Indigency</span>
                             </a>
                         </li>
                         <li class="item">
