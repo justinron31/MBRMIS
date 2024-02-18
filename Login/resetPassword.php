@@ -29,6 +29,12 @@
     </div>
 
 
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup1" class="popup2">
+        <p>Please enter a valid email address.</p>
+    </div>
+
+
     <nav>
         <!--NAVBAR-->
         <div id="nav-bar">
@@ -36,7 +42,9 @@
                 <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
-
+            <a href="loginStaff.php"><button class="switchButton" role="button">
+                    <span class="text">RESET PASSWORD </span><span> LOGIN</span>
+                </button></a>
         </div>
     </nav>
 
@@ -47,13 +55,14 @@
             <p class="login-text">RESET PASSWORD</p>
         </div>
         <form class="login-form" action="#" method="post">
-            <input type="text" id="id" name="Email" placeholder="Enter registered email" autofocus required>
-            <button type="submit" class="login-button">RESET PASSWORD</button>
-            <p class="register-link"><a href="loginStaff.php">Login here</a></p>
+            <input type="text" id="email" name="email" placeholder="Enter registered email" oninput="validateEmail();"
+                autofocus required>
 
+            <button type="submit" class="login-button">Reset Password</button>
         </form>
+        <br>
     </div>
-    <br />
+
 
     <!-- FOOTER BRO-->
     <footer>

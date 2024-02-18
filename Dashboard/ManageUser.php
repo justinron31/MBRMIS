@@ -258,7 +258,8 @@ $_SESSION['show_login_message'] = false;
                         <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT * FROM staff";
+$idnum = $_SESSION['idnumber'];
+$sql = "SELECT * FROM staff WHERE idnumber != $idnum";
 $result = $conn->query($sql);
 
 if ($result) {

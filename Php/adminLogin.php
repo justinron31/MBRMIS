@@ -7,7 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Check the staff database using prepared statement
-    $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, pass, account_status, staff_role, last_login_timestamp FROM staff WHERE idnumber = ?");
+    $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, pass, account_status, staff_role, last_login_timestamp, is_logged_in FROM staff WHERE idnumber = ?");
     $staffQuery->bind_param("s", $username);
     $staffQuery->execute();
     $staffResult = $staffQuery->get_result();
@@ -18,6 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_id = $row['id'];
         $accountStatus = $row['account_status'];
         $idnum = $row['idnumber'];
+        $is_logged_in = $row['is_logged_in'];
+
+        if ($is_logged_in) {
+            $_SESSION['error_message'] = "You are currently logged in. Logout first.";
+            header("Location: /MBRMIS/Login/loginStaff.php");
+            exit();
+        }
 
         if ($accountStatus === 'Activated') {
             if (password_verify($password, $row['pass'])) {
@@ -33,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Set $_SESSION['user_type'] based on the role value
                 $_SESSION['user_type'] = strtolower($role);
 
-                // Update last login timestamp
-                $updateLoginTimestamp = $conn->prepare("UPDATE staff SET last_login_timestamp = NOW() WHERE id = ?");
+                // Update last login timestamp and set is_logged_in to 1
+                $updateLoginTimestamp = $conn->prepare("UPDATE staff SET last_login_timestamp = NOW(), is_logged_in = 1 WHERE id = ?");
                 $updateLoginTimestamp->bind_param("i", $user_id);
                 $updateLoginTimestamp->execute();
 
