@@ -172,7 +172,7 @@ include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 // Provide a default value for $count
 $count = 0;
 
-$query = "SELECT * FROM resident_indigency WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
+$query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
 $result = mysqli_query($conn, $query);
 
 // Check if the query was successful
@@ -404,8 +404,15 @@ if ($result) {
                                         placeholder="Enter Current Password" required>
                                 </div>
                                 <div class="passForm__group">
+
+                                    <p id="validationPopup4">Password must contain at least <strong>one uppercase
+                                            letter</strong>, <strong>one
+                                            lowercase
+                                            letter</strong>, <strong>one digit</strong>, and at least <strong>8
+                                            characters long.</strong></p>
                                     <label for="newPassword">New Password</label>
-                                    <input type="password" id="pass" name="pass" placeholder="Enter Password" required>
+                                    <input type="password" id="pass" name="pass" placeholder="Enter Password" required
+                                        oninput="validatePassword1()">
                                 </div>
                                 <div class="passForm__group">
                                     <label for="confirmPassword">Confirm Password</label>

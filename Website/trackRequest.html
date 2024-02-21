@@ -2,122 +2,159 @@
 <html lang="en">
 
 <head>
-  <!--LOGO TAB-->
-  <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--LOGO TAB-->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
-  <!-- META TAGS BRO -->
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Barangay management system for makiling" />
-  <meta name="keywords" content="Web Development, Barangay Management System" />
-  <meta name="authors" content="Arcillas, Galang, Ignacio" />
+    <!-- META TAGS BRO -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Barangay management system for makiling" />
+    <meta name="keywords" content="Web Development, Barangay Management System" />
+    <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
-  <!-- CSS / JAVASCRIPT -->
-  <link rel="stylesheet" href="/MBRMIS/Website/CSS,JS/BarangayClearance.css" />
-  <script src="/MBRMIS/Website/CSS,JS/BarangayClearance.js"></script>
+    <!-- CSS / JAVASCRIPT -->
+    <link rel="stylesheet" href="/MBRMIS/Website/CSS,JS/BarangayClearance.css" />
+    <script src="/MBRMIS/Website/CSS,JS/BarangayClearance.js"></script>
 
-  <!-- CAPTCHA-->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- CAPTCHA-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-  <!-- IMPORTS-->
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- IMPORTS-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 
-  <title>Track Request Document</title>
+    <title>Track Request Document</title>
+
+
 </head>
 
 <body>
 
-  <!--LOADER-->
-  <div id="preloader">
-    <div id="status">&nbsp;</div>
-  </div>
-
-
-  <!--OVERLAY MENU-->
-  <div id="myNav" class="overlay">
-
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <div class="overlay-content">
-      <img class="logooverlay" src="../Images/logo.png" alt="Makiling logo" />
-      <a href="/MBRMIS/Website/homepage.html#home" id="homeButton1" onclick="closeNav()">Home</a>
-      <a href="/MBRMIS/Website/homepage.html#service" id="servicesButton1" onclick="closeNav()">Services</a>
-      <a href="/MBRMIS/Website/trackRequest.html">Track Request</a>
-      <a href="/MBRMIS/Website/homepage.html#contactus" id="contactusButton1" onclick="closeNav()">Contact Us</a>
-    </div>
-  </div>
-
-  <!-- NAV-->
-  <nav>
-
-    <div id="logcon">
-      <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
-      <h1 class="logoname">BARANGAY MAKILING </h1>
-      <i class='bx bx-menu-alt-right' onclick="openNav()"></i>
+    <!--LOADER-->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
     </div>
 
-    <div id="nav-links">
-      <a href="/MBRMIS//Website/homepage.html#home" class="nav-link" id="homeButton">Home</a>
-      <a href="/MBRMIS//Website/homepage.html#service" class="nav-link" id="servicesButton">Services</a>
-      <a href="/MBRMIS//Website/homepage.html#contactus" class="nav-link" id="contactusButton">Contact Us</a>
+
+    <!--OVERLAY MENU-->
+    <div id="myNav" class="overlay">
+
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="overlay-content">
+            <img class="logooverlay" src="../Images/logo.png" alt="Makiling logo" />
+            <a href="/MBRMIS/Website/homepage.html#home" id="homeButton1" onclick="closeNav()">Home</a>
+            <a href="/MBRMIS/Website/homepage.html#service" id="servicesButton1" onclick="closeNav()">Services</a>
+            <a href="/MBRMIS/Website/trackRequest.html">Track Request</a>
+            <a href="/MBRMIS/Website/homepage.html#contactus" id="contactusButton1" onclick="closeNav()">Contact Us</a>
+        </div>
     </div>
 
-  </nav>
+    <!-- NAV-->
+    <nav>
 
-  <!--LOGIN FORM-->
-  <div class="login-container">
-    <div class="logo-container">
+        <div id="logcon">
+            <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+            <h1 class="logoname">BARANGAY MAKILING </h1>
+            <i class='bx bx-menu-alt-right' onclick="openNav()"></i>
+        </div>
 
-      <p class="login-text">Track Request Document</p>
-      <hr>
+        <div id="nav-links">
+            <a href="/MBRMIS//Website/homepage.html#home" class="nav-link" id="homeButton">Home</a>
+            <a href="/MBRMIS//Website/homepage.html#service" class="nav-link" id="servicesButton">Services</a>
+            <a href="/MBRMIS//Website/homepage.html#contactus" class="nav-link" id="contactusButton">Contact Us</a>
+        </div>
+
+    </nav>
+
+    <!--LOGIN FORM-->
+    <div class="login-container">
+        <div class="logo-container">
+
+            <p class="login-text">Track Request Document</p>
+            <hr>
+        </div>
+
+        <form class="login-form" action="../Php/fetchTrackingInfo.php" method="post">
+            <label for="tCode">Tracking Code</label>
+
+            <input type="text" id="fname" name="tCode" placeholder="Enter your Tracking Code" autofocus required>
+
+            <button type="submit" class="login-button">CHECK</button>
+            <br>
+            <br>
+        </form>
     </div>
 
-    <form class="login-form" action="#" method="post">
-      <label for="tCode">Tracking Code</label>
 
-      <input type="text" id="fname" name="tCode" placeholder="Enter your Tracking Code" autofocus required>
+    <div class="trackCon">
+        <table>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Pickup Date/Time</th>
+                    <th>Submitted Date/Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
 
-      <button type="submit" class="login-button">CHECK</button>
-      <br>
-      <br>
-    </form>
-  </div>
+            <tbody>
+                <script>
+                    document.querySelector('.login-form').addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        fetch(this.action, {
+                            method: 'POST',
+                            body: new FormData(this)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.error) {
+                                    alert(data.error);
+                                } else {
+                                    let statusClass = '';
+                                    switch (data.file_status) {
+                                        case 'Processing':
+                                            statusClass = 'pending';
+                                            break;
+                                        case 'Ready for Pickup':
+                                            statusClass = 'delivered';
+                                            break;
+                                        case 'Disapproved':
+                                            statusClass = 'cancelled';
+                                            break;
+                                        default:
+                                            statusClass = '';
+                                    }
+
+                                    var table = document.querySelector('.trackCon table tbody');
+                                    table.innerHTML = `
+                                    <tr>
+                                        <td><strong>${data.type}</strong></td>
+                                        <td>${data.firstname}</td>
+                                        <td>${data.lastname}</td>
+                                        <td>${data.pickup_datetime}</td>
+                                        <td>${data.datetime_created}</td>
+                                        <td> <p class="status ${statusClass}">${data.file_status}</p></td>
+                                    </tr>
+                                `;
+                                }
+                            });
+                    });
+                </script>
+            </tbody>
+        </table>
+    </div>
 
 
-  <div class="trackCon">
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Service Type</th>
-          <th>Pickup Date/Time</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>John Doe</td>
-          <td>Express Delivery</td>
-          <td>2024-01-06 14:30</td>
-          <td>In Progress</td>
-        </tr>
-        <tr>
-          <td>Jane Smith</td>
-          <td>Standard Shipping</td>
-          <td>2024-01-07 10:00</td>
-          <td>Delivered</td>
-        </tr>
-        <!-- Add more rows as needed -->
-      </tbody>
-    </table>
-  </div>
+    <!-- FOOTER BRO-->
+    <footer>
+        <p>&copy; 2024 BARANGAY MAKILING HEALTHCARE AND ISSUANCE SYSTEM | All rights reserved.</p>
+    </footer>
 
-  <!-- FOOTER BRO-->
-  <footer>
-    <p>&copy; 2024 BARANGAY MAKILING HEALTHCARE AND ISSUANCE SYSTEM | All rights reserved.</p>
-  </footer>
 
 
 </body>

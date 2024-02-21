@@ -125,7 +125,7 @@ include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 // Provide a default value for $count
 $count = 0;
 
-$query = "SELECT * FROM resident_indigency WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
+$query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
 $result = mysqli_query($conn, $query);
 
 // Check if the query was successful
@@ -137,7 +137,7 @@ if ($result) {
 }
 
 // Add the update query here
-$updateQuery = "UPDATE resident_indigency SET viewed = 1 WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
+$updateQuery = "UPDATE file_request SET viewed = 1 WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
 $updateResult = mysqli_query($conn, $updateQuery);
 
 if (!$updateResult) {
@@ -290,7 +290,7 @@ if (!$updateResult) {
                         <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT * FROM resident_indigency";
+$sql = "SELECT * FROM file_request WHERE type='Certificate of Indigency'";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -314,11 +314,13 @@ echo "<h1 class='titleTable'>Total File Request: " . $totalReq . "</h1>";
                         <table>
                             <thead>
                                 <tr>
-                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Status <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Voters ID Number <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Voters ID Img <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
@@ -331,17 +333,28 @@ echo "<h1 class='titleTable'>Total File Request: " . $totalReq . "</h1>";
                                 <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created FROM resident_indigency ORDER BY datetime_created DESC";
+$sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status FROM file_request WHERE type='Certificate of Indigency' ORDER BY datetime_created DESC";
 $result = $conn->query($sql);
 
 if ($result) {
     while ($row = $result->fetch_assoc()) {
+        $file_status = strtolower(trim($row["file_status"]));
+        if ($file_status == 'ready for pickup') {
+            $class = 'delivered';
+        } elseif ($file_status == 'disapproved') {
+            $class = 'cancelled';
+        } else {
+            $class = 'pending';
+        }
+        $uniqueId = 'edit_' . $row["id"];
         echo "<tr>" .
-            "<td>" . $row["lastname"] . "</td>" .
+        "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
+        "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
             "<td>" . $row["firstname"] . "</td>" .
+            "<td>" . $row["lastname"] . "</td>" .
+            "<td>" . $row["contact_number"] . "</td>" .
             "<td>" . $row["voters_id_number"] . "</td>" .
             "<td><a href='../Uploaded File/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>".
-            "<td>" . $row["contact_number"] . "</td>" .
             "<td>" . $row["purpose_description"] . "</td>" .
             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .

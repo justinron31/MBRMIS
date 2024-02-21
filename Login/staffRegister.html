@@ -76,6 +76,7 @@
 
       <div class="first">
 
+        <!-- ─── Name ─────────────── -->
         <div class="staffName">
           <label class="required">Firstname</label>
           <input type="text" id="name" name="fname" placeholder="Enter Firstname"
@@ -91,19 +92,21 @@
       </div>
 
       <div class="first">
-
+        <!-- ─── Id Number ────────────────────────────────────────── -->
         <div class="staffName2">
           <label class="required">ID Number</label>
           <input type="text" id="idnum" name="idnum" placeholder="Enter ID number" oninput="validateIDNumber();"
             required />
         </div>
 
+        <!-- ─── Age ──────────────── -->
         <div class="staffName2">
           <label class="required">Age</label>
           <input type="text" id="age" name="age" placeholder="Enter Age" maxlength="2" oninput="validateAge(this)"
             required />
         </div>
 
+        <!-- ─── Gender ───────────── -->
         <div class="staffName2">
           <label class="required">Gender</label>
           <select class="selectbox" id="genderSelect" name="genderSelect" required onchange="changeFontColor()">
@@ -115,11 +118,11 @@
 
       </div>
 
-
+      <!-- ─── Email ────────────────────────────────────────────── -->
       <label class="required">Email</label>
       <input type="text" id="email" name="email" placeholder="example@gmail.com" oninput="validateEmail();" required />
 
-
+      <!-- ─── Password ─────────────────────────────────────────── -->
       <label class="required">Password</label>
       <p id="validationPopup4">Password must contain at least <strong>one uppercase letter</strong>, <strong>one
           lowercase
@@ -128,6 +131,7 @@
       <input type="password" id="password" name="password" placeholder="Enter Password" required
         oninput="validatePassword1()" />
 
+      <!-- ─── Cpassword ────────── -->
       <label class="required">Confirm Password</label>
       <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
         oninput="validatePassword();" required />

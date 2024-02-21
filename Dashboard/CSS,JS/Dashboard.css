@@ -984,3 +984,12 @@ label {
   border-radius: 10px;
   margin-left: 20px;
 }
+
+/* ─── Password Validation Text ────────────────────────────── */
+#validationPopup4 {
+  color: red;
+  font-size: 11px;
+  text-align: left;
+  margin: 0 0 10px 0;
+  display: none;
+}

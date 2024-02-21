@@ -125,7 +125,7 @@ include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 // Provide a default value for $count
 $count = 0;
 
-$query = "SELECT * FROM resident_indigency WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
+$query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
 $result = mysqli_query($conn, $query);
 
 // Check if the query was successful
