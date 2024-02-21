@@ -2,7 +2,7 @@
 
 include 'db.php';
 session_start();
-$user_id = $_SESSION['user_id']; // assuming you stored user_id in session when user logged in
+$user_id = $_SESSION['user_id']; 
 
 
 // Check connection

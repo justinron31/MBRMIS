@@ -13,18 +13,24 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
+
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
+    <link rel="stylesheet" href="../Dashboard/CSS,JS/Table.css" />
 
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Table.js" defer></script>
 
-    </script>
 
-    <title>MAKILING BRMI SYSTEM - Dashboard</title>
+
+
+    <title>MAKILING BRMI SYSTEM - Manage Users</title>
 </head>
 
 
@@ -32,14 +38,17 @@
 <?php
 session_start();
 
-// Check if the user is not logged in as admin
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin') {
+// Check if the user is not logged in as admin or if idnumber is not set
+if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin' || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
 }
 
 $userName = $_SESSION['user_name'];
+
+// Add idnumber to the session
+$idNumber = $_SESSION['idnumber'];
 
 // Check if the login message should be displayed
 $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true;
@@ -50,31 +59,6 @@ $_SESSION['show_login_message'] = false;
 
 
 <body>
-
-    <!-- JavaScript for Popup -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($showLoginMessage): ?>
-        var loginPopup = document.getElementById('loginPopup');
-        if (loginPopup) {
-            loginPopup.style.display = 'block';
-
-            // Trigger the slide-up animation after 2 seconds
-            setTimeout(function() {
-                loginPopup.classList.add('slide-up');
-            }, 1500);
-
-            // Hide the popup after 3 seconds
-            setTimeout(function() {
-                loginPopup.style.display = 'none';
-            }, 2000);
-        }
-        <?php endif;?>
-    });
-    </script>
-
-    <!--BACK BUTTON-->
-
 
 
     <!--  MODAL POPUP-->
@@ -110,8 +94,8 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">Dashboard</span>
                             <span class="line"></span>
                         </div>
-                        <li class="item active">
-                            <a href="#" class="link flex">
+                        <li class="item ">
+                            <a href="/MBRMIS/Dashboard/AdminDashboard.php" class="link flex">
                                 <i class="bx bxs-dashboard"></i>
                                 <span>Overview</span>
                             </a>
@@ -167,7 +151,6 @@ if ($result) {
                             </a>
                         </li>
 
-
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -206,14 +189,12 @@ if ($result) {
                             <span class="title">Others</span>
                             <span class="line"></span>
                         </div>
-
-                        <li class="item">
-                            <a href="/MBRMIS/Dashboard/AdminManageUser.php" class="link flex">
+                        <li class="item active">
+                            <a href="#" class="link flex">
                                 <i class='bx bxs-user-detail'></i>
                                 <span>Manage System User</span>
                             </a>
                         </li>
-
                         <li class="item ">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-report'></i>
@@ -227,15 +208,13 @@ if ($result) {
                             <span class="title">System</span>
                             <span class="line"></span>
                         </div>
-
                         <li class="item">
                             <a href="/MBRMIS/Dashboard/AdminProfile.php" class="link flex">
                                 <i class='bx bxs-user'></i>
                                 <span>Profile</span>
                             </a>
                         </li>
-
-                        <li class="item " onclick="openLogoutModal()">
+                        <li class="item1 " onclick="openLogoutModal()">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-exit bx-rotate-180'></i>
                                 <span>Logout</span>
@@ -246,11 +225,6 @@ if ($result) {
             </div>
         </nav>
 
-        <!--LOGIN MESSAGE-->
-        <div id="loginPopup" class="popup">
-            <p>Login successfully!</p>
-        </div>
-
 
         <!-- MAIN CONTENT-->
         <div class="headermain">
@@ -259,7 +233,7 @@ if ($result) {
                 <div class="header">
 
                     <h1 class="maintitle">
-                        OVERVIEW
+                        MANAGE SYSTEM USER
                     </h1>
 
                     <div class="access">
@@ -280,174 +254,153 @@ if ($result) {
             </div>
 
 
-            <!-- MAIN CONTENT -->
+            <!-- TABLE MAIN -->
 
             <div class="supermaincontain">
 
-                <div class="cards">
 
 
-                    <div class="card">
-                        <div class="icon-box">
-                            <span class="material-symbols-outlined">
-                                group
-                            </span>
-                        </div>
-                        <div class="card-content">
-                            <div class="number">1217</div>
-                            <div class="card-name">Population</div>
-                        </div>
-                    </div>
+                <!--TABLE-->
+                <main class="table" id="customers_table">
 
-                    <div class="card">
-                        <div class="icon-box1">
-                            <span class="material-symbols-outlined">
-                                man
-                            </span>
-                        </div>
-                        <div class="card-content">
-                            <div class="number">563</div>
-                            <div class="card-name">Male</div>
-                        </div>
-                    </div>
+                    <section class="table__header">
 
-                    <div class="card">
-                        <div class="icon-box1">
-                            <span class="material-symbols-outlined">
-                                woman
-                            </span>
-                        </div>
-                        <div class="card-content">
-                            <div class="number">563</div>
-                            <div class="card-name">Female</div>
-                        </div>
-                    </div>
-
-                    <div class="cardVoters">
-
-                        <div class="con1">
-                            <div class="icon-box2">
-                                <span class="material-symbols-outlined">
-                                    person_check
-                                </span>
-                            </div>
-
-                            <div class="card-content">
-                                <div class="number1">563</div>
-                                <div class="card-name1">Voters</div>
-                            </div>
-
-                        </div>
-                        <div class="con1">
-                            <div class="icon-box2">
-                                <span class="material-symbols-outlined">
-                                    person_cancel
-                                </span>
-                            </div>
-
-                            <div class="card-content">
-                                <div class="number1">563</div>
-                                <div class="card-name1">Non - Voters</div>
-                            </div>
-
+                        <!-- SEARCH BAR-->
+                        <div class="input-group">
+                            <input type="search" placeholder="Search...">
+                            <i class='bx bx-search-alt'></i>
                         </div>
 
-
-                    </div>
-
-                </div>
+                    </section>
 
 
-                <!--LOWER CONTENT-->
-                <div class="lowerCon">
-                    <div class="Pending">
 
-                        <div class="Req">
-
-                            <div class="reqHead">
-                                <div class="card-nameR">PENDING FILE REQUEST</div>
-                                <div class="seeMore"> <a href="#">See more</a></div>
-                            </div>
-
-                            <div class="reqItem">
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        badge
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Certificate of Indigency
-                                    </div>
-                                    <?php
+                    <div class="tableHead">
+                        <!--TOTAL USER-->
+                        <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT * FROM resident_indigency";
+$idnum = $_SESSION['idnumber'];
+$sql = "SELECT * FROM staff WHERE idnumber != $idnum";
 $result = $conn->query($sql);
 
 if ($result) {
-    $totalReq = $result->num_rows;
+    $totalUsers = $result->num_rows;
 }
+echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
 ?>
 
-                                    <div class="numberP"><?php echo $totalReq; ?></div>
-                                </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        clinical_notes
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Certificate of Residency
-                                    </div>
-                                    <div class="numberP">18</div>
-                                </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        card_membership
-                                    </span>
-                                    <div class="pendingTitle">
-                                        First Time Job Seeker
-                                    </div>
-                                    <div class="numberP">8</div>
-                                </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        lab_profile
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Community Tax Certificate
-                                    </div>
-                                    <div class="numberP">3</div>
-                                </div>
-
-
-                            </div>
-
+                        <div class="export__file">
+                            <button type="button" class="export__file-btn" title="Export File" onclick="togglePopup()">
+                                <i class='bx bxs-file-export'></i>
+                                <p class="exportTitle">Export</p>
+                            </button>
                         </div>
+
 
                     </div>
 
-                    <!--CALENDAR-->
-                    <div id="calendar">
-                        <div class="calendarBg">
-                            <div id="calendar-header">
-                                <span id="month-prev" class="change-month">&lt;</span>
-                                <h1 id="month" onclick="showCurrentDate()"></h1>
-                                <span id="month-next" class="change-month">&gt;</span>
-                            </div>
-                            <div id="days"></div>
-                            <div id="calendar-body"></div>
-                        </div>
-                    </div>
+                    <section class="table__body">
+                        <!--TABLE CONTENT-->
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Email <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Role <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Action </th>
+                                </tr>
+                            </thead>
 
-                </div>
+                            <tbody>
+
+                                <?php
+include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+
+$idnum = $_SESSION['idnumber'];
+
+$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
+$result = $conn->query($sql);
+
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
+        $uniqueId = 'edit_' . $row["idnumber"];
+        echo "<tr>" .
+           "<td><strong>" . $row["idnumber"] . "</strong></td>" .
+            "<td>" . $row["firstname"] . "</td>" .
+            "<td>" . $row["lastname"] . "</td>" .
+            "<td>" . $row["gender"] . "</td>" .
+            "<td>" . $row["age"] . "</td>" .
+            "<td>" . $row["email"] . "</td>" .
+            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
+            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
+            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+           "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
+            "</tr>";
+    }
+    $result->close();
+} else {
+    echo "<tr><td colspan='7'>No data found</td></tr>";
+}
+
+$conn->close();
+?>
+                                <!-- POPUP FORM ACCOUNT EDIT -->
+                                <div id="customEditModal" class="custom-modal">
+                                    <div class="custom-modal-content">
+                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
+                                        <p id="customUserName"></p>
+
+                                        <p id="dateCreated"></p>
+                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
+
+                                            <div class="updatecon">
+                                                <div class="accountstatus">
+                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
+                                                    <label for="customRole">Role:</label>
+                                                    <select id="customRole" name="customRole">
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Staff">Staff</option>
+                                                    </select>
+
+
+                                                </div>
+
+                                                <div class="rolestatus">
+
+                                                    <label for="customStatus">Account Status:</label>
+                                                    <select id="customStatus" name="customStatus">
+                                                        <option value="Activated">Activated</option>
+                                                        <option value="Deactivated">Deactivated</option>
+                                                    </select>
+
+                                                </div>
+
+
+                                                <button id="updateButton" class="updateButton"
+                                                    type="submit">Update</button>
+
+
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
+                            </tbody>
+                        </table>
+                    </section>
+                </main>
+
 
             </div>
-        </div>
-
-
-
 </body>
 
 

@@ -23,7 +23,7 @@
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
 
 
-    <title>MAKILING BRMI SYSTEM - STAFF</title>
+    <title>MAKILING BRMI SYSTEM - Dashboard</title>
 </head>
 
 

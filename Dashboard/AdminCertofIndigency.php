@@ -30,7 +30,7 @@
 
 
 
-    <title>MAKILING BRMI SYSTEM - Manage Users</title>
+    <title>MAKILING BRMI SYSTEM - Certificate of Indigency</title>
 </head>
 
 
@@ -119,16 +119,48 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
 
-                        <li class="item">
-                            <a href="#" class="link flex">
+                        <?php
+include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+
+// Provide a default value for $count
+$count = 0;
+
+$query = "SELECT * FROM resident_indigency WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful
+if ($result) {
+    $count = mysqli_num_rows($result);
+} else {
+    // Optional: output the error message for debugging purposes
+    echo "Error: " . mysqli_error($conn);
+}
+
+// Add the update query here
+$updateQuery = "UPDATE resident_indigency SET viewed = 1 WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
+$updateResult = mysqli_query($conn, $updateQuery);
+
+if (!$updateResult) {
+    echo "Error: " . mysqli_error($conn);
+}
+?>
+
+                        <li class="item active">
+                            <a id="indigency-link" class="link flex">
                                 <i>
                                     <span class="material-symbols-outlined">
                                         badge
                                     </span>
                                 </i>
                                 <span>Certificate of Indigency</span>
+                                <?php if($count > 0): ?>
+                                <span class="badge"><?php echo $count; ?></span>
+                                <?php endif; ?>
                             </a>
                         </li>
+
+
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -167,8 +199,8 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">Others</span>
                             <span class="line"></span>
                         </div>
-                        <li class="item active">
-                            <a href="#" class="link flex">
+                        <li class="item">
+                            <a href="/MBRMIS/Dashboard/AdminManageUser.php" class="link flex">
                                 <i class='bx bxs-user-detail'></i>
                                 <span>Manage System User</span>
                             </a>
@@ -211,7 +243,7 @@ $_SESSION['show_login_message'] = false;
                 <div class="header">
 
                     <h1 class="maintitle">
-                        MANAGE SYSTEM USER
+                        CERTIFICATE OF INDIGENCY
                     </h1>
 
                     <div class="access">
@@ -258,14 +290,13 @@ $_SESSION['show_login_message'] = false;
                         <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$idnum = $_SESSION['idnumber'];
-$sql = "SELECT * FROM staff WHERE idnumber != $idnum";
+$sql = "SELECT * FROM resident_indigency";
 $result = $conn->query($sql);
 
 if ($result) {
-    $totalUsers = $result->num_rows;
+    $totalReq = $result->num_rows;
 }
-echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
+echo "<h1 class='titleTable'>Total File Request: " . $totalReq . "</h1>";
 ?>
 
                         <div class="export__file">
@@ -283,15 +314,14 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                         <table>
                             <thead>
                                 <tr>
-                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Role <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Voters ID Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Voters ID Img <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -301,31 +331,26 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                 <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$idnum = $_SESSION['idnumber'];
-
-$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum'";
+$sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created FROM resident_indigency ORDER BY datetime_created DESC";
 $result = $conn->query($sql);
 
 if ($result) {
     while ($row = $result->fetch_assoc()) {
-        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
-        $uniqueId = 'edit_' . $row["idnumber"];
         echo "<tr>" .
-           "<td><strong>" . $row["idnumber"] . "</strong></td>" .
-            "<td>" . $row["firstname"] . "</td>" .
             "<td>" . $row["lastname"] . "</td>" .
-            "<td>" . $row["gender"] . "</td>" .
-              "<td>" . $row["age"] . "</td>" .
-            "<td>" . $row["email"] . "</td>" .
-            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-            "<td>" . $row["last_login_timestamp"] . "</td>" .
-             "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-           "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
+            "<td>" . $row["firstname"] . "</td>" .
+            "<td>" . $row["voters_id_number"] . "</td>" .
+            "<td><a href='../Uploaded File/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>".
+            "<td>" . $row["contact_number"] . "</td>" .
+            "<td>" . $row["purpose_description"] . "</td>" .
+            "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
+            "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
+            "<td><i class='bx bxs-edit edit-icon''></i> </td>" .
             "</tr>";
     }
     $result->close();
 } else {
-    echo "<tr><td colspan='7'>No data found</td></tr>";
+    echo "<tr><td colspan='8'>No data found</td></tr>";
 }
 
 $conn->close();

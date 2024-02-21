@@ -11,9 +11,11 @@ const toggleLock = () => {
   if (!sidebar.classList.contains("locked")) {
     sidebar.classList.add("hoverable");
     sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
+    localStorage.setItem("sidebarLockState", "unlocked");
   } else {
     sidebar.classList.remove("hoverable");
     sidebarLockBtn.classList.replace("bx-lock-open-alt", "bxs-lock-alt");
+    localStorage.setItem("sidebarLockState", "locked");
   }
 };
 
@@ -34,6 +36,10 @@ const showSidebar = () => {
 // Function to show and hide the sidebar
 const toggleSidebar = () => {
   sidebar.classList.toggle("close");
+  localStorage.setItem(
+    "sidebarState",
+    sidebar.classList.contains("close") ? "closed" : "open"
+  );
 };
 
 // If the window width is less than 800px, close the sidebar and remove hoverability and lock
@@ -51,6 +57,19 @@ sidebarCloseBtn.addEventListener("click", toggleSidebar);
 
 //sidebaractive
 document.addEventListener("DOMContentLoaded", function () {
+  const sidebarLockState = localStorage.getItem("sidebarLockState");
+
+  if (sidebarLockState === "locked") {
+    sidebar.classList.add("locked");
+    sidebar.classList.remove("hoverable");
+    sidebarLockBtn.classList.replace("bx-lock-open-alt", "bxs-lock-alt");
+  } else {
+    sidebar.classList.add("close");
+    sidebar.classList.remove("locked");
+    sidebar.classList.add("hoverable");
+    sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
+  }
+
   const menuItems = document.querySelectorAll(".menu_item .item");
 
   const overviewItem = document.querySelector(".menu_item .item.active");
@@ -66,12 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // Add the "active" class to the clicked item
-      item.classList.add("active");
+      this.classList.add("active");
     });
   });
 });
-
-/*CALENDAR*/
+// ─── Calendar ─────────────────────────────────────────────────
 let date = new Date();
 
 function renderCalendar() {
@@ -174,7 +192,7 @@ document.getElementById("month").addEventListener("click", showCurrentDate);
 
 renderCalendar();
 
-// LOGOUT MODAL POPUP
+// ─── Logout Modal ─────────────────────────────────────────────
 function openLogoutModal() {
   var modal = document.getElementById("logoutModal");
   var overlay = document.getElementById("overlay");
@@ -207,7 +225,7 @@ function logout() {
     });
 }
 
-/*LOADER ANIMATION*/
+// ─── Loader Animation ─────────────────────────────────────────
 $(window).on("load", function () {
   $("#status").fadeOut();
 
@@ -372,3 +390,5 @@ function validateAge(input) {
     input.value = input.value.slice(0, 2);
   }
 }
+
+// ─── Close Logout ─────────────────────────────────────────────

@@ -30,7 +30,7 @@
 
 
 
-    <title>MAKILING BRMI SYSTEM - Settings</title>
+    <title>MAKILING BRMI SYSTEM - Profile</title>
 </head>
 
 
@@ -166,16 +166,38 @@ if (isset($_SESSION['password_updated'])) {
                             <span class="line"></span>
                         </div>
 
+                        <?php
+include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+
+// Provide a default value for $count
+$count = 0;
+
+$query = "SELECT * FROM resident_indigency WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0";
+$result = mysqli_query($conn, $query);
+
+// Check if the query was successful
+if ($result) {
+    $count = mysqli_num_rows($result);
+} else {
+    // Optional: output the error message for debugging purposes
+    echo "Error: " . mysqli_error($conn);
+}
+?>
+
                         <li class="item">
-                            <a href="#" class="link flex">
+                            <a id="indigency-link" href="/MBRMIS/Dashboard/AdminCertofIndigency.php" class="link flex">
                                 <i>
                                     <span class="material-symbols-outlined">
                                         badge
                                     </span>
                                 </i>
                                 <span>Certificate of Indigency</span>
+                                <?php if($count > 0): ?>
+                                <span class="badge"><?php echo $count; ?></span>
+                                <?php endif; ?>
                             </a>
                         </li>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -215,7 +237,7 @@ if (isset($_SESSION['password_updated'])) {
                             <span class="line"></span>
                         </div>
                         <li class="item">
-                            <a href="/MBRMIS/Dashboard/ManageUser.php" class="link flex">
+                            <a href="/MBRMIS/Dashboard/AdminManageUser.php" class="link flex">
                                 <i class='bx bxs-user-detail'></i>
                                 <span>Manage System User</span>
                             </a>

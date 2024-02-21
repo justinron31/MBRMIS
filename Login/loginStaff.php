@@ -110,6 +110,18 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
     </footer>
 
     <script src="../Login/CSS,JS/login.js"></script>
+
+    <script>
+    setTimeout(function() {
+        var userType = new URLSearchParams(window.location.search).get('user_type');
+        if (userType === 'admin') {
+            window.location.href = '/MBRMIS/Dashboard/AdminDashboard.php';
+        } else if (userType === 'staff') {
+            window.location.href = '/MBRMIS/Dashboard/StaffDashboard.php';
+        }
+    }, 2000);
+    </script>
+
 </body>
 
 </html>
