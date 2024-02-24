@@ -49,6 +49,14 @@ $_SESSION['show_login_message'] = false;
 ?>
 
 
+
+<!--LOGIN MESSAGE-->
+<div id="loginPopup" class="popup">
+    <p>Login successfully!</p>
+</div>
+
+
+
 <body>
 
     <!-- JavaScript for Popup -->
@@ -73,7 +81,6 @@ $_SESSION['show_login_message'] = false;
     });
     </script>
 
-    <!--BACK BUTTON-->
 
 
 
@@ -135,20 +142,19 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
 
+
+                        <!-- cert of indigency badge count  -->
                         <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-// Provide a default value for $count
 $count = 0;
-
 $query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
 $result = mysqli_query($conn, $query);
 
-// Check if the query was successful
 if ($result) {
     $count = mysqli_num_rows($result);
 } else {
-    // Optional: output the error message for debugging purposes
+  
     echo "Error: " . mysqli_error($conn);
 }
 ?>
@@ -168,6 +174,8 @@ if ($result) {
                         </li>
 
 
+
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -178,6 +186,9 @@ if ($result) {
                                 <span>Certificate of Residency</span>
                             </a>
                         </li>
+
+
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -188,6 +199,8 @@ if ($result) {
                                 <span>First Time Job Seeker</span>
                             </a>
                         </li>
+
+
 
                         <li class="item">
                             <a href="#" class="link flex">
@@ -200,6 +213,7 @@ if ($result) {
                             </a>
                         </li>
                     </ul>
+
 
                     <ul class="menu_item">
                         <div class="menu_title flex">
@@ -235,6 +249,7 @@ if ($result) {
                             </a>
                         </li>
 
+
                         <li class="item " onclick="openLogoutModal()">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-exit bx-rotate-180'></i>
@@ -246,10 +261,9 @@ if ($result) {
             </div>
         </nav>
 
-        <!--LOGIN MESSAGE-->
-        <div id="loginPopup" class="popup">
-            <p>Login successfully!</p>
-        </div>
+
+
+
 
 
         <!-- MAIN CONTENT-->

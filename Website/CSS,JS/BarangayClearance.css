@@ -10,9 +10,32 @@ body {
   min-height: 100vh;
 }
 
-html {
+/* html {
   ::-webkit-scrollbar {
     display: none;
+  }
+} */
+
+html {
+  ::-webkit-scrollbar {
+    border-radius: 10px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    border-radius: 10px;
   }
 }
 
@@ -243,7 +266,7 @@ p {
   }
 
   .bx.bx-menu-alt-right {
-    padding-left: 65px;
+    padding-left: 80px;
     font-size: 40px;
   }
 }
@@ -714,25 +737,42 @@ footer p {
   font-weight: 500;
 }
 
+p.labelTrack {
+  text-align: left;
+}
+
 .trackCon {
-  width: 50%;
   margin: 25px auto 0;
-  padding: 20px 40px;
+  padding: 10px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
     rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+  overflow-x: scroll;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
 }
 
 th,
 td {
   padding: 10px;
   text-align: left;
+}
+
+table th:first-child {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+table th:last-child {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-align: center;
 }
 
 th {
@@ -745,9 +785,16 @@ tr:nth-child(even) {
 }
 
 /*RESPONSIVE TRACKREQ PAGE*/
+
+@media only screen and (max-width: 1440px) {
+  .trackCon {
+    width: fit-content;
+  }
+}
+
 @media only screen and (max-width: 1024px) {
   .trackCon {
-    width: 70%;
+    width: fit-content;
   }
 
   th,
@@ -758,23 +805,32 @@ tr:nth-child(even) {
   }
 }
 
-@media only screen and (max-width: 425px) {
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
+@media only screen and (max-width: 768px) {
   .trackCon {
-    overflow-x: auto;
-    padding: 20px;
-    width: 80%;
+    width: 83%;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  .trackCon {
+    width: 83%;
+  }
+}
+
+@media only screen and (max-width: 376px) {
+  .trackCon {
+    width: 85%;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .trackCon {
+    width: 90%;
   }
 
-  th,
-  td {
-    padding: 10px 20px;
-    text-align: left;
-    font-size: 15px;
+  p.login-text {
+    white-space: nowrap;
+    font-size: 16px;
   }
 }
 
@@ -1005,7 +1061,7 @@ input#avatar {
   border: none;
 }
 
-/* ─── Status ──────────────────────────────────────────────── */
+/* ─── Status track request ──────────────────────────────────────────────── */
 .status {
   padding: 5px 5px;
   border-radius: 2rem;
@@ -1029,3 +1085,5 @@ input#avatar {
   color: #377fb9;
   width: 100%;
 }
+
+/* ─── Table  track request───────────────────────────────────────────────── */

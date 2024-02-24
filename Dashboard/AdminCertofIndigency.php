@@ -146,7 +146,7 @@ if (!$updateResult) {
 ?>
 
                         <li class="item active">
-                            <a id="indigency-link" class="link flex">
+                            <a href="#" id="indigency-link" class="link flex">
                                 <i>
                                     <span class="material-symbols-outlined">
                                         badge
@@ -358,7 +358,7 @@ if ($result) {
             "<td>" . $row["purpose_description"] . "</td>" .
             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-            "<td><i class='bx bxs-edit edit-icon''></i> </td>" .
+            "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>".
             "</tr>";
     }
     $result->close();
@@ -368,46 +368,27 @@ if ($result) {
 
 $conn->close();
 ?>
-                                <!-- POPUP FORM ACCOUNT EDIT -->
-                                <div id="customEditModal" class="custom-modal">
+
+                                <div id="customEditModal1" class="custom-modal">
                                     <div class="custom-modal-content">
-                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
-                                        <p id="customUserName"></p>
-
-                                        <p id="dateCreated"></p>
-                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
-
+                                        <h2 class="editAccountTitle">Update File Request Status </h2>
+                                        <p id="TrackingN"></p>
+                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile.php" method="post">
                                             <div class="updatecon">
                                                 <div class="accountstatus">
-                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
-                                                    <label for="customRole">Role:</label>
-                                                    <select id="customRole" name="customRole">
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Staff">Staff</option>
+                                                    <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
+                                                    <label for="fileStatus">File Status:</label>
+                                                    <select id="fileStatus" name="fileStatus">
+                                                        <option value="Ready for Pickup">Ready for Pickup</option>
+                                                        <option value="Disapproved">Disapproved</option>
+                                                        <option value="Processing">Processing</option>
                                                     </select>
-
-
                                                 </div>
-
-                                                <div class="rolestatus">
-
-                                                    <label for="customStatus">Account Status:</label>
-                                                    <select id="customStatus" name="customStatus">
-                                                        <option value="Activated">Activated</option>
-                                                        <option value="Deactivated">Deactivated</option>
-                                                    </select>
-
-                                                </div>
-
-
-                                                <button id="updateButton" class="updateButton"
+                                                <button id="updateButton1" class="updateButton"
                                                     type="submit">Update</button>
-
-
                                         </form>
                                     </div>
                                 </div>
-
 
 
                             </tbody>

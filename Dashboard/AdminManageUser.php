@@ -312,8 +312,8 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                     <th> Age <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Email <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Role <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -340,8 +340,8 @@ if ($result) {
             "<td>" . $row["age"] . "</td>" .
             "<td>" . $row["email"] . "</td>" .
             "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
             "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
             "</tr>";
     }
@@ -357,7 +357,6 @@ $conn->close();
                                     <div class="custom-modal-content">
                                         <h2 class="editAccountTitle">Edit Account Role and Status </h2>
                                         <p id="customUserName"></p>
-
                                         <p id="dateCreated"></p>
                                         <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
 
