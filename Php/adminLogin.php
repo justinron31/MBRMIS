@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $staffResult = $staffQuery->get_result();
 
     if ($staffResult->num_rows == 1) {
-        // Staff found
+
         $row = $staffResult->fetch_assoc();
         $user_id = $row['id'];
         $accountStatus = $row['account_status'];

@@ -378,9 +378,9 @@ if ($result) {
                                         Certificate of Indigency
                                     </div>
                                     <?php
-include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+include '../Php/db.php';
 
-$sql = "SELECT * FROM file_request";
+$sql = "SELECT * FROM file_request WHERE type='Certificate of Indigency'";
 $result = $conn->query($sql);
 
 if ($result) {

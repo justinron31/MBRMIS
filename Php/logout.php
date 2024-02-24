@@ -4,8 +4,6 @@ include 'db.php';
 session_start();
 $user_id = $_SESSION['user_id']; 
 
-
-// Check connection
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
