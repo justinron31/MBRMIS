@@ -212,6 +212,16 @@ tbody tr.hide td p {
   width: 100%;
 }
 
+.status.pending {
+  background-color: #8eccff;
+  color: #377fb9;
+  width: 100%;
+}
+
+.padding {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 @media (max-width: 1000px) {
   td:not(:first-of-type) {
     min-width: 12.1rem;

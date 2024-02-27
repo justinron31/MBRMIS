@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+include 'db.php';
 
 header('Content-Type: application/json');
 

@@ -90,10 +90,73 @@ function closePopupOutside(event) {
 }
 
 // ─── Form Account Status Edit ─────────────────────────────────
-$(document).mousedown(function (event) {
-  var modal = $("#customEditModal");
-  if (!modal.is(event.target) && modal.has(event.target).length === 0) {
-    closeCustomModal();
+$(document).ready(function () {
+  $(document).mousedown(function (event) {
+    var modal = $("#customEditModal");
+    if (!modal.is(event.target) && modal.has(event.target).length === 0) {
+      closeCustomModal();
+    }
+  });
+
+  function openCustomModal(userId, currentStatus, currentRole) {
+    // Fetch user information before opening the modal
+    fetchUserInfo(userId, function (updatedRole) {
+      $("#customUserId").val(userId);
+      $("#customStatus").val(currentStatus);
+      $("#customRole").val(updatedRole);
+
+      // Function to update button state based on the selected values
+      function updateButtonState(selectedStatus, selectedRole) {
+        $("#updateButton").prop(
+          "disabled",
+          selectedStatus === currentStatus && selectedRole === currentRole
+        );
+      }
+
+      // Update button state based on the initially selected values
+      updateButtonState(currentStatus, currentRole);
+
+      // Bind the change event to dynamically update button state
+      $("#customStatus, #customRole").on("change", function () {
+        var selectedStatus = $("#customStatus").val();
+        var selectedRole = $("#customRole").val();
+        updateButtonState(selectedStatus, selectedRole);
+      });
+
+      $("#customEditModal").show(); // Use .show() to display the modal
+    });
+  }
+
+  function closeCustomModal() {
+    $("#customEditModal").hide(); // Use .hide() to hide the modal
+  }
+
+  // Function to fetch user information
+  function fetchUserInfo(userId, callback) {
+    $.ajax({
+      type: "POST",
+      url: "/MBRMIS/Php/fetchUserInfo.php", // Create a new PHP file to handle this request
+      data: { userId: userId },
+      dataType: "json",
+      success: function (data) {
+        // Display the first name, last name, last login timestamp and date created in the modal
+        $("#customUserName").html(
+          "<strong>Name:</strong> " + data.firstName + " " + data.lastName
+        );
+        $("#lastLoginTimestamp").html(
+          "<strong>Last Login:</strong> " + data.lastLoginTimestamp
+        );
+        $("#dateCreated").html(
+          "<strong>Date Created: </strong>" + data.dateCreated
+        );
+
+        // Call the callback with the updated role
+        callback(data.staffRole);
+      },
+      error: function (error) {
+        console.log("Error fetching user information: ", error);
+      },
+    });
   }
 });
 
@@ -275,3 +338,94 @@ function showCustomPopup(message) {
     })
     .delay(2000);
 }
+
+// ─── File Status Update ───────────────────────────────────────
+$(document).ready(function () {
+  var currentStatus;
+
+  function fetchFileInfo(fileId, callback) {
+    $.ajax({
+      type: "POST",
+      url: "/MBRMIS/Php/fetchFileInfo.php",
+      data: { id: fileId },
+      dataType: "json",
+      success: function (data) {
+        $("#TrackingN").html(
+          "<strong>Tracking Number: </strong>" + data.tracking_number
+        );
+        $("#fileStatusId").val(fileId);
+        currentStatus = data.fileStatus;
+        callback(currentStatus);
+      },
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  }
+
+  function updateButtonState(selectedStatus) {
+    $("#updateButton1").prop("disabled", selectedStatus === currentStatus);
+  }
+
+  $(".edit-icon").on("click", function () {
+    var fileId = $(this).data("file-id");
+    fetchFileInfo(fileId, function (fileStatus) {
+      $("#fileStatus").val(fileStatus);
+      updateButtonState(fileStatus);
+    });
+    $("#customEditModal1").show();
+  });
+
+  $("#fileStatus").change(function () {
+    updateButtonState($(this).val());
+  });
+
+  $(document).mousedown(function (event) {
+    var modal = $("#customEditModal1");
+    if (!modal.is(event.target) && modal.has(event.target).length === 0) {
+      modal.hide();
+    }
+  });
+
+  $("#customEditForm1").submit(function (e) {
+    e.preventDefault();
+    var confirmation = confirm(
+      "Are you sure you want to update the file status?"
+    );
+    if (confirmation) {
+      var formData = $(this).serialize();
+      $.ajax({
+        type: "POST",
+        url: "/MBRMIS/Php/updateFile.php",
+        data: formData,
+        dataType: "json",
+        success: function (data) {
+          if (data.status === "success") {
+            sessionStorage.setItem("showCustomPopup", data.message);
+            $("#customEditModal1").hide();
+            location.reload();
+          } else {
+            showCustomPopup(data.message);
+          }
+        },
+        error: function (error) {
+          console.log(error);
+          showCustomPopup("Error updating file status");
+        },
+      });
+    }
+  });
+
+  function showCustomPopup(message) {
+    var popupContainer = $('<div class="custom-popup"></div>').text(message);
+    $("body").append(popupContainer);
+    popupContainer
+      .css("display", "none")
+      .fadeIn(200, function () {
+        $(this).animate({ top: "-20px", opacity: 0 }, 300, function () {
+          $(this).remove();
+        });
+      })
+      .delay(2000);
+  }
+});

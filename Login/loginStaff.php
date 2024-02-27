@@ -31,26 +31,23 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
 ?>
 <?php endif;?>
 
-<body>
+<?php
 
-    <script>
-    session_start();
 
-    if (isset($_SESSION['user_type'])) {
-        // User is already logged in
-        if ($_SESSION['last_login_timestamp'] < time() - 3600) {
-            // Last session activity was more than hour ago
-            session_unset(); // unset $_SESSION variable for the run-time 
-            session_destroy(); // destroy session data in storage
-        } else {
-            $_SESSION['last_login_timestamp'] = time(); // update last activity time stamp
-        }
-    } else {
-        // User is not logged in
-        $_SESSION['user_type'] = $user_type; // set user type
-        $_SESSION['last_login_timestamp'] = time(); // set current time
+if (isset($_SESSION['user_type'])) {
+    $userType = $_SESSION['user_type'];
+    if ($userType === 'admin') {
+        header('Location: /MBRMIS/Dashboard/AdminDashboard.php');
+        exit;
+    } else if ($userType === 'staff') {
+        header('Location: /MBRMIS/Dashboard/StaffDashboard.php');
+        exit;
     }
-    </script>
+}
+?>
+
+
+<body>
 
     <!--LOADER-->
     <div id="preloader">
@@ -110,6 +107,9 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
     </footer>
 
     <script src="../Login/CSS,JS/login.js"></script>
+
+
+
 </body>
 
 </html>

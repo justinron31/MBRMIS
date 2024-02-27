@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include 'db.php';
 
@@ -13,18 +14,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $staffResult = $staffQuery->get_result();
 
     if ($staffResult->num_rows == 1) {
-        // Staff found
+
         $row = $staffResult->fetch_assoc();
         $user_id = $row['id'];
         $accountStatus = $row['account_status'];
         $idnum = $row['idnumber'];
         $is_logged_in = $row['is_logged_in'];
 
-        if ($is_logged_in) {
-            $_SESSION['error_message'] = "You are currently logged in. Logout first.";
-            header("Location: /MBRMIS/Login/loginStaff.php");
-            exit();
-        }
+       if ($is_logged_in) {
+    $_SESSION['error_message'] = "You are currently logged in. Logout first.";
+    $user_type = $_SESSION['user_type'];
+    header("Location: /MBRMIS/Login/loginStaff.php?user_type=$user_type");
+    exit();
+}
 
         if ($accountStatus === 'Activated') {
             if (password_verify($password, $row['pass'])) {
@@ -35,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['user_name'] = $name;
                 $_SESSION['idnumber'] = $idnum;
-                $_SESSION['last_login_timestamp'] = $row['last_login_timestamp']; // Store last login timestamp in session
+                $_SESSION['last_login_timestamp'] = $row['last_login_timestamp']; 
 
                 // Set $_SESSION['user_type'] based on the role value
                 $_SESSION['user_type'] = strtolower($role);
@@ -63,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['error_message'] = "Account Deactivated. Please contact the admin.";
         }
     } else {
-        $_SESSION['error_message'] = "ERROR.";
+        $_SESSION['error_message'] = "Error.";
     }
 
     header("Location: /MBRMIS/Login/loginStaff.php");

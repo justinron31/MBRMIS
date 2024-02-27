@@ -24,10 +24,8 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <title>Request for Certificate of Indigency</title>
+
 </head>
-
-
-
 
 
 <body>
@@ -123,7 +121,8 @@
       <hr />
     </div>
 
-    <form id="myForm" action="/MBRMIS/Php/certIndigency.php" method="post" enctype="multipart/form-data">
+    <form id="myForm" action="/MBRMIS/Php/certIndigency.php" method="post" enctype="multipart/form-data"
+      autocomplete="off">
 
       <!-- ─── Name ─────────────────────── -->
       <div class="uploader">
@@ -137,6 +136,7 @@
           <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required />
         </div>
       </div>
+
       <!-- ─── Contact Number ───────────── -->
       <label for="contNum" class="required">Contact Number</label>
       <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
@@ -150,6 +150,7 @@
         <label for="timepicker"></label>
         <input class="time" type="time" id="timepicker" name="timepicker" required />
       </aeon-datepicker>
+
       <!-- ─── Purpose ──────────────────── -->
       <label for="purpose" class="required">Purpose Description</label>
       <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
@@ -157,10 +158,10 @@
       <!-- ─── Upload Id ────────────────── -->
       <div class="uploader">
         <div class="uploadContent1">
-          <label class="required1" for="avatar" required>Upload Voter's ID</label>
+          <label class="required1" for="avatar">Upload Voter's ID</label>
           <div id="image-preview">
-            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
-              onchange="previewImage()" />
+            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg, image/jpg"
+              onchange="previewImage()" required />
             <img id="preview" />
           </div>
         </div>
@@ -186,11 +187,8 @@
           <input type="checkbox" id="accuracyCheckbox" required />
           <label for="checkbox">I have read and agree to the
             I confirm that all information I have provided is accurate.</label>
-
         </div>
-
       </div>
-
 
       <!-- ─── Captcha ──────────────────────────── -->
       <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->

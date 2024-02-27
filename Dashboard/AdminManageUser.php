@@ -119,16 +119,38 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
 
+                        <?php
+include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+
+
+$count = 0;
+
+$query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
+$result = mysqli_query($conn, $query);
+
+
+if ($result) {
+    $count = mysqli_num_rows($result);
+} else {
+
+    echo "Error: " . mysqli_error($conn);
+}
+?>
+
                         <li class="item">
-                            <a href="#" class="link flex">
+                            <a id="indigency-link" href="/MBRMIS/Dashboard/AdminCertofIndigency.php" class="link flex">
                                 <i>
                                     <span class="material-symbols-outlined">
                                         badge
                                     </span>
                                 </i>
                                 <span>Certificate of Indigency</span>
+                                <?php if($count > 0): ?>
+                                <span class="badge"><?php echo $count; ?></span>
+                                <?php endif; ?>
                             </a>
                         </li>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -290,8 +312,8 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                     <th> Age <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Email <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Role <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -303,7 +325,7 @@ include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
 $idnum = $_SESSION['idnumber'];
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum'";
+$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -315,11 +337,11 @@ if ($result) {
             "<td>" . $row["firstname"] . "</td>" .
             "<td>" . $row["lastname"] . "</td>" .
             "<td>" . $row["gender"] . "</td>" .
-              "<td>" . $row["age"] . "</td>" .
+            "<td>" . $row["age"] . "</td>" .
             "<td>" . $row["email"] . "</td>" .
             "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-            "<td>" . $row["last_login_timestamp"] . "</td>" .
-             "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
             "</tr>";
     }
@@ -335,7 +357,6 @@ $conn->close();
                                     <div class="custom-modal-content">
                                         <h2 class="editAccountTitle">Edit Account Role and Status </h2>
                                         <p id="customUserName"></p>
-
                                         <p id="dateCreated"></p>
                                         <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
 

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,31 +21,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pickup_time = $_POST['timepicker'];
 
     // Combine date and time into a single datetime string in the correct format
-  $pickup_datetime = date('Y-m-d h:i A', strtotime("$pickup_date $pickup_time"));
-
+    $pickup_datetime = date('Y-m-d h:i A', strtotime("$pickup_date $pickup_time"));
 
     $purpose_description = $_POST['purpose'];
     $voters_id_number = $_POST['voteId'];
 
-  
+    // File upload logic
+    $file = $_FILES['avatar'];
+    $fileName = $file['name'];
+    $fileSize = $file['size'];
+    $fileTmpName = $file['tmp_name'];
+    $validImageExtensions = array('jpg', 'jpeg', 'png');
+    $fileParts = explode('.', $fileName);
+    $imageExtension = strtolower(end($fileParts));
 
-$original_filename = basename($_FILES["avatar"]["name"]);
-$target_file = $target_dir . "votersID_" . str_replace(' ', '_', $original_filename);
-move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+    if(!in_array($imageExtension, $validImageExtensions)){
+        echo "<script> alert('Invalid Image Extension'); </script>";
+        exit();
+    } else if($fileSize > 2000000) { // 2MB
+        echo "<script> alert('Image Size Is Too Large'); </script>";
+        exit();
+    } else {
+        $newImageName = 'VotersID_' . $lastname . '_' . $firstname . '.' . $imageExtension;
+        $targetDirectory = "../Uploaded File/";
+        $targetFile = $targetDirectory . basename($newImageName);
+        move_uploaded_file($fileTmpName, $targetFile);
+    }
 
+    // Define the certificate type
+    $certificate_type = "Certificate of Indigency";
+
+    // Generate a unique tracking number
+    $tracking_number = uniqid();
 
     // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO resident_indigency (firstname, lastname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO file_request (tracking_number, firstname, lastname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Bind parameters
-    $stmt->bind_param("sssssss", $firstname, $lastname, $contact_number, $pickup_datetime, $purpose_description, $target_file, $voters_id_number);
+    $stmt->bind_param("sssssssss", $tracking_number, $firstname, $lastname, $contact_number, $pickup_datetime, $purpose_description, $targetFile, $voters_id_number, $certificate_type);
 
-    // Execute the statement
     if ($stmt->execute()) {
+        // Store tracking number in session
+        $_SESSION['tracking_number'] = $tracking_number;
+
         echo "<script type='text/javascript'>
         alert('Record submitted successfully');
-        window.location.href = '/MBRMIS/Website/homepage.html#service';
-      </script>";
+        window.location.href = '/MBRMIS/Website/confirmTrack.html';
+        </script>";
+        echo "<script type='text/javascript'>
+        window.onbeforeunload = function() {
+            for(let i=0; i<document.forms.length; i++) {
+                document.forms[i].reset();
+            }
+        }
+        </script>";
     } else {
         echo "Error: " . $stmt->error;
     }
