@@ -11,9 +11,11 @@ const toggleLock = () => {
   if (!sidebar.classList.contains("locked")) {
     sidebar.classList.add("hoverable");
     sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
+    localStorage.setItem("sidebarLockState", "unlocked");
   } else {
     sidebar.classList.remove("hoverable");
     sidebarLockBtn.classList.replace("bx-lock-open-alt", "bxs-lock-alt");
+    localStorage.setItem("sidebarLockState", "locked");
   }
 };
 
@@ -34,6 +36,10 @@ const showSidebar = () => {
 // Function to show and hide the sidebar
 const toggleSidebar = () => {
   sidebar.classList.toggle("close");
+  localStorage.setItem(
+    "sidebarState",
+    sidebar.classList.contains("close") ? "closed" : "open"
+  );
 };
 
 // If the window width is less than 800px, close the sidebar and remove hoverability and lock
@@ -51,6 +57,19 @@ sidebarCloseBtn.addEventListener("click", toggleSidebar);
 
 //sidebaractive
 document.addEventListener("DOMContentLoaded", function () {
+  const sidebarLockState = localStorage.getItem("sidebarLockState");
+
+  if (sidebarLockState === "locked") {
+    sidebar.classList.add("locked");
+    sidebar.classList.remove("hoverable");
+    sidebarLockBtn.classList.replace("bx-lock-open-alt", "bxs-lock-alt");
+  } else {
+    sidebar.classList.add("close");
+    sidebar.classList.remove("locked");
+    sidebar.classList.add("hoverable");
+    sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
+  }
+
   const menuItems = document.querySelectorAll(".menu_item .item");
 
   const overviewItem = document.querySelector(".menu_item .item.active");
@@ -66,12 +85,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       // Add the "active" class to the clicked item
-      item.classList.add("active");
+      this.classList.add("active");
     });
   });
 });
-
-/*CALENDAR*/
+// ─── Calendar ─────────────────────────────────────────────────
 let date = new Date();
 
 function renderCalendar() {
@@ -174,7 +192,7 @@ document.getElementById("month").addEventListener("click", showCurrentDate);
 
 renderCalendar();
 
-// LOGOUT MODAL POPUP
+// ─── Logout Modal ─────────────────────────────────────────────
 function openLogoutModal() {
   var modal = document.getElementById("logoutModal");
   var overlay = document.getElementById("overlay");
@@ -207,7 +225,7 @@ function logout() {
     });
 }
 
-/*LOADER ANIMATION*/
+// ─── Loader Animation ─────────────────────────────────────────
 $(window).on("load", function () {
   $("#status").fadeOut();
 
@@ -216,4 +234,196 @@ $(window).on("load", function () {
   $("body").delay(150).css({ overflow: "visible" });
 });
 
-/*EXPORT TABLE TO EXCEL*/
+// ─── Edit Profile ─────────────────────────────────────────────
+function toggleEdit() {
+  const saveButton = document.getElementById("saveButton");
+  const editButton = document.getElementById("editButton");
+  const passCon = document.getElementById("passCon");
+  const inputs = document.getElementsByTagName("input");
+  const dropdown = document.getElementById("gender");
+
+  const initialValues = [];
+  for (const input of inputs) {
+    initialValues.push(input.value);
+    input.setAttribute("data-initial-value", input.value);
+  }
+  dropdown.setAttribute("data-initial-value", dropdown.value);
+
+  if (editButton.textContent.trim() === "EDIT") {
+    editButton.innerHTML = "<p class='exportTitle'><strong>X</strong></p>";
+    editButton.style.backgroundColor = "red";
+    saveButton.style.display = "block";
+    passCon.style.display = "flex";
+
+    for (const input of inputs) {
+      if (input.id !== "idnum" && input.id !== "email") {
+        input.disabled = false;
+        input.addEventListener("input", enableSaveButton);
+      }
+    }
+
+    dropdown.disabled = false;
+    dropdown.addEventListener("change", enableSaveButton);
+  } else {
+    editButton.innerHTML = "<p class='exportTitle'><strong>EDIT</strong></p>";
+    editButton.style.backgroundColor = "";
+    saveButton.style.display = "none";
+    passCon.style.display = "none";
+    passForm.style.display = "none";
+
+    for (const input of inputs) {
+      if (input.id !== "idnum" && input.id !== "email") {
+        input.disabled = true;
+        input.removeEventListener("input", enableSaveButton);
+      }
+    }
+
+    dropdown.disabled = true;
+    dropdown.removeEventListener("change", enableSaveButton);
+  }
+}
+
+function enableSaveButton() {
+  const saveButton = document.getElementById("saveButton");
+  const inputs = document.getElementsByTagName("input");
+  const dropdown = document.getElementById("gender");
+  let hasChanges = false;
+
+  for (const input of inputs) {
+    const currentInputValue = input.value;
+    const initialValue = input.getAttribute("data-initial-value");
+
+    if (currentInputValue !== initialValue) {
+      hasChanges = true;
+      break;
+    }
+  }
+
+  if (
+    hasChanges ||
+    dropdown.value !== dropdown.getAttribute("data-initial-value")
+  ) {
+    saveButton.disabled = false;
+  } else {
+    saveButton.disabled = true;
+  }
+}
+
+saveButton.disabled = true; // Set save button disabled by default
+
+dropdown.addEventListener("change", enableSaveButton);
+
+// ─── CHANGE PASSWORD ─────────────────────────────────────────────
+function toggleForm() {
+  var passForm = document.getElementById("passForm");
+  var passCon = document.getElementById("passCon");
+  var resetBtn = document.querySelector(".reset__password-btn");
+
+  if (passForm.style.display === "none" || passForm.style.display === "") {
+    // Show the form
+    passForm.style.display = "block";
+    resetBtn.innerText = "X";
+    resetBtn.style.backgroundColor = "red";
+  } else {
+    // Hide the form
+    passForm.style.display = "none";
+    resetBtn.innerText = "Reset Password";
+    resetBtn.style.backgroundColor = "";
+  }
+}
+
+// ─── Confirmpassword ──────────────────────────────────────────
+function validatePassword() {
+  var passwordInput = document.getElementById("pass");
+  var confirmPasswordInput = document.getElementById("cpass");
+  var validationPopup = document.getElementById("validationPopup");
+  var submitBtn = document.getElementById("resetButton");
+
+  var password = passwordInput.value;
+  var confirmPassword = confirmPasswordInput.value;
+
+  if (confirmPassword !== "" && password !== confirmPassword) {
+    validationPopup.style.display = "block";
+    passwordInput.classList.add("error-input");
+    confirmPasswordInput.classList.add("error-input");
+
+    // Change the focus color and shadow to red
+    passwordInput.style.borderColor = "red";
+    passwordInput.style.boxShadow = "0 0 5px red";
+    confirmPasswordInput.style.borderColor = "red";
+    confirmPasswordInput.style.boxShadow = "0 0 5px red";
+
+    submitBtn.disabled = true;
+
+    setTimeout(function () {
+      validationPopup.classList.add("slide-up");
+    }, 2000);
+
+    setTimeout(function () {
+      validationPopup.style.display = "none";
+      validationPopup.classList.remove("slide-up");
+    }, 2500);
+
+    return false;
+  } else {
+    validationPopup.style.display = "none";
+    passwordInput.classList.remove("error-input");
+    confirmPasswordInput.classList.remove("error-input");
+
+    passwordInput.style.borderColor = "";
+    passwordInput.style.boxShadow = "";
+    confirmPasswordInput.style.borderColor = "";
+    confirmPasswordInput.style.boxShadow = "";
+    submitBtn.disabled = false;
+  }
+
+  return true;
+}
+
+// ─── Validateage ──────────────────────────────────────────────
+function validateAge(input) {
+  // Remove non-numeric characters
+  input.value = input.value.replace(/\D/g, "");
+
+  // Limit to two digits
+  if (input.value.length > 2) {
+    input.value = input.value.slice(0, 2);
+  }
+}
+
+// ─── Password Conditions ──────────────────────────────────────
+function validatePassword1() {
+  var passwordInput = document.getElementById("pass");
+  var validationPopup = document.getElementById("validationPopup4");
+  var submitBtn = document.querySelector(".login-button");
+
+  var password = passwordInput.value.trim();
+  var passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+
+  if (password === "") {
+    // Hide the validation popup and reset styles when input is empty
+    validationPopup.style.display = "none";
+    passwordInput.classList.remove("error-input");
+    passwordInput.style.borderColor = "";
+    passwordInput.style.boxShadow = "";
+    submitBtn.disabled = false;
+  } else if (!passwordRegex.test(password)) {
+    // Display a message for invalid password format
+    validationPopup.style.display = "block";
+    passwordInput.classList.add("error-input");
+
+    // Change the focus color and shadow to red
+    passwordInput.style.borderColor = "red";
+    passwordInput.style.boxShadow = "0 0 5px red";
+
+    // Disable the submit button
+    submitBtn.disabled = true;
+  } else {
+    // Hide the validation popup and reset styles when password is valid
+    validationPopup.style.display = "none";
+    passwordInput.classList.remove("error-input");
+    passwordInput.style.borderColor = "";
+    passwordInput.style.boxShadow = "";
+    submitBtn.disabled = false;
+  }
+}

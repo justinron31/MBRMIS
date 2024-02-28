@@ -71,8 +71,24 @@
   </nav>
 
 
+  <!--ALERT MESSAGE-->
+  <div id="alerPopup" class="popup1">
+    <p>Please choose a date and time in the future.</p>
+  </div>
 
-  <!--LOGIN FORM-->
+  <!--ALERT MESSAGE 1-->
+  <div id="alerPopup1" class="popup1">
+    <p>Sundays are not allowed. Please choose another date.</p>
+  </div>
+
+  <!--ALERT MESSAGE 2-->
+  <div id="alerPopup2" class="popup1">
+    <p>Please agree to the terms and confirm the accuracy of information.</p>
+  </div>
+
+
+
+  <!-- FORM-->
 
   <div class="login-container">
     <div class="logo-container">
@@ -82,6 +98,7 @@
     </div>
     <form id="myForm" action="" method="post">
 
+      <!-- ─── Name ─────────────────────── -->
       <div class="uploader">
         <div class="uploadContent1">
           <label for="fname" class="required">Firstname</label>
@@ -95,21 +112,24 @@
       </div>
 
 
+      <!-- ─── Birthdate ────────────────── -->
       <div class="uploader">
 
         <div class="uploadContent">
           <label for="datepicker" class="required">Birthdate</label>
           <aeon-datepicker>
             <label for="datepicker"></label>
-            <input type="date" id="datepicker" required />
+            <input type="date" id="Bdatepicker" required />
           </aeon-datepicker>
         </div>
 
+        <!-- ─── Age ──────────────── -->
         <div class="uploadContent1">
           <label for="age" class="required">Age</label>
           <input type="text" id="id" name="age" placeholder="Enter your Age" required />
         </div>
 
+        <!-- ─── Gender ───────────── -->
         <div class="uploadContent">
           <label for="sex" class="required">Sex / Gender </label>
           <select class="selectbox" id="bussSelect" onchange="changeFontColor('bussSelect')">
@@ -121,13 +141,16 @@
 
       </div>
 
+      <!-- ─── Contact Number ───────────── -->
       <div class="uploader">
 
         <div class="uploadContent1">
           <label for="contNum" class="required">Contact Number</label>
-          <input type="text" id="id" name="contNum" placeholder="Enter your Contact number" required />
+          <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
+            oninput="validateContactNumber(this)" required />
         </div>
 
+        <!-- ─── Civil Status ─────── -->
         <div class="uploadContent">
           <label for="badd" class="required">Civil Status </label>
           <select class="selectbox" id="bussSelect1" onchange="changeFontColor('bussSelect1')">
@@ -142,6 +165,7 @@
       </div>
 
 
+      <!-- ─── Address ──────────────────────── -->
       <div class="uploader">
 
         <div class="uploadContent1">
@@ -162,6 +186,7 @@
       </div>
 
 
+      <!-- ─── Education ────────────────── -->
       <div class="uploader">
 
         <div class="uploadContent1">
@@ -195,6 +220,7 @@
       </div>
 
 
+      <!-- ─── Datetime ─────────────────── -->
       <label for="datepicker" class="required">Pick-Up Date and Time</label>
       <aeon-datepicker>
         <label for="datepicker"></label>
@@ -204,6 +230,7 @@
         <input class="time" type="time" id="timepicker" required />
       </aeon-datepicker>
 
+      <!-- ─── Upload Id ─────────────────── -->
       <div class="uploader">
         <div class="uploadContent1">
           <label class="required1" for="avatar">Upload Valid ID</label>
@@ -214,12 +241,14 @@
           </div>
         </div>
 
+        <!-- ─── Id Number ────────── -->
         <div class="uploadContent">
           <label for="contNum" class="required">ID Number</label>
           <input type="text" id="id" name="contNum" placeholder="Enter your ID Number" required />
         </div>
       </div>
 
+      <!-- ─── Checkbox ─────────────────── -->
       <div class="checkbox">
         <div class="firstCheck">
           <input type="checkbox" id="termsCheckbox" required />
@@ -241,6 +270,8 @@
       <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->
 
       <br />
+
+      <!-- ─── Submit Button ────────────── -->
       <button type="submit" id="submitBtn" class="login-button">
         SUBMIT
       </button>

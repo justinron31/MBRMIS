@@ -50,11 +50,10 @@ document.addEventListener("DOMContentLoaded", function () {
       datepicker.style.borderColor = "red";
       datepicker.style.boxShadow = "0 0 5px red";
     } else {
-      // It's not in the past, reset the styles to default
-      datepicker.style.borderColor = ""; // Set to default border color
-      datepicker.style.boxShadow = ""; // Remove the box shadow
-      timepicker.style.borderColor = ""; // Set to default border color
-      timepicker.style.boxShadow = ""; // Remove the box shadow
+      datepicker.style.borderColor = "";
+      datepicker.style.boxShadow = "";
+      timepicker.style.borderColor = "";
+      timepicker.style.boxShadow = "";
     }
   });
 
@@ -130,6 +129,7 @@ function hideModal() {
 
   modal.addEventListener("animationend", function () {
     modal.style.display = "none";
+    document.getElementById("fname").focus();
   });
 }
 
@@ -163,5 +163,16 @@ function previewImage() {
   } else {
     preview.src = "";
     preview.style.display = "none"; // Hide the image preview
+  }
+}
+
+// ─── Number Validate ──────────────────────────────────────────
+function validateContactNumber(input) {
+  // Remove non-numeric characters
+  input.value = input.value.replace(/[^0-9]/g, "");
+
+  // Limit the length to 11 digits
+  if (input.value.length > 11) {
+    input.value = input.value.slice(0, 11);
   }
 }

@@ -23,7 +23,7 @@
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
 
 
-    <title>MAKILING BRMI SYSTEM - STAFF</title>
+    <title>MAKILING BRMI SYSTEM - Dashboard</title>
 </head>
 
 
@@ -144,7 +144,7 @@ $_SESSION['show_login_message'] = false;
                                         badge
                                     </span>
                                 </i>
-                                <span>Barangay Certificates</span>
+                                <span>Certificate of Indigency</span>
                             </a>
                         </li>
                         <li class="item">
@@ -167,16 +167,7 @@ $_SESSION['show_login_message'] = false;
                                 <span>First Time Job Seeker</span>
                             </a>
                         </li>
-                        <li class="item">
-                            <a href="#" class="link flex">
-                                <i>
-                                    <span class="material-symbols-outlined">
-                                        lab_profile
-                                    </span>
-                                </i>
-                                <span>Community Tax Certificate</span>
-                            </a>
-                        </li>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -197,10 +188,11 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
                         <li class="item">
-                            <a href="#" class="link flex">
-                                <i class="bx bx-cog"></i>
-                                <span>Settings</span>
+                            <a href="" class="link flex">
+                                <i class='bx bxs-user'></i>
+                                <span>Profile</span>
                             </a>
+                        </li>
                         </li>
                         <li class="item " onclick="openLogoutModal()">
                             <a href="#" class="link flex">

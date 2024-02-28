@@ -23,6 +23,7 @@
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
 
@@ -37,14 +38,17 @@
 <?php
 session_start();
 
-// Check if the user is not logged in as admin
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin') {
+// Check if the user is not logged in as admin or if idnumber is not set
+if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin' || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
 }
 
 $userName = $_SESSION['user_name'];
+
+// Add idnumber to the session
+$idNumber = $_SESSION['idnumber'];
 
 // Check if the login message should be displayed
 $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true;
@@ -115,16 +119,38 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
 
+                        <?php
+include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+
+
+$count = 0;
+
+$query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
+$result = mysqli_query($conn, $query);
+
+
+if ($result) {
+    $count = mysqli_num_rows($result);
+} else {
+
+    echo "Error: " . mysqli_error($conn);
+}
+?>
+
                         <li class="item">
-                            <a href="#" class="link flex">
+                            <a id="indigency-link" href="/MBRMIS/Dashboard/AdminCertofIndigency.php" class="link flex">
                                 <i>
                                     <span class="material-symbols-outlined">
                                         badge
                                     </span>
                                 </i>
-                                <span>Barangay Certificates</span>
+                                <span>Certificate of Indigency</span>
+                                <?php if($count > 0): ?>
+                                <span class="badge"><?php echo $count; ?></span>
+                                <?php endif; ?>
                             </a>
                         </li>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -145,16 +171,7 @@ $_SESSION['show_login_message'] = false;
                                 <span>First Time Job Seeker</span>
                             </a>
                         </li>
-                        <li class="item">
-                            <a href="#" class="link flex">
-                                <i>
-                                    <span class="material-symbols-outlined">
-                                        lab_profile
-                                    </span>
-                                </i>
-                                <span>Community Tax Certificate</span>
-                            </a>
-                        </li>
+
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -192,9 +209,9 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
                         <li class="item">
-                            <a href="#" class="link flex">
-                                <i class="bx bx-cog"></i>
-                                <span>Settings</span>
+                            <a href="/MBRMIS/Dashboard/AdminProfile.php" class="link flex">
+                                <i class='bx bxs-user'></i>
+                                <span>Profile</span>
                             </a>
                         </li>
                         <li class="item1 " onclick="openLogoutModal()">
@@ -256,12 +273,15 @@ $_SESSION['show_login_message'] = false;
 
                     </section>
 
+
+
                     <div class="tableHead">
                         <!--TOTAL USER-->
                         <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender FROM staff";
+$idnum = $_SESSION['idnumber'];
+$sql = "SELECT * FROM staff WHERE idnumber != $idnum";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -281,9 +301,6 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                     </div>
 
                     <section class="table__body">
-
-
-
                         <!--TABLE CONTENT-->
                         <table>
                             <thead>
@@ -292,19 +309,23 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                                     <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Account Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Action </th>
+                                    <th> Role <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-
                                 <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender, account_status FROM staff";
+$idnum = $_SESSION['idnumber'];
+
+$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
 $result = $conn->query($sql);
 
 if ($result) {
@@ -312,13 +333,16 @@ if ($result) {
         $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
         $uniqueId = 'edit_' . $row["idnumber"];
         echo "<tr>" .
-            "<td>" . $row["idnumber"] . "</td>" .
+           "<td><strong>" . $row["idnumber"] . "</strong></td>" .
             "<td>" . $row["firstname"] . "</td>" .
             "<td>" . $row["lastname"] . "</td>" .
             "<td>" . $row["gender"] . "</td>" .
+            "<td>" . $row["age"] . "</td>" .
             "<td>" . $row["email"] . "</td>" .
-            "<td><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i></td>" .
+            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
+            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
+           "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
             "</tr>";
     }
     $result->close();
@@ -331,17 +355,38 @@ $conn->close();
                                 <!-- POPUP FORM ACCOUNT EDIT -->
                                 <div id="customEditModal" class="custom-modal">
                                     <div class="custom-modal-content">
-
-                                        <h2 class="editAccountTitle">Edit Account Status</h2>
+                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
                                         <p id="customUserName"></p>
+                                        <p id="dateCreated"></p>
                                         <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
-                                            <input type="hidden" id="customUserId" name="customUserId" value="">
-                                            <label for="customStatus">Account Status:</label>
-                                            <select id="customStatus" name="customStatus">
-                                                <option value="Activated">Activated</option>
-                                                <option value="Deactivated">Deactivated</option>
-                                            </select>
-                                            <button id="updateButton" class="updateButton" type="submit">Update</button>
+
+                                            <div class="updatecon">
+                                                <div class="accountstatus">
+                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
+                                                    <label for="customRole">Role:</label>
+                                                    <select id="customRole" name="customRole">
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Staff">Staff</option>
+                                                    </select>
+
+
+                                                </div>
+
+                                                <div class="rolestatus">
+
+                                                    <label for="customStatus">Account Status:</label>
+                                                    <select id="customStatus" name="customStatus">
+                                                        <option value="Activated">Activated</option>
+                                                        <option value="Deactivated">Deactivated</option>
+                                                    </select>
+
+                                                </div>
+
+
+                                                <button id="updateButton" class="updateButton"
+                                                    type="submit">Update</button>
+
+
                                         </form>
                                     </div>
                                 </div>

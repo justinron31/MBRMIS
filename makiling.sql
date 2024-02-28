@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2024 at 10:27 AM
+-- Generation Time: Feb 27, 2024 at 02:49 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -24,23 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Table structure for table `file_request`
 --
 
-CREATE TABLE `admin` (
+CREATE TABLE `file_request` (
   `id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
+  `type` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
+  `pickup_datetime` datetime NOT NULL,
+  `purpose_description` text NOT NULL,
+  `voters_id_image` varchar(255) NOT NULL,
+  `voters_id_number` varchar(20) NOT NULL,
+  `datetime_created` timestamp NULL DEFAULT current_timestamp(),
+  `viewed` tinyint(1) NOT NULL DEFAULT 0,
+  `tracking_number` varchar(255) DEFAULT NULL,
+  `file_status` enum('Processing','Ready for Pickup','Disapproved') DEFAULT 'Processing'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data for table `file_request`
 --
 
-INSERT INTO `admin` (`id`, `username`, `name`, `password`) VALUES
-(1, '123', 'Ron', 'qwe'),
-(2, '123123', 'Mcvince', 'qweqwe');
+INSERT INTO `file_request` (`id`, `type`, `firstname`, `lastname`, `contact_number`, `pickup_datetime`, `purpose_description`, `voters_id_image`, `voters_id_number`, `datetime_created`, `viewed`, `tracking_number`, `file_status`) VALUES
+(361, 'Certificate of Indigency', '123', '123132', '12312312321', '2024-02-23 12:31:00', '12312312312312', '../Uploaded File/VotersID_123132_123.png', '1231312', '2024-02-21 13:37:50', 1, '65d5fcae1c2dd', 'Disapproved'),
+(362, 'Certificate of Indigency', 'mcvincew', 'delacruz', '09874564564', '2024-02-26 12:31:00', 'none', '../Uploaded File/VotersID_delacruz_mcvincew.png', '4532215', '2024-02-24 06:20:04', 1, '65d98a9418a2f', 'Processing');
 
 -- --------------------------------------------------------
 
@@ -55,30 +64,56 @@ CREATE TABLE `staff` (
   `idnumber` varchar(20) NOT NULL,
   `email` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
+  `age` int(100) NOT NULL,
   `pass` varchar(255) NOT NULL,
+  `staff_role` enum('Admin','Staff') DEFAULT 'Staff',
   `dateCreated` timestamp NOT NULL DEFAULT current_timestamp(),
-  `account_status` enum('Activated','Deactivated') DEFAULT NULL
+  `last_login_timestamp` timestamp NULL DEFAULT NULL,
+  `is_logged_in` tinyint(4) NOT NULL,
+  `account_status` enum('Activated','Deactivated') DEFAULT 'Activated'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `pass`, `dateCreated`, `account_status`) VALUES
-(9, 'Jeah', 'Arcillas', '123jeah', 'jeah@gmail.com', 'Female', '$2y$10$W6yGugw3CZKHbVNvvZLng.TLq2aNY1RPwCxL6w1yhXH4XpKyGRht6', '2024-01-24 06:48:23', 'Activated'),
-(10, 'Koji', 'Ignacious', 'ijok', 'ijok@gmail.com', 'Male', '$2y$10$jRiuOa3i2P4UVAZlXZ4NUuUw74Fz5us5GC2r7JE7LCfFWXiUXpvHO', '2024-01-24 06:51:04', 'Deactivated'),
-(11, 'Johnny', 'Barayray', 'jc123', 'jc@gmail.com', 'Male', '$2y$10$S.mtLamDwHjmJL1UCyoZ7.vHqaiSjyaLw/boq6dMfeIJw.mnQPDf2', '2024-01-25 05:04:22', 'Deactivated'),
-(12, 'Maple', 'Marquez', 'maplejr', 'jr@gmail.com', 'Male', '$2y$10$e5nNfNn0/ZsWZbFYLU05neRM/7jJf/LuLd.R4s7r/ynAjVthqdzBa', '2024-01-25 10:44:33', 'Activated'),
-(13, 'Ronron', 'Ron', '123123', 'ron@gmail.com', 'Male', '$2y$10$DiuqgrLYBI4X8f9U2QA8E.Zs.Qq.aQcKi5He3aLi2TUri4lB/ohdS', '2024-01-27 08:56:25', 'Activated');
+INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `age`, `pass`, `staff_role`, `dateCreated`, `last_login_timestamp`, `is_logged_in`, `account_status`) VALUES
+(57, 'Ron', 'Galang', '123', 'ron@gmail.com', 'Male', 21, '$2y$10$rMHNxgDnPoAwQFS4PzX7r.xOaU.Ct./M1pCYxN8jOiNFPZTFTOAUC', 'Admin', '2024-02-17 05:15:24', '2024-02-24 06:19:27', 1, 'Activated'),
+(59, 'Mc', 'Vince', 'qwe', 'mc@gmail.com', 'Male', 31, '$2y$10$xGD/g.TBuBqDI83OMbcaSOa3fKoJa1MGAGQNtSqeMqZMR8RRudiB2', 'Admin', '2024-02-17 05:20:03', '2024-02-18 14:32:27', 0, 'Activated'),
+(61, 'Jc', 'Cj', '123123', 'jc@gmail.com', 'Female', 11, '$2y$10$SPi1jlazT0Vt2psNsno.Nejw51A/0Wf5s/.ZEejv6MI6NwB9NFSDO', 'Staff', '2024-02-17 05:20:38', '2024-02-17 06:42:39', 0, 'Deactivated'),
+(64, 'Queen catherine', 'Gajes .center', 'hs123', 'queenhrewherherh@gmail.com', 'Female', 23, '$2y$10$dPMGPDn4sQlCoPiyk.e6GeNwTLJHLD9iK7ij9qyu80OSV9guCKvh6', 'Staff', '2024-02-18 15:11:18', '2024-02-18 15:25:06', 0, 'Deactivated'),
+(65, 'Jeah', 'Arcillas', 'jeah123', 'jeah@gmail.com', 'Female', 45, '$2y$10$ri62D8IFiGowWY9XGv13.ukTxA7AO/Y5Ted2bv8rAPKWaEG8g//Da', 'Staff', '2024-02-18 15:45:05', '2024-02-24 06:04:47', 0, 'Activated');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblfilehistory`
+--
+
+CREATE TABLE `tblfilehistory` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
+  `pickup_datetime` datetime NOT NULL,
+  `purpose_description` text NOT NULL,
+  `voters_id_image` varchar(255) NOT NULL,
+  `voters_id_number` varchar(20) NOT NULL,
+  `datetime_created` timestamp NULL DEFAULT current_timestamp(),
+  `viewed` tinyint(1) NOT NULL DEFAULT 0,
+  `tracking_number` varchar(255) DEFAULT NULL,
+  `file_status` enum('Processing','Ready for Pickup','Disapproved') DEFAULT 'Processing'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `admin`
+-- Indexes for table `file_request`
 --
-ALTER TABLE `admin`
+ALTER TABLE `file_request`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -88,20 +123,32 @@ ALTER TABLE `staff`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tblfilehistory`
+--
+ALTER TABLE `tblfilehistory`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT for table `file_request`
 --
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `file_request`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=363;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+
+--
+-- AUTO_INCREMENT for table `tblfilehistory`
+--
+ALTER TABLE `tblfilehistory`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

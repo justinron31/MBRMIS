@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 include 'db.php';
 
@@ -6,56 +7,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['id'];
     $password = $_POST['password'];
 
-    // Check the admin database using prepared statement
-    $adminQuery = $conn->prepare("SELECT * FROM admin WHERE username = ? AND password = ?");
-    $adminQuery->bind_param("ss", $username, $password);
-    $adminQuery->execute();
-    $adminResult = $adminQuery->get_result();
-
-    if ($adminResult->num_rows == 1) {
-        // Admin found
-        $row = $adminResult->fetch_assoc();
-        $name = $row['name'];
-
-        $_SESSION['show_login_message'] = true;
-        $_SESSION['user_name'] = $name;
-        $_SESSION['user_type'] = 'admin';
-
-        header("Location: /MBRMIS/Dashboard/AdminDashboard.php");
-        exit();
-    }
-
     // Check the staff database using prepared statement
-    $staffQuery = $conn->prepare("SELECT id, firstname, pass, account_status FROM staff WHERE idnumber = ?");
+    $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, pass, account_status, staff_role, last_login_timestamp, is_logged_in FROM staff WHERE idnumber = ?");
     $staffQuery->bind_param("s", $username);
     $staffQuery->execute();
     $staffResult = $staffQuery->get_result();
 
     if ($staffResult->num_rows == 1) {
-        // Staff found
+
         $row = $staffResult->fetch_assoc();
+        $user_id = $row['id'];
         $accountStatus = $row['account_status'];
+        $idnum = $row['idnumber'];
+        $is_logged_in = $row['is_logged_in'];
+
+       if ($is_logged_in) {
+    $_SESSION['error_message'] = "You are currently logged in. Logout first.";
+    $user_type = $_SESSION['user_type'];
+    header("Location: /MBRMIS/Login/loginStaff.php?user_type=$user_type");
+    exit();
+}
 
         if ($accountStatus === 'Activated') {
-            $storedHashedPassword = $row['pass'];
-
-            if (password_verify($password, $storedHashedPassword)) {
+            if (password_verify($password, $row['pass'])) {
                 $name = $row['firstname'];
+                $role = $row['staff_role'];
 
                 $_SESSION['show_login_message'] = true;
+                $_SESSION['user_id'] = $user_id;
                 $_SESSION['user_name'] = $name;
-                $_SESSION['user_type'] = 'staff';
+                $_SESSION['idnumber'] = $idnum;
+                $_SESSION['last_login_timestamp'] = $row['last_login_timestamp']; 
 
-                header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
+                // Set $_SESSION['user_type'] based on the role value
+                $_SESSION['user_type'] = strtolower($role);
+
+                // Update last login timestamp and set is_logged_in to 1
+                $updateLoginTimestamp = $conn->prepare("UPDATE staff SET last_login_timestamp = NOW(), is_logged_in = 1 WHERE id = ?");
+                $updateLoginTimestamp->bind_param("i", $user_id);
+                $updateLoginTimestamp->execute();
+
+                // Redirect based on user type
+                if ($_SESSION['user_type'] === 'admin') {
+                    header("Location: /MBRMIS/Dashboard/AdminDashboard.php");
+                } elseif ($_SESSION['user_type'] === 'staff') {
+                    header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
+                } else {
+                    $_SESSION['error_message'] = "Invalid role";
+                    header("Location: /MBRMIS/Login/loginStaff.php");
+                }
+
                 exit();
             } else {
-                $_SESSION['error_message'] = "Invalid Credentials";
+                $_SESSION['error_message'] = "Invalid Credentials.";
             }
         } else {
-            $_SESSION['error_message'] = "Your account is deactivated. Please contact the admin.";
+            $_SESSION['error_message'] = "Account Deactivated. Please contact the admin.";
         }
     } else {
-        $_SESSION['error_message'] = "Invalid Credentials";
+        $_SESSION['error_message'] = "Error.";
     }
 
     header("Location: /MBRMIS/Login/loginStaff.php");

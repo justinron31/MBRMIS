@@ -13,24 +13,31 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
+
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
+    <link rel="stylesheet" href="../Dashboard/CSS,JS/Table.css" />
 
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Table.js" defer></script>
 
-    </script>
 
-    <title>MAKILING BRMI SYSTEM - Dashboard</title>
+
+
+    <title>MAKILING BRMI SYSTEM - Profile</title>
 </head>
 
 
 <!--LOGIN PHP -->
 <?php
 session_start();
+
 
 // Check if the user is not logged in as admin
 if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin') {
@@ -48,40 +55,57 @@ $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_lo
 $_SESSION['show_login_message'] = false;
 ?>
 
-
-
-<!--LOGIN MESSAGE-->
+<!-- MESSAGE-->
 <div id="loginPopup" class="popup">
-    <p>Login successfully!</p>
+    <p>Details Updated Successfully!</p>
+</div>
+
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup" class="popup2">
+    <p>Passwords do not match!</p>
+</div>
+
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup1" class="popup">
+    <p>Password Successfully Updated!</p>
+</div>
+
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup3" class="popup2">
+    <p>Incorrect current password. Please try again.</p>
 </div>
 
 
+<?php
+
+
+// Check for session variables and display popups accordingly
+if (isset($_SESSION['password_updated'])) {
+    echo '<script>
+            // Display the "Password Successfully Updated!" popup
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup1").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup1").style.display = "none";
+                }, 3000); // Hide the popup after 3 seconds
+            });
+          </script>';
+    unset($_SESSION['password_updated']); // Clear the session variable
+} elseif (isset($_SESSION['incorrect_password'])) {
+    echo '<script>
+            // Display the "Incorrect current password. Please try again." popup
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup3").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup3").style.display = "none";
+                }, 3000); // Hide the popup after 3 seconds
+            });
+          </script>';
+    unset($_SESSION['incorrect_password']); // Clear the session variable
+}
+?>
 
 <body>
-
-    <!-- JavaScript for Popup -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($showLoginMessage): ?>
-        var loginPopup = document.getElementById('loginPopup');
-        if (loginPopup) {
-            loginPopup.style.display = 'block';
-
-            // Trigger the slide-up animation after 2 seconds
-            setTimeout(function() {
-                loginPopup.classList.add('slide-up');
-            }, 1500);
-
-            // Hide the popup after 3 seconds
-            setTimeout(function() {
-                loginPopup.style.display = 'none';
-            }, 2000);
-        }
-        <?php endif;?>
-    });
-    </script>
-
-
 
 
     <!--  MODAL POPUP-->
@@ -117,8 +141,8 @@ $_SESSION['show_login_message'] = false;
                             <span class="title">Dashboard</span>
                             <span class="line"></span>
                         </div>
-                        <li class="item active">
-                            <a href="#" class="link flex">
+                        <li class="item ">
+                            <a href="/MBRMIS/Dashboard/AdminDashboard.php" class="link flex">
                                 <i class="bx bxs-dashboard"></i>
                                 <span>Overview</span>
                             </a>
@@ -142,19 +166,20 @@ $_SESSION['show_login_message'] = false;
                             <span class="line"></span>
                         </div>
 
-
-                        <!-- cert of indigency badge count  -->
                         <?php
 include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
+// Provide a default value for $count
 $count = 0;
+
 $query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
 $result = mysqli_query($conn, $query);
 
+// Check if the query was successful
 if ($result) {
     $count = mysqli_num_rows($result);
 } else {
-  
+    // Optional: output the error message for debugging purposes
     echo "Error: " . mysqli_error($conn);
 }
 ?>
@@ -173,9 +198,6 @@ if ($result) {
                             </a>
                         </li>
 
-
-
-
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -186,9 +208,6 @@ if ($result) {
                                 <span>Certificate of Residency</span>
                             </a>
                         </li>
-
-
-
                         <li class="item">
                             <a href="#" class="link flex">
                                 <i>
@@ -199,8 +218,6 @@ if ($result) {
                                 <span>First Time Job Seeker</span>
                             </a>
                         </li>
-
-
 
                         <li class="item">
                             <a href="#" class="link flex">
@@ -214,20 +231,17 @@ if ($result) {
                         </li>
                     </ul>
 
-
                     <ul class="menu_item">
                         <div class="menu_title flex">
                             <span class="title">Others</span>
                             <span class="line"></span>
                         </div>
-
                         <li class="item">
                             <a href="/MBRMIS/Dashboard/AdminManageUser.php" class="link flex">
                                 <i class='bx bxs-user-detail'></i>
                                 <span>Manage System User</span>
                             </a>
                         </li>
-
                         <li class="item ">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-report'></i>
@@ -241,16 +255,13 @@ if ($result) {
                             <span class="title">System</span>
                             <span class="line"></span>
                         </div>
-
-                        <li class="item">
-                            <a href="/MBRMIS/Dashboard/AdminProfile.php" class="link flex">
+                        <li class="item active">
+                            <a href="#" class="link flex">
                                 <i class='bx bxs-user'></i>
                                 <span>Profile</span>
                             </a>
                         </li>
-
-
-                        <li class="item " onclick="openLogoutModal()">
+                        <li class="item1 " onclick="openLogoutModal()">
                             <a href="#" class="link flex">
                                 <i class='bx bxs-exit bx-rotate-180'></i>
                                 <span>Logout</span>
@@ -262,18 +273,16 @@ if ($result) {
         </nav>
 
 
-
-
-
-
         <!-- MAIN CONTENT-->
         <div class="headermain">
+
+
 
             <div class="headerTop">
                 <div class="header">
 
                     <h1 class="maintitle">
-                        OVERVIEW
+                        SETTINGS
                     </h1>
 
                     <div class="access">
@@ -294,175 +303,149 @@ if ($result) {
             </div>
 
 
-            <!-- MAIN CONTENT -->
+            <!-- TABLE MAIN -->
 
             <div class="supermaincontain">
 
-                <div class="cards">
+                <?php
+                include 'C:\xampp\htdocs\MBRMIS\Php\admindb.php';
+
+                ?>
+
+                <main class="table1" id="customers_table">
+                    <section class="table__header">
+                        <h1 class="profileTitle">PROFILE INFORMATION </h1>
+                        <div class="export__file">
+                            <button type="button" class="export__file-btn" id="editButton" onclick="toggleEdit()">
+                                <p class="exportTitle"><strong>EDIT</strong></p>
+                            </button>
 
 
-                    <div class="card">
-                        <div class="icon-box">
-                            <span class="material-symbols-outlined">
-                                group
-                            </span>
-                        </div>
-                        <div class="card-content">
-                            <div class="number">1217</div>
-                            <div class="card-name">Population</div>
-                        </div>
-                    </div>
+                            <form method="POST" action="">
+                                <button type="submit" class="export__file-btn1" id="saveButton" name="saveButton"
+                                    style="display: none;" disabled>
+                                    <p class="exportTitle"><strong>SAVE</strong></p>
+                                </button>
 
-                    <div class="card">
-                        <div class="icon-box1">
-                            <span class="material-symbols-outlined">
-                                man
-                            </span>
                         </div>
-                        <div class="card-content">
-                            <div class="number">563</div>
-                            <div class="card-name">Male</div>
-                        </div>
-                    </div>
+                    </section>
 
-                    <div class="card">
-                        <div class="icon-box1">
-                            <span class="material-symbols-outlined">
-                                woman
-                            </span>
-                        </div>
-                        <div class="card-content">
-                            <div class="number">563</div>
-                            <div class="card-name">Female</div>
-                        </div>
-                    </div>
+                    <div class="profileCon">
+                        <?php if ($result->num_rows > 0) : ?>
+                        <?php $row = $result->fetch_assoc(); ?>
 
-                    <div class="cardVoters">
-
-                        <div class="con1">
-                            <div class="icon-box2">
-                                <span class="material-symbols-outlined">
-                                    person_check
-                                </span>
+                        <div class="firstcon">
+                            <div class="f1">
+                                <label class="required">ID number</label>
+                                <input type="text" id="idnum" name="idnum"
+                                    value="<?php echo isset($row["idnumber"]) ? $row["idnumber"] : ''; ?>" disabled />
                             </div>
 
-                            <div class="card-content">
-                                <div class="number1">563</div>
-                                <div class="card-name1">Voters</div>
+                            <div class="f2">
+                                <label class="required">Email</label>
+                                <input type="text" id="email" name="email" oninput="validateEmail();"
+                                    value="<?php echo isset($row["email"]) ? $row["email"] : ''; ?>" disabled />
                             </div>
-
-                        </div>
-                        <div class="con1">
-                            <div class="icon-box2">
-                                <span class="material-symbols-outlined">
-                                    person_cancel
-                                </span>
-                            </div>
-
-                            <div class="card-content">
-                                <div class="number1">563</div>
-                                <div class="card-name1">Non - Voters</div>
-                            </div>
-
                         </div>
 
-
-                    </div>
-
-                </div>
-
-
-                <!--LOWER CONTENT-->
-                <div class="lowerCon">
-                    <div class="Pending">
-
-                        <div class="Req">
-
-                            <div class="reqHead">
-                                <div class="card-nameR">PENDING FILE REQUEST</div>
-                                <div class="seeMore"> <a href="#">See more</a></div>
+                        <div class="firstcon">
+                            <div class="f1">
+                                <label class="required">Firstname</label>
+                                <input type="text" id="fname" name="fname"
+                                    value="<?php echo isset($row["firstname"]) ? $row["firstname"] : ''; ?>" disabled />
                             </div>
 
-                            <div class="reqItem">
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        badge
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Certificate of Indigency
-                                    </div>
-                                    <?php
-include '../Php/db.php';
+                            <div class="f2">
+                                <label class="required">Lastname</label>
+                                <input type="text" id="lname" name="lname"
+                                    value="<?php echo isset($row["lastname"]) ? $row["lastname"] : ''; ?>" disabled />
+                            </div>
+                        </div>
 
-$sql = "SELECT * FROM file_request WHERE type='Certificate of Indigency'";
-$result = $conn->query($sql);
+                        <div class="firstcon">
+                            <div class="f1">
+                                <label class="required">Age</label>
+                                <input type="text" id="age" name="age" maxlength="2" oninput="validateAge(this)"
+                                    value=" <?php echo isset($row["age"]) ? $row["age"] : ''; ?>" disabled />
+                            </div>
 
-if ($result) {
-    $totalReq = $result->num_rows;
-}
-?>
+                            <div class="f2">
+                                <label class="required">Gender</label>
+                                <select id="gender" name="gender" disabled>
+                                    <option value="Male"
+                                        <?php echo isset($row["gender"]) && $row["gender"] === "Male" ? "selected" : ""; ?>>
+                                        Male</option>
+                                    <option value="Female"
+                                        <?php echo isset($row["gender"]) && $row["gender"] === "Female" ? "selected" : ""; ?>>
+                                        Female</option>
+                                </select>
+                            </div>
+                            </form>
+                        </div>
 
-                                    <div class="numberP"><?php echo $totalReq; ?></div>
+                        <div class="passCon" id="passCon" style="display: none;">
+                            <button type=" button" class="reset__password-btn" onclick="toggleForm()">Change
+                                Password</button>
+                        </div>
+
+
+
+
+
+
+
+                        <div class="passForm" id="passForm" style="display: none;">
+                            <form id="passForm1" method="post" action="/MBRMIS/Php/updatePassword.php">
+
+                                <br>
+                                <div class="passForm__group">
+                                    <label for="currentPassword">Current Password</label>
+                                    <input type="password" id="currentPassword" name="currentPassword"
+                                        placeholder="Enter Current Password" required>
                                 </div>
+                                <div class="passForm__group">
 
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        clinical_notes
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Certificate of Residency
-                                    </div>
-                                    <div class="numberP">18</div>
+                                    <p id="validationPopup4">Password must contain at least <strong>one uppercase
+                                            letter</strong>, <strong>one
+                                            lowercase
+                                            letter</strong>, <strong>one digit</strong>, and at least <strong>8
+                                            characters long.</strong></p>
+                                    <label for="newPassword">New Password</label>
+                                    <input type="password" id="pass" name="pass" placeholder="Enter Password" required
+                                        oninput="validatePassword1()">
                                 </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        card_membership
-                                    </span>
-                                    <div class="pendingTitle">
-                                        First Time Job Seeker
-                                    </div>
-                                    <div class="numberP">8</div>
+                                <div class="passForm__group">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" id="cpass" name="cpass" placeholder="Confirm Password"
+                                        oninput="validatePassword();" required>
                                 </div>
-
-                                <div class="reqIcon">
-                                    <span class="material-symbols-outlined">
-                                        lab_profile
-                                    </span>
-                                    <div class="pendingTitle">
-                                        Community Tax Certificate
-                                    </div>
-                                    <div class="numberP">3</div>
-                                </div>
-
-
-                            </div>
-
+                                <button type=" submit" id="resetButton" class="reset__password-btn"
+                                    name="changePassword">Save changes
+                                </button>
+                            </form>
                         </div>
 
-                    </div>
 
-                    <!--CALENDAR-->
-                    <div id="calendar">
-                        <div class="calendarBg">
-                            <div id="calendar-header">
-                                <span id="month-prev" class="change-month">&lt;</span>
-                                <h1 id="month" onclick="showCurrentDate()"></h1>
-                                <span id="month-next" class="change-month">&gt;</span>
-                            </div>
-                            <div id="days"></div>
-                            <div id="calendar-body"></div>
-                        </div>
-                    </div>
 
-                </div>
+
+                    </div>
+                    <?php else : ?>
+                    <p>No results found</p>
+                    <?php endif; ?>
+
 
             </div>
+
+
+
+            </main>
         </div>
-
-
-
 </body>
+
+
+
+</div>
+
 
 
 

@@ -24,7 +24,9 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <title>Request for Certificate of Indigency</title>
+
 </head>
+
 
 <body>
   <!--LOADER-->
@@ -76,7 +78,7 @@
     <p class="about-text">
       If you have not yet registered as a voter, please visit the Barangay
       Hall to complete the necessary registration process. For more
-      information, refer to the <strong>"About Us"</strong> section.
+      information, refer to the <strong>"Contact Us"</strong> section.
     </p>
     <br />
     <div class="modal-buttons">
@@ -119,46 +121,59 @@
       <hr />
     </div>
 
-    <form id="myForm" action="" method="post">
+    <form id="myForm" action="/MBRMIS/Php/certIndigency.php" method="post" enctype="multipart/form-data"
+      autocomplete="off">
 
-      <label for="fname" class="required">Firstname</label>
-      <input type="text" id="fname" name="fname" placeholder="Enter your Firstname" autofocus required />
+      <!-- ─── Name ─────────────────────── -->
+      <div class="uploader">
+        <div class="uploadContent1">
+          <label for="fname" class="required">Firstname</label>
+          <input type="text" id="fname" name="fname" placeholder="Enter your Firstname" autofocus required />
+        </div>
 
-      <label for="lname" class="required">Lastname</label>
-      <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required />
+        <div class="uploadContent">
+          <label for="lname" class="required">Lastname</label>
+          <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required />
+        </div>
+      </div>
 
+      <!-- ─── Contact Number ───────────── -->
       <label for="contNum" class="required">Contact Number</label>
-      <input type="text" id="id" name="contNum" placeholder="Enter your Contact number" required />
+      <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
+        oninput="validateContactNumber(this)" required />
 
+      <!-- ─── Datatime ─────────────────────────────────────────── -->
       <label for="datepicker" class="required">Pick-Up Date and Time</label>
       <aeon-datepicker>
         <label for="datepicker"></label>
-        <input type="date" id="datepicker" required />
-
+        <input type="date" id="datepicker" name="datepicker" required />
         <label for="timepicker"></label>
-        <input class="time" type="time" id="timepicker" required />
+        <input class="time" type="time" id="timepicker" name="timepicker" required />
       </aeon-datepicker>
 
+      <!-- ─── Purpose ──────────────────── -->
       <label for="purpose" class="required">Purpose Description</label>
       <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
 
+      <!-- ─── Upload Id ────────────────── -->
       <div class="uploader">
         <div class="uploadContent1">
           <label class="required1" for="avatar">Upload Voter's ID</label>
           <div id="image-preview">
-            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
-              onchange="previewImage()" />
+            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg, image/jpg"
+              onchange="previewImage()" required />
             <img id="preview" />
           </div>
         </div>
 
+        <!-- ─── Id Number ────────── -->
         <div class="uploadContent">
           <label for="contNum" class="required">Voter's ID Number</label>
-          <input type="text" id="id" name="contNum" placeholder="Enter your Voter's  ID Number" required />
+          <input type="text" id="voteId" name="voteId" placeholder="Enter your Voter's  ID Number" required />
         </div>
       </div>
 
-
+      <!-- ─── Checkbox ─────────────────────────────────────────── -->
       <div class="checkbox">
         <div class="firstCheck">
           <input type="checkbox" id="termsCheckbox" required />
@@ -172,13 +187,8 @@
           <input type="checkbox" id="accuracyCheckbox" required />
           <label for="checkbox">I have read and agree to the
             I confirm that all information I have provided is accurate.</label>
-
         </div>
-
       </div>
-
-
-
 
       <!-- ─── Captcha ──────────────────────────── -->
       <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->

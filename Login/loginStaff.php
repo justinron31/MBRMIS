@@ -31,24 +31,23 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
 ?>
 <?php endif;?>
 
-<body>
-
-    <script>
-    var userRole = "<?php echo isset($_SESSION['user_type']) ? $_SESSION['user_type'] : ''; ?>";
+<?php
 
 
-    // Check if the user is already logged in and redirect accordingly
-    if (userRole === "admin") {
-        alert("Your are currently logged in. Logout first.");
-        window.location.href = "/MBRMIS/Dashboard/AdminDashboard.php";
-    } else if (userRole === "staff") {
-        alert("Your are currently logged in. Logout first.");
-        window.location.href = "/MBRMIS/Dashboard/StaffDashboard.php";
-    } else {
-        // Handle other roles or show an error message
-        console.error("Invalid user role. Please contact support.");
+if (isset($_SESSION['user_type'])) {
+    $userType = $_SESSION['user_type'];
+    if ($userType === 'admin') {
+        header('Location: /MBRMIS/Dashboard/AdminDashboard.php');
+        exit;
+    } else if ($userType === 'staff') {
+        header('Location: /MBRMIS/Dashboard/StaffDashboard.php');
+        exit;
     }
-    </script>
+}
+?>
+
+
+<body>
 
     <!--LOADER-->
     <div id="preloader">
@@ -94,7 +93,7 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
 
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
-            <p class="forgot-password"><a href="resetPassword.html">Forget Password?</a></p>
+            <p class="forgot-password"><a href="resetPassword.php">Forget Password?</a></p>
             <button type="submit" class="login-button">LOGIN</button>
 
             <p class="register-link">Don’t have an account? <a href="staffRegister.html">Register here</a></p>
@@ -108,6 +107,9 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
     </footer>
 
     <script src="../Login/CSS,JS/login.js"></script>
+
+
+
 </body>
 
 </html>

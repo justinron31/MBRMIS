@@ -24,6 +24,37 @@ body {
   margin-top: 80px;
 }
 
+/* ─── Table Sticky ────────────────────────────────────────── */
+
+/* For the ID Number column */
+th:first-child,
+td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background-color: #377fb9;
+}
+
+th:last-child,
+td:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 1;
+  background-color: #377fb9;
+}
+
+tr:nth-child(even) td {
+  background-color: rgb(240, 240, 240) !important;
+}
+
+tr:nth-child(odd) td {
+  background-color: #fff;
+}
+
+.center {
+  text-align: center;
+}
+
 main.table {
   height: 88vh;
   background-color: white;
@@ -32,6 +63,7 @@ main.table {
   border-radius: 0.8rem;
   overflow: hidden;
   margin: 0px 30px;
+  white-space: nowrap;
 }
 
 .table__header {
@@ -104,11 +136,6 @@ main.table {
 .table__body::-webkit-scrollbar-thumb {
   border-radius: 0.5rem;
   background-color: #0004;
-  visibility: hidden;
-}
-
-.table__body:hover::-webkit-scrollbar-thumb {
-  visibility: hidden;
 }
 
 table {
@@ -176,15 +203,25 @@ tbody tr.hide td p {
 .status.delivered {
   background-color: #86e49d;
   color: #006b21;
-  width: 70%;
+  width: 100%;
 }
 
 .status.cancelled {
   background-color: #d893a3;
   color: #b30021;
-  width: 70%;
+  width: 100%;
 }
 
+.status.pending {
+  background-color: #8eccff;
+  color: #377fb9;
+  width: 100%;
+}
+
+.padding {
+  padding-left: 20px;
+  padding-right: 20px;
+}
 @media (max-width: 1000px) {
   td:not(:first-of-type) {
     min-width: 12.1rem;
@@ -224,6 +261,18 @@ thead th.asc span.icon-arrow {
   color: #377fb9;
   font-size: 25px;
   margin-left: 15px;
+}
+
+.bx.bxs-trash-alt {
+  color: #377fb9;
+  font-size: 25px;
+  margin-left: 15px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.bx.bxs-trash-alt:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
 /*EXPORT BUTTON */
@@ -283,6 +332,59 @@ thead th.asc span.icon-arrow {
   border: none;
 }
 
+.export__file-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.export__file-btn1:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none; /* Disable pointer events */
+}
+
+.export__file-btn1 {
+  background-color: #4caf50;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  position: fixed;
+  top: 10px;
+  right: 75px;
+  margin: 10px;
+  display: none;
+}
+
+.export__file-btn1:hover:not(:disabled) {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+
+.export__file-btn1 i,
+.export__file-btn1 p {
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+}
+
+.export__file-btn1 p {
+  font-size: 14px;
+}
+
+.export__file-btn1 i {
+  margin-right: 5px;
+}
+
+.export__file1 {
+  display: inline-block;
+  width: fit-content;
+  margin-bottom: 10px;
+  border: none;
+}
+
 /*BUTTON EDIT FORM*/
 .edit-icon {
   font-size: 20px;
@@ -300,9 +402,9 @@ thead th.asc span.icon-arrow {
   display: none;
   position: fixed;
   top: 10px;
-  left: 50%;
-  width: 27%;
-  height: 20px;
+  left: 45%;
+  width: 35%;
+  height: 15px;
   justify-content: center;
   align-items: center;
   z-index: 999;
@@ -354,6 +456,26 @@ thead th.asc span.icon-arrow {
   cursor: not-allowed;
 }
 
+.updatecon {
+  display: flex;
+  white-space: nowrap;
+}
+
+.updatecon label {
+  margin-right: 5px;
+}
+
+.accountstatus {
+  width: 100%;
+  display: flex;
+}
+
+.rolestatus {
+  width: 100%;
+  display: flex;
+  margin-left: 15px;
+}
+
 /*UDPATE ACCOUNT STATUS ALERT*/
 .custom-popup {
   display: none;
@@ -390,4 +512,24 @@ thead th.asc span.icon-arrow {
   font-size: 20px;
 }
 
-/*DROPDOWN OPTIONS*/
+/* ─── Reset Pass Button ───────────────────────────────────── */
+.reset__password-btn {
+  background-color: #377fb9;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  color: white;
+  font-weight: 600;
+}
+
+.reset__password-btn:hover {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+.reset__password-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
+}
