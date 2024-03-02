@@ -4,11 +4,12 @@ header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = $_POST['fileStatusId'];
-    $newStatus = $_POST['fileStatus']; 
+    $newStatus = $_POST['fileStatus'];
+    $remarks = isset($_POST['remarks']) ? $_POST['remarks'] : '';
 
-    $updateSql = "UPDATE file_request SET file_status = ? WHERE id = ?";
+    $updateSql = "UPDATE file_request SET file_status = ?, remarks = ? WHERE id = ?";
     $stmt = $conn->prepare($updateSql);
-    $stmt->bind_param('ss', $newStatus, $userId);
+    $stmt->bind_param('sss', $newStatus, $remarks, $userId);
     $updateResult = $stmt->execute();
 
     if ($updateResult) {

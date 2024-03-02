@@ -97,6 +97,7 @@
                     <th>Lastname</th>
                     <th>Pickup Date/Time</th>
                     <th>Submitted Date/Time</th>
+                    <th>Remarks</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -117,8 +118,8 @@
                                 } else {
                                     let statusClass = '';
                                     switch (data.file_status) {
-                                        case 'Reviewing':
-                                            statusClass = 'pending';
+                                        case 'Processing':
+                                            statusClass = 'processing';
                                             break;
                                         case 'Ready for Pickup':
                                             statusClass = 'delivered';
@@ -126,8 +127,8 @@
                                         case 'Declined':
                                             statusClass = 'cancelled';
                                             break;
-                                        case 'Processing':
-                                            statusClass = 'processing';
+                                        case 'Reviewing':
+                                            statusClass = 'pending';
                                             break;
                                         default:
                                             statusClass = '';
@@ -141,6 +142,7 @@
                                         <td>${data.lastname}</td>
                                         <td>${data.pickup_datetime}</td>
                                         <td>${data.datetime_created}</td>
+                                        <td>${data.remarks}</td>
                                         <td> <p class="status ${statusClass}">${data.file_status}</p></td>
                                     </tr>
                                 `;

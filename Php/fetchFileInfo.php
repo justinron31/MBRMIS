@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fileId = $_POST['id'];
 
     // Fetch file information including the trackingNumber, fileStatusId, and fileStatus columns
-    $fetchFileInfoSql = "SELECT tracking_number, file_status FROM file_request WHERE id = ?";
+    $fetchFileInfoSql = "SELECT tracking_number, file_status, remarks FROM file_request WHERE id = ?";
 
     // Use prepared statement for better security
     $stmt = $conn->prepare($fetchFileInfoSql);

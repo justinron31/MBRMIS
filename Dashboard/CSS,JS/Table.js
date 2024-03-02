@@ -389,11 +389,21 @@ $(document).ready(function () {
 
   $("#customEditForm1").submit(function (e) {
     e.preventDefault();
-    var confirmation = confirm(
-      "Are you sure you want to update the file status?"
-    );
+    var selectedStatus = $("#fileStatus").val();
+    var confirmation;
+    var remarks = "";
+    if (selectedStatus === "Declined") {
+      confirmation = remarks = prompt(
+        "Please enter your remarks for declining:"
+      );
+    } else {
+      confirmation = confirm(
+        "Are you sure you want to update the file status?"
+      );
+    }
     if (confirmation) {
       var formData = $(this).serialize();
+      formData += "&remarks=" + encodeURIComponent(remarks);
       $.ajax({
         type: "POST",
         url: "/MBRMIS/Php/updateFile.php",

@@ -344,8 +344,10 @@ $_SESSION['show_login_message'] = false;
                                             $class = 'cancelled';
                                         } elseif ($file_status == 'reviewing') {
                                             $class = 'pending';
-                                        } else {
+                                        } elseif ($file_status == 'processing') {
                                             $class = 'processing';
+                                        } else {
+                                            $class = '';
                                         }
                                         $uniqueId = 'edit_' . $row["id"];
                                         echo "<tr>" .
