@@ -295,7 +295,7 @@ $_SESSION['show_login_message'] = false;
                         ?>
 
                         <div class="export__file">
-                            <button type="button" class="export__file-btn" title="Export File" onclick="fnExcel()">
+                            <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
                                 <i class='bx bxs-file-export'></i>
                                 <p class="exportTitle">Export</p>
                             </button>
