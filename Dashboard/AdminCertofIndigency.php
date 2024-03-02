@@ -22,10 +22,10 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script>
 
-
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
-    <script src="../Dashboard/CSS,JS/Export.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Export.js"></script>
+    <script src="sheet.js"></script>
 
 
 
@@ -311,7 +311,7 @@ $_SESSION['show_login_message'] = false;
 
                     <section class="table__body">
                         <!--TABLE CONTENT-->
-                        <table id="indigencyTable">
+                        <table id="table">
                             <thead>
                                 <tr>
                                     <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
