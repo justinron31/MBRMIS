@@ -21,7 +21,10 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.4/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
+    <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
 
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
@@ -292,7 +295,7 @@ $_SESSION['show_login_message'] = false;
                         ?>
 
                         <div class="export__file">
-                            <button type="button" class="export__file-btn" title="Export File" onclick="fnExcelReport()">
+                            <button type="button" class="export__file-btn" title="Export File" onclick="fnExcel()">
                                 <i class='bx bxs-file-export'></i>
                                 <p class="exportTitle">Export</p>
                             </button>
@@ -303,7 +306,7 @@ $_SESSION['show_login_message'] = false;
 
                     <section class="table__body">
                         <!--TABLE CONTENT-->
-                        <table id="manageUserTable">
+                        <table id="headerTable">
                             <thead>
                                 <tr>
                                     <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>

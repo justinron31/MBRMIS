@@ -1,10 +1,23 @@
-function fnExcelReport() {
-    // Get the table element
+function fnIndigencyReport() {
     var tab = document.getElementById('headerTable');
 
-    // Convert the table to a workbook
     var wb = XLSX.utils.table_to_book(tab);
 
-    // Save the workbook as an Excel file
-    XLSX.writeFile(wb, 'filename.xlsx');
+    XLSX.writeFile(wb, 'indigency-report.xlsx');
+}
+
+function fnResidencyReport() {
+    var tab = document.getElementById('headerTable');
+
+    var wb = XLSX.utils.table_to_book(tab);
+
+    XLSX.writeFile(wb, 'residency-report.xlsx');
+}
+
+function fnManageReport() {
+    var tab = document.getElementById('headerTable');
+
+    var wb = XLSX.utils.table_to_book(tab);
+
+    XLSX.writeFile(wb, 'file.xlsx');
 }
