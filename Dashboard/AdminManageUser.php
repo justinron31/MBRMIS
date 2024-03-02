@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -22,10 +21,15 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
+    <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
 
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Export.js" defer></script>
 
 
 
@@ -120,22 +124,22 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
                         <?php
-include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+                        include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
 
-$count = 0;
+                        $count = 0;
 
-$query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
-$result = mysqli_query($conn, $query);
+                        $query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
+                        $result = mysqli_query($conn, $query);
 
 
-if ($result) {
-    $count = mysqli_num_rows($result);
-} else {
+                        if ($result) {
+                            $count = mysqli_num_rows($result);
+                        } else {
 
-    echo "Error: " . mysqli_error($conn);
-}
-?>
+                            echo "Error: " . mysqli_error($conn);
+                        }
+                        ?>
 
                         <li class="item">
                             <a id="indigency-link" href="/MBRMIS/Dashboard/AdminCertofIndigency.php" class="link flex">
@@ -145,8 +149,8 @@ if ($result) {
                                     </span>
                                 </i>
                                 <span>Certificate of Indigency</span>
-                                <?php if($count > 0): ?>
-                                <span class="badge"><?php echo $count; ?></span>
+                                <?php if ($count > 0) : ?>
+                                    <span class="badge"><?php echo $count; ?></span>
                                 <?php endif; ?>
                             </a>
                         </li>
@@ -278,20 +282,20 @@ if ($result) {
                     <div class="tableHead">
                         <!--TOTAL USER-->
                         <?php
-include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+                        include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$idnum = $_SESSION['idnumber'];
-$sql = "SELECT * FROM staff WHERE idnumber != $idnum";
-$result = $conn->query($sql);
+                        $idnum = $_SESSION['idnumber'];
+                        $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
+                        $result = $conn->query($sql);
 
-if ($result) {
-    $totalUsers = $result->num_rows;
-}
-echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
-?>
+                        if ($result) {
+                            $totalUsers = $result->num_rows;
+                        }
+                        echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
+                        ?>
 
                         <div class="export__file">
-                            <button type="button" class="export__file-btn" title="Export File" onclick="togglePopup()">
+                            <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
                                 <i class='bx bxs-file-export'></i>
                                 <p class="exportTitle">Export</p>
                             </button>
@@ -302,7 +306,7 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
 
                     <section class="table__body">
                         <!--TABLE CONTENT-->
-                        <table>
+                        <table id="headerTable">
                             <thead>
                                 <tr>
                                     <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
@@ -321,37 +325,37 @@ echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                             <tbody>
 
                                 <?php
-include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+                                include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$idnum = $_SESSION['idnumber'];
+                                $idnum = $_SESSION['idnumber'];
 
-$sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
-$result = $conn->query($sql);
+                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
+                                $result = $conn->query($sql);
 
-if ($result) {
-    while ($row = $result->fetch_assoc()) {
-        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
-        $uniqueId = 'edit_' . $row["idnumber"];
-        echo "<tr>" .
-           "<td><strong>" . $row["idnumber"] . "</strong></td>" .
-            "<td>" . $row["firstname"] . "</td>" .
-            "<td>" . $row["lastname"] . "</td>" .
-            "<td>" . $row["gender"] . "</td>" .
-            "<td>" . $row["age"] . "</td>" .
-            "<td>" . $row["email"] . "</td>" .
-            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
-           "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
-            "</tr>";
-    }
-    $result->close();
-} else {
-    echo "<tr><td colspan='7'>No data found</td></tr>";
-}
+                                if ($result) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
+                                        $uniqueId = 'edit_' . $row["idnumber"];
+                                        echo "<tr>" .
+                                            "<td><strong>" . $row["idnumber"] . "</strong></td>" .
+                                            "<td>" . $row["firstname"] . "</td>" .
+                                            "<td>" . $row["lastname"] . "</td>" .
+                                            "<td>" . $row["gender"] . "</td>" .
+                                            "<td>" . $row["age"] . "</td>" .
+                                            "<td>" . $row["email"] . "</td>" .
+                                            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
+                                            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+                                            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
+                                            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
+                                            "</tr>";
+                                    }
+                                    $result->close();
+                                } else {
+                                    echo "<tr><td colspan='7'>No data found</td></tr>";
+                                }
 
-$conn->close();
-?>
+                                $conn->close();
+                                ?>
                                 <!-- POPUP FORM ACCOUNT EDIT -->
                                 <div id="customEditModal" class="custom-modal">
                                     <div class="custom-modal-content">
@@ -383,8 +387,7 @@ $conn->close();
                                                 </div>
 
 
-                                                <button id="updateButton" class="updateButton"
-                                                    type="submit">Update</button>
+                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
 
 
                                         </form>
