@@ -117,14 +117,17 @@
                                 } else {
                                     let statusClass = '';
                                     switch (data.file_status) {
-                                        case 'Processing':
+                                        case 'Reviewing':
                                             statusClass = 'pending';
                                             break;
                                         case 'Ready for Pickup':
                                             statusClass = 'delivered';
                                             break;
-                                        case 'Disapproved':
+                                        case 'Declined':
                                             statusClass = 'cancelled';
+                                            break;
+                                        case 'Processing':
+                                            statusClass = 'processing';
                                             break;
                                         default:
                                             statusClass = '';

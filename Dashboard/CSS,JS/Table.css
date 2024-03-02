@@ -218,6 +218,12 @@ tbody tr.hide td p {
   width: 100%;
 }
 
+.status.processing {
+  background-color: #959595;
+  color: black;
+  width: 100%;
+}
+
 .padding {
   padding-left: 20px;
   padding-right: 20px;

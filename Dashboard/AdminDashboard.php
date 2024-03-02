@@ -18,12 +18,6 @@
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
 
 
-    <!--JAVASCRIPT-->
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
-
-    </script>
-
     <title>MAKILING BRMI SYSTEM - Dashboard</title>
 </head>
 
@@ -62,7 +56,7 @@ $_SESSION['show_login_message'] = false;
     <!-- JavaScript for Popup -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        <?php if ($showLoginMessage): ?>
+        <?php if ($showLoginMessage) : ?>
         var loginPopup = document.getElementById('loginPopup');
         if (loginPopup) {
             loginPopup.style.display = 'block';
@@ -77,24 +71,59 @@ $_SESSION['show_login_message'] = false;
                 loginPopup.style.display = 'none';
             }, 2000);
         }
-        <?php endif;?>
+        <?php endif; ?>
     });
     </script>
 
 
+    <!-- ─── Idle popup ───────────────────── -->
+    <div id="overlaySession" class="overlay"></div>
+    <div id="sessionModal" class="modal1">
+
+        <div class="modal-header">
+            <h2>Logout Session</h2>
+        </div>
+
+        <div class="modal-body">
+
+            <div class="time">
+                <i class='bx bxs-timer'></i>
+            </div>
+
+            <div class="timeCount">
+            </div>
+
+            <p> Your session is about to expire.</p>
+
+            <div class="modal-buttons">
+                <button class="yes" onclick="resetTimer()">RESET </button>
+
+            </div>
+
+        </div>
+
+    </div>
 
 
-    <!--  MODAL POPUP-->
+    <!-- ─── logout popup ───────────────────── -->
     <div id="overlay" class="overlay"></div>
     <div id="logoutModal" class="modal">
-        <div class="modal-message">
-            <p>Do you want to logout?</p>
+        <div class="modal-header">
+            <h2>Logout</h2>
         </div>
-        <div class="modal-buttons">
-            <button class="yes" onclick="logout()">Yes</button>
-            <button class="no" onclick="closeLogoutModal()">No</button>
+
+        <div class="modal-body">
+            <div class="modal-message">
+                <p>Do you want to logout?</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="yes" onclick="logout()">Yes</button>
+                <button class="no" onclick="closeLogoutModal()">No</button>
+            </div>
         </div>
+
     </div>
+
 
     <!-- SIDEBAR-->
     <div class="masterCOn">
@@ -145,19 +174,19 @@ $_SESSION['show_login_message'] = false;
 
                         <!-- cert of indigency badge count  -->
                         <?php
-include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+                        include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-$count = 0;
-$query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
-$result = mysqli_query($conn, $query);
+                        $count = 0;
+                        $query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND viewed = 0 AND type='Certificate of Indigency'";
+                        $result = mysqli_query($conn, $query);
 
-if ($result) {
-    $count = mysqli_num_rows($result);
-} else {
-  
-    echo "Error: " . mysqli_error($conn);
-}
-?>
+                        if ($result) {
+                            $count = mysqli_num_rows($result);
+                        } else {
+
+                            echo "Error: " . mysqli_error($conn);
+                        }
+                        ?>
 
                         <li class="item">
                             <a id="indigency-link" href="/MBRMIS/Dashboard/AdminCertofIndigency.php" class="link flex">
@@ -167,7 +196,7 @@ if ($result) {
                                     </span>
                                 </i>
                                 <span>Certificate of Indigency</span>
-                                <?php if($count > 0): ?>
+                                <?php if ($count > 0) : ?>
                                 <span class="badge"><?php echo $count; ?></span>
                                 <?php endif; ?>
                             </a>
@@ -260,9 +289,6 @@ if ($result) {
                 </div>
             </div>
         </nav>
-
-
-
 
 
 
@@ -392,15 +418,15 @@ if ($result) {
                                         Certificate of Indigency
                                     </div>
                                     <?php
-include '../Php/db.php';
+                                    include '../Php/db.php';
 
-$sql = "SELECT * FROM file_request WHERE type='Certificate of Indigency'";
-$result = $conn->query($sql);
+                                    $sql = "SELECT * FROM file_request WHERE type='Certificate of Indigency'";
+                                    $result = $conn->query($sql);
 
-if ($result) {
-    $totalReq = $result->num_rows;
-}
-?>
+                                    if ($result) {
+                                        $totalReq = $result->num_rows;
+                                    }
+                                    ?>
 
                                     <div class="numberP"><?php echo $totalReq; ?></div>
                                 </div>
@@ -461,10 +487,12 @@ if ($result) {
         </div>
 
 
+        <!--JAVASCRIPT-->
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
+        <script src="../Dashboard/CSS,JS/Session.js" defer></script>
 
 </body>
-
-
 
 
 </html>

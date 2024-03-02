@@ -341,10 +341,12 @@ $_SESSION['show_login_message'] = false;
                                         $file_status = strtolower(trim($row["file_status"]));
                                         if ($file_status == 'ready for pickup') {
                                             $class = 'delivered';
-                                        } elseif ($file_status == 'disapproved') {
+                                        } elseif ($file_status == 'declined') {
                                             $class = 'cancelled';
-                                        } else {
+                                        } elseif ($file_status == 'reviewing') {
                                             $class = 'pending';
+                                        } else {
+                                            $class = 'processing';
                                         }
                                         $uniqueId = 'edit_' . $row["id"];
                                         echo "<tr>" .
@@ -380,8 +382,8 @@ $_SESSION['show_login_message'] = false;
                                                     <label for="fileStatus">File Status:</label>
                                                     <select id="fileStatus" name="fileStatus">
                                                         <option value="Ready for Pickup">Ready for Pickup</option>
-                                                        <option value="Disapproved">Disapproved</option>
-                                                        <option value="Processing">Processing</option>
+                                                        <option value="Declined">Declined</option>
+                                                        <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
                                                 <button id="updateButton1" class="updateButton" type="submit">Update</button>
