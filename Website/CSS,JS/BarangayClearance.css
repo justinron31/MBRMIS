@@ -1086,4 +1086,10 @@ input#avatar {
   width: 100%;
 }
 
+.status.processing {
+  background-color: #959595;
+  color: black;
+  width: 100%;
+}
+
 /* ─── Table  track request───────────────────────────────────────────────── */
