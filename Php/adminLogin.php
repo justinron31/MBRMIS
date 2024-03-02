@@ -21,12 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $idnum = $row['idnumber'];
         $is_logged_in = $row['is_logged_in'];
 
-       if ($is_logged_in) {
-    $_SESSION['error_message'] = "You are currently logged in. Logout first.";
-    $user_type = $_SESSION['user_type'];
-    header("Location: /MBRMIS/Login/loginStaff.php?user_type=$user_type");
-    exit();
-}
+        if ($is_logged_in) {
+            $updateLogoutStatus = $conn->prepare("UPDATE staff SET is_logged_in = 0 WHERE id = ?");
+            $updateLogoutStatus->bind_param("i", $user_id);
+            $updateLogoutStatus->execute();
+        }
 
         if ($accountStatus === 'Activated') {
             if (password_verify($password, $row['pass'])) {
@@ -37,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['user_name'] = $name;
                 $_SESSION['idnumber'] = $idnum;
-                $_SESSION['last_login_timestamp'] = $row['last_login_timestamp']; 
+                $_SESSION['last_login_timestamp'] = $row['last_login_timestamp'];
 
                 // Set $_SESSION['user_type'] based on the role value
                 $_SESSION['user_type'] = strtolower($role);
