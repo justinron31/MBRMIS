@@ -6,7 +6,6 @@ include 'db.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['id'];
     $password = $_POST['password'];
-    $code = $_GET['code'];
 
     // Check the staff database using prepared statement
     $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, pass, account_status, staff_role, last_login_timestamp, is_logged_in FROM staff WHERE idnumber = ?");
