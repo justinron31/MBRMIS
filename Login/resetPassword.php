@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
 
 
+
     <title>Reset Password - Staff</title>
 </head>
 
@@ -54,16 +55,13 @@
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
             <p class="login-text">RESET PASSWORD</p>
         </div>
-        <form class="login-form" action="#" method="post">
-            <input type="text" id="email" name="email" placeholder="Enter registered email" oninput="validateEmail();"
-                autofocus required>
+        <form class="login-form" action="check_email.php" method="post">
+            <input type="text" id="email" name="email" placeholder="Enter registered email" autofocus required>
 
             <button type="submit" class="login-button">Reset Password</button>
         </form>
         <br>
     </div>
-
-
     <!-- FOOTER BRO-->
     <footer>
         <p>&copy; 2024 BARANGAY MAKILING RECORD MANAGEMENT AND ISSUANCE SYSTEM | All rights reserved.</p>
