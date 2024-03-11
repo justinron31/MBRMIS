@@ -75,55 +75,8 @@ $_SESSION['show_login_message'] = false;
     });
     </script>
 
-
-    <!-- ─── Idle popup ───────────────────── -->
-    <div id="overlaySession" class="overlay"></div>
-    <div id="sessionModal" class="modal1">
-
-        <div class="modal-header">
-            <h2>Logout Session</h2>
-        </div>
-
-        <div class="modal-body">
-
-            <div class="time">
-                <i class='bx bxs-timer'></i>
-            </div>
-
-            <div class="timeCount">
-            </div>
-
-            <p> Your session is about to expire.</p>
-
-            <div class="modal-buttons">
-                <button class="yes" onclick="resetTimer()">RESET </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- ─── logout popup ───────────────────── -->
-    <div id="overlay" class="overlay"></div>
-    <div id="logoutModal" class="modal">
-        <div class="modal-header">
-            <h2>Logout</h2>
-        </div>
-
-        <div class="modal-body">
-            <div class="modal-message">
-                <p>Do you want to logout?</p>
-            </div>
-            <div class="modal-buttons">
-                <button class="yes" onclick="logout()">Yes</button>
-                <button class="no" onclick="closeLogoutModal()">No</button>
-            </div>
-        </div>
-
-    </div>
-
+    <!-- Idle and logout modal-->
+    <?php include '../Components/idle.php'; ?>
 
     <!-- SIDEBAR-->
     <div class="masterCOn">
