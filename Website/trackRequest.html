@@ -116,36 +116,42 @@
                                 if (data.error) {
                                     alert(data.error);
                                 } else {
-                                    let statusClass = '';
-                                    switch (data.file_status) {
-                                        case 'Processing':
-                                            statusClass = 'processing';
-                                            break;
-                                        case 'Ready for Pickup':
-                                            statusClass = 'delivered';
-                                            break;
-                                        case 'Declined':
-                                            statusClass = 'cancelled';
-                                            break;
-                                        case 'Reviewing':
-                                            statusClass = 'pending';
-                                            break;
-                                        default:
-                                            statusClass = '';
-                                    }
-
                                     var table = document.querySelector('.trackCon table tbody');
-                                    table.innerHTML = `
-                                    <tr>
-                                        <td><strong>${data.type}</strong></td>
-                                        <td>${data.firstname}</td>
-                                        <td>${data.lastname}</td>
-                                        <td>${data.pickup_datetime}</td>
-                                        <td>${data.datetime_created}</td>
-                                        <td>${data.remarks}</td>
-                                        <td> <p class="status ${statusClass}">${data.file_status}</p></td>
-                                    </tr>
-                                `;
+                                    table.innerHTML = '';  // Clear the table body
+
+                                    // Iterate over the data array
+                                    data.forEach(item => {
+                                        let statusClass = '';
+                                        switch (item.file_status) {
+                                            case 'Processing':
+                                                statusClass = 'processing';
+                                                break;
+                                            case 'Ready for Pickup':
+                                                statusClass = 'delivered';
+                                                break;
+                                            case 'Declined':
+                                                statusClass = 'cancelled';
+                                                break;
+                                            case 'Reviewing':
+                                                statusClass = 'pending';
+                                                break;
+                                            default:
+                                                statusClass = '';
+                                        }
+
+                                        // Append a new row to the table for each item in the data array
+                                        table.innerHTML += `
+                        <tr>
+                            <td><strong>${item.type}</strong></td>
+                            <td>${item.firstname}</td>
+                            <td>${item.lastname}</td>
+                            <td>${new Date(item.pickup_datetime).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })}</td>
+<td>${new Date(item.datetime_created).toLocaleString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true })}</td>
+                            <td>${item.remarks}</td>
+                            <td><p class="status ${statusClass}">${item.file_status}</p></td>
+                        </tr>
+                    `;
+                                    });
                                 }
                             });
                     });

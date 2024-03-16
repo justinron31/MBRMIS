@@ -30,7 +30,7 @@
     <script src="../Dashboard/CSS,JS/Export.js"></script>
 
 
-    <title>MAKILING BRMI SYSTEM - Certificate of Indigency</title>
+    <title>MAKILING BRMI SYSTEM - Certificate of Recidency</title>
 </head>
 
 
@@ -74,7 +74,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    CERTIFICATE OF INDIGENCY
+                    CERTIFICATE OF RESIDENCY
                 </h1>
 
                 <div class="access">
@@ -121,7 +121,7 @@ $_SESSION['show_login_message'] = false;
                     <?php
                     include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-                    $sql = "SELECT * FROM file_request WHERE type='Certificate of Indigency'";
+                    $sql = "SELECT * FROM file_request WHERE type='Certificate of Residency'";
                     $result = $conn->query($sql);
 
                     if ($result) {
@@ -164,7 +164,7 @@ $_SESSION['show_login_message'] = false;
                             <?php
                             include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-                            $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status FROM file_request WHERE type='Certificate of Indigency' ORDER BY datetime_created DESC";
+                            $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status FROM file_request WHERE type='Certificate of Residency' ORDER BY datetime_created DESC";
                             $result = $conn->query($sql);
 
                             if ($result) {

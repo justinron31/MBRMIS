@@ -70,23 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
   }
 
-  const menuItems = document.querySelectorAll(".menu_item .item");
-
-  const overviewItem = document.querySelector(".menu_item .item.active");
-  if (overviewItem) {
-    overviewItem.classList.add("active");
-  }
-
-  menuItems.forEach((item) => {
-    item.addEventListener("click", function () {
-      // Remove the "active" class from all items
-      menuItems.forEach((menuItem) => {
-        menuItem.classList.remove("active");
-      });
-
-      // Add the "active" class to the clicked item
-      this.classList.add("active");
-    });
+  let path = window.location.pathname;
+  document.querySelectorAll(".menu_item .item a").forEach((a) => {
+    if (a.getAttribute("href") === path) {
+      a.parentElement.classList.add("active");
+    }
   });
 });
 // ─── Calendar ─────────────────────────────────────────────────
@@ -276,7 +264,7 @@ function enableSaveButton() {
   }
 }
 
-saveButton.disabled = true; // Set save button disabled by default
+saveButton.disabled = true;
 
 dropdown.addEventListener("change", enableSaveButton);
 

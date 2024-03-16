@@ -30,7 +30,7 @@
     <script src="../Dashboard/CSS,JS/Export.js"></script>
 
 
-    <title>MAKILING BRMI SYSTEM - Certificate of Indigency</title>
+    <title>MAKILING BRMI SYSTEM - First Time Job Seeker</title>
 </head>
 
 
@@ -74,7 +74,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    CERTIFICATE OF INDIGENCY
+                    FIRST TIME JOB SEEKER
                 </h1>
 
                 <div class="access">
@@ -121,7 +121,7 @@ $_SESSION['show_login_message'] = false;
                     <?php
                     include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-                    $sql = "SELECT * FROM file_request WHERE type='Certificate of Indigency'";
+                    $sql = "SELECT * FROM first_time_job ";
                     $result = $conn->query($sql);
 
                     if ($result) {
@@ -149,22 +149,33 @@ $_SESSION['show_login_message'] = false;
                                 <th> Status <span class="icon-arrow">&UpArrow;</span></th>
                                 <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
                                 <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Birthdate <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Age <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
                                 <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Voters ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Voters ID Img <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Civil Status <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Address <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Recidency <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Education <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> Course <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> JobStart Program <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
+                                <th> ID Img <span class="icon-arrow">&UpArrow;</span></th>
                                 <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
                                 <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
                                 <th class="center"> Action </th>
                             </tr>
                         </thead>
 
+
+
+
                         <tbody>
 
                             <?php
                             include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-                            $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status FROM file_request WHERE type='Certificate of Indigency' ORDER BY datetime_created DESC";
+                            $sql = "SELECT type, id, firstname, lastname, birthdate, age, gender, contact_number, `civil_status`, address, residency, education, course, `job_start_beneficiary`, pickup_datetime, `datetime_created`, `id_number`, avatar, tracking_number, `file_status`, remarks FROM first_time_job ORDER BY `datetime_created` DESC";
                             $result = $conn->query($sql);
 
                             if ($result) {
@@ -184,13 +195,23 @@ $_SESSION['show_login_message'] = false;
                                     $uniqueId = 'edit_' . $row["id"];
                                     echo "<tr>" .
                                         "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
-                                        "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
+                                        "<td style='text-align: center;'>
+                            <p class='status $class padding'>" . $row["file_status"] . "</p>
+                        </td>" .
                                         "<td>" . $row["firstname"] . "</td>" .
                                         "<td>" . $row["lastname"] . "</td>" .
+                                        "<td>" . date("F j, Y", strtotime($row["birthdate"])) . "</td>" .
+                                        "<td>" . $row["age"] . "</td>" .
+                                        "<td>" . $row["gender"] . "</td>" .
                                         "<td>" . $row["contact_number"] . "</td>" .
-                                        "<td>" . $row["voters_id_number"] . "</td>" .
-                                        "<td><a href='../Uploaded File/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>" .
-                                        "<td>" . $row["purpose_description"] . "</td>" .
+                                        "<td>" . $row["civil_status"] . "</td>" .
+                                        "<td>" . $row["address"] . "</td>" .
+                                        "<td>" . $row["residency"] . "</td>" .
+                                        "<td>" . $row["education"] . "</td>" .
+                                        "<td>" . $row["course"] . "</td>" .
+                                        "<td>" . $row["job_start_beneficiary"] . "</td>" .
+                                        "<td>" . $row["id_number"] . "</td>" .
+                                        "<td><a href='../Uploaded File/" . $row["avatar"] . "' target='_blank'>View Voters ID</a></td>" .
                                         "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                         "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
                                         "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>" .
@@ -208,7 +229,7 @@ $_SESSION['show_login_message'] = false;
                                 <div class="custom-modal-content">
                                     <h2 class="editAccountTitle">Update File Request Status </h2>
                                     <p id="TrackingN"></p>
-                                    <form id="customEditForm1" action="/MBRMIS/Php/updateFile.php" method="post">
+                                    <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php" method="post">
                                         <div class="updatecon">
                                             <div class="accountstatus">
                                                 <input type="hidden" id="fileStatusId" name="fileStatusId" value="">

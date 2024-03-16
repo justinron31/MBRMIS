@@ -350,12 +350,16 @@ $(document).ready(function () {
       data: { id: fileId },
       dataType: "json",
       success: function (data) {
-        $("#TrackingN").html(
-          "<strong>Tracking Number: </strong>" + data.tracking_number
-        );
-        $("#fileStatusId").val(fileId);
-        currentStatus = data.fileStatus;
-        callback(currentStatus);
+        console.log(data);
+        if (Array.isArray(data) && data.length > 0) {
+          var item = data[0]; // Access the first item in the array
+          $("#TrackingN").html(
+            "<strong>Tracking Number: </strong>" + item.tracking_number
+          );
+          $("#fileStatusId").val(fileId);
+          currentStatus = item.file_status;
+          callback(currentStatus);
+        }
       },
       error: function (error) {
         console.log(error);
@@ -426,6 +430,7 @@ $(document).ready(function () {
     }
   });
 
+  // ─── Popup Message ────────────────────────────────────────────
   function showCustomPopup(message) {
     var popupContainer = $('<div class="custom-popup"></div>').text(message);
     $("body").append(popupContainer);
