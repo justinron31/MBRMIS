@@ -3,7 +3,7 @@
 <div id="sessionModal" class="modal1">
 
     <div class="modal-header">
-        <h2>Logout Session</h2>
+        <h2>Session</h2>
     </div>
 
     <div class="modal-body">
@@ -51,8 +51,8 @@
 
 <script>
     // ─── Idle counter ───────────────────────────────────────────
-    const idleTimeout = 5 * 60; //5 minutes
-    let remain = 3 * 60; // 3 minutes
+    const idleTimeout = 5 * 60; // 5 minutes
+    let remain = 2 * 60; // 2 minutes
     let timer;
     let idleTime = 0;
 
@@ -60,45 +60,64 @@
         timer = setInterval(function() {
             idleTime++;
             console.log(idleTime);
+
             if (idleTime >= idleTimeout - remain) {
                 const remainingTime = Math.max(0, idleTimeout - idleTime);
-                document.querySelector(".timeCount").innerText = remainingTime;
+
+                document.querySelector('.timeCount').innerText = formatTime(remainingTime);
 
                 if (remainingTime === 0) {
-                    clearInterval(timer);
+                    // Add AJAX request to terminate the session
                     fetch("../Php/logout.php")
-                        .then((response) => response.text())
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error("Logout failed");
+                            }
+                            return response.text();
+                        })
                         .then((data) => {
-                            console.log(data);
-                            window.location.href = "../Login/loginStaff.php?logout=true";
+
+                            window.location.href = "../Dashboard/sessionLogout.html";
                         })
                         .catch((error) => {
-                            console.error("Error:", error);
+                            console.error("Logout error:", error);
                         });
                 }
 
-                document.getElementById("sessionModal").style.display = "block";
-                document.querySelector(".overlay").style.display = "block";
+                document.getElementById('sessionModal').style.display = 'block';
+                document.querySelector('.overlay').style.display = 'block';
             } else {
-                document.querySelector(".timeCount").innerText = "";
+                document.querySelector('.timeCount').innerText = '';
             }
         }, 1000);
 
-        document.addEventListener("mousemove", resetTimer);
-        document.addEventListener("mousewheel", resetTimer);
+        document.addEventListener('mousemove', resetTimer1);
+        document.addEventListener('mousewheel', resetTimer1);
     }
 
     function resetTimer() {
         clearInterval(timer);
         idleTime = 0;
-        document.getElementById("sessionModal").style.display = "none";
-        document.querySelector(".overlay").style.display = "none";
-        document.querySelector(".timeCount").innerText = "";
+        document.getElementById('sessionModal').style.display = 'none';
+        document.querySelector('.overlay').style.display = 'none';
+        document.querySelector('.timeCount').innerText = '';
         startIdleTimer();
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    function resetTimer1() {
+        clearInterval(timer);
+        idleTime = 0;
         startIdleTimer();
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${String(remainingSeconds).padStart(2, '0')}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // startIdleTimer();
     });
 
 

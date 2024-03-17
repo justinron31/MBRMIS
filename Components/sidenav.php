@@ -48,55 +48,19 @@
                           </div>
 
 
-                          <!-- cert of indigency badge count  -->
-                          <?php
-
-                            $count = 0;
-                            $query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND file_status = 'Processing' AND type='Certificate of Indigency'";
-                            $result = mysqli_query($conn, $query);
-
-                            if ($result) {
-                                $count = mysqli_num_rows($result);
-                            } else {
-
-                                echo "Error: " . mysqli_error($conn);
-                            }
-                            ?>
 
                           <li class="item">
                               <a href="/MBRMIS/Dashboard/AdminCertofIndigency.php" class="link flex">
                                   <i>
-
                                       <span class="material-symbols-outlined">
                                           badge
                                       </span>
-                                      <?php if ($count > 0) : ?>
-                                          <span class="badge"><?php echo $count; ?></span>
-                                      <?php endif; ?>
+                                      <span class="badge"></span>
                                   </i>
-
                                   <span>Certificate of Indigency</span>
-
                               </a>
                           </li>
 
-
-
-
-                          <!-- cert of recidency badge count  -->
-                          <?php
-
-                            $count = 0;
-                            $query = "SELECT * FROM file_request WHERE datetime_created > NOW() - INTERVAL 1 DAY AND file_status = 'Processing' AND type='Certificate of Residency'";
-                            $result = mysqli_query($conn, $query);
-
-                            if ($result) {
-                                $count = mysqli_num_rows($result);
-                            } else {
-
-                                echo "Error: " . mysqli_error($conn);
-                            }
-                            ?>
 
                           <li class="item">
                               <a href="/MBRMIS/Dashboard/AdminCertofResidency.php" class="link flex">
@@ -104,9 +68,7 @@
                                       <span class="material-symbols-outlined">
                                           clinical_notes
                                       </span>
-                                      <?php if ($count > 0) : ?>
-                                          <span class="badge"><?php echo $count; ?></span>
-                                      <?php endif; ?>
+                                      <span class="badge1"></span>
                                   </i>
                                   <span>Certificate of Residency</span>
 
@@ -114,32 +76,13 @@
                           </li>
 
 
-
-
-                          <!-- First time job seeker badge count  -->
-                          <?php
-
-                            $count = 0;
-                            $query = "SELECT * FROM first_time_job WHERE datetime_created > NOW() - INTERVAL 1 DAY AND file_status = 'Processing' ";
-                            $result = mysqli_query($conn, $query);
-
-                            if ($result) {
-                                $count = mysqli_num_rows($result);
-                            } else {
-
-                                echo "Error: " . mysqli_error($conn);
-                            }
-                            ?>
-
                           <li class="item">
                               <a href="/MBRMIS/Dashboard/AdminFirstTimeJob.php" class="link flex">
                                   <i>
                                       <span class="material-symbols-outlined">
                                           card_membership
                                       </span>
-                                      <?php if ($count > 0) : ?>
-                                          <span class="badge"><?php echo $count; ?></span>
-                                      <?php endif; ?>
+                                      <span class="badge2"></span>
                                   </i>
                                   <span>First Time Job Seeker</span>
 
@@ -208,3 +151,93 @@
                   </div>
               </div>
           </nav>
+
+
+
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <script>
+          $(document).ready(function() {
+              var audio = new Audio('../audio/notif.mp3');
+
+              function fetchCount() {
+                  $.ajax({
+                      url: '../Php/fetchBadge.php',
+                      type: 'GET',
+                      success: function(response) {
+                          var data = JSON.parse(response);
+                          if (data.count > 0) {
+                              $('.badge').css('display', 'inline-block');
+                              $('.badge').text(data.count);
+
+                              if (data.notifCount > 0) {
+                                  audio.play();
+                              }
+                          } else {
+                              $('.badge').css('display', 'none');
+                          }
+                      }
+                  });
+              }
+
+              fetchCount();
+              setInterval(fetchCount, 1000);
+          });
+          </script>
+
+          <script>
+          $(document).ready(function() {
+              var audio = new Audio('../audio/notif.mp3');
+
+              function fetchCount() {
+                  $.ajax({
+                      url: '../Php/fetchBadge1.php',
+                      type: 'GET',
+                      success: function(response) {
+                          var data = JSON.parse(response);
+                          if (data.count > 0) {
+                              $('.badge1').css('display', 'inline-block');
+                              $('.badge1').text(data.count);
+
+                              if (data.notifCount > 0) {
+                                  audio.play();
+                              }
+                          } else {
+                              $('.badge1').css('display', 'none');
+                          }
+                      }
+                  });
+              }
+
+              fetchCount();
+              setInterval(fetchCount, 1000);
+          });
+          </script>
+
+          <script>
+          $(document).ready(function() {
+              var audio = new Audio('../audio/notif.mp3');
+
+              function fetchCount() {
+                  $.ajax({
+                      url: '../Php/fetchBadge2.php',
+                      type: 'GET',
+                      success: function(response) {
+                          var data = JSON.parse(response);
+                          if (data.count > 0) {
+                              $('.badge2').css('display', 'inline-block');
+                              $('.badge2').text(data.count);
+
+                              if (data.notifCount > 0) {
+                                  audio.play();
+                              }
+                          } else {
+                              $('.badge2').css('display', 'none');
+                          }
+                      }
+                  });
+              }
+
+              fetchCount();
+              setInterval(fetchCount, 1000);
+          });
+          </script>

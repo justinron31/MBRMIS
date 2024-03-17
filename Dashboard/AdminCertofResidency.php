@@ -22,8 +22,10 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
     <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
+
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
@@ -118,17 +120,7 @@ $_SESSION['show_login_message'] = false;
 
                 <div class="tableHead">
                     <!--TOTAL USER-->
-                    <?php
-                    include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
-
-                    $sql = "SELECT * FROM file_request WHERE type='Certificate of Residency'";
-                    $result = $conn->query($sql);
-
-                    if ($result) {
-                        $totalReq = $result->num_rows;
-                    }
-                    echo "<h1 class='titleTable'>Total File Request: " . $totalReq . "</h1>";
-                    ?>
+                    <h1 class="titleTable">Total File Request: <span id="totalReq1">0</span></h1>
 
                     <div class="export__file">
                         <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
@@ -142,7 +134,7 @@ $_SESSION['show_login_message'] = false;
 
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
-                    <table id="headerTable">
+                    <table>
                         <thead>
                             <tr>
                                 <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
@@ -159,50 +151,7 @@ $_SESSION['show_login_message'] = false;
                             </tr>
                         </thead>
 
-                        <tbody>
-
-                            <?php
-                            include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
-
-                            $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status FROM file_request WHERE type='Certificate of Residency' ORDER BY datetime_created DESC";
-                            $result = $conn->query($sql);
-
-                            if ($result) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $file_status = strtolower(trim($row["file_status"]));
-                                    if ($file_status == 'ready for pickup') {
-                                        $class = 'delivered';
-                                    } elseif ($file_status == 'declined') {
-                                        $class = 'cancelled';
-                                    } elseif ($file_status == 'reviewing') {
-                                        $class = 'pending';
-                                    } elseif ($file_status == 'processing') {
-                                        $class = 'processing';
-                                    } else {
-                                        $class = '';
-                                    }
-                                    $uniqueId = 'edit_' . $row["id"];
-                                    echo "<tr>" .
-                                        "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
-                                        "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
-                                        "<td>" . $row["firstname"] . "</td>" .
-                                        "<td>" . $row["lastname"] . "</td>" .
-                                        "<td>" . $row["contact_number"] . "</td>" .
-                                        "<td>" . $row["voters_id_number"] . "</td>" .
-                                        "<td><a href='../Uploaded File/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>" .
-                                        "<td>" . $row["purpose_description"] . "</td>" .
-                                        "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
-                                        "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                        "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>" .
-                                        "</tr>";
-                                }
-                                $result->close();
-                            } else {
-                                echo "<tr><td colspan='8'>No data found</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
+                        <tbody id="fileRequestsTable1">
 
                             <div id="customEditModal1" class="custom-modal">
                                 <div class="custom-modal-content">

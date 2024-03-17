@@ -8,6 +8,15 @@
   font-family: "Poppins", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 body {
   min-height: 100vh;
   background: rgb(118, 194, 140);
@@ -1001,7 +1010,9 @@ label {
 }
 
 /* ─── Badge ───────────────────────────────────────────────── */
-.badge {
+.badge,
+.badge1,
+.badge2 {
   display: inline-block;
   position: absolute;
   min-width: 10px;

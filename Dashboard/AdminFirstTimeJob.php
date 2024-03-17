@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -118,20 +119,11 @@ $_SESSION['show_login_message'] = false;
 
                 <div class="tableHead">
                     <!--TOTAL USER-->
-                    <?php
-                    include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
-
-                    $sql = "SELECT * FROM first_time_job ";
-                    $result = $conn->query($sql);
-
-                    if ($result) {
-                        $totalReq = $result->num_rows;
-                    }
-                    echo "<h1 class='titleTable'>Total File Request: " . $totalReq . "</h1>";
-                    ?>
+                    <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File"
+                            onclick="fnIndigencyReport()">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -167,69 +159,15 @@ $_SESSION['show_login_message'] = false;
                             </tr>
                         </thead>
 
+                        <tbody id="fileRequestsTable2">
 
-
-
-                        <tbody>
-
-                            <?php
-                            include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
-
-                            $sql = "SELECT type, id, firstname, lastname, birthdate, age, gender, contact_number, `civil_status`, address, residency, education, course, `job_start_beneficiary`, pickup_datetime, `datetime_created`, `id_number`, avatar, tracking_number, `file_status`, remarks FROM first_time_job ORDER BY `datetime_created` DESC";
-                            $result = $conn->query($sql);
-
-                            if ($result) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $file_status = strtolower(trim($row["file_status"]));
-                                    if ($file_status == 'ready for pickup') {
-                                        $class = 'delivered';
-                                    } elseif ($file_status == 'declined') {
-                                        $class = 'cancelled';
-                                    } elseif ($file_status == 'reviewing') {
-                                        $class = 'pending';
-                                    } elseif ($file_status == 'processing') {
-                                        $class = 'processing';
-                                    } else {
-                                        $class = '';
-                                    }
-                                    $uniqueId = 'edit_' . $row["id"];
-                                    echo "<tr>" .
-                                        "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
-                                        "<td style='text-align: center;'>
-                            <p class='status $class padding'>" . $row["file_status"] . "</p>
-                        </td>" .
-                                        "<td>" . $row["firstname"] . "</td>" .
-                                        "<td>" . $row["lastname"] . "</td>" .
-                                        "<td>" . date("F j, Y", strtotime($row["birthdate"])) . "</td>" .
-                                        "<td>" . $row["age"] . "</td>" .
-                                        "<td>" . $row["gender"] . "</td>" .
-                                        "<td>" . $row["contact_number"] . "</td>" .
-                                        "<td>" . $row["civil_status"] . "</td>" .
-                                        "<td>" . $row["address"] . "</td>" .
-                                        "<td>" . $row["residency"] . "</td>" .
-                                        "<td>" . $row["education"] . "</td>" .
-                                        "<td>" . $row["course"] . "</td>" .
-                                        "<td>" . $row["job_start_beneficiary"] . "</td>" .
-                                        "<td>" . $row["id_number"] . "</td>" .
-                                        "<td><a href='../Uploaded File/" . $row["avatar"] . "' target='_blank'>View Voters ID</a></td>" .
-                                        "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
-                                        "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                        "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>" .
-                                        "</tr>";
-                                }
-                                $result->close();
-                            } else {
-                                echo "<tr><td colspan='8'>No data found</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
 
                             <div id="customEditModal1" class="custom-modal">
                                 <div class="custom-modal-content">
                                     <h2 class="editAccountTitle">Update File Request Status </h2>
                                     <p id="TrackingN"></p>
-                                    <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php" method="post">
+                                    <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php"
+                                        method="post">
                                         <div class="updatecon">
                                             <div class="accountstatus">
                                                 <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
@@ -240,7 +178,8 @@ $_SESSION['show_login_message'] = false;
                                                     <option value="Reviewing">Reviewing</option>
                                                 </select>
                                             </div>
-                                            <button id="updateButton1" class="updateButton" type="submit">Update</button>
+                                            <button id="updateButton1" class="updateButton"
+                                                type="submit">Update</button>
                                     </form>
                                 </div>
                             </div>

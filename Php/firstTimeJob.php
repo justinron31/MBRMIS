@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt = $conn->prepare("INSERT INTO first_time_job ( type, firstname, lastname, birthdate, age, gender, contact_number, civil_status, address, residency, education, course, job_start_beneficiary, pickup_datetime, id_number, avatar, tracking_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("ssssissssisssssss", $certificate_type, $firstname, $lastname, $birthdate, $age, $gender, $contact_number, $civil_status, $address, $residency, $education, $course, $job_start_beneficiary, $pickup_datetime, $id_number, $targetFile, $tracking_number);
+    $stmt->bind_param("ssssissssssssssss", $certificate_type, $firstname, $lastname, $birthdate, $age, $gender, $contact_number, $civil_status, $address, $residency, $education, $course, $job_start_beneficiary, $pickup_datetime, $id_number, $targetFile, $tracking_number);
 
     if ($stmt->execute()) {
         // Store tracking number in session
