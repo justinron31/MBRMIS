@@ -92,7 +92,7 @@
 
 
                           <li class="item">
-                              <a href="#" class="link flex">
+                              <a href="/MBRMIS/Dashboard/AdminReqDocu.php" class="link flex">
                                   <i>
                                       <span class="material-symbols-outlined">
                                           home_storage
@@ -104,27 +104,32 @@
                       </ul>
 
 
-                      <ul class="menu_item">
-                          <div class="menu_title flex">
-                              <span class="title">Others</span>
-                              <span class="line"></span>
-                          </div>
+                      <?php
+                        if ($_SESSION['user_type'] === 'admin') {
+                        ?>
+                          <ul class="menu_item">
+                              <div class="menu_title flex">
+                                  <span class="title">Others</span>
+                                  <span class="line"></span>
+                              </div>
 
-                          <li class="item">
-                              <a href="/MBRMIS/Dashboard/AdminManageUser.php" class="link flex">
-                                  <i class='bx bxs-user-detail'></i>
-                                  <span>Manage System User</span>
-                              </a>
-                          </li>
+                              <li class="item">
+                                  <a href="/MBRMIS/Dashboard/AdminManageUser.php" class="link flex">
+                                      <i class='bx bxs-user-detail'></i>
+                                      <span>Manage System User</span>
+                                  </a>
+                              </li>
 
-                          <li class="item ">
-                              <a href="#" class="link flex">
-                                  <i class='bx bxs-report'></i>
-                                  <span>Reporting View</span>
-                              </a>
-                          </li>
-
-                      </ul>
+                              <li class="item ">
+                                  <a href="#" class="link flex">
+                                      <i class='bx bxs-report'></i>
+                                      <span>Reporting View</span>
+                                  </a>
+                              </li>
+                          </ul>
+                      <?php
+                        }
+                        ?>
 
                       <ul class="menu_item">
                           <div class="menu_title flex">
@@ -156,88 +161,88 @@
 
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
           <script>
-          $(document).ready(function() {
-              var audio = new Audio('../audio/notif.mp3');
+              $(document).ready(function() {
+                  var audio = new Audio('../audio/notif.mp3');
 
-              function fetchCount() {
-                  $.ajax({
-                      url: '../Php/fetchBadge.php',
-                      type: 'GET',
-                      success: function(response) {
-                          var data = JSON.parse(response);
-                          if (data.count > 0) {
-                              $('.badge').css('display', 'inline-block');
-                              $('.badge').text(data.count);
+                  function fetchCount() {
+                      $.ajax({
+                          url: '../Php/fetchBadge.php',
+                          type: 'GET',
+                          success: function(response) {
+                              var data = JSON.parse(response);
+                              if (data.count > 0) {
+                                  $('.badge').css('display', 'inline-block');
+                                  $('.badge').text(data.count);
 
-                              if (data.notifCount > 0) {
-                                  audio.play();
+                                  if (data.notifCount > 0) {
+                                      audio.play();
+                                  }
+                              } else {
+                                  $('.badge').css('display', 'none');
                               }
-                          } else {
-                              $('.badge').css('display', 'none');
                           }
-                      }
-                  });
-              }
+                      });
+                  }
 
-              fetchCount();
-              setInterval(fetchCount, 1000);
-          });
+                  fetchCount();
+                  setInterval(fetchCount, 1000);
+              });
           </script>
 
           <script>
-          $(document).ready(function() {
-              var audio = new Audio('../audio/notif.mp3');
+              $(document).ready(function() {
+                  var audio = new Audio('../audio/notif.mp3');
 
-              function fetchCount() {
-                  $.ajax({
-                      url: '../Php/fetchBadge1.php',
-                      type: 'GET',
-                      success: function(response) {
-                          var data = JSON.parse(response);
-                          if (data.count > 0) {
-                              $('.badge1').css('display', 'inline-block');
-                              $('.badge1').text(data.count);
+                  function fetchCount() {
+                      $.ajax({
+                          url: '../Php/fetchBadge1.php',
+                          type: 'GET',
+                          success: function(response) {
+                              var data = JSON.parse(response);
+                              if (data.count > 0) {
+                                  $('.badge1').css('display', 'inline-block');
+                                  $('.badge1').text(data.count);
 
-                              if (data.notifCount > 0) {
-                                  audio.play();
+                                  if (data.notifCount > 0) {
+                                      audio.play();
+                                  }
+                              } else {
+                                  $('.badge1').css('display', 'none');
                               }
-                          } else {
-                              $('.badge1').css('display', 'none');
                           }
-                      }
-                  });
-              }
+                      });
+                  }
 
-              fetchCount();
-              setInterval(fetchCount, 1000);
-          });
+                  fetchCount();
+                  setInterval(fetchCount, 1000);
+              });
           </script>
 
           <script>
-          $(document).ready(function() {
-              var audio = new Audio('../audio/notif.mp3');
+              $(document).ready(function() {
+                  var audio = new Audio('../audio/notif.mp3');
 
-              function fetchCount() {
-                  $.ajax({
-                      url: '../Php/fetchBadge2.php',
-                      type: 'GET',
-                      success: function(response) {
-                          var data = JSON.parse(response);
-                          if (data.count > 0) {
-                              $('.badge2').css('display', 'inline-block');
-                              $('.badge2').text(data.count);
+                  function fetchCount() {
+                      $.ajax({
+                          url: '../Php/fetchBadge2.php',
+                          type: 'GET',
+                          success: function(response) {
+                              var data = JSON.parse(response);
+                              if (data.count > 0) {
+                                  $('.badge2').css('display', 'inline-block');
+                                  $('.badge2').text(data.count);
 
-                              if (data.notifCount > 0) {
-                                  audio.play();
+                                  if (data.notifCount > 0) {
+                                      audio.play();
+                                  }
+                              } else {
+                                  $('.badge2').css('display', 'none');
                               }
-                          } else {
-                              $('.badge2').css('display', 'none');
                           }
-                      }
-                  });
-              }
+                      });
+                  }
 
-              fetchCount();
-              setInterval(fetchCount, 1000);
-          });
+                  fetchCount();
+                  setInterval(fetchCount, 1000);
+              });
           </script>

@@ -184,7 +184,12 @@ function fetchUserInfo(userId, callback) {
         "<strong>Last Login:</strong> " + data.lastLoginTimestamp
       );
       $("#dateCreated").html(
-        "<strong>Date Created: </strong>" + data.dateCreated
+        "<strong>Date Created: </strong>" +
+          new Date(data.dateCreated).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
       );
 
       // Call the callback with the updated role
@@ -314,73 +319,24 @@ function showCustomPopup(message) {
     .delay(2000);
 }
 
-// ─── fetch total cert of indegency ────────────────────────────────────────────
-$(document).ready(function () {
-  function fetchTotalRequests() {
-    $.ajax({
-      url: "/MBRMIS/Php/fetchTotal.php",
-      type: "GET",
-      success: function (response) {
-        var data = JSON.parse(response);
-        $("#totalReq").text(data.totalReq);
-      },
-    });
-  }
-
-  fetchTotalRequests();
-  setInterval(fetchTotalRequests, 1000);
-});
-
-// ─── fetch total cert of Residency ────────────────────────────────────────────
-$(document).ready(function () {
-  function fetchTotalRequests() {
-    $.ajax({
-      url: "/MBRMIS/Php/fetchTotal1.php",
-      type: "GET",
-      success: function (response) {
-        var data = JSON.parse(response);
-        $("#totalReq1").text(data.totalReq);
-      },
-    });
-  }
-
-  fetchTotalRequests();
-  setInterval(fetchTotalRequests, 1000);
-});
-
-// ─── fetch total First time job seeker ────────────────────────────────────────────
-$(document).ready(function () {
-  function fetchTotalRequests() {
-    $.ajax({
-      url: "/MBRMIS/Php/fetchTotal2.php",
-      type: "GET",
-      success: function (response) {
-        var data = JSON.parse(response);
-        $("#totalReq2").text(data.totalReq);
-      },
-    });
-  }
-
-  fetchTotalRequests();
-  setInterval(fetchTotalRequests, 1000);
-});
-
-// // ─── Fetch all data in the table ───────────────────────────────────────────────
+// ─── File Status Update ───────────────────────────────────────
 $(document).ready(function () {
   var currentStatus;
 
-  function fetchFileInfo(fileId, callback, url) {
+  function fetchFileInfo(fileId, callback) {
     $.ajax({
       type: "POST",
-      url: url,
+      url: "/MBRMIS/Php/fetchFileInfo.php",
       data: { id: fileId },
       dataType: "json",
       success: function (data) {
+        console.log(data);
         if (Array.isArray(data) && data.length > 0) {
           var item = data[0]; // Access the first item in the array
           $("#TrackingN").html(
             "<strong>Tracking Number: </strong>" + item.tracking_number
           );
+
           $("#fileStatusId").val(fileId);
           currentStatus = item.file_status;
           callback(currentStatus);
@@ -396,108 +352,12 @@ $(document).ready(function () {
     $("#updateButton1").prop("disabled", selectedStatus === currentStatus);
   }
 
-  function fetchFileRequests(url, tableId) {
-    $.ajax({
-      url: url,
-      type: "GET",
-      success: function (response) {
-        var data = JSON.parse(response);
-        var html = "";
-
-        for (var i = 0; i < data.length; i++) {
-          var row = data[i];
-          var className = "";
-          if (row.file_status.toLowerCase().trim() == "ready for pickup") {
-            className = "delivered";
-          } else if (row.file_status.toLowerCase().trim() == "declined") {
-            className = "cancelled";
-          } else if (row.file_status.toLowerCase().trim() == "reviewing") {
-            className = "pending";
-          } else if (row.file_status.toLowerCase().trim() == "processing") {
-            className = "processing";
-          }
-          html += generateTableRow(row, className);
-        }
-        $(tableId).html(html);
-      },
-    });
-  }
-
-  function generateTableRow(row, className) {
-    return (
-      "<tr>" +
-      "<td><strong>" +
-      row.tracking_number +
-      "</strong></td>" +
-      "<td style='text-align: center;'><p class='status " +
-      className +
-      " padding'>" +
-      row.file_status +
-      "</p></td>" +
-      "<td>" +
-      row.firstname +
-      "</td>" +
-      "<td>" +
-      row.lastname +
-      "</td>" +
-      "<td>" +
-      row.contact_number +
-      "</td>" +
-      "<td>" +
-      row.voters_id_number +
-      "</td>" +
-      "<td><a href='../Uploaded File/" +
-      row.voters_id_image +
-      "' target='_blank'>View Voters ID</a></td>" +
-      "<td>" +
-      row.purpose_description +
-      "</td>" +
-      "<td title='" +
-      new Date(row.pickup_datetime).toLocaleString() +
-      "'>" +
-      new Date(row.pickup_datetime).toLocaleString() +
-      "</td>" +
-      "<td title='" +
-      new Date(row.datetime_created).toLocaleString() +
-      "'>" +
-      new Date(row.datetime_created).toLocaleString() +
-      "</td>" +
-      "<td><i class='bx bxs-edit edit-icon' data-file-id='" +
-      row.id +
-      "'></i></td>" +
-      "</tr>"
-    );
-  }
-
-  fetchFileRequests("/MBRMIS/Php/fetchCertIndigency.php", "#fileRequestsTable");
-  setInterval(function () {
-    fetchFileRequests(
-      "/MBRMIS/Php/fetchCertIndigency.php",
-      "#fileRequestsTable"
-    );
-  }, 2000);
-
-  fetchFileRequests(
-    "/MBRMIS/Php/fetchCertResidency.php",
-    "#fileRequestsTable1"
-  );
-  setInterval(function () {
-    fetchFileRequests(
-      "/MBRMIS/Php/fetchCertResidency.php",
-      "#fileRequestsTable1"
-    );
-  }, 2000);
-
-  $(document).on("click", ".edit-icon", function () {
+  $(".edit-icon").on("click", function () {
     var fileId = $(this).data("file-id");
-    fetchFileInfo(
-      fileId,
-      function (fileStatus) {
-        $("#fileStatus").val(fileStatus);
-        updateButtonState(fileStatus);
-      },
-      "/MBRMIS/Php/fetchFileInfo.php"
-    );
+    fetchFileInfo(fileId, function (fileStatus) {
+      $("#fileStatus").val(fileStatus);
+      updateButtonState(fileStatus);
+    });
     $("#customEditModal1").show();
   });
 
@@ -550,128 +410,68 @@ $(document).ready(function () {
       });
     }
   });
-});
-
-// ─── Fetch first time job seeker ──────────────────────────────────
-function generateRowHtml(row) {
-  var fileStatus = row.file_status.toLowerCase().trim();
-  var className = "";
-  if (row.file_status.toLowerCase().trim() == "ready for pickup") {
-    className = "delivered";
-  } else if (row.file_status.toLowerCase().trim() == "declined") {
-    className = "cancelled";
-  } else if (row.file_status.toLowerCase().trim() == "reviewing") {
-    className = "pending";
-  } else if (row.file_status.toLowerCase().trim() == "processing") {
-    className = "processing";
+  // ─── Popup Message ────────────────────────────────────────────
+  function showCustomPopup(message) {
+    var popupContainer = $('<div class="custom-popup"></div>').text(message);
+    $("body").append(popupContainer);
+    popupContainer
+      .css("display", "none")
+      .fadeIn(200, function () {
+        $(this).animate({ top: "-20px", opacity: 0 }, 300, function () {
+          $(this).remove();
+        });
+      })
+      .delay(2000);
   }
-  return (
-    "<tr>" +
-    "<td><strong>" +
-    row["tracking_number"] +
-    "</strong></td>" +
-    "<td style='text-align: center;'>" +
-    "<p class='status " +
-    className +
-    " padding'>" +
-    row["file_status"] +
-    "</p>" +
-    "</td>" +
-    "<td>" +
-    row["firstname"] +
-    "</td>" +
-    "<td>" +
-    row["lastname"] +
-    "</td>" +
-    "<td>" +
-    new Date(row["birthdate"]).toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    }) +
-    "</td>" +
-    "<td>" +
-    row["age"] +
-    "</td>" +
-    "<td>" +
-    row["gender"] +
-    "</td>" +
-    "<td>" +
-    row["contact_number"] +
-    "</td>" +
-    "<td>" +
-    row["civil_status"] +
-    "</td>" +
-    "<td>" +
-    row["address"] +
-    "</td>" +
-    "<td>" +
-    row["residency"] +
-    "</td>" +
-    "<td>" +
-    row["education"] +
-    "</td>" +
-    "<td>" +
-    row["course"] +
-    "</td>" +
-    "<td>" +
-    row["job_start_beneficiary"] +
-    "</td>" +
-    "<td>" +
-    row["id_number"] +
-    "</td>" +
-    "<td><a href='../Uploaded File/" +
-    row["avatar"] +
-    "' target='_blank'>View Voters ID</a></td>" +
-    "<td title='" +
-    new Date(row.pickup_datetime).toLocaleString() +
-    "'>" +
-    new Date(row.pickup_datetime).toLocaleString() +
-    "</td>" +
-    "<td title='" +
-    new Date(row.datetime_created).toLocaleString() +
-    "'>" +
-    new Date(row.datetime_created).toLocaleString() +
-    "</td>" +
-    "<td><i class='bx bxs-edit edit-icon' data-file-id='" +
-    row["id"] +
-    "'></i></td>" +
-    "</tr>"
-  );
-}
-
-function fetchFileRequests() {
-  $.ajax({
-    url: "/MBRMIS/Php/fetchFirstTime.php",
-    type: "GET",
-    success: function (response) {
-      var data = JSON.parse(response);
-      var html = data.map(generateRowHtml).join("");
-      $("#fileRequestsTable2").html(html);
-    },
-  });
-}
-
-$(document).ready(function () {
-  // ... your existing code ...
-
-  // Call the function to fetch data and populate the table
-  fetchFileRequests();
-
-  // Refresh the data every second
-  setInterval(fetchFileRequests, 2000);
 });
 
-// ─── Popup Message ────────────────────────────────────────────
-function showCustomPopup(message) {
-  var popupContainer = $('<div class="custom-popup"></div>').text(message);
-  $("body").append(popupContainer);
-  popupContainer
-    .css("display", "none")
-    .fadeIn(200, function () {
-      $(this).animate({ top: "-20px", opacity: 0 }, 300, function () {
-        $(this).remove();
-      });
-    })
-    .delay(2000);
-}
+// ─── fetch total cert of indegency ────────────────────────────────────────────
+$(document).ready(function () {
+  function fetchTotalRequests() {
+    $.ajax({
+      url: "/MBRMIS/Php/fetchTotal.php",
+      type: "GET",
+      success: function (response) {
+        var data = JSON.parse(response);
+        $("#totalReq").text(data.totalReq);
+      },
+    });
+  }
+
+  fetchTotalRequests();
+  setInterval(fetchTotalRequests, 2000);
+});
+
+// ─── fetch total cert of Residency ────────────────────────────────────────────
+$(document).ready(function () {
+  function fetchTotalRequests() {
+    $.ajax({
+      url: "/MBRMIS/Php/fetchTotal1.php",
+      type: "GET",
+      success: function (response) {
+        var data = JSON.parse(response);
+        $("#totalReq1").text(data.totalReq);
+      },
+    });
+  }
+
+  fetchTotalRequests();
+  setInterval(fetchTotalRequests, 2000);
+});
+
+// ─── fetch total First time job seeker ────────────────────────────────────────────
+$(document).ready(function () {
+  function fetchTotalRequests() {
+    $.ajax({
+      url: "/MBRMIS/Php/fetchTotal2.php",
+      type: "GET",
+      success: function (response) {
+        var data = JSON.parse(response);
+        $("#totalReq2").text(data.totalReq);
+      },
+    });
+  }
+
+  fetchTotalRequests();
+  setInterval(fetchTotalRequests, 2000);
+});

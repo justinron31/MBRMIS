@@ -81,9 +81,14 @@ $_SESSION['show_login_message'] = false;
 
                 <div class="access">
                     <p class="name">
-                        Admin
-                        <?php echo $userName; ?>
-
+                        <?php
+                        if ($_SESSION['user_type'] === 'admin') {
+                            echo 'Admin';
+                        } else {
+                            echo 'Staff';
+                        }
+                        echo ' ' . $userName;
+                        ?>
                     </p>
                     <div class="logoHead">
 
@@ -134,48 +139,95 @@ $_SESSION['show_login_message'] = false;
 
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
-                    <table>
-                        <thead>
-                            <tr>
-                                <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Status <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Voters ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Voters ID Img <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
-                                <th class="center"> Action </th>
-                            </tr>
-                        </thead>
+                    <div class="tableWrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Remarks <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Voters ID Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Voters ID Img <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Action </th>
+                                </tr>
+                            </thead>
 
-                        <tbody id="fileRequestsTable1">
+                            <tbody>
+                                <?php
+                                include '../Php/db.php';
 
-                            <div id="customEditModal1" class="custom-modal">
-                                <div class="custom-modal-content">
-                                    <h2 class="editAccountTitle">Update File Request Status </h2>
-                                    <p id="TrackingN"></p>
-                                    <form id="customEditForm1" action="/MBRMIS/Php/updateFile.php" method="post">
-                                        <div class="updatecon">
-                                            <div class="accountstatus">
-                                                <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
-                                                <label for="fileStatus">File Status:</label>
-                                                <select id="fileStatus" name="fileStatus">
-                                                    <option value="Ready for Pickup">Ready for Pickup</option>
-                                                    <option value="Declined">Declined</option>
-                                                    <option value="Reviewing">Reviewing</option>
-                                                </select>
-                                            </div>
-                                            <button id="updateButton1" class="updateButton" type="submit">Update</button>
-                                    </form>
+                                $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Residency' ORDER BY datetime_created DESC";
+                                $result = $conn->query($sql);
+
+                                if ($result) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $file_status = strtolower(trim($row["file_status"]));
+                                        if ($file_status == 'ready for pickup') {
+                                            $class = 'delivered';
+                                        } elseif ($file_status == 'declined') {
+                                            $class = 'cancelled';
+                                        } elseif ($file_status == 'reviewing') {
+                                            $class = 'pending';
+                                        } elseif ($file_status == 'processing') {
+                                            $class = 'processing';
+                                        } else {
+                                            $class = '';
+                                        }
+                                        $uniqueId = 'edit_' . $row["id"];
+                                        echo "<tr>" .
+                                            "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
+                                            "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
+                                            "<td>" . $row["remarks"] . "</td>" .
+                                            "<td>" . $row["firstname"] . "</td>" .
+                                            "<td>" . $row["lastname"] . "</td>" .
+                                            "<td>" . $row["contact_number"] . "</td>" .
+                                            "<td>" . $row["voters_id_number"] . "</td>" .
+                                            "<td><a href='../Uploaded File/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>" .
+                                            "<td>" . $row["purpose_description"] . "</td>" .
+                                            "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
+                                            "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
+                                            "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>" .
+                                            "</tr>";
+                                    }
+                                    $result->close();
+                                } else {
+                                    echo "<tr><td colspan='8'>No data found</td></tr>";
+                                }
+
+                                $conn->close();
+                                ?>
+
+
+                                <div id="customEditModal1" class="custom-modal">
+                                    <div class="custom-modal-content">
+                                        <h2 class="editAccountTitle">Update File Request Status </h2>
+                                        <p id="TrackingN"></p>
+                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile.php" method="post">
+                                            <div class="updatecon">
+                                                <div class="accountstatus">
+                                                    <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
+                                                    <label for="fileStatus">File Status:</label>
+                                                    <select id="fileStatus" name="fileStatus">
+                                                        <option value="Ready for Pickup">Ready for Pickup</option>
+                                                        <option value="Declined">Declined</option>
+                                                        <option value="Reviewing">Reviewing</option>
+                                                    </select>
+                                                </div>
+                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </main>
 

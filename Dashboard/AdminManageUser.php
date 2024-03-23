@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -84,8 +83,14 @@ $_SESSION['show_login_message'] = false;
 
                 <div class="access">
                     <p class="name">
-                        Admin
-                        <?php echo $userName; ?>
+                        <?php
+                        if ($_SESSION['user_type'] === 'admin') {
+                            echo 'Admin';
+                        } else {
+                            echo 'Staff';
+                        }
+                        echo ' ' . $userName;
+                        ?>
 
                     </p>
                     <div class="logoHead">
@@ -124,7 +129,7 @@ $_SESSION['show_login_message'] = false;
                 <div class="tableHead">
                     <!--TOTAL USER-->
                     <?php
-                    include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+                    include '../Php/db.php';
 
                     $idnum = $_SESSION['idnumber'];
                     $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
@@ -148,98 +153,100 @@ $_SESSION['show_login_message'] = false;
 
                 <section class="table__body">
                     <!--TABLE CONTENT-->
-                    <table id="headerTable">
-                        <thead>
-                            <tr>
-                                <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Age <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Role <span class="icon-arrow">&UpArrow;</span></th>
-                                <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
-                                <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
-                                <th class="center"> Action </th>
-                            </tr>
-                        </thead>
+                    <div class="tableWrap">
+                        <table id="headerTable">
+                            <thead>
+                                <tr>
+                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Email <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Role <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th class="center"> Action </th>
+                                </tr>
+                            </thead>
 
-                        <tbody>
+                            <tbody>
 
-                            <?php
-                            include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+                                <?php
+                                include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
 
-                            $idnum = $_SESSION['idnumber'];
+                                $idnum = $_SESSION['idnumber'];
 
-                            $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
-                            $result = $conn->query($sql);
+                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
+                                $result = $conn->query($sql);
 
-                            if ($result) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
-                                    $uniqueId = 'edit_' . $row["idnumber"];
-                                    echo "<tr>" .
-                                        "<td><strong>" . $row["idnumber"] . "</strong></td>" .
-                                        "<td>" . $row["firstname"] . "</td>" .
-                                        "<td>" . $row["lastname"] . "</td>" .
-                                        "<td>" . $row["gender"] . "</td>" .
-                                        "<td>" . $row["age"] . "</td>" .
-                                        "<td>" . $row["email"] . "</td>" .
-                                        "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-                                        "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-                                        "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
-                                        "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
-                                        "</tr>";
+                                if ($result) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
+                                        $uniqueId = 'edit_' . $row["idnumber"];
+                                        echo "<tr>" .
+                                            "<td><strong>" . $row["idnumber"] . "</strong></td>" .
+                                            "<td>" . $row["firstname"] . "</td>" .
+                                            "<td>" . $row["lastname"] . "</td>" .
+                                            "<td>" . $row["gender"] . "</td>" .
+                                            "<td>" . $row["age"] . "</td>" .
+                                            "<td>" . $row["email"] . "</td>" .
+                                            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
+                                            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+                                            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
+                                            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
+                                            "</tr>";
+                                    }
+                                    $result->close();
+                                } else {
+                                    echo "<tr><td colspan='7'>No data found</td></tr>";
                                 }
-                                $result->close();
-                            } else {
-                                echo "<tr><td colspan='7'>No data found</td></tr>";
-                            }
 
-                            $conn->close();
-                            ?>
-                            <!-- POPUP FORM ACCOUNT EDIT -->
-                            <div id="customEditModal" class="custom-modal">
-                                <div class="custom-modal-content">
-                                    <h2 class="editAccountTitle">Edit Account Role and Status </h2>
-                                    <p id="customUserName"></p>
-                                    <p id="dateCreated"></p>
-                                    <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
+                                $conn->close();
+                                ?>
+                                <!-- POPUP FORM ACCOUNT EDIT -->
+                                <div id="customEditModal" class="custom-modal">
+                                    <div class="custom-modal-content">
+                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
+                                        <p id="customUserName"></p>
+                                        <p id="dateCreated"></p>
+                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
 
-                                        <div class="updatecon">
-                                            <div class="accountstatus">
-                                                <input type="hidden" id="customUserId" name="customUserId" value="">
-                                                <label for="customRole">Role:</label>
-                                                <select id="customRole" name="customRole">
-                                                    <option value="Admin">Admin</option>
-                                                    <option value="Staff">Staff</option>
-                                                </select>
+                                            <div class="updatecon">
+                                                <div class="accountstatus">
+                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
+                                                    <label for="customRole">Role:</label>
+                                                    <select id="customRole" name="customRole">
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Staff">Staff</option>
+                                                    </select>
 
 
-                                            </div>
+                                                </div>
 
-                                            <div class="rolestatus">
+                                                <div class="rolestatus">
 
-                                                <label for="customStatus">Account Status:</label>
-                                                <select id="customStatus" name="customStatus">
-                                                    <option value="Activated">Activated</option>
-                                                    <option value="Deactivated">Deactivated</option>
-                                                </select>
+                                                    <label for="customStatus">Account Status:</label>
+                                                    <select id="customStatus" name="customStatus">
+                                                        <option value="Activated">Activated</option>
+                                                        <option value="Deactivated">Deactivated</option>
+                                                    </select>
 
-                                            </div>
-
-
-                                            <button id="updateButton" class="updateButton" type="submit">Update</button>
+                                                </div>
 
 
-                                    </form>
+                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
+
+
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
 
 
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </section>
             </main>
 

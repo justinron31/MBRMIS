@@ -51,15 +51,14 @@
 
 <script>
     // ─── Idle counter ───────────────────────────────────────────
-    const idleTimeout = 5 * 60; // 5 minutes
-    let remain = 2 * 60; // 2 minutes
+    const idleTimeout = 10 * 60; // 10 minutes
+    let remain = 5 * 60; // 5 minutes
     let timer;
     let idleTime = 0;
 
     function startIdleTimer() {
         timer = setInterval(function() {
             idleTime++;
-            console.log(idleTime);
 
             if (idleTime >= idleTimeout - remain) {
                 const remainingTime = Math.max(0, idleTimeout - idleTime);

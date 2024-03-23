@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $education = $_POST['edu'];
     $course = $_POST['course'];
     $job_start_beneficiary = $_POST['jobStartBeneficiary'];
+    $purpose_description = $_POST['purpose'];
 
     // Retrieve date and time from the nested aeon-datepicker
     $pickup_date = $_POST['datepicker'];
@@ -60,9 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         move_uploaded_file($fileTmpName, $targetFile);
     }
 
-    $stmt = $conn->prepare("INSERT INTO first_time_job ( type, firstname, lastname, birthdate, age, gender, contact_number, civil_status, address, residency, education, course, job_start_beneficiary, pickup_datetime, id_number, avatar, tracking_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $stmt->bind_param("ssssissssssssssss", $certificate_type, $firstname, $lastname, $birthdate, $age, $gender, $contact_number, $civil_status, $address, $residency, $education, $course, $job_start_beneficiary, $pickup_datetime, $id_number, $targetFile, $tracking_number);
+    $stmt = $conn->prepare("INSERT INTO first_time_job ( purpose_description ,type, firstname, lastname, birthdate, age, gender, contact_number, civil_status, address, residency, education, course, job_start_beneficiary, pickup_datetime, id_number, avatar, tracking_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssissssssssssss", $purpose_description, $certificate_type, $firstname, $lastname, $birthdate, $age, $gender, $contact_number, $civil_status, $address, $residency, $education, $course, $job_start_beneficiary, $pickup_datetime, $id_number, $targetFile, $tracking_number);
 
     if ($stmt->execute()) {
         // Store tracking number in session

@@ -10,10 +10,11 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
 
   ::-webkit-scrollbar {
-    display: none;
+    height: 0;
+    width: 0;
+    background: transparent;
   }
 }
 

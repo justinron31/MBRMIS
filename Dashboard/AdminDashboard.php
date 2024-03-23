@@ -27,7 +27,7 @@
 session_start();
 
 // Check if the user is not logged in as admin
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin') {
+if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
@@ -93,8 +93,14 @@ $_SESSION['show_login_message'] = false;
 
                 <div class="access">
                     <p class="name">
-                        Admin
-                        <?php echo $userName; ?>
+                        <?php
+                        if ($_SESSION['user_type'] === 'admin') {
+                            echo 'Admin';
+                        } else {
+                            echo 'Staff';
+                        }
+                        echo ' ' . $userName;
+                        ?>
 
                     </p>
                     <div class="logoHead">
@@ -270,7 +276,20 @@ $_SESSION['show_login_message'] = false;
                                 <div class="pendingTitle">
                                     Requested Documents
                                 </div>
-                                <div class="numberP">0</div>
+
+                                <?php
+                                include '../Php/db.php';
+
+
+                                $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request");
+                                $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job");
+
+                                $row1 = mysqli_fetch_assoc($result1);
+                                $row2 = mysqli_fetch_assoc($result2);
+
+                                $total = $row1['count'] + $row2['count'];
+                                ?>
+                                <div class="numberP"><?php echo $total; ?></div>
                             </div>
 
 

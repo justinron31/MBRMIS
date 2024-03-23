@@ -127,8 +127,14 @@ if (isset($_SESSION['password_updated'])) {
 
                 <div class="access">
                     <p class="name">
-                        Admin
-                        <?php echo $userName; ?>
+                        <?php
+                        if ($_SESSION['user_type'] === 'admin') {
+                            echo 'Admin';
+                        } else {
+                            echo 'Staff';
+                        }
+                        echo ' ' . $userName;
+                        ?>
 
                     </p>
                     <div class="logoHead">
