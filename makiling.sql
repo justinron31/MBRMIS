@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2024 at 02:49 PM
+-- Generation Time: Mar 23, 2024 at 09:28 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,18 +38,86 @@ CREATE TABLE `file_request` (
   `voters_id_image` varchar(255) NOT NULL,
   `voters_id_number` varchar(20) NOT NULL,
   `datetime_created` timestamp NULL DEFAULT current_timestamp(),
-  `viewed` tinyint(1) NOT NULL DEFAULT 0,
   `tracking_number` varchar(255) DEFAULT NULL,
-  `file_status` enum('Processing','Ready for Pickup','Disapproved') DEFAULT 'Processing'
+  `file_status` enum('Processing','Ready for Pickup','Reviewing','Declined') DEFAULT 'Processing',
+  `remarks` varchar(255) NOT NULL,
+  `notification_played` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `file_request`
 --
 
-INSERT INTO `file_request` (`id`, `type`, `firstname`, `lastname`, `contact_number`, `pickup_datetime`, `purpose_description`, `voters_id_image`, `voters_id_number`, `datetime_created`, `viewed`, `tracking_number`, `file_status`) VALUES
-(361, 'Certificate of Indigency', '123', '123132', '12312312321', '2024-02-23 12:31:00', '12312312312312', '../Uploaded File/VotersID_123132_123.png', '1231312', '2024-02-21 13:37:50', 1, '65d5fcae1c2dd', 'Disapproved'),
-(362, 'Certificate of Indigency', 'mcvincew', 'delacruz', '09874564564', '2024-02-26 12:31:00', 'none', '../Uploaded File/VotersID_delacruz_mcvincew.png', '4532215', '2024-02-24 06:20:04', 1, '65d98a9418a2f', 'Processing');
+INSERT INTO `file_request` (`id`, `type`, `firstname`, `lastname`, `contact_number`, `pickup_datetime`, `purpose_description`, `voters_id_image`, `voters_id_number`, `datetime_created`, `tracking_number`, `file_status`, `remarks`, `notification_played`) VALUES
+(403, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Declined', 'theth', 1),
+(404, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Ready for Pickup', '', 1),
+(405, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(406, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(407, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(408, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(409, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(410, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(411, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(412, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(413, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(414, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(415, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(416, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(417, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(418, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Ready for Pickup', '', 1),
+(419, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(420, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(421, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(422, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Ready for Pickup', '', 1),
+(423, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(424, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(425, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(426, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(427, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(428, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(429, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
+(430, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `first_time_job`
+--
+
+CREATE TABLE `first_time_job` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `birthdate` date NOT NULL,
+  `age` int(11) NOT NULL,
+  `gender` enum('Male','Female') NOT NULL,
+  `contact_number` varchar(20) NOT NULL,
+  `civil_status` enum('Married','Single','Divorced','Widowed') NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `residency` varchar(255) NOT NULL,
+  `education` varchar(255) NOT NULL,
+  `course` varchar(255) NOT NULL,
+  `job_start_beneficiary` enum('yes','no') NOT NULL,
+  `pickup_datetime` datetime NOT NULL,
+  `datetime_created` datetime DEFAULT current_timestamp(),
+  `id_number` varchar(255) NOT NULL,
+  `avatar` varchar(255) NOT NULL,
+  `tracking_number` varchar(255) DEFAULT NULL,
+  `purpose_description` text NOT NULL,
+  `file_status` enum('Processing','Ready for Pickup','Reviewing','Declined') DEFAULT 'Processing',
+  `remarks` varchar(255) NOT NULL,
+  `notification_played` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `first_time_job`
+--
+
+INSERT INTO `first_time_job` (`id`, `type`, `firstname`, `lastname`, `birthdate`, `age`, `gender`, `contact_number`, `civil_status`, `address`, `residency`, `education`, `course`, `job_start_beneficiary`, `pickup_datetime`, `datetime_created`, `id_number`, `avatar`, `tracking_number`, `purpose_description`, `file_status`, `remarks`, `notification_played`) VALUES
+(13, 'First Time Job Seeker', 'Ron', 'Galang', '2002-01-31', 23, 'Male', '09762911692', 'Single', 'Calamba, Laguna', 'Less than a Year', 'Bachelor\'s Degree', 'BSIT', 'yes', '2024-03-20 03:46:00', '2024-03-18 00:47:42', 'HS10489', '../Uploaded File/ID_Galang_Ron.png', '65f71eae8d91f', '', 'Declined', 'gerg', 1),
+(14, 'First Time Job Seeker', '234234', '234234', '2024-02-27', 23, 'Male', '234234', 'Single', '234234234', 'Less than a Year', 'Associate\'s Degree', 'NA', 'yes', '2024-03-23 01:24:00', '2024-03-18 01:23:01', '123123', '../Uploaded File/ID_234234_234234.png', '65f726f510cde', '', 'Declined', 'bro what is that ID?', 1),
+(15, 'First Time Job Seeker', 'ROnRON', 'GLANAG', '2024-03-14', 23, 'Male', '09796578576', 'Single', 'Calamaba Lagunana', 'More than a Year', 'Bachelor\'s Degree', 'BSIT', 'yes', '2024-03-25 06:24:00', '2024-03-23 16:26:27', '0946784064', '../Uploaded File/ID_GLANAG_ROnRON.png', '65fe92331f7cc', 'Fof my work bro bro', 'Reviewing', '', 1);
 
 -- --------------------------------------------------------
 
@@ -78,11 +146,10 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `age`, `pass`, `staff_role`, `dateCreated`, `last_login_timestamp`, `is_logged_in`, `account_status`) VALUES
-(57, 'Ron', 'Galang', '123', 'ron@gmail.com', 'Male', 21, '$2y$10$rMHNxgDnPoAwQFS4PzX7r.xOaU.Ct./M1pCYxN8jOiNFPZTFTOAUC', 'Admin', '2024-02-17 05:15:24', '2024-02-24 06:19:27', 1, 'Activated'),
-(59, 'Mc', 'Vince', 'qwe', 'mc@gmail.com', 'Male', 31, '$2y$10$xGD/g.TBuBqDI83OMbcaSOa3fKoJa1MGAGQNtSqeMqZMR8RRudiB2', 'Admin', '2024-02-17 05:20:03', '2024-02-18 14:32:27', 0, 'Activated'),
 (61, 'Jc', 'Cj', '123123', 'jc@gmail.com', 'Female', 11, '$2y$10$SPi1jlazT0Vt2psNsno.Nejw51A/0Wf5s/.ZEejv6MI6NwB9NFSDO', 'Staff', '2024-02-17 05:20:38', '2024-02-17 06:42:39', 0, 'Deactivated'),
-(64, 'Queen catherine', 'Gajes .center', 'hs123', 'queenhrewherherh@gmail.com', 'Female', 23, '$2y$10$dPMGPDn4sQlCoPiyk.e6GeNwTLJHLD9iK7ij9qyu80OSV9guCKvh6', 'Staff', '2024-02-18 15:11:18', '2024-02-18 15:25:06', 0, 'Deactivated'),
-(65, 'Jeah', 'Arcillas', 'jeah123', 'jeah@gmail.com', 'Female', 45, '$2y$10$ri62D8IFiGowWY9XGv13.ukTxA7AO/Y5Ted2bv8rAPKWaEG8g//Da', 'Staff', '2024-02-18 15:45:05', '2024-02-24 06:04:47', 0, 'Activated');
+(65, 'Jeah', 'Arcillas', 'jeah123', 'jeah@gmail.com', 'Female', 45, '$2y$10$ri62D8IFiGowWY9XGv13.ukTxA7AO/Y5Ted2bv8rAPKWaEG8g//Da', 'Admin', '2024-02-18 15:45:05', '2024-02-24 06:04:47', 0, 'Activated'),
+(67, 'Ron', 'Galang', '123', 'ron@gmail.com', 'Male', 22, '$2y$10$YkDkzlIX4uAkBurpRKPwN.IzXxPrONhVkbqWWRhWNc4l9XnCjNBuC', 'Admin', '2024-03-16 05:07:18', '2024-03-23 07:38:21', 1, 'Activated'),
+(69, 'Mcvince', 'Paul', '321', 'mcvince@gmail.com', 'Male', 23, '$2y$10$5PL8EuRYrDwmssoHJiB5ye80.sAUG3DzrEotnkW0fII8LeD6cCqGO', 'Admin', '2024-03-18 08:39:56', '2024-03-18 08:40:01', 0, 'Deactivated');
 
 -- --------------------------------------------------------
 
@@ -117,6 +184,12 @@ ALTER TABLE `file_request`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `first_time_job`
+--
+ALTER TABLE `first_time_job`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `staff`
 --
 ALTER TABLE `staff`
@@ -136,13 +209,19 @@ ALTER TABLE `tblfilehistory`
 -- AUTO_INCREMENT for table `file_request`
 --
 ALTER TABLE `file_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=363;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=431;
+
+--
+-- AUTO_INCREMENT for table `first_time_job`
+--
+ALTER TABLE `first_time_job`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- AUTO_INCREMENT for table `tblfilehistory`

@@ -794,7 +794,7 @@ tr:nth-child(even) {
 
 @media only screen and (max-width: 1024px) {
   .trackCon {
-    width: fit-content;
+    width: 88%;
   }
 
   th,

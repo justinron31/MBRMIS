@@ -8,15 +8,6 @@
   box-sizing: border-box;
 }
 
-@media print {
-  .table,
-  .table__body {
-    overflow: visible;
-    height: auto !important;
-    width: auto !important;
-  }
-}
-
 body {
   min-height: 100vh;
   justify-content: center;
@@ -25,23 +16,6 @@ body {
 }
 
 /* ─── Table Sticky ────────────────────────────────────────── */
-
-/* For the ID Number column */
-th:first-child,
-td:first-child {
-  position: sticky;
-  left: 0;
-  z-index: 1;
-  background-color: #377fb9;
-}
-
-th:last-child,
-td:last-child {
-  position: sticky;
-  right: 0;
-  z-index: 1;
-  background-color: #377fb9;
-}
 
 tr:nth-child(even) td {
   background-color: rgb(240, 240, 240) !important;
@@ -55,15 +29,65 @@ tr:nth-child(odd) td {
   text-align: center;
 }
 
+/* For the ID Number column and ACTION */
+
+.tableWrap {
+  overflow: auto;
+  height: 70vh;
+  width: calc(100vw -50px);
+}
+
+.tableWrap:hover {
+  scrollbar-width: thin;
+}
+
+.tableWrap::-webkit-scrollbar {
+  width: 8px;
+}
+
+.tableWrap::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.tableWrap:hover::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.tableWrap th {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+}
+
+.tableWrap td:first-child {
+  position: sticky;
+  left: 0;
+}
+.tableWrap th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 4;
+}
+
+.tableWrap td:last-child {
+  position: sticky;
+  right: 0;
+}
+.tableWrap th:last-child {
+  position: sticky;
+  right: 0;
+  z-index: 4;
+}
+
 main.table {
-  height: 88vh;
+  height: fit-content;
   background-color: white;
   backdrop-filter: blur(7px);
   box-shadow: 0 0.4rem 0.8rem #0005;
   border-radius: 0.8rem;
-  overflow: hidden;
   margin: 0px 30px;
   white-space: nowrap;
+  overflow: auto;
 }
 
 .table__header {
@@ -71,7 +95,6 @@ main.table {
   height: 10%;
   background-color: white;
   padding: 0.8rem 1rem;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,7 +108,7 @@ main.table {
 
 .table__header .input-group {
   width: 35%;
-  height: 80%;
+  height: 40px;
   background-color: rgba(207, 207, 207, 0.333);
   padding: 0 0.8rem;
   border-radius: 10px;
@@ -124,7 +147,6 @@ main.table {
   margin: 0.8rem auto;
   border-radius: 0.6rem;
 
-  overflow: auto;
   overflow: overlay;
 }
 
@@ -157,7 +179,6 @@ th {
 thead th {
   position: sticky;
   top: 0;
-  left: 0;
   background-color: #377fb9;
   cursor: pointer;
   text-transform: capitalize;

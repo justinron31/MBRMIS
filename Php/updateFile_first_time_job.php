@@ -7,20 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $newStatus = $_POST['fileStatus'];
     $remarks = isset($_POST['remarks']) ? $_POST['remarks'] : '';
 
-    // Update file_request table
-    $updateSql = "UPDATE file_request SET file_status = ?, remarks = ? WHERE id = ?";
+    $updateSql = "UPDATE first_time_job SET file_status = ?, remarks = ? WHERE id = ?";
     $stmt = $conn->prepare($updateSql);
     $stmt->bind_param('sss', $newStatus, $remarks, $userId);
-    $updateResult1 = $stmt->execute();
+    $updateResult = $stmt->execute();
 
-    // Update first_time_job table
-    $updateSql2 = "UPDATE first_time_job SET file_status = ?, remarks = ? WHERE id = ?";
-    $stmt2 = $conn->prepare($updateSql2);
-    $stmt2->bind_param('sss', $newStatus, $remarks, $userId);
-    $updateResult2 = $stmt2->execute();
-
-    if ($updateResult1 && $updateResult2) {
-        $fetchSql = "SELECT * FROM file_request WHERE id = ?";
+    if ($updateResult) {
+        $fetchSql = "SELECT * FROM first_time_job WHERE id = ?";
         $stmt = $conn->prepare($fetchSql);
         $stmt->bind_param('s', $userId);
         $fetchResult = $stmt->execute();
@@ -37,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $stmt->close();
-    $stmt2->close();
 }
 
 $conn->close();

@@ -9,7 +9,6 @@
     integrity="sha512-...." crossorigin="anonymous" />
 
 
-
   <!-- META TAGS BRO -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +27,7 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 
-  <title>Request for Business Permit</title>
+  <title>Request for First Time Job Seeker</title>
 </head>
 
 <body>
@@ -92,11 +91,12 @@
 
   <div class="login-container">
     <div class="logo-container">
-
       <p class="login-text">Request for First Time Job Seeker Certificate</p>
       <hr>
     </div>
-    <form id="myForm" action="" method="post">
+
+    <form id="myForm" action="/MBRMIS/Php/firstTimeJob.php" method="post" enctype="multipart/form-data"
+      autocomplete="off">
 
       <!-- ─── Name ─────────────────────── -->
       <div class="uploader">
@@ -107,38 +107,37 @@
 
         <div class="uploadContent">
           <label for="lname" class="required">Lastname</label>
-          <input type="text" id="id" name="lname" placeholder="Enter your Lastname" required />
+          <input type="text" id="lname" name="lname" placeholder="Enter your Lastname" required />
         </div>
       </div>
 
 
       <!-- ─── Birthdate ────────────────── -->
       <div class="uploader">
-
         <div class="uploadContent">
-          <label for="datepicker" class="required">Birthdate</label>
+          <label for="Bdatepicker" class="required">Birthdate</label>
           <aeon-datepicker>
             <label for="datepicker"></label>
-            <input type="date" id="Bdatepicker" required />
+            <input type="date" id="Bdatepicker" name="Bdatepicker" required />
           </aeon-datepicker>
         </div>
 
         <!-- ─── Age ──────────────── -->
         <div class="uploadContent1">
           <label for="age" class="required">Age</label>
-          <input type="text" id="id" name="age" placeholder="Enter your Age" required />
+          <input type="text" id="age" name="age" placeholder="Enter your Age" maxlength="2"
+            oninput="validateContactNumber(this)" required />
         </div>
 
         <!-- ─── Gender ───────────── -->
         <div class="uploadContent">
           <label for="sex" class="required">Sex / Gender </label>
-          <select class="selectbox" id="bussSelect" onchange="changeFontColor('bussSelect')">
+          <select class="selectbox" id="bussSelect" name="bussSelect" onchange="changeFontColor('bussSelect')">
             <option value="">Select Gender</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
           </select>
         </div>
-
       </div>
 
       <!-- ─── Contact Number ───────────── -->
@@ -153,10 +152,10 @@
         <!-- ─── Civil Status ─────── -->
         <div class="uploadContent">
           <label for="badd" class="required">Civil Status </label>
-          <select class="selectbox" id="bussSelect1" onchange="changeFontColor('bussSelect1')">
+          <select class="selectbox" id="bussSelect1" name="bussSelect1" onchange="changeFontColor('bussSelect1')">
             <option value="">Select Civil Status</option>
-            <option value="Married">Married</option>
             <option value="Single">Single</option>
+            <option value="Married">Married</option>
             <option value="Divorced">Divorced</option>
             <option value="Widowed">Widowed</option>
           </select>
@@ -170,33 +169,43 @@
 
         <div class="uploadContent1">
           <label for="add" class="required">Address</label>
-          <input type="text" id="id" name="age" placeholder="Enter your complete Address" required />
+          <input type="text" id="add" name="add" placeholder="Enter your complete Address" required />
         </div>
 
         <div class="uploadContent">
-          <label for="badd" class="required">Years / Months Residency (given address) </label>
-          <select class="selectbox" id="bussSelect2" onchange="changeFontColor('bussSelect2')">
-            <option value="">Select Years/Months</option>
-            <option value="1">1 Year</option>
-            <option value="2">2 year</option>
-            <option value="3">3 year</option>
+          <label for="stay" class="required">Number of Years/Months residing in the Barangay</label>
+          <select class="selectbox" id="bussSelect4" name="stay" onchange="changeFontColor('bussSelect4')">
+            <option value="">Select Number of Years/Months residing in the Barangay</option>
+            <option value="Less than a Year">Less than a Year</option>
+            <option value="More than a Year">More than a Year</option>
           </select>
+
+
         </div>
-
       </div>
-
 
       <!-- ─── Education ────────────────── -->
       <div class="uploader">
 
         <div class="uploadContent1">
           <label for="edu" class="required">Educational Attainment</label>
-          <input type="text" id="id" name="edu" placeholder="Enter your educational attainment" required />
+          <select class="selectbox" id="bussSelect2" name="edu" onchange="changeFontColor('bussSelect2')">
+            <option value="">Select Educational Attainment</option>
+            <option value="No Formal Education">No Formal Education</option>
+            <option value="Primary Education">Primary Education</option>
+            <option value="Secondary Education">Secondary Education</option>
+            <option value="High School Diploma">High School Diploma</option>
+            <option value="Vocational/Technical Certificate">Vocational/Technical Certificate</option>
+            <option value="Associate's Degree">Associate's Degree</option>
+            <option value="Bachelor's Degree">Bachelor's Degree</option>
+            <option value="Master's Degree">Master's Degree</option>
+            <option value="Doctorate or Professional Degree">Doctorate or Professional Degree</option>
+          </select>
         </div>
 
         <div class="uploadContent">
           <label for="course" class="required">Course (if applicable, put “NA” if not applicable)</label>
-          <input type="text" id="id" name="course" placeholder="Enter your course" required />
+          <input type="text" id="course" name="course" placeholder="Enter your course" required />
         </div>
 
       </div>
@@ -220,15 +229,19 @@
       </div>
 
 
-      <!-- ─── Datetime ─────────────────── -->
+      <!-- ─── Purpose ──────────────────── -->
+      <label for="purpose" class="required">Purpose Description</label>
+      <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
+
+      <!-- ─── Datatime ─────────────────────────────────────────── -->
       <label for="datepicker" class="required">Pick-Up Date and Time</label>
       <aeon-datepicker>
         <label for="datepicker"></label>
-        <input type="date" id="datepicker" required />
-
+        <input type="date" id="datepicker" name="datepicker" required />
         <label for="timepicker"></label>
-        <input class="time" type="time" id="timepicker" required />
+        <input class="time" type="time" id="timepicker" name="timepicker" required />
       </aeon-datepicker>
+
 
       <!-- ─── Upload Id ─────────────────── -->
       <div class="uploader">
@@ -243,8 +256,8 @@
 
         <!-- ─── Id Number ────────── -->
         <div class="uploadContent">
-          <label for="contNum" class="required">ID Number</label>
-          <input type="text" id="id" name="contNum" placeholder="Enter your ID Number" required />
+          <label for="idNum" class="required">ID Number</label>
+          <input type="text" id="idNum" name="idNum" placeholder="Enter your ID Number" required />
         </div>
       </div>
 
@@ -252,7 +265,8 @@
       <div class="checkbox">
         <div class="firstCheck">
           <input type="checkbox" id="termsCheckbox" required />
-          <label for="checkbox">I have read and agree to the <a href=""><strong> terms and conditions </strong></a> and
+          <label for="checkbox">I have read and agree to the <a href=""><strong> terms and conditions </strong></a>
+            and
             data privacy policy.
           </label>
 

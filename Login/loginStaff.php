@@ -27,9 +27,9 @@ session_start();
 $error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] : '';
 unset($_SESSION['error_message']);
 
-if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])):
+if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])) :
 ?>
-<?php endif;?>
+<?php endif; ?>
 
 <?php
 
@@ -85,11 +85,11 @@ if (isset($_SESSION['user_type'])) {
         </div>
         <form class="login-form" action="../Php/adminLogin.php" method="post">
 
-            <?php if (!empty($error_message)): ?>
-            <div class="error-message" style="color: red;">
-                <?php echo $error_message; ?>
-            </div>
-            <?php endif;?>
+            <?php if (!empty($error_message)) : ?>
+                <div class="error-message" style="color: red;">
+                    <?php echo $error_message; ?>
+                </div>
+            <?php endif; ?>
 
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>

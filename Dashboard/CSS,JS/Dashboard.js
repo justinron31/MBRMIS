@@ -70,23 +70,11 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
   }
 
-  const menuItems = document.querySelectorAll(".menu_item .item");
-
-  const overviewItem = document.querySelector(".menu_item .item.active");
-  if (overviewItem) {
-    overviewItem.classList.add("active");
-  }
-
-  menuItems.forEach((item) => {
-    item.addEventListener("click", function () {
-      // Remove the "active" class from all items
-      menuItems.forEach((menuItem) => {
-        menuItem.classList.remove("active");
-      });
-
-      // Add the "active" class to the clicked item
-      this.classList.add("active");
-    });
+  let path = window.location.pathname;
+  document.querySelectorAll(".menu_item .item a").forEach((a) => {
+    if (a.getAttribute("href") === path) {
+      a.parentElement.classList.add("active");
+    }
   });
 });
 // ─── Calendar ─────────────────────────────────────────────────
@@ -192,39 +180,6 @@ document.getElementById("month").addEventListener("click", showCurrentDate);
 
 renderCalendar();
 
-// ─── Logout Modal ─────────────────────────────────────────────
-function openLogoutModal() {
-  var modal = document.getElementById("logoutModal");
-  var overlay = document.getElementById("overlay");
-  modal.style.display = "block";
-  overlay.style.display = "block";
-}
-
-function closeLogoutModal() {
-  var modal = document.getElementById("logoutModal");
-  var overlay = document.getElementById("overlay");
-  modal.style.display = "none";
-  overlay.style.display = "none";
-}
-
-function logout() {
-  // Add AJAX request to terminate the session
-  fetch("../Php/logout.php")
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Logout failed");
-      }
-      return response.text();
-    })
-    .then((data) => {
-      // Redirect to the login page immediately with the logout parameter
-      window.location.href = "../Login/loginStaff.php?logout=true";
-    })
-    .catch((error) => {
-      console.error("Logout error:", error);
-    });
-}
-
 // ─── Loader Animation ─────────────────────────────────────────
 $(window).on("load", function () {
   $("#status").fadeOut();
@@ -309,7 +264,7 @@ function enableSaveButton() {
   }
 }
 
-saveButton.disabled = true; // Set save button disabled by default
+saveButton.disabled = true;
 
 dropdown.addEventListener("change", enableSaveButton);
 

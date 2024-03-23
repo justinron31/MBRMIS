@@ -8,6 +8,16 @@
   font-family: "Poppins", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+
+  ::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+    background: transparent;
+  }
+}
+
 body {
   min-height: 100vh;
   background: rgb(118, 194, 140);
@@ -1001,8 +1011,11 @@ label {
 }
 
 /* ─── Badge ───────────────────────────────────────────────── */
-.badge {
+.badge,
+.badge1,
+.badge2 {
   display: inline-block;
+  position: absolute;
   min-width: 10px;
   padding: 3px 7px;
   font-size: 12px;
@@ -1014,7 +1027,9 @@ label {
   vertical-align: baseline;
   background-color: #f44336;
   border-radius: 10px;
-  margin-left: 20px;
+  right: 5px;
+  bottom: 5px;
+  z-index: 999;
 }
 
 /* ─── Password Validation Text ────────────────────────────── */
@@ -1025,5 +1040,3 @@ label {
   margin: 0 0 10px 0;
   display: none;
 }
-
-/* ─── Idle Timer ──────────────────────────────────────────── */

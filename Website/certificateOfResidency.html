@@ -113,7 +113,8 @@
       <hr />
     </div>
 
-    <form id="myForm" action="" method="post">
+    <form id="myForm" action="/MBRMIS/Php/certRecidency.php" method="post" enctype="multipart/form-data"
+      autocomplete="off">
 
       <!-- ─── Name ─────────────────────── -->
       <div class="uploader">
@@ -127,19 +128,19 @@
           <input type="text" id="lname" name="lname" placeholder="Enter your Lastname" required />
         </div>
       </div>
+
       <!-- ─── Contact Number ───────────── -->
       <label for="contNum" class="required">Contact Number</label>
       <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
         oninput="validateContactNumber(this)" required />
 
-      <!-- ─── Datetime ─────────── -->
+      <!-- ─── Datatime ─────────────────────────────────────────── -->
       <label for="datepicker" class="required">Pick-Up Date and Time</label>
       <aeon-datepicker>
         <label for="datepicker"></label>
-        <input type="date" id="datepicker" required />
-
+        <input type="date" id="datepicker" name="datepicker" required />
         <label for="timepicker"></label>
-        <input class="time" type="time" id="timepicker" required />
+        <input class="time" type="time" id="timepicker" name="timepicker" required />
       </aeon-datepicker>
 
       <!-- ─── Purpose ──────────────────── -->

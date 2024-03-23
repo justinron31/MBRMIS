@@ -21,7 +21,6 @@
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
-
     <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
 
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
@@ -33,7 +32,7 @@
     <script src="../Dashboard/CSS,JS/Export.js"></script>
 
 
-    <title>MAKILING BRMI SYSTEM - Certificate of Indigency</title>
+    <title>MAKILING BRMI SYSTEM - Certificate of Recidency</title>
 </head>
 
 
@@ -77,11 +76,10 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    CERTIFICATE OF INDIGENCY
+                    CERTIFICATE OF RESIDENCY
                 </h1>
 
                 <div class="access">
-
                     <p class="name">
                         <?php
                         if ($_SESSION['user_type'] === 'admin') {
@@ -91,7 +89,6 @@ $_SESSION['show_login_message'] = false;
                         }
                         echo ' ' . $userName;
                         ?>
-
                     </p>
                     <div class="logoHead">
 
@@ -124,9 +121,11 @@ $_SESSION['show_login_message'] = false;
 
                 </section>
 
-                <div class="tableHead">
 
-                    <h1 class="titleTable">Total File Request: <span id="totalReq">0</span></h1>
+
+                <div class="tableHead">
+                    <!--TOTAL USER-->
+                    <h1 class="titleTable">Total File Request: <span id="totalReq1">0</span></h1>
 
                     <div class="export__file">
                         <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
@@ -140,7 +139,6 @@ $_SESSION['show_login_message'] = false;
 
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
-
                     <div class="tableWrap">
                         <table>
                             <thead>
@@ -164,7 +162,7 @@ $_SESSION['show_login_message'] = false;
                                 <?php
                                 include '../Php/db.php';
 
-                                $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Indigency' ORDER BY datetime_created DESC";
+                                $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Residency' ORDER BY datetime_created DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -230,13 +228,13 @@ $_SESSION['show_login_message'] = false;
                             </tbody>
                         </table>
                     </div>
-
                 </section>
             </main>
 
 
         </div>
 </body>
+
 
 
 

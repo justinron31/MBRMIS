@@ -64,31 +64,6 @@ function sortTable(column, sort_asc) {
     );
 }
 
-// ─── Export Popup ─────────────────────────────────────────────
-
-function togglePopup() {
-  var popup = document.getElementById("popupEX");
-  if (popup.style.display === "none" || popup.style.display === "") {
-    popup.style.display = "block";
-    // Add event listener to close the popup when clicking anywhere on the screen
-    document.addEventListener("click", closePopupOutside);
-  } else {
-    popup.style.display = "none";
-  }
-}
-
-// Function to close the popup when clicking outside of it
-function closePopupOutside(event) {
-  var popup = document.getElementById("popupEX");
-  var button = document.querySelector(".export__file-btn");
-
-  if (!popup.contains(event.target) && !button.contains(event.target)) {
-    popup.style.display = "none";
-    // Remove the event listener after closing the popup
-    document.removeEventListener("click", closePopupOutside);
-  }
-}
-
 // ─── Form Account Status Edit ─────────────────────────────────
 $(document).ready(function () {
   $(document).mousedown(function (event) {
@@ -209,7 +184,12 @@ function fetchUserInfo(userId, callback) {
         "<strong>Last Login:</strong> " + data.lastLoginTimestamp
       );
       $("#dateCreated").html(
-        "<strong>Date Created: </strong>" + data.dateCreated
+        "<strong>Date Created: </strong>" +
+          new Date(data.dateCreated).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          })
       );
 
       // Call the callback with the updated role
@@ -350,12 +330,17 @@ $(document).ready(function () {
       data: { id: fileId },
       dataType: "json",
       success: function (data) {
-        $("#TrackingN").html(
-          "<strong>Tracking Number: </strong>" + data.tracking_number
-        );
-        $("#fileStatusId").val(fileId);
-        currentStatus = data.fileStatus;
-        callback(currentStatus);
+        console.log(data);
+        if (Array.isArray(data) && data.length > 0) {
+          var item = data[0]; // Access the first item in the array
+          $("#TrackingN").html(
+            "<strong>Tracking Number: </strong>" + item.tracking_number
+          );
+
+          $("#fileStatusId").val(fileId);
+          currentStatus = item.file_status;
+          callback(currentStatus);
+        }
       },
       error: function (error) {
         console.log(error);
@@ -425,7 +410,7 @@ $(document).ready(function () {
       });
     }
   });
-
+  // ─── Popup Message ────────────────────────────────────────────
   function showCustomPopup(message) {
     var popupContainer = $('<div class="custom-popup"></div>').text(message);
     $("body").append(popupContainer);
@@ -438,4 +423,55 @@ $(document).ready(function () {
       })
       .delay(2000);
   }
+});
+
+// ─── fetch total cert of indegency ────────────────────────────────────────────
+$(document).ready(function () {
+  function fetchTotalRequests() {
+    $.ajax({
+      url: "/MBRMIS/Php/fetchTotal.php",
+      type: "GET",
+      success: function (response) {
+        var data = JSON.parse(response);
+        $("#totalReq").text(data.totalReq);
+      },
+    });
+  }
+
+  fetchTotalRequests();
+  setInterval(fetchTotalRequests, 2000);
+});
+
+// ─── fetch total cert of Residency ────────────────────────────────────────────
+$(document).ready(function () {
+  function fetchTotalRequests() {
+    $.ajax({
+      url: "/MBRMIS/Php/fetchTotal1.php",
+      type: "GET",
+      success: function (response) {
+        var data = JSON.parse(response);
+        $("#totalReq1").text(data.totalReq);
+      },
+    });
+  }
+
+  fetchTotalRequests();
+  setInterval(fetchTotalRequests, 2000);
+});
+
+// ─── fetch total First time job seeker ────────────────────────────────────────────
+$(document).ready(function () {
+  function fetchTotalRequests() {
+    $.ajax({
+      url: "/MBRMIS/Php/fetchTotal2.php",
+      type: "GET",
+      success: function (response) {
+        var data = JSON.parse(response);
+        $("#totalReq2").text(data.totalReq);
+      },
+    });
+  }
+
+  fetchTotalRequests();
+  setInterval(fetchTotalRequests, 2000);
 });
