@@ -1,35 +1,3 @@
-<?php
-
-if (isset($_POST["login"])) {
-    $idnumber = $_POST["idnumber"];
-    $password = $_POST["password"];
-
-    // connect with database
-    $conn = mysqli_connect("localhost", "root", "", "makiling");
-
-    // check if credentials are okay, and email is verified
-    $sql = "SELECT * FROM staff WHERE idnumber = '" . $idnumber . "'";
-    $result = mysqli_query($conn, $sql);
-
-    if (mysqli_num_rows($result) == 0) {
-        die("Email not found.");
-    }
-
-    $user = mysqli_fetch_object($result);
-
-    if (!password_verify($password, $user->password)) {
-        die("Password is not correct");
-    }
-
-    if ($user->email_verified_at == null) {
-        die("Please verify your email <a href='email-verification.php?email=" . $idnumber . "'>from here</a>");
-    }
-
-    echo "<p>Your login logic here</p>";
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -107,6 +75,10 @@ if (isset($_SESSION['user_type'])) {
         <p>Logout Successfully!</p>
     </div>
 
+    <!--VERIFY MESSAGE-->
+    <div id="verifyPopup" class="popup1">
+        <p>Email Verified. You can now login</p>
+    </div>
 
 
     <!--LOGIN FORM-->
@@ -115,7 +87,7 @@ if (isset($_SESSION['user_type'])) {
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
             <p class="login-text">STAFF LOGIN</p>
         </div>
-        <form class="login-form" method="post">
+        <form class="login-form" action="../Php/adminLogin.php" method="post">
 
             <?php if (!empty($error_message)) : ?>
                 <div class="error-message" style="color: red;">
@@ -123,12 +95,12 @@ if (isset($_SESSION['user_type'])) {
                 </div>
             <?php endif; ?>
 
-            <input type="text" id="id" name="idnumber" placeholder="ID" autofocus required>
+            <input type="text" id="id" name="id" placeholder="ID" autofocus required>
             <input type="password" id="password" name="password" placeholder="Password" required>
             <p class="forgot-password"><a href="resetPassword.php">Forget Password?</a></p>
-            <button type="submit" class="login-button" name="login">LOGIN</button>
+            <button type="submit" class="login-button">LOGIN</button>
 
-            <p class="register-link">Don’t have an account? <a href="staffRegister.html">Register here</a></p>
+            <p class="register-link">Don’t have an account? <a href="staffRegister.php">Register here</a></p>
         </form>
     </div>
     <br />
@@ -140,6 +112,18 @@ if (isset($_SESSION['user_type'])) {
 
     <script src="../Login/CSS,JS/login.js"></script>
 
+    <script>
+        // Check if the 'verified' parameter is in the URL
+        if (window.location.search.indexOf('verified=true') > -1) {
+            // Show the verifyPopup div
+            document.getElementById('verifyPopup').style.display = 'block';
+
+            // Hide the verifyPopup div after 3 seconds
+            setTimeout(function() {
+                document.getElementById('verifyPopup').style.display = 'none';
+            }, 3000);
+        }
+    </script>
 
 
 </body>
