@@ -24,6 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `audit_log`
+--
+
+CREATE TABLE `audit_log` (
+  `id` int(11) NOT NULL,
+  `timestamp` datetime NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `action` varchar(255) NOT NULL,
+  `details` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `file_request`
 --
 
@@ -138,7 +152,9 @@ CREATE TABLE `staff` (
   `dateCreated` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_login_timestamp` timestamp NULL DEFAULT NULL,
   `is_logged_in` tinyint(4) NOT NULL,
-  `account_status` enum('Activated','Deactivated') DEFAULT 'Activated'
+  `account_status` enum('Activated','Deactivated') DEFAULT 'Activated',
+  `verification_code` varchar(255) NOT NULL,
+  `email_verified_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -178,6 +194,12 @@ CREATE TABLE `tblfilehistory` (
 --
 
 --
+-- Indexes for table `audit_log`
+--
+ALTER TABLE `audit_log`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `file_request`
 --
 ALTER TABLE `file_request`
@@ -204,6 +226,12 @@ ALTER TABLE `tblfilehistory`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `audit_log`
+--
+ALTER TABLE `audit_log`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `file_request`
