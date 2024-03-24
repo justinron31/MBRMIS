@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2024 at 09:28 AM
+-- Generation Time: Mar 24, 2024 at 09:46 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,20 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `makiling`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `audit_log`
---
-
-CREATE TABLE `audit_log` (
-  `id` int(11) NOT NULL,
-  `timestamp` datetime NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `action` varchar(255) NOT NULL,
-  `details` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -90,7 +76,8 @@ INSERT INTO `file_request` (`id`, `type`, `firstname`, `lastname`, `contact_numb
 (427, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
 (428, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
 (429, 'Certificate of Residency', 'Queen', 'Gajes', '978696789', '2024-03-23 03:45:00', 'none', '../Uploaded File/VotersID_Gajes_Queen.png', '567456754754', '2024-03-17 16:23:59', '65f7191fead05', 'Ready for Pickup', '', 1),
-(430, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1);
+(430, 'Certificate of Indigency', '12312', '3123123', '123123', '2024-03-23 12:52:00', '123123123', '../Uploaded File/VotersID_3123123_12312.png', '123123', '2024-03-17 16:50:34', '65f71f5a91b8f', 'Declined', 'bahala ka bro', 1),
+(431, 'Certificate of Indigency', 'test', 'test', '09769678978', '2024-03-25 07:51:00', 'test', '../Uploaded File/VotersID_test_test.png', 'htrdhrt5643w', '2024-03-23 09:51:25', '65fea61d2b4da', 'Declined', 'nauh', 1);
 
 -- --------------------------------------------------------
 
@@ -153,19 +140,22 @@ CREATE TABLE `staff` (
   `last_login_timestamp` timestamp NULL DEFAULT NULL,
   `is_logged_in` tinyint(4) NOT NULL,
   `account_status` enum('Activated','Deactivated') DEFAULT 'Activated',
-  `verification_code` varchar(255) NOT NULL,
-  `email_verified_at` datetime DEFAULT NULL
+  `verification_code` varchar(255) DEFAULT NULL,
+  `email_verify` tinyint(4) NOT NULL,
+  `email_verified_at` datetime DEFAULT NULL,
+  `reset_token` varchar(255) DEFAULT NULL,
+  `passreset_timestamp` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `staff`
 --
 
-INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `age`, `pass`, `staff_role`, `dateCreated`, `last_login_timestamp`, `is_logged_in`, `account_status`) VALUES
-(61, 'Jc', 'Cj', '123123', 'jc@gmail.com', 'Female', 11, '$2y$10$SPi1jlazT0Vt2psNsno.Nejw51A/0Wf5s/.ZEejv6MI6NwB9NFSDO', 'Staff', '2024-02-17 05:20:38', '2024-02-17 06:42:39', 0, 'Deactivated'),
-(65, 'Jeah', 'Arcillas', 'jeah123', 'jeah@gmail.com', 'Female', 45, '$2y$10$ri62D8IFiGowWY9XGv13.ukTxA7AO/Y5Ted2bv8rAPKWaEG8g//Da', 'Admin', '2024-02-18 15:45:05', '2024-02-24 06:04:47', 0, 'Activated'),
-(67, 'Ron', 'Galang', '123', 'ron@gmail.com', 'Male', 22, '$2y$10$YkDkzlIX4uAkBurpRKPwN.IzXxPrONhVkbqWWRhWNc4l9XnCjNBuC', 'Admin', '2024-03-16 05:07:18', '2024-03-23 07:38:21', 1, 'Activated'),
-(69, 'Mcvince', 'Paul', '321', 'mcvince@gmail.com', 'Male', 23, '$2y$10$5PL8EuRYrDwmssoHJiB5ye80.sAUG3DzrEotnkW0fII8LeD6cCqGO', 'Admin', '2024-03-18 08:39:56', '2024-03-18 08:40:01', 0, 'Deactivated');
+INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `age`, `pass`, `staff_role`, `dateCreated`, `last_login_timestamp`, `is_logged_in`, `account_status`, `verification_code`, `email_verify`, `email_verified_at`, `reset_token`, `passreset_timestamp`) VALUES
+(65, 'Jeah', 'Arcillas', 'jeah123', 'jeah@gmail.com', 'Female', 45, '$2y$10$ri62D8IFiGowWY9XGv13.ukTxA7AO/Y5Ted2bv8rAPKWaEG8g//Da', 'Admin', '2024-02-18 15:45:05', '2024-02-24 06:04:47', 0, 'Activated', NULL, 1, NULL, NULL, NULL),
+(67, 'Ron', 'Galang', '123', 'ron@gmail.com', 'Male', 22, '$2y$10$NXwhY1FgxvYq7pZqkzE5TOlp4EewRU4ZUhitfR1eZ8hwJ4jDgAsIm', 'Admin', '2024-03-16 05:07:18', '2024-03-24 05:58:57', 0, 'Activated', NULL, 1, NULL, NULL, NULL),
+(69, 'Mcvince', 'Paul', '321', 'mcvince@gmail.com', 'Male', 23, '$2y$10$5PL8EuRYrDwmssoHJiB5ye80.sAUG3DzrEotnkW0fII8LeD6cCqGO', 'Admin', '2024-03-18 08:39:56', '2024-03-18 08:40:01', 0, 'Deactivated', NULL, 1, NULL, NULL, NULL),
+(89, 'Ron', 'Galang', '12312', 'ronronnn31@gmail.com', 'Male', 21, '$2y$10$ruxjiujrPFVD4MdgEse4WuaROuT4lMHKphe4B5AFrlLOrH3.9gcRW', 'Staff', '2024-03-24 06:12:40', '2024-03-23 23:12:37', 0, 'Activated', '959862', 1, '2024-03-24 14:23:02', NULL, '2024-03-24 16:42:17');
 
 -- --------------------------------------------------------
 
@@ -192,12 +182,6 @@ CREATE TABLE `tblfilehistory` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `audit_log`
---
-ALTER TABLE `audit_log`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `file_request`
@@ -228,16 +212,10 @@ ALTER TABLE `tblfilehistory`
 --
 
 --
--- AUTO_INCREMENT for table `audit_log`
---
-ALTER TABLE `audit_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `file_request`
 --
 ALTER TABLE `file_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=431;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=432;
 
 --
 -- AUTO_INCREMENT for table `first_time_job`
@@ -249,7 +227,7 @@ ALTER TABLE `first_time_job`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `tblfilehistory`
