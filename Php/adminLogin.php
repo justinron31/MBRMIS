@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
 
     // Check the staff database using prepared statement
-    $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, pass, account_status, staff_role, last_login_timestamp, is_logged_in FROM staff WHERE idnumber = ?");
+    $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, pass,email, account_status, staff_role, last_login_timestamp, is_logged_in, email_verify FROM staff WHERE idnumber = ?");
     $staffQuery->bind_param("s", $username);
     $staffQuery->execute();
     $staffResult = $staffQuery->get_result();
@@ -29,6 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($accountStatus === 'Activated') {
             if (password_verify($password, $row['pass'])) {
+                // Check if email is verified
+                if ($row['email_verify'] == 0) {
+                    header("Location: /MBRMIS/Login/email-verification.php?email=" . $row['email']);
+                    exit();
+                }
+
                 $name = $row['firstname'];
                 $role = $row['staff_role'];
 

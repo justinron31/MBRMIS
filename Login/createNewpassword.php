@@ -23,9 +23,9 @@
 
 <body>
 
-    <!--LOADER-->
-    <div id="preloader">
-        <div id="status">&nbsp;</div>
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup" class="popup2">
+        <p>Passwords do not match!</p>
     </div>
 
 
@@ -46,11 +46,17 @@
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
             <p class="login-text">CREATE NEW PASSWORD</p>
         </div>
-        <form class="login-form" action="update_password.php" method="post">
-            <input type="text" id="id" name="Password" placeholder="New Password" autofocus required>
-            <input type="text" id="id" name="Cpassword" placeholder="Confirm Password" required>
-            <button type="submit" class="savePass">SAVE PASSWORD</button>
 
+        <p id="validationPopup4">Password must contain at least <strong>one uppercase letter</strong>, <strong>one
+                lowercase
+                letter</strong>, <strong>one digit</strong>, and at least <strong>8
+                characters long.</strong></p>
+
+        <form class="login-form" action="../Php/update_password.php" method="post">
+            <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>" />
+            <input type="password" id="password" name="password" placeholder="Enter Password" required oninput="validatePassword1()" />
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" oninput="validatePassword();" required />
+            <button type="submit" class="savePass">SAVE PASSWORD</button>
         </form>
     </div>
     <br />

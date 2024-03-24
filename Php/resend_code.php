@@ -4,24 +4,15 @@ require "../../MBRMIS/Login/phpmailer/src/PHPMailer.php";
 require "../../MBRMIS/Login/phpmailer/src/SMTP.php";
 require "../../MBRMIS/Login/phpmailer/src/Exception.php";
 
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-include "db.php";
+include "../Php/db.php";
 
-if (isset($_POST["register"])) {
-    $firstname = $_POST['fname'];
-    $lastname = $_POST['lname'];
-    $idnumber = $_POST['idnum'];
-    $email = $_POST['email'];
-    $gender = $_POST['genderSelect'];
-    $age = $_POST['age'];
-    $password = $_POST["password"];
-    $last_login = date("Y-m-d H:i:s");
-    $is_logged_in = 0;
+if (isset($_GET["email"])) {
+    $email = $_GET['email'];
 
     //Instantiation and passing `true` enables exceptions
     $mail = new PHPMailer(true);
@@ -55,7 +46,7 @@ if (isset($_POST["register"])) {
         $mail->setFrom('jeyanggg@gmail.com', 'MBRMIS');
 
         //Add a recipient
-        $mail->addAddress($email, $firstname);
+        $mail->addAddress($email);
 
         //Set email format to HTML
         $mail->isHTML(true);
@@ -68,12 +59,10 @@ if (isset($_POST["register"])) {
 
         $mail->send();
 
-        $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
-
-
-        // insert in users table
-        $sql = "INSERT INTO staff(firstname, lastname, idnumber, email, gender, age, last_login_timestamp, is_logged_in, pass, verification_code, email_verified_at) VALUES ( '" . $firstname . "', '" . $lastname . "', '" . $idnumber . "', '" . $email . "', '" . $gender . "', '" . $age . "', '" . $last_login . "', '" . $is_logged_in . "', '" . $encrypted_password . "', '" . $verification_code . "', NULL)";
+        // update verification code in users table
+        $sql = "UPDATE staff SET verification_code = '" . $verification_code . "' WHERE email = '" . $email . "'";
         mysqli_query($conn, $sql);
+
         header("Location:/MBRMIS/Login/email-verification.php?email=" . $email);
         exit();
     } catch (Exception $e) {
@@ -81,8 +70,8 @@ if (isset($_POST["register"])) {
     }
 } else {
     echo '<script>';
-    echo 'alert("Registration failed. Please try again.");';
-    echo 'window.location.href = "/MBRMIS/Login/staffRegister.php";';
+    echo 'alert("Failed to resend code. Please try again.");';
+    echo 'window.location.href = "/MBRMIS/Login/email-verification.php";';
     echo '</script>';
 }
 

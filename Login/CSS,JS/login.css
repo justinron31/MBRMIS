@@ -593,3 +593,19 @@ footer p {
   margin: 0 0 10px 0;
   display: none;
 }
+
+/* ─── Resend verification code ────────────────────────────── */
+.resend-link {
+  color: #6cb08a;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+
+.resend-link:hover {
+  color: #6cb08a;
+  text-decoration: underline;
+}
+.disabled-link {
+  pointer-events: none;
+  color: gray;
+}

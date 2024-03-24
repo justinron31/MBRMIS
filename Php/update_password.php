@@ -1,29 +1,31 @@
 <?php
 
 // Database connection code here
-session_start();
-include '../Php/db.php';
+include 'db.php';
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the user id from the session or hidden input field
-    if (isset($_SESSION['user_id'])) {
-        $userId = $_SESSION['user_id']; // or $_POST['user_id']
-    }
+    // Get the token from the form
+    $token = $_POST['token'];
 
     // Get the new password from the form
-    $newPassword = $_POST['Password'];
+    $newPassword = $_POST['password'];
 
     // Hash the new password
     $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
     try {
         // Prepare the update statement
-        $stmt = $conn->prepare("UPDATE staff SET pass = ? WHERE id = ?");
-        $stmt->bind_param("si", $hashedPassword, $userId);
+        $stmt = $conn->prepare("UPDATE staff SET pass = ?, reset_token = NULL, passreset_timestamp = NOW() WHERE reset_token = ?");
+        $stmt->bind_param("ss", $hashedPassword, $token);
 
         // Execute the statement and check for errors
         if ($stmt->execute()) {
-            echo "Password updated successfully";
+            // Password updated successfully, show an alert and then redirect to loginstaff.php
+            echo "<script>
+            alert('Password updated successfully');
+            window.location.href='../Login/loginstaff.php';
+          </script>";
         } else {
             echo "Error updating password: " . $conn->error;
         }

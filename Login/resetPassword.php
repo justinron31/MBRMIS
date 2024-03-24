@@ -24,16 +24,24 @@
 
 <body>
 
-    <!--LOADER-->
-    <div id="preloader">
-        <div id="status">&nbsp;</div>
-    </div>
+
 
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup1" class="popup2">
         <p>Please enter a valid email address.</p>
     </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup2" class="popup2">
+        <p>Invalid email address.</p>
+    </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup3" class="popup1">
+        <p>Email sent successfully.</p>
+    </div>
+
 
 
     <nav>
@@ -49,18 +57,24 @@
         </div>
     </nav>
 
-    <!--LOGIN FORM-->
+
+
+    <!--RESET PASS FORM-->
     <div class="login-container">
         <div class="logo-container">
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
-            <p class="login-text">RESET PASSWORD</p>
+            <p class="login-text">ENTER YOUR REGISTERED EMAIL ADDRESS</p>
         </div>
-        <form class="login-form" action="check_email.php" method="post">
-            <input type="text" id="email" name="email" placeholder="Enter registered email" autofocus required>
-
+        <form class="login-form">
+            <input type=" text" id="email" name="email" placeholder="Enter registered email" oninput="validateEmail1();" autofocus required>
+            <a class="sent" style="color: green; font-size:15px; display:none;">The email has been successfully
+                delivered to the
+                email address
+                you have
+                registered with us.</a>
             <button type="submit" class="login-button">Reset Password</button>
         </form>
-        <br>
+
     </div>
     <!-- FOOTER BRO-->
     <footer>
@@ -68,6 +82,89 @@
     </footer>
 
     <script src="../Login/CSS,JS/login.js"></script>
+
+
+
+    <script>
+        function validateEmail1() {
+            var emailInput = document.getElementById("email");
+            var validationPopup = document.getElementById("validationPopup1");
+            var submitBtn = document.querySelector(".login-button");
+
+            var email = emailInput.value.trim();
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email !== "" && !emailRegex.test(email)) {
+                // Display a message for invalid email format
+                validationPopup.style.display = "block";
+                emailInput.classList.add("error-input");
+
+                // Change the focus color and shadow to red
+                emailInput.style.borderColor = "red";
+                emailInput.style.boxShadow = "0 0 5px red";
+
+                // Disable the submit button
+                submitBtn.disabled = true;
+
+                return false;
+            } else {
+                // Hide the validation popup for email format
+                validationPopup.style.display = "none";
+                emailInput.classList.remove("error-input");
+
+                // Reset the focus color and shadow
+                emailInput.style.borderColor = ""; // Reset to the default border color
+                emailInput.style.boxShadow = ""; // Reset to the default box shadow
+
+                // Enable the submit button if there are no validation issues
+                submitBtn.disabled = false;
+            }
+
+            return true;
+        }
+
+        $(document).ready(function() {
+            $('.login-form').on('submit', function(e) {
+                e.preventDefault();
+
+                // Disable the submit button
+                $(this).find(':submit').prop('disabled', true);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '../Php/check_email.php',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            $('#email').hide();
+                            $('.login-button').hide();
+                            $('.sent').show();
+                            $('.login-text').text('EMAIL SENT SUCCESSFULLY');
+                            $('#validationPopup3').show();
+                            setTimeout(function() {
+                                $('#validationPopup3').hide();
+                            }, 3000);
+
+
+                        } else {
+                            $('#validationPopup2').show();
+                            setTimeout(function() {
+                                $('#validationPopup2').hide();
+                            }, 3000);
+                        }
+                    },
+                    complete: function() {
+                        // Re-enable the submit button
+                        $('.login-form').find(':submit').prop('disabled', false);
+
+                    }
+                });
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

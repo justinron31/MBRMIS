@@ -77,7 +77,7 @@ if (isset($_SESSION['user_type'])) {
 
     <!--VERIFY MESSAGE-->
     <div id="verifyPopup" class="popup1">
-        <p>Email Verified. You can now login</p>
+        <p>Email verified! You may now proceed to log in.</p>
     </div>
 
 
