@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-include "db.php";
+include "../../MBRMIS/Php/db.php";
 
 $showPopup = false;
 
