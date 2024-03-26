@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2024 at 09:46 AM
+-- Generation Time: Mar 26, 2024 at 04:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -155,7 +155,7 @@ INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender
 (65, 'Jeah', 'Arcillas', 'jeah123', 'jeah@gmail.com', 'Female', 45, '$2y$10$ri62D8IFiGowWY9XGv13.ukTxA7AO/Y5Ted2bv8rAPKWaEG8g//Da', 'Admin', '2024-02-18 15:45:05', '2024-02-24 06:04:47', 0, 'Activated', NULL, 1, NULL, NULL, NULL),
 (67, 'Ron', 'Galang', '123', 'ron@gmail.com', 'Male', 22, '$2y$10$NXwhY1FgxvYq7pZqkzE5TOlp4EewRU4ZUhitfR1eZ8hwJ4jDgAsIm', 'Admin', '2024-03-16 05:07:18', '2024-03-24 05:58:57', 0, 'Activated', NULL, 1, NULL, NULL, NULL),
 (69, 'Mcvince', 'Paul', '321', 'mcvince@gmail.com', 'Male', 23, '$2y$10$5PL8EuRYrDwmssoHJiB5ye80.sAUG3DzrEotnkW0fII8LeD6cCqGO', 'Admin', '2024-03-18 08:39:56', '2024-03-18 08:40:01', 0, 'Deactivated', NULL, 1, NULL, NULL, NULL),
-(89, 'Ron', 'Galang', '12312', 'ronronnn31@gmail.com', 'Male', 21, '$2y$10$ruxjiujrPFVD4MdgEse4WuaROuT4lMHKphe4B5AFrlLOrH3.9gcRW', 'Staff', '2024-03-24 06:12:40', '2024-03-23 23:12:37', 0, 'Activated', '959862', 1, '2024-03-24 14:23:02', NULL, '2024-03-24 16:42:17');
+(93, 'Ron', 'Galang', '123123', 'ronronnn31@gmail.com', 'Male', 21, '$2y$10$51kkOuL/Dvzpg0cM87q7Fupev72PhUxZOoz1g0bIQsrHWtmG/CQ0O', 'Staff', '2024-03-24 09:32:15', '2024-03-24 02:32:12', 0, 'Activated', '216113', 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -227,7 +227,7 @@ ALTER TABLE `first_time_job`
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `tblfilehistory`
