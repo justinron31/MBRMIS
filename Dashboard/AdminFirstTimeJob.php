@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -128,8 +127,7 @@ $_SESSION['show_login_message'] = false;
                     <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnJobseekerReport('exTable')">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -141,7 +139,7 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="headerTable">
+                        <table id="exTable">
                             <thead>
                                 <tr>
                                     <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
@@ -231,8 +229,7 @@ $_SESSION['show_login_message'] = false;
                                     <div class="custom-modal-content">
                                         <h2 class="editAccountTitle">Update File Request Status </h2>
                                         <p id="TrackingN"></p>
-                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php"
-                                            method="post">
+                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php" method="post">
                                             <div class="updatecon">
                                                 <div class="accountstatus">
                                                     <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
@@ -243,8 +240,7 @@ $_SESSION['show_login_message'] = false;
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
-                                                <button id="updateButton1" class="updateButton"
-                                                    type="submit">Update</button>
+                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
                                         </form>
                                     </div>
                                 </div>

@@ -1,53 +1,76 @@
-/** EXPORT TO EXCEL INDIGENCY REQUEST*/
-function fnIndigencyReport() {
-    var tab = document.getElementById('headerTable');
+function fnIndigencyReport(tableId){
+	let tableData = document.getElementById(tableId).outerHTML;
+	tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
 
-    var wb = XLSX.utils.table_to_book(tab);
-
-    XLSX.writeFile(wb, 'indigency-report.xlsx');
+    let a = document.createElement('a');
+	a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+	a.download = 'indigency-report.xls'
+	a.click()
 }
 
-/** EXPORT TO EXCEL RESIDENCY REQUEST*/
-function fnResidencyReport() {
-    var tab = document.getElementById('headerTable');
+function fnResidencyReport(tableId){
+	let tableData = document.getElementById(tableId).outerHTML;
+	tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
 
-    var wb = XLSX.utils.table_to_book(tab);
-
-    XLSX.writeFile(wb, 'residency-report.xlsx');
+    let a = document.createElement('a');
+	a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+	a.download = 'residency-report.xls'
+	a.click()
 }
 
-/** EXPORT TO EXCEL JOBSEEKER REQUEST*/
-function fnJobseekerReport() {
-    var tab = document.getElementById('headerTable');
+function fnJobseekerReport(tableId){
+	let tableData = document.getElementById(tableId).outerHTML;
+	tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
 
-    var wb = XLSX.utils.table_to_book(tab);
-
-    XLSX.writeFile(wb, 'jobseeker-report.xlsx');
+    let a = document.createElement('a');
+	a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+	a.download = 'jobseeker-report.xls'
+	a.click()
 }
 
-/** EXPORT TO EXCEL RESIDENT REPORT*/
-function fnResidentReport() {
-    var tab = document.getElementById('headerTable');
+function fnRequestAllReport(tableId){
+	let tableData = document.getElementById(tableId).outerHTML;
+	tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
 
-    var wb = XLSX.utils.table_to_book(tab);
-
-    XLSX.writeFile(wb, 'resident-report.xlsx');
+    let a = document.createElement('a');
+	a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+	a.download = 'all-request-report.xls'
+	a.click()
 }
 
-/** EXPORT TO EXCEL ALL REQUEST*/
-function fnRequestAllReport() {
-    var tab = document.getElementById('headerTable');
+function fnResidentReport(tableId){
+	let tableData = document.getElementById(tableId).outerHTML;
+	tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
 
-    var wb = XLSX.utils.table_to_book(tab);
-
-    XLSX.writeFile(wb, 'all-request-report.xlsx');
+    let a = document.createElement('a');
+	a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+	a.download = 'resident-report.xls'
+	a.click()
 }
 
-/** EXPORT TO EXCEL MANAGE USER REPORT*/
-function fnManageReport() {
-    var tab = document.getElementById('headerTable');
+function fnManageReport(tableId){
+	let tableData = document.getElementById(tableId).outerHTML;
+	tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
 
-    var wb = XLSX.utils.table_to_book(tab);
+    let a = document.createElement('a');
+	a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+	a.download = 'manage-user.xls'
+	a.click()
+}
 
-    XLSX.writeFile(wb, 'manage-user.xlsx');
+function fnReportingView(tableId){
+	let tableData = document.getElementById(tableId).outerHTML;
+	tableData = tableData.replace(/<A[^>]*>|<\/A>/g, ""); //remove if u want links in your table
+    tableData = tableData.replace(/<input[^>]*>|<\/input>/gi, ""); //remove input params
+
+    let a = document.createElement('a');
+	a.href = `data:application/vnd.ms-excel, ${encodeURIComponent(tableData)}`
+	a.download = 'audit-logs.xls'
+	a.click()
 }

@@ -26,6 +26,7 @@
 
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
 
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
@@ -129,7 +130,7 @@ $_SESSION['show_login_message'] = false;
                     <h1 class="titleTable">Total File Request: <span id="totalReq">0</span></h1>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" id="export_button" onclick="fnIndigencyReport('exTable')">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -142,7 +143,7 @@ $_SESSION['show_login_message'] = false;
                     <!--TABLE CONTENT-->
 
                     <div class="tableWrap">
-                        <table>
+                        <table id="exTable">
                             <thead>
                                 <tr>
                                     <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>

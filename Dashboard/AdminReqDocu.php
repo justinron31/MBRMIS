@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -143,8 +142,7 @@ $_SESSION['show_login_message'] = false;
                     <h1 class="titleTable">Total File Request: <span><?php echo $total; ?></span></h1>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnRequestAllReport('exTable')">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -156,7 +154,7 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table>
+                        <table id="exTable">
                             <thead>
                                 <tr>
                                     <th> Document Type <span class="icon-arrow">&UpArrow;</span></th>

@@ -142,7 +142,7 @@ $_SESSION['show_login_message'] = false;
                     ?>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport('exTable')">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -154,7 +154,7 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__body">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="headerTable">
+                        <table id="exTable">
                             <thead>
                                 <tr>
                                     <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>

@@ -128,7 +128,7 @@ $_SESSION['show_login_message'] = false;
                     <h1 class="titleTable">Total File Request: <span id="totalReq1">0</span></h1>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnResidencyReport('exTable')">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -140,7 +140,7 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table>
+                        <table id="exTable">
                             <thead>
                                 <tr>
                                     <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
