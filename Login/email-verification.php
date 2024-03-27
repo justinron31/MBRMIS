@@ -37,7 +37,7 @@ if (isset($_POST["verify_email"])) {
         $mail->Password = "cwgqizbuqjelotat";
 
         // Your email ID and Email Title
-        $mail->setFrom("", "MBRMIS");
+        $mail->setFrom("jeyanggg@gmail.com", "MBRMIS");
 
         $mail->addAddress($email);
 
