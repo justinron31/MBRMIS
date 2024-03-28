@@ -121,7 +121,7 @@
                               </li>
 
                               <li class="item ">
-                                  <a href="#" class="link flex">
+                                  <a href="/MBRMIS/Dashboard/Reporting.php" class="link flex">
                                       <i class='bx bxs-report'></i>
                                       <span>Reporting View</span>
                                   </a>

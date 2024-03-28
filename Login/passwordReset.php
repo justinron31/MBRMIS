@@ -78,7 +78,7 @@
             <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>" />
             <input type="password" id="password" name="password" placeholder="Enter Password" required oninput="validatePassword2()" />
             <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" oninput="validatePassword();" required />
-            <button type="submit" class="savePass" id="passwordSub">UPDATE PASSWORD</button>
+            <button type="submit" class="login-button" id="passwordSub">UPDATE PASSWORD</button>
         </form>
     </div>
     <br />
@@ -95,6 +95,28 @@
             setTimeout(function() {
                 document.getElementById('passwordSub').disabled = true;
             }, 1);
+        });
+
+        // check_expiry.js
+        $(document).ready(function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var token = urlParams.get('token');
+
+            $.ajax({
+                url: '../Php/check_expiry.php',
+                type: 'POST',
+                data: {
+                    token: token
+                },
+                success: function(response) {
+                    var status = JSON.parse(response).status;
+                    if (status === 'expired') {
+                        window.location.href = '../Login/expiredLink.php?token=' + token;
+                    } else if (status === 'invalid') {
+                        window.location.href = '../Login/expiredLink.php?token=' + token;
+                    }
+                }
+            });
         });
     </script>
 
