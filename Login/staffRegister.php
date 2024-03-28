@@ -71,22 +71,19 @@
             <hr />
         </div>
 
-        <form class="login-form" action="../Php/staffReg.php" method="post"
-            onsubmit="return validatePassword() && validateEmail();">
+        <form class="login-form" action="../Php/staffReg.php" method="post">
 
-            <div class="first">
+            <div class=" first">
 
                 <!-- ─── Name ─────────────── -->
                 <div class="staffName">
                     <label class="required">Firstname</label>
-                    <input type="text" id="name" name="fname" placeholder="Enter Firstname"
-                        oninput="capitalizeFirstLetter('name')" autofocus required />
+                    <input type="text" id="name" name="fname" placeholder="Enter Firstname" oninput="capitalizeFirstLetter('name')" autofocus required />
                 </div>
 
                 <div class="staffName1">
                     <label class="required">Lastname</label>
-                    <input type="text" id="lname" name="lname" placeholder="Enter Lastname"
-                        oninput="capitalizeFirstLetter('lname')" required />
+                    <input type="text" id="lname" name="lname" placeholder="Enter Lastname" oninput="capitalizeFirstLetter('lname')" required />
                 </div>
 
             </div>
@@ -95,22 +92,19 @@
                 <!-- ─── Id Number ────────────────────────────────────────── -->
                 <div class="staffName2">
                     <label class="required">ID Number</label>
-                    <input type="text" id="idnum" name="idnum" placeholder="Enter ID number"
-                        oninput="validateIDNumber();" required />
+                    <input type="text" id="idnum" name="idnum" placeholder="Enter ID number" oninput="validateIDNumber();" required />
                 </div>
 
                 <!-- ─── Age ──────────────── -->
                 <div class="staffName2">
                     <label class="required">Age</label>
-                    <input type="text" id="age" name="age" placeholder="Enter Age" maxlength="2"
-                        oninput="validateAge(this)" required />
+                    <input type="text" id="age" name="age" placeholder="Enter Age" maxlength="2" oninput="validateAge(this)" required />
                 </div>
 
                 <!-- ─── Gender ───────────── -->
                 <div class="staffName2">
                     <label class="required">Gender</label>
-                    <select class="selectbox" id="genderSelect" name="genderSelect" required
-                        onchange="changeFontColor()">
+                    <select class="selectbox" id="genderSelect" name="genderSelect" required onchange="changeFontColor()">
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -121,8 +115,7 @@
 
             <!-- ─── Email ────────────────────────────────────────────── -->
             <label class="required">Email</label>
-            <input type="text" id="email" name="email" placeholder="example@gmail.com" oninput="validateEmail();"
-                required />
+            <input type="text" id="email" name="email" placeholder="example@gmail.com" oninput="validateEmail();" required />
 
             <!-- ─── Password ─────────────────────────────────────────── -->
             <label class="required">Password</label>
@@ -130,14 +123,12 @@
                     lowercase
                     letter</strong>, <strong>one digit</strong>, and at least <strong>8
                     characters long.</strong></p>
-            <input type="password" id="password" name="password" placeholder="Enter Password" required
-                oninput="validatePassword1()" />
+            <input type="password" id="password" name="password" placeholder="Enter Password" required oninput="validatePassword1()" />
 
             <!-- ─── Cpassword ────────── -->
             <label class="required">Confirm Password</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password"
-                oninput="validatePassword();" required />
-            <button type="submit" class="login-button" name="register">SUBMIT</button>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" oninput="validatePassword();" required />
+            <button type="submit" class="login-button" name="register" id="submitBtn">SUBMIT</button>
             <br />
             <br />
         </form>
@@ -152,5 +143,14 @@
         </p>
     </footer>
 </body>
+
+<script>
+    document.querySelector('.login-form').addEventListener('submit', function(event) {
+        setTimeout(function() {
+            document.getElementById('submitBtn').disabled = true;
+        }, 1);
+    });
+</script>
+
 
 </html>

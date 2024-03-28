@@ -133,10 +133,10 @@ if (isset($_POST["verify_email"])) {
 
         </div>
         <br>
-        <form method="POST">
+        <form method="POST" class="email-form">
             <input type="hidden" name="email" value="<?php echo $_GET['email']; ?>" required>
             <input type="text" name="verification_code" placeholder="Enter verification code" required />
-            <button type="submit" class="login-button" name="verify_email" value="Verify Email">VERIFY</button>
+            <button type="submit" class="login-button" name="verify_email" value="Verify Email" id="submitBtn">VERIFY</button>
 
         </form>
         <br>
@@ -148,6 +148,14 @@ if (isset($_POST["verify_email"])) {
 
     <script src="../Login/CSS,JS/login.js"></script>
 </body>
+
+<script>
+    document.querySelector('.email-form').addEventListener('submit', function(event) {
+        setTimeout(function() {
+            document.getElementById('submitBtn').disabled = true;
+        }, 1);
+    });
+</script>
 
 <script>
     var resendLink = document.getElementById('resend-link');

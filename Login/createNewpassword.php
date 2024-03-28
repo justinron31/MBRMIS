@@ -76,9 +76,9 @@
 
         <form class="login-form" action="../Php/update_password.php" method="post">
             <input type="hidden" name="token" value="<?php echo $_GET['token']; ?>" />
-            <input type="password" id="password" name="password" placeholder="Enter Password" required oninput="validatePassword1()" />
+            <input type="password" id="password" name="password" placeholder="Enter Password" required oninput="validatePassword2()" />
             <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" oninput="validatePassword();" required />
-            <button type="submit" class="savePass">SAVE PASSWORD</button>
+            <button type="submit" class="savePass" id="passwordSub">UPDATE PASSWORD</button>
         </form>
     </div>
     <br />
@@ -89,6 +89,15 @@
     </footer>
 
     <script src="../Login/CSS,JS/login.js"></script>
+
+    <script>
+        document.querySelector('.login-form').addEventListener('submit', function(event) {
+            setTimeout(function() {
+                document.getElementById('passwordSub').disabled = true;
+            }, 1);
+        });
+    </script>
+
 </body>
 
 </html>

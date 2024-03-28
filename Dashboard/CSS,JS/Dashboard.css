@@ -268,10 +268,9 @@ p.name {
   font-size: 16px;
   color: #266e60;
   font-weight: 900;
-  text-wrap: nowrap;
-  justify-content: right;
-  text-align: right;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .access .tophead {
@@ -286,19 +285,20 @@ p.name {
 
 .access {
   display: flex;
-  align-items: center;
+  justify-content: flex-end;
   position: fixed;
-  left: 95%;
-  width: fit-content;
+  right: 0;
+  left: 0;
+  margin-right: 40px;
 }
 
 .name {
-  flex: 1;
   white-space: nowrap;
   overflow: hidden;
   text-align: right;
   justify-content: flex-end;
   margin-left: -10px;
+  direction: rtl;
 }
 
 /** TOP HEAD END ------------------------------------------------------------------------------------------------------*/

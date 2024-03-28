@@ -166,7 +166,7 @@ if (isset($_SESSION['password_updated'])) {
                         </button>
 
 
-                        <form method="POST" action="">
+                        <form method="POST">
                             <button type="submit" class="export__file-btn1" id="saveButton" name="saveButton" style="display: none;" disabled>
                                 <p class="exportTitle"><strong>SAVE</strong></p>
                             </button>

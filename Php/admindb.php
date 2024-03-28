@@ -29,7 +29,7 @@ if (isset($_POST['saveButton'])) {
     $lname = isset($_POST['lname']) ? $_POST['lname'] : '';
     $age = isset($_POST['age']) ? $_POST['age'] : '';
     $gender = isset($_POST['gender']) ? $_POST['gender'] : '';
-    $password = isset($_POST['npass']) ? $_POST['npass'] : '';
+
 
     // Hash the password
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -37,7 +37,7 @@ if (isset($_POST['saveButton'])) {
     // Update the data in the database
     if (!$conn->connect_error) {
         // Corrected SQL query, added a comma before pass
-        $sql = "UPDATE staff SET idnumber='$idnum', email='$email', firstname='$fname', lastname='$lname', age='$age', gender='$gender', pass='$hashedPassword' WHERE id = $user_id";
+        $sql = "UPDATE staff SET idnumber='$idnum', email='$email', firstname='$fname', lastname='$lname', age='$age', gender='$gender' WHERE id = $user_id";
         $result = $conn->query($sql);
 
         if ($result === true) {

@@ -62,11 +62,8 @@
 
         <form class="login-form">
             <input type=" text" id="email" name="email" placeholder="Enter registered email" oninput="validateEmail1();" autofocus required>
-            <a class="sent" style="color: green; font-size:15px; display:none;">The email has been successfully
-                Sent to the
-                email address
-                you have
-                registered with us.</a>
+            <a class="sent" style="color: green; font-size:15px; display:none;">The email containing the password reset
+                link has been successfully sent to the email address you have registered.</a>
             <button type="submit" class="login-button">Reset Password</button>
         </form>
 
