@@ -29,7 +29,7 @@ if ($result->num_rows > 0) {
     $token = bin2hex(random_bytes(50));
 
     // Generate expiry time
-    $expiryTime = time() + (60); // Current time + 1 hour
+    $expiryTime = time() + (5 * 60); // 5 minutes
 
     // Convert Unix timestamp to MySQL TIMESTAMP format
     $expiryTime = date('Y-m-d H:i:s', $expiryTime);
