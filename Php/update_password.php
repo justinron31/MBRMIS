@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 // Database connection code here
 include 'db.php';
 
@@ -10,6 +12,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Get the new password from the form
     $newPassword = $_POST['password'];
+
+    // Fetch the current password from the database
+    $stmt = $conn->prepare("SELECT pass FROM staff WHERE reset_token = ?");
+    $stmt->bind_param("s", $token);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $storedPasswordHash = $row['pass'];
+
+    // Check if the new password is the same as the current password
+    if (password_verify($newPassword, $storedPasswordHash)) {
+        // New password is the same as the current password
+        $_SESSION['same_password'] = true;
+        header("Location: ../Login/createNewpassword.php?token=$token");
+        exit();
+    }
 
     // Hash the new password
     $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);

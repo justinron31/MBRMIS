@@ -36,11 +36,8 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])) :
 
 if (isset($_SESSION['user_type'])) {
     $userType = $_SESSION['user_type'];
-    if ($userType === 'admin') {
-        header('Location: /MBRMIS/Dashboard/AdminDashboard.php');
-        exit;
-    } else if ($userType === 'staff') {
-        header('Location: /MBRMIS/Dashboard/StaffDashboard.php');
+    if ($userType === 'admin' || $userType === 'staff') {
+        header('Location: /MBRMIS/Dashboard/Home.php');
         exit;
     }
 }

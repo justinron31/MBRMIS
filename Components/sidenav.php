@@ -23,7 +23,7 @@
                               <span class="line"></span>
                           </div>
                           <li class="item">
-                              <a href="/MBRMIS/Dashboard/AdminDashboard.php" class="link flex">
+                              <a href="/MBRMIS/Dashboard/Home.php" class="link flex">
                                   <i class="bx bxs-dashboard"></i>
                                   <span>Overview</span>
                               </a>
@@ -50,7 +50,7 @@
 
 
                           <li class="item">
-                              <a href="/MBRMIS/Dashboard/AdminCertofIndigency.php" class="link flex">
+                              <a href="/MBRMIS/Dashboard/CertofIndigency.php" class="link flex">
                                   <i>
                                       <span class="material-symbols-outlined">
                                           badge
@@ -63,7 +63,7 @@
 
 
                           <li class="item">
-                              <a href="/MBRMIS/Dashboard/AdminCertofResidency.php" class="link flex">
+                              <a href="/MBRMIS/Dashboard/CertofResidency.php" class="link flex">
                                   <i>
                                       <span class="material-symbols-outlined">
                                           clinical_notes
@@ -77,7 +77,7 @@
 
 
                           <li class="item">
-                              <a href="/MBRMIS/Dashboard/AdminFirstTimeJob.php" class="link flex">
+                              <a href="/MBRMIS/Dashboard/FirstTimeJob.php" class="link flex">
                                   <i>
                                       <span class="material-symbols-outlined">
                                           card_membership
@@ -92,7 +92,7 @@
 
 
                           <li class="item">
-                              <a href="/MBRMIS/Dashboard/AdminReqDocu.php" class="link flex">
+                              <a href="/MBRMIS/Dashboard/ReqDocu.php" class="link flex">
                                   <i>
                                       <span class="material-symbols-outlined">
                                           home_storage
@@ -114,7 +114,7 @@
                               </div>
 
                               <li class="item">
-                                  <a href="/MBRMIS/Dashboard/AdminManageUser.php" class="link flex">
+                                  <a href="/MBRMIS/Dashboard/ManageUser.php" class="link flex">
                                       <i class='bx bxs-user-detail'></i>
                                       <span>Manage System User</span>
                                   </a>
@@ -138,7 +138,7 @@
                           </div>
 
                           <li class="item">
-                              <a href="/MBRMIS/Dashboard/AdminProfile.php" class="link flex">
+                              <a href="/MBRMIS/Dashboard/Profile.php" class="link flex">
                                   <i class='bx bxs-user'></i>
                                   <span>Profile</span>
                               </a>

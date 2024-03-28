@@ -17,15 +17,11 @@
     <!-- CSS / JAVASCRIPT -->
     <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
 
-
-
     <title>Reset Password - Staff</title>
+
 </head>
 
 <body>
-
-
-
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup1" class="popup2">
@@ -34,14 +30,13 @@
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup2" class="popup2">
-        <p>Invalid email address.</p>
+        <p>Email address entered is not registered.</p>
     </div>
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup3" class="popup1">
         <p>Email sent successfully.</p>
     </div>
-
 
 
     <nav>
@@ -58,17 +53,17 @@
     </nav>
 
 
-
     <!--RESET PASS FORM-->
     <div class="login-container">
         <div class="logo-container">
             <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
             <p class="login-text">ENTER YOUR REGISTERED EMAIL ADDRESS</p>
         </div>
+
         <form class="login-form">
             <input type=" text" id="email" name="email" placeholder="Enter registered email" oninput="validateEmail1();" autofocus required>
             <a class="sent" style="color: green; font-size:15px; display:none;">The email has been successfully
-                delivered to the
+                Sent to the
                 email address
                 you have
                 registered with us.</a>
@@ -82,8 +77,6 @@
     </footer>
 
     <script src="../Login/CSS,JS/login.js"></script>
-
-
 
     <script>
         function validateEmail1() {

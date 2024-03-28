@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -23,15 +22,17 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
     <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
+
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
     <script src="../Dashboard/CSS,JS/Export.js"></script>
 
 
-    <title>MAKILING BRMI SYSTEM - First Time Job Seeker</title>
+    <title>MAKILING BRMI SYSTEM - Request Documents</title>
 </head>
 
 
@@ -39,8 +40,8 @@
 <?php
 session_start();
 
-// Check if the user is not logged in as admin or if idnumber is not set
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin' || !isset($_SESSION['idnumber'])) {
+// Check if the user is not logged in as admin or staff, or if idnumber is not set
+if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
@@ -75,7 +76,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    FIRST TIME JOB SEEKER
+                    REQUEST DOCUMENTS
                 </h1>
 
                 <div class="access">
@@ -88,13 +89,7 @@ $_SESSION['show_login_message'] = false;
                         }
                         echo ' ' . $userName;
                         ?>
-
                     </p>
-                    <div class="logoHead">
-
-                        <img src="../Images/user.png" alt="logo_img" />
-                    </div>
-
                 </div>
 
 
@@ -125,11 +120,23 @@ $_SESSION['show_login_message'] = false;
 
                 <div class="tableHead">
                     <!--TOTAL USER-->
-                    <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
+                    <?php
+                    include '../Php/db.php';
+
+
+                    $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request");
+                    $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job");
+
+                    $row1 = mysqli_fetch_assoc($result1);
+                    $row2 = mysqli_fetch_assoc($result2);
+
+                    $total = $row1['count'] + $row2['count'];
+                    ?>
+
+                    <h1 class="titleTable">Total File Request: <span><?php echo $total; ?></span></h1>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -141,26 +148,15 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="headerTable">
+                        <table>
                             <thead>
                                 <tr>
-                                    <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Document Type <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Remarks <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Birthdate <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Civil Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Address <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Recidency <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Education <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Course <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> JobStart Program <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> ID Img <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
@@ -169,11 +165,14 @@ $_SESSION['show_login_message'] = false;
                             </thead>
 
                             <tbody>
-
                                 <?php
                                 include '../Php/db.php';
 
-                                $sql = "SELECT purpose_description,type, id, firstname, lastname, birthdate, age, gender, contact_number, `civil_status`, address, residency, education, course, `job_start_beneficiary`, pickup_datetime, `datetime_created`, `id_number`, avatar, tracking_number, `file_status`, remarks FROM first_time_job ORDER BY `datetime_created` DESC";
+                                $sql = "SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created
+FROM file_request
+UNION ALL
+SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created
+FROM first_time_job";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -192,25 +191,12 @@ $_SESSION['show_login_message'] = false;
                                         }
                                         $uniqueId = 'edit_' . $row["id"];
                                         echo "<tr>" .
-                                            "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
-                                            "<td style='text-align: center;'>
-                            <p class='status $class padding'>" . $row["file_status"] . "</p>
-                        </td>" .
-                                            "<td>" . $row["remarks"] . "</td>" .
+                                            "<td><strong>" . $row["type"] . "</strong></td>" .
+                                            "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
                                             "<td>" . $row["firstname"] . "</td>" .
                                             "<td>" . $row["lastname"] . "</td>" .
-                                            "<td>" . date("F j, Y", strtotime($row["birthdate"])) . "</td>" .
-                                            "<td>" . $row["age"] . "</td>" .
-                                            "<td>" . $row["gender"] . "</td>" .
+                                            "<td>" . $row["tracking_number"] . "</td>" .
                                             "<td>" . $row["contact_number"] . "</td>" .
-                                            "<td>" . $row["civil_status"] . "</td>" .
-                                            "<td>" . $row["address"] . "</td>" .
-                                            "<td>" . $row["residency"] . "</td>" .
-                                            "<td>" . $row["education"] . "</td>" .
-                                            "<td>" . $row["course"] . "</td>" .
-                                            "<td>" . $row["job_start_beneficiary"] . "</td>" .
-                                            "<td>" . $row["id_number"] . "</td>" .
-                                            "<td><a href='../Uploaded File/" . $row["avatar"] . "' target='_blank'>View Voters ID</a></td>" .
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
@@ -225,29 +211,6 @@ $_SESSION['show_login_message'] = false;
                                 $conn->close();
                                 ?>
 
-
-
-                                <div id="customEditModal1" class="custom-modal">
-                                    <div class="custom-modal-content">
-                                        <h2 class="editAccountTitle">Update File Request Status </h2>
-                                        <p id="TrackingN"></p>
-                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php"
-                                            method="post">
-                                            <div class="updatecon">
-                                                <div class="accountstatus">
-                                                    <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
-                                                    <label for="fileStatus">File Status:</label>
-                                                    <select id="fileStatus" name="fileStatus">
-                                                        <option value="Ready for Pickup">Ready for Pickup</option>
-                                                        <option value="Declined">Declined</option>
-                                                        <option value="Reviewing">Reviewing</option>
-                                                    </select>
-                                                </div>
-                                                <button id="updateButton1" class="updateButton"
-                                                    type="submit">Update</button>
-                                        </form>
-                                    </div>
-                                </div>
 
 
                             </tbody>

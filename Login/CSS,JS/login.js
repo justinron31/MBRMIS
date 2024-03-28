@@ -290,7 +290,7 @@ function validateAge(input) {
 // ─── Password Conditions ──────────────────────────────────────
 function validatePassword1() {
   var passwordInput = document.getElementById("password");
-  var validationPopup = document.getElementById("validationPopup4");
+  var validationPopup = document.getElementById("validationPopup7");
   var submitBtn = document.querySelector(".login-button");
 
   var password = passwordInput.value.trim();

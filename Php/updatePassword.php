@@ -20,7 +20,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['changePassword'])) {
 
         // Verify the entered current password against the stored hash
         if (password_verify($currentPassword, $storedPasswordHash)) {
-            // Current password is correct, now update the password
+            // Current password is correct, now check if the new password is the same as the current password
+            if (password_verify($newPassword, $storedPasswordHash)) {
+                // New password is the same as the current password, redirect and display the custom popup in Profile.php
+                $_SESSION['same_password'] = true;
+                header("Location: /MBRMIS/Dashboard/Profile.php");
+                exit();
+            }
+            // New password is different, now update the password
             $newPasswordHash = password_hash($newPassword, PASSWORD_DEFAULT);
             $updateSql = "UPDATE staff SET pass = ? WHERE id = ?";
             $updateStmt = mysqli_prepare($conn, $updateSql);
@@ -28,16 +35,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['changePassword'])) {
 
             if (mysqli_stmt_execute($updateStmt)) {
                 $_SESSION['password_updated'] = true;
-                // Redirect first, and then display the custom popup in AdminProfile.php
-                header("Location: /MBRMIS/Dashboard/AdminProfile.php");
+                // Redirect first, and then display the custom popup in Profile.php
+                header("Location: /MBRMIS/Dashboard/Profile.php");
                 exit();
             } else {
                 echo "Error updating password: " . mysqli_error($conn);
             }
         } else {
-            // Incorrect current password, redirect and display the custom popup in AdminProfile.php
+            // Incorrect current password, redirect and display the custom popup in Profile.php
             $_SESSION['incorrect_password'] = true;
-            header("Location: /MBRMIS/Dashboard/AdminProfile.php");
+            header("Location: /MBRMIS/Dashboard/Profile.php");
             exit();
         }
     } else {

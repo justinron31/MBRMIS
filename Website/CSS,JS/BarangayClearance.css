@@ -905,6 +905,16 @@ tr:nth-child(even) {
   transition: transform 0.3s ease;
 }
 
+.modal-buttons button.yes:disabled {
+  background-color: gray;
+  color: #fff;
+  margin: 5px;
+  transition: transform 0.3s ease;
+}
+.modal-buttons button.yes:disabled:hover {
+  transform: none;
+}
+
 .modal-buttons button.yes:hover {
   transform: scale(1.1);
 }

@@ -26,8 +26,8 @@
 <?php
 session_start();
 
-// Check if the user is not logged in as admin
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') {
+// Check if the user is not logged in as admin or staff, or if idnumber is not set
+if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
@@ -101,15 +101,8 @@ $_SESSION['show_login_message'] = false;
                         }
                         echo ' ' . $userName;
                         ?>
-
                     </p>
-                    <div class="logoHead">
-
-                        <img src="../Images/user.png" alt="logo_img" />
-                    </div>
-
                 </div>
-
 
             </div>
         </div>

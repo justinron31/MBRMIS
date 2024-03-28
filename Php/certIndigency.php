@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $_POST['fname'];
     $lastname = $_POST['lname'];
     $contact_number = $_POST['contNum'];
-    
+
     // Retrieve date and time from the nested aeon-datepicker
     $pickup_date = $_POST['datepicker'];
     $pickup_time = $_POST['timepicker'];
@@ -35,14 +35,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fileParts = explode('.', $fileName);
     $imageExtension = strtolower(end($fileParts));
 
-    if(!in_array($imageExtension, $validImageExtensions)){
+    if (!in_array($imageExtension, $validImageExtensions)) {
         echo "<script> alert('Invalid Image Extension'); </script>";
         exit();
-    } else if($fileSize > 2000000) { // 2MB
+    } else if ($fileSize > 2000000) { // 2MB
         echo "<script> alert('Image Size Is Too Large'); </script>";
         exit();
     } else {
-        $newImageName = 'VotersID_' . $lastname . '_' . $firstname . '.' . $imageExtension;
+        $date = date('Y-m-d'); // get current date
+        $newImageName = 'VotersID_' . $lastname . '_' . $firstname . '_' . $date . '.' . $imageExtension;
         $targetDirectory = "../Uploaded File/";
         $targetFile = $targetDirectory . basename($newImageName);
         move_uploaded_file($fileTmpName, $targetFile);

@@ -55,7 +55,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script> alert('Image Size Is Too Large'); </script>";
         exit();
     } else {
-        $newImageName = 'ID_' . $lastname . '_' . $firstname . '.' . $imageExtension;
+        $date = date('Y-m-d'); // get current date
+        $newImageName = 'VotersID_' . $lastname . '_' . $firstname . '_' . $date . '.' . $imageExtension;
         $targetDirectory = "../Uploaded File/";
         $targetFile = $targetDirectory . basename($newImageName);
         move_uploaded_file($fileTmpName, $targetFile);

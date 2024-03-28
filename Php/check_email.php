@@ -48,7 +48,7 @@ if ($result->num_rows > 0) {
         $mail->Subject = 'Password Reset Request';
         $resetLink = 'http://localhost/MBRMIS/Login/createNewpassword.php?token=' . $token;
         $mail->Body    =
-            '<p>Your request for a password reset has been received. Kindly proceed with the steps outlined in this email to initiate the password reset process.</p><p> Click the button below to reset your password securely:</p> <a href="' . $resetLink . '"><button style="padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Reset Password</button></a>.';
+            '<p>Your request for a password reset has been received. Kindly proceed with the steps outlined in this email to initiate the password reset process.</p><p> Click the button below to reset your password securely:</p> <a href="' . $resetLink . '"><button style="padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Reset Password</button></a>';
         $mail->send();
         echo json_encode(array("success" => true));
     } catch (Exception $e) {

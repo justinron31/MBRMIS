@@ -40,8 +40,10 @@ if (isset($_POST['saveButton'])) {
         $sql = "UPDATE staff SET idnumber='$idnum', email='$email', firstname='$fname', lastname='$lname', age='$age', gender='$gender', pass='$hashedPassword' WHERE id = $user_id";
         $result = $conn->query($sql);
 
-        if ($result === TRUE) {
-            echo "<script>window.location.href = 'AdminProfile.php';</script>";
+        if ($result === true) {
+            // Set a session variable
+            $_SESSION['showPopup'] = true;
+            echo "<script>window.location.href = 'Profile.php';</script>";
             exit;
         } else {
             echo "Error updating data: " . $conn->error;

@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -42,8 +43,8 @@
 <?php
 session_start();
 
-// Check if the user is not logged in as admin or if idnumber is not set
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin' || !isset($_SESSION['idnumber'])) {
+// Check if the user is not logged in as admin or staff, or if idnumber is not set
+if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
@@ -91,15 +92,8 @@ $_SESSION['show_login_message'] = false;
                         }
                         echo ' ' . $userName;
                         ?>
-
                     </p>
-                    <div class="logoHead">
-
-                        <img src="../Images/user.png" alt="logo_img" />
-                    </div>
-
                 </div>
-
 
             </div>
         </div>
@@ -235,7 +229,8 @@ $_SESSION['show_login_message'] = false;
                                                 </div>
 
 
-                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
+                                                <button id="updateButton" class="updateButton"
+                                                    type="submit">Update</button>
 
 
                                         </form>

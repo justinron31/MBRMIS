@@ -53,10 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $updateLoginTimestamp->execute();
 
                 // Redirect based on user type
-                if ($_SESSION['user_type'] === 'admin') {
-                    header("Location: /MBRMIS/Dashboard/AdminDashboard.php");
-                } elseif ($_SESSION['user_type'] === 'staff') {
-                    header("Location: /MBRMIS/Dashboard/StaffDashboard.php");
+                if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'staff') {
+                    header("Location: /MBRMIS/Dashboard/Home.php");
                 } else {
                     $_SESSION['error_message'] = "Invalid role";
                     header("Location: /MBRMIS/Login/loginStaff.php");

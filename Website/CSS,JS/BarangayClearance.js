@@ -133,12 +133,33 @@ function hideModal() {
   });
 }
 
+function disableButtonForSeconds(buttonId, seconds) {
+  var button = document.getElementById(buttonId);
+  button.disabled = true;
+
+  var counter = seconds;
+  button.innerHTML = `Proceed (${counter})`;
+
+  var intervalId = setInterval(function () {
+    counter--;
+    button.innerHTML = `Proceed (${counter})`;
+
+    if (counter === 0) {
+      clearInterval(intervalId);
+      button.disabled = false;
+      button.innerHTML = "Proceed";
+    }
+  }, 1000);
+}
+
 function showSecondModal() {
   var overlay2 = document.getElementById("overlay2");
   var modal2 = document.getElementById("logoutModal2");
 
   overlay2.style.display = "block";
   modal2.style.display = "block";
+
+  disableButtonForSeconds("proceedButton", 5);
 }
 
 function redirectToHomePage() {
@@ -176,3 +197,5 @@ function validateContactNumber(input) {
     input.value = input.value.slice(0, 11);
   }
 }
+
+// ─── Button Disabled ──────────────────────────────────────────

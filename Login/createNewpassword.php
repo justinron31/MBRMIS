@@ -17,17 +17,39 @@
     <!-- CSS / JAVASCRIPT -->
     <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
 
-
     <title>Create New Password - Staff</title>
+
 </head>
 
 <body>
+
+    <?php
+    session_start();
+
+    if (isset($_SESSION['same_password'])) {
+        echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("validationPopup5").style.display = "block";
+            setTimeout(function() {
+                document.getElementById("validationPopup5").style.display = "none";
+            }, 3000);
+        });
+    </script>';
+        unset($_SESSION['same_password']);
+    }
+    ?>
+
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup" class="popup2">
         <p>Passwords do not match!</p>
     </div>
 
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup5" class="popup2">
+        <p>Don't use the same old password!.</p>
+    </div>
 
     <nav>
         <!--NAVBAR-->
@@ -47,7 +69,7 @@
             <p class="login-text">CREATE NEW PASSWORD</p>
         </div>
 
-        <p id="validationPopup4">Password must contain at least <strong>one uppercase letter</strong>, <strong>one
+        <p id="validationPopup7">Password must contain at least <strong>one uppercase letter</strong>, <strong>one
                 lowercase
                 letter</strong>, <strong>one digit</strong>, and at least <strong>8
                 characters long.</strong></p>

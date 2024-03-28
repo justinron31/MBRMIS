@@ -22,14 +22,12 @@
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
 
 
-
-
     <title>MAKILING BRMI SYSTEM - Profile</title>
+
 </head>
 
 
@@ -37,9 +35,8 @@
 <?php
 session_start();
 
-
-// Check if the user is not logged in as admin
-if (!isset($_SESSION['user_name']) || $_SESSION['user_type'] !== 'admin') {
+// Check if the user is not logged in as admin or staff, or if idnumber is not set
+if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
@@ -53,6 +50,41 @@ $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_lo
 // Reset the session variable to avoid displaying the message on page refresh
 $_SESSION['show_login_message'] = false;
 ?>
+
+<?php
+if (isset($_SESSION['password_updated'])) {
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup1").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup1").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+    unset($_SESSION['password_updated']);
+} elseif (isset($_SESSION['incorrect_password'])) {
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup3").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup3").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+    unset($_SESSION['incorrect_password']);
+} elseif (isset($_SESSION['same_password'])) {
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup5").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup5").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+    unset($_SESSION['same_password']);
+}
+?>
+
 
 <!-- MESSAGE-->
 <div id="loginPopup" class="popup">
@@ -74,35 +106,13 @@ $_SESSION['show_login_message'] = false;
     <p>Incorrect current password. Please try again.</p>
 </div>
 
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup5" class="popup2">
+    <p>Don't use the same old password!.</p>
+</div>
 
-<?php
 
 
-// Check for session variables and display popups accordingly
-if (isset($_SESSION['password_updated'])) {
-    echo '<script>
-            // Display the "Password Successfully Updated!" popup
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById("validationPopup1").style.display = "block";
-                setTimeout(function() {
-                    document.getElementById("validationPopup1").style.display = "none";
-                }, 3000); // Hide the popup after 3 seconds
-            });
-          </script>';
-    unset($_SESSION['password_updated']); // Clear the session variable
-} elseif (isset($_SESSION['incorrect_password'])) {
-    echo '<script>
-            // Display the "Incorrect current password. Please try again." popup
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById("validationPopup3").style.display = "block";
-                setTimeout(function() {
-                    document.getElementById("validationPopup3").style.display = "none";
-                }, 3000); // Hide the popup after 3 seconds
-            });
-          </script>';
-    unset($_SESSION['incorrect_password']); // Clear the session variable
-}
-?>
 
 <body>
 
@@ -116,15 +126,11 @@ if (isset($_SESSION['password_updated'])) {
     <!-- MAIN CONTENT-->
     <div class="headermain">
 
-
-
         <div class="headerTop">
             <div class="header">
-
                 <h1 class="maintitle">
                     SETTINGS
                 </h1>
-
                 <div class="access">
                     <p class="name">
                         <?php
@@ -135,16 +141,8 @@ if (isset($_SESSION['password_updated'])) {
                         }
                         echo ' ' . $userName;
                         ?>
-
                     </p>
-                    <div class="logoHead">
-
-                        <img src="../Images/user.png" alt="logo_img" />
-                    </div>
-
                 </div>
-
-
             </div>
         </div>
 
@@ -154,13 +152,14 @@ if (isset($_SESSION['password_updated'])) {
         <div class="supermaincontain">
 
             <?php
-            include 'C:\xampp\htdocs\MBRMIS\Php\admindb.php';
-
+            include '../Php/Admindb.php';
             ?>
 
             <main class="table1" id="customers_table">
                 <section class="table__header">
+
                     <h1 class="profileTitle">PROFILE INFORMATION </h1>
+
                     <div class="export__file">
                         <button type="button" class="export__file-btn" id="editButton" onclick="toggleEdit()">
                             <p class="exportTitle"><strong>EDIT</strong></p>
@@ -219,17 +218,13 @@ if (isset($_SESSION['password_updated'])) {
                                 </select>
                             </div>
                             </form>
+
                         </div>
 
                         <div class="passCon" id="passCon" style="display: none;">
                             <button type=" button" class="reset__password-btn" onclick="toggleForm()">Change
                                 Password</button>
                         </div>
-
-
-
-
-
 
 
                         <div class="passForm" id="passForm" style="display: none;">
@@ -247,6 +242,7 @@ if (isset($_SESSION['password_updated'])) {
                                             lowercase
                                             letter</strong>, <strong>one digit</strong>, and at least <strong>8
                                             characters long.</strong></p>
+
                                     <label for="newPassword">New Password</label>
                                     <input type="password" id="pass" name="pass" placeholder="Enter Password" required oninput="validatePassword1()">
                                 </div>
@@ -259,28 +255,29 @@ if (isset($_SESSION['password_updated'])) {
                             </form>
                         </div>
 
-
-
-
                 </div>
             <?php else : ?>
                 <p>No results found</p>
             <?php endif; ?>
-
-
         </div>
-
-
-
         </main>
     </div>
 </body>
 
 
-
 </div>
 
-
+<script>
+    $(document).ready(function() {
+        // Check for session variable on page load
+        <?php if ($_SESSION['showPopup']) : ?>
+            // Show a custom popup if the session variable is set
+            showCustomPopup('Details Updated Successfully!');
+            // Unset the session variable
+            <?php unset($_SESSION['showPopup']); ?>
+        <?php endif; ?>
+    });
+</script>
 
 
 

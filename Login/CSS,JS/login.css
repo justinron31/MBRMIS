@@ -237,8 +237,8 @@ html {
 }
 
 .logo1 {
-  padding-top: 20px;
-  width: 50%;
+  width: 200px;
+  height: 200px;
   -webkit-filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
   filter: drop-shadow(1px 2px 1px rgba(0, 0, 0, 0.4));
 }
@@ -592,6 +592,15 @@ footer p {
   text-align: left;
   margin: 0 0 10px 0;
   display: none;
+}
+
+#validationPopup7 {
+  color: red;
+  font-size: 11px;
+  text-align: center;
+  margin: 0 0 10px 0;
+  display: none;
+  width: 500px;
 }
 
 /* ─── Resend verification code ────────────────────────────── */
