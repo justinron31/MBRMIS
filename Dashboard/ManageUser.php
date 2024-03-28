@@ -160,6 +160,7 @@ $_SESSION['show_login_message'] = false;
                                     <th> Role <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
                                     <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th> Date Created <span class="icon-arrow">&UpArrow;</span></th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -171,7 +172,7 @@ $_SESSION['show_login_message'] = false;
 
                                 $idnum = $_SESSION['idnumber'];
 
-                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
+                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp,dateCreated FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -188,6 +189,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td><strong>" . $row["staff_role"] . "</strong></td>" .
                                             "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
                                             "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
+                                            "<td title='" . date("l", strtotime($row["dateCreated"])) . "'>" . date("F j, Y, g:i a", strtotime($row["dateCreated"])) . "</td>" .
                                             "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
                                             "</tr>";
                                     }

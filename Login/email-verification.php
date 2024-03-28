@@ -10,7 +10,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-include "../../MBRMIS/Php/db.php";
+include "../Php/db.php";
 
 $showPopup = false;
 
@@ -19,7 +19,7 @@ if (isset($_POST["verify_email"])) {
     $verification_code = $_POST["verification_code"];
 
     // mark email as verified
-    $sql = "UPDATE staff SET email_verify = 1, email_verified_at = NOW() WHERE email = '" . $email . "' AND verification_code = '" . $verification_code . "'";
+    $sql = "UPDATE staff SET email_verify = 1, email_verified_at = NOW(), verification_code = NULL WHERE email = '" . $email . "'";
     $result  = mysqli_query($conn, $sql);
 
     if (mysqli_affected_rows($conn) > 0) {

@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -197,44 +198,6 @@ $_SESSION['show_login_message'] = false;
 
                                 $conn->close();
                                 ?>
-                                <!-- POPUP FORM ACCOUNT EDIT -->
-                                <div id="customEditModal" class="custom-modal">
-                                    <div class="custom-modal-content">
-                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
-                                        <p id="customUserName"></p>
-                                        <p id="dateCreated"></p>
-                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
-
-                                            <div class="updatecon">
-                                                <div class="accountstatus">
-                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
-                                                    <label for="customRole">Role:</label>
-                                                    <select id="customRole" name="customRole">
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Staff">Staff</option>
-                                                    </select>
-
-
-                                                </div>
-
-                                                <div class="rolestatus">
-
-                                                    <label for="customStatus">Account Status:</label>
-                                                    <select id="customStatus" name="customStatus">
-                                                        <option value="Activated">Activated</option>
-                                                        <option value="Deactivated">Deactivated</option>
-                                                    </select>
-
-                                                </div>
-
-
-                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
-
-
-                                        </form>
-                                    </div>
-                                </div>
-
 
 
                             </tbody>
