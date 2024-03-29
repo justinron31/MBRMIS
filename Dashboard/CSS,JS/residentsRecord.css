@@ -1,0 +1,255 @@
+/* ─── Residents Record ────────────────────────────────────── */
+
+.viewMore {
+  background-color: #377fb9;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  font-weight: 600;
+  color: white;
+}
+
+.viewMore:hover {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+
+/* ─── Form ────────────────────────────────────────────────── */
+.residentsForm {
+  display: none;
+  background-color: white;
+  padding: 0px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  z-index: 100;
+  min-width: 950px;
+  max-height: 660px;
+  overflow-y: auto;
+}
+
+.rtopheadcon {
+  background-color: white;
+  position: sticky;
+  top: 0;
+}
+
+.rheadTitle {
+  color: black;
+}
+
+.rheadTitle .line {
+  border-top: 1px solid black;
+  margin: 10px 0;
+}
+
+.overlayR {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19, 83, 52, 0.8);
+  z-index: 99;
+}
+
+.rheadcon {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-top: 20px;
+}
+
+.rheadcon .line {
+  flex-grow: 1;
+  height: 1px;
+  background: black;
+}
+
+.rheadcon p {
+  margin: 0 10px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.bx.bxs-x-circle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: 25px;
+  margin-left: 10px;
+}
+
+.bx.bxs-x-circle:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.RformCon {
+  margin-top: 10px;
+}
+
+.rform1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.rform1 > div {
+  flex: 1;
+}
+
+.rform1 input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.rform1 input:disabled {
+  /* Add your styles here. For example: */
+  background-color: #f2f2f2;
+  color: #888888;
+}
+
+.rform1 input:focus {
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266e60;
+}
+
+.rform1 label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.rInput {
+  margin: 0px 5px;
+  min-width: 200px;
+}
+
+.rInput2 {
+  margin: 0px 5px;
+  display: none;
+}
+
+/* ─── Dropdown ────────────────────────────────────────────── */
+.selectbox {
+  background-color: #ffffff;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  color: #757575;
+}
+
+.selectbox:focus {
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266e60;
+}
+
+.selectbox::after {
+  content: "\25BC";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #757575;
+}
+
+/* ─── Upload Id ───────────────────────────────────────────── */
+
+.rform2 {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+}
+
+.rform2 input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.rform2 input:disabled {
+  /* Add your styles here. For example: */
+  background-color: #f2f2f2;
+  color: #888888;
+}
+
+.rform2 input:focus {
+  border-color: #15917a;
+  outline: none;
+  box-shadow: 0 0 5px #266e60;
+}
+
+.rform2 label {
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.addMember {
+  color: #15917a;
+  cursor: pointer;
+  font-size: 0.8rem;
+  width: fit-content;
+}
+
+.addMember:hover {
+  text-decoration: underline;
+}
+
+.addMember1 {
+  color: red;
+  cursor: pointer;
+  font-size: 0.8rem;
+  width: fit-content;
+}
+
+.addMember1:hover {
+  text-decoration: underline;
+}
+
+/* ─── Submitbutton ────────────────────────────────────────── */
+.rSubmit {
+  background-color: #377fb9;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  color: white;
+  font-weight: 600;
+}
+
+.rSubmit:hover {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+
+.rButcon {
+  display: flex;
+  justify-content: flex-end;
+}

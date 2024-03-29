@@ -553,21 +553,3 @@ thead th.asc span.icon-arrow {
   cursor: not-allowed;
   pointer-events: none;
 }
-
-/* ─── Residents Record ────────────────────────────────────── */
-
-.viewMore {
-  background-color: #377fb9;
-  padding: 5px 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  border: none;
-  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-  font-weight: 600;
-  color: white;
-}
-
-.viewMore:hover {
-  background-color: #336996;
-  transform: scale(1.05);
-}

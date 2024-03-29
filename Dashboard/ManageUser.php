@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -112,8 +111,12 @@ $_SESSION['show_login_message'] = false;
 
                     <!-- SEARCH BAR-->
                     <div class="input-group">
-                        <input type="search" placeholder="Search...">
+                        <input type="search" placeholder="Search">
                         <i class='bx bx-search-alt'></i>
+
+                    </div>
+
+                    <div class="export__file">
 
                         <div class="tableHead">
                             <!--TOTAL USER-->
@@ -132,10 +135,7 @@ $_SESSION['show_login_message'] = false;
 
                         </div>
 
-                    </div>
-
-                    <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -233,8 +233,7 @@ $_SESSION['show_login_message'] = false;
                                                 </div>
 
 
-                                                <button id="updateButton" class="updateButton"
-                                                    type="submit">Update</button>
+                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
 
 
                                         </form>

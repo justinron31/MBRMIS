@@ -110,14 +110,17 @@ $_SESSION['show_login_message'] = false;
 
                     <!-- SEARCH BAR-->
                     <div class="input-group">
-                        <input type="search" placeholder="Search...">
+                        <input type="search" placeholder="Search">
                         <i class='bx bx-search-alt'></i>
+
+                    </div>
+
+                    <div class="export__file">
 
                         <div class="tableHead">
                             <!--TOTAL USER-->
                             <?php
                             include '../Php/db.php';
-
 
                             $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request");
                             $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job");
@@ -131,11 +134,7 @@ $_SESSION['show_login_message'] = false;
                             <h1 class="titleTable">Total File Request: <span><?php echo $total; ?></span></h1>
                         </div>
 
-                    </div>
-
-
-                    <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -153,7 +152,7 @@ $_SESSION['show_login_message'] = false;
                             <thead>
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Document Type </th>
-                                    <th title="Filter: Ascending/Descending"> Status </th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status </th>
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
                                     <th title="Filter: Ascending/Descending"> Tracking Number </th>

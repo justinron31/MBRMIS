@@ -69,14 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
     sidebar.classList.add("hoverable");
     sidebarLockBtn.classList.replace("bxs-lock-alt", "bx-lock-open-alt");
   }
-
-  let path = window.location.pathname;
-  document.querySelectorAll(".menu_item .item a").forEach((a) => {
-    if (a.getAttribute("href") === path) {
-      a.parentElement.classList.add("active");
-    }
-  });
 });
+
 // ─── Calendar ─────────────────────────────────────────────────
 let date = new Date();
 

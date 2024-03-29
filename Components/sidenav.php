@@ -246,3 +246,28 @@
                   setInterval(fetchCount, 1000);
               });
           </script>
+
+
+          <script>
+              $(document).ready(function() {
+                  // Get saved 'active' item from localStorage
+                  var activeItem = localStorage.getItem('activeItem');
+
+                  // If there is an 'active' item saved, add 'active' class to it
+                  if (activeItem) {
+                      $(activeItem).addClass('active');
+                  }
+
+                  // Handle click event on '.item' class
+                  $('.item').click(function() {
+                      // Remove 'active' class from all '.item' elements
+                      $('.item').removeClass('active');
+
+                      // Add 'active' class to the clicked '.item' element
+                      $(this).addClass('active');
+
+                      // Save 'active' item to localStorage
+                      localStorage.setItem('activeItem', '.item:contains("' + $(this).text() + '")');
+                  });
+              });
+          </script>

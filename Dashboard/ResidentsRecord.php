@@ -10,13 +10,16 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Table.css" />
+    <link rel="stylesheet" href="../Dashboard/CSS,JS/residentsRecord.css" />
+
 
 
     <!--JAVASCRIPT-->
@@ -30,11 +33,11 @@
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
     <script src="../Dashboard/CSS,JS/Export.js" defer></script>
+    <script src="../Dashboard/CSS,JS/residentsRecord.js" defer></script>
 
 
 
-
-    <title>MAKILING BRMI SYSTEM - Residents Record</title>
+    <title>MAKILING BRMI SYSTEM - Resident's Record</title>
 </head>
 
 
@@ -71,6 +74,23 @@ $_SESSION['show_login_message'] = false;
     <?php include '../Components/sidenav.php'; ?>
 
 
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup" class="popup">
+        <p>Passwords do not match!</p>
+    </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup" class="popup2">
+        <p>Passwords do not match!</p>
+    </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup" class="popup2">
+        <p>Passwords do not match!</p>
+    </div>
+
+
+
     <!-- MAIN CONTENT-->
     <div class="headermain">
 
@@ -78,7 +98,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    RESIDENTS RECORD
+                    RESIDENT'S RECORD
                 </h1>
 
                 <div class="access">
@@ -111,8 +131,12 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__header">
                     <!-- SEARCH BAR-->
                     <div class="input-group">
-                        <input type="search" placeholder="Search...">
+                        <input type="search" placeholder="Search">
                         <i class='bx bx-search-alt'></i>
+
+                    </div>
+
+                    <div class="export__file">
 
                         <div class="tableHead">
                             <!--TOTAL USER-->
@@ -129,17 +153,23 @@ $_SESSION['show_login_message'] = false;
                             echo "<h1 class='titleTable'>Total Residents: " . $totalUsers . "</h1>";
                             ?>
                         </div>
+                        <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;"
+                            onclick="toggleResidentForm()">
+                            <i class='bx bxs-plus-circle'></i>
+                            <p class="exportTitle">Add Resident</p>
+                        </button>
 
-                    </div>
-
-                    <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
                     </div>
 
                 </section>
+
+
+
 
 
                 <section class="table__body">
@@ -149,106 +179,270 @@ $_SESSION['show_login_message'] = false;
                         <table id="headerTable">
                             <thead>
                                 <tr>
+                                    <th title="Filter: Ascending/Descending"> Voters ID </th>
+                                    <th title="Filter: Ascending/Descending"> Voter status</th>
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
                                     <th title="Filter: Ascending/Descending"> Middlename </th>
                                     <th title="Filter: Ascending/Descending"> Gender </th>
                                     <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> Email </th>
-                                    <th title="Filter: Ascending/Descending"> Role </th>
-                                    <th class="center"> Account Status </th>
-                                    <th title="Filter: Ascending/Descending"> Last Login </th>
-                                    <th title="Filter: Ascending/Descending"> Date Created </th>
+                                    <th title="Filter: Ascending/Descending"> BHS </th>
+                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision </th>
+                                    <th title="Filter: Ascending/Descending"> Household Number </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                                <?php
-                                include '../Php/db.php';
-
-                                $idnum = $_SESSION['idnumber'];
-
-                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp,dateCreated FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
-                                $result = $conn->query($sql);
-
-                                if ($result) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
-                                        $uniqueId = 'edit_' . $row["idnumber"];
-                                        echo "<tr>" .
-                                            "<td><strong>" . $row["idnumber"] . "</strong></td>" .
-                                            "<td>" . $row["firstname"] . "</td>" .
-                                            "<td>" . $row["lastname"] . "</td>" .
-                                            "<td>" . $row["gender"] . "</td>" .
-                                            "<td>" . $row["age"] . "</td>" .
-                                            "<td>" . $row["email"] . "</td>" .
-                                            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-                                            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-                                            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
-                                            "<td title='" . date("l", strtotime($row["dateCreated"])) . "'>" . date("F j, Y, g:i a", strtotime($row["dateCreated"])) . "</td>" .
-                                            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
-                                            "</tr>";
-                                    }
-                                    $result->close();
-                                } else {
-                                    echo "<tr><td colspan='7'>No data found</td></tr>";
-                                }
-
-                                $conn->close();
-                                ?>
-                                <!-- POPUP FORM ACCOUNT EDIT -->
-                                <div id="customEditModal" class="custom-modal">
-                                    <div class="custom-modal-content">
-                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
-                                        <p id="customUserName"></p>
-                                        <p id="dateCreated"></p>
-                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
-
-                                            <div class="updatecon">
-                                                <div class="accountstatus">
-                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
-                                                    <label for="customRole">Role:</label>
-                                                    <select id="customRole" name="customRole">
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Staff">Staff</option>
-                                                    </select>
-
-
-                                                </div>
-
-                                                <div class="rolestatus">
-
-                                                    <label for="customStatus">Account Status:</label>
-                                                    <select id="customStatus" name="customStatus">
-                                                        <option value="Activated">Activated</option>
-                                                        <option value="Deactivated">Deactivated</option>
-                                                    </select>
-
-                                                </div>
-
-
-                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
-
-
-                                        </form>
-                                    </div>
-                                </div>
-
-
-
                             </tbody>
                         </table>
                     </div>
                 </section>
+
             </main>
+
+
+            <!-- RESIDENTS FORM VIEW -->
+            <div class="overlayR"></div>
+
+            <div class="residentsForm">
+
+                <div class="rtopheadcon">
+
+
+                    <div class="rheadTitle">
+
+                        <div class="rheadcon">
+                            <div class="line"></div>
+                            <p>ADD RESIDENT'S INFORMATION</p>
+                            <div class="line"></div>
+                            <i class='bx bxs-x-circle' onclick="hideResidentForm()"></i>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- form  -->
+
+
+                <form id="formContainer" action="../php/addResidents.php" method="post" enctype="multipart/form-data">
+                    <div class=" rform1">
+
+                        <input type="hidden" id="memberCount" name="memberCount" value="0">
+
+                        <div class="rInput">
+                            <label for="BHS">BHS</label>
+                            <input type="text" id="textbox" name="BHS" placeholder="Enter BHS" required>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="Purok">Purok/Sitio/Subdivision</label>
+                            <input type="text" id="textbox" name="Purok" placeholder="Enter Purok" required>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="Household">Household Number</label>
+                            <input type="text" id="textbox" name="Household" placeholder="Enter Household Number"
+                                required>
+                        </div>
+
+                    </div>
+
+                    <div class="rform1">
+
+                        <div class="rInput">
+                            <label for="Lastname">Last Name</label>
+                            <input type="text" id="textbox" name="Lastname" placeholder="Enter Lastname" required>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="Firstname">First Name</label>
+                            <input type="text" id="textbox" name="Firstname" placeholder="Enter Firstname" required>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="Maiden">Mother’s Maiden Name</label>
+                            <input type="text" id="textbox" name="Maiden" placeholder="Enter Mother’s Maiden Name"
+                                required>
+                        </div>
+
+                    </div>
+
+                    <div class="rform1">
+
+                        <div class="rInput">
+                            <label for="Age">Age</label>
+                            <input type="text" id="textbox" name="Age" placeholder="Enter Age" required>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="Gender">Gender</label>
+                            <select class="selectbox" id="bussSelect3" name="Gender" required
+                                onchange="changeFontColor('bussSelect3')">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="VotersID">Voter's ID</label>
+                            <select class="selectbox" id="bussSelect4" name="VotersID" required
+                                onchange="changeToTextbox1(this)">
+                                <option value="">Select</option>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="rInput2">
+                            <label for="avatar">Upload Voter's ID</label>
+                            <input class="rIDupload" type="file" id="avatar" name="avatar"
+                                accept="image/png, image/jpeg" required disabled />
+                        </div>
+
+                    </div>
+
+                    <div class="rform1">
+
+                        <div class="rInput">
+                            <label for="NHTS">NHTS Household</label>
+                            <select class="selectbox" id="bussSelect1" name="NHTS" required
+                                onchange="changeFontColor('bussSelect1')">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="HH">HH Head PhilHealth Member</label>
+
+                            <select class="selectbox" id="bussSelect2" name="HH" required
+                                onchange="changeToTextbox(this)">
+                                <option value="">Select</option>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="Category">Category</label>
+                            <input type="text" id="Category" name="Category" placeholder="Enter Category" required
+                                disabled>
+                        </div>
+
+                    </div>
+
+                    <!-- HOUSEHOLD MEMEBERS -->
+                    <div class="rheadTitle">
+
+                        <div class="rheadcon">
+                            <div class="line"></div>
+                            <p>HOUSEHOLD MEMBER</p>
+                            <div class="line"></div>
+                        </div>
+
+                    </div>
+
+                    <div class="addmember">
+                        <div class="rform1">
+
+                            <div class="rInput">
+                                <label for="mLastname">Last Name</label>
+                                <input type="text" id="textbox" name="mLastname" placeholder="Enter Lastname" required>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mFirstname">First Name</label>
+                                <input type="text" id="textbox" name="mFirstname" placeholder="Enter Firstname"
+                                    required>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mMaiden">Mother’s Maiden Name</label>
+                                <input type="text" id="textbox" name="mMaiden" placeholder="Enter Mother’s Maiden Name"
+                                    required>
+                            </div>
+
+                        </div>
+
+                        <div class="rform1">
+
+                            <div class="rInput">
+                                <label for="mRelationship">Relationship</label>
+                                <select class="selectbox" id="bussSelect6" name="mRelationship" required
+                                    onchange="changeFontColor('bussSelect6')">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mGender">Gender</label>
+                                <select class="selectbox" id="bussSelect7" name="mGender" required
+                                    onchange="changeFontColor('bussSelect7')">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mAge">Age</label>
+                                <input type="text" id="textbox" name="mAge" placeholder="Enter Age" required>
+                            </div>
+
+                        </div>
+
+                        <div class="rform1">
+
+                            <div class="rInput">
+                                <label for="mRisk">Classification by Age/Health Risk</label>
+                                <input type="text" id="textbox" name="mRisk"
+                                    placeholder="Enter Classification by Age/Health Risk" required>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mQuarter">Quarter</label>
+                                <select class="selectbox" id="bussSelect8" name="mQuarter" required
+                                    onchange="changeFontColor('bussSelect8')">
+                                    <option value="">Select Quarter</option>
+                                    <option value="First">First</option>
+                                    <option value="Second">Second</option>
+                                    <option value="Third">Third</option>
+                                    <option value="Fourth">Fourth</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="addMember" onclick="addMember()">
+                        <span>+ Add Household Member</span>
+                    </div>
+
+                    <div class="rButcon">
+                        <button type="submit" class="rSubmit">Submit</button>
+                    </div>
+
+                </form>
+
+
+            </div>
 
 
         </div>
 </body>
 
+<script>
 
+</script>
 
 
 </html>

@@ -111,38 +111,38 @@ $_SESSION['show_login_message'] = false;
 
                     <!-- SEARCH BAR-->
                     <div class="input-group">
-                        <input type="search" placeholder="Search...">
+                        <input type="search" placeholder="Search">
                         <i class='bx bx-search-alt'></i>
                     </div>
 
-                </section>
-
-
-
-                <div class="tableHead">
-                    <!--TOTAL USER-->
-                    <?php
-                    include '../Php/db.php';
-
-                    $idnum = $_SESSION['idnumber'];
-                    $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
-                    $result = $conn->query($sql);
-
-                    if ($result) {
-                        $totalUsers = $result->num_rows;
-                    }
-                    echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
-                    ?>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
+
+                        <div class="tableHead">
+                            <!--TOTAL USER-->
+                            <?php
+                            include '../Php/db.php';
+
+                            $idnum = $_SESSION['idnumber'];
+                            $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
+                            $result = $conn->query($sql);
+
+                            if ($result) {
+                                $totalUsers = $result->num_rows;
+                            }
+                            echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
+                            ?>
+                        </div>
+
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
                     </div>
 
+                </section>
 
-                </div>
+
 
                 <section class="table__body">
                     <!--TABLE CONTENT-->

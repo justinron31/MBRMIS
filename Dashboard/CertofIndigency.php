@@ -110,17 +110,19 @@ $_SESSION['show_login_message'] = false;
 
                     <!-- SEARCH BAR-->
                     <div class="input-group">
-                        <input type="search" placeholder="Search...">
+                        <input type="search" placeholder="Search">
                         <i class='bx bx-search-alt'></i>
+
+                    </div>
+
+                    <div class="export__file">
 
                         <div class="tableHead">
 
                             <h1 class="titleTable">Total File Request: <span id="totalReq">0</span></h1>
                         </div>
-                    </div>
 
-                    <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -139,7 +141,7 @@ $_SESSION['show_login_message'] = false;
                             <thead>
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Tracking Number </th>
-                                    <th title="Filter: Ascending/Descending"> Status </th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status </th>
                                     <th title="Filter: Ascending/Descending"> Remarks </th>
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
