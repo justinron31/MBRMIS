@@ -85,6 +85,7 @@
   align-items: flex-end;
   font-size: 25px;
   margin-left: 10px;
+  color: #336996;
 }
 
 .bx.bxs-x-circle:hover {
@@ -252,4 +253,15 @@
 .rButcon {
   display: flex;
   justify-content: flex-end;
+}
+
+/* ─── Require Image ───────────────────────────────────────── */
+.required:after {
+  content: " *";
+  color: red;
+}
+.required1:after {
+  content: " * png, jpg, jpeg ";
+  color: red;
+  font-size: 12px;
 }

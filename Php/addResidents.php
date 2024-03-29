@@ -2,6 +2,8 @@
 
 include 'db.php';
 
+session_start();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $BHS = $_POST['BHS'];
     $Purok = $_POST['Purok'];
@@ -14,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $VotersID = $_POST['VotersID'];
     $NHTS = $_POST['NHTS'];
     $HH = $_POST['HH'];
+    $IP = $_POST['IP'];
 
 
     $VotersID = $_POST['VotersID'];
@@ -22,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['Category'])) {
         $Category = $_POST['Category'];
     }
+
 
     if (isset($_FILES['avatar'])) {
         $avatar = $_FILES['avatar'];
@@ -34,11 +38,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $imageExtension = strtolower(end($fileParts));
 
         if (!in_array($imageExtension, $validImageExtensions)) {
-            echo "<script> alert('Invalid Image Extension'); </script>";
-            exit();
+            $_SESSION['invalid_image'] = true;
+            header("Location: ../Dashboard/ResidentsRecord.php");
         } else if ($fileSize > 2000000) { // 2MB
-            echo "<script> alert('Image Size Is Too Large'); </script>";
-            exit();
+            $_SESSION['invalid_size'] = true;
+            header("Location: ../Dashboard/ResidentsRecord.php");
         } else {
             $date = date('Y-m-d'); // get current date
             $newImageName = 'RVotersID_' . $Lastname . '_' . $Firstname . '_' . $date . '.' . $imageExtension;
@@ -49,16 +53,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // SQL query to insert data into the residentrecord table
-    $sql = "INSERT INTO residentrecord (rVotersID, rvoterstatus, rBHS, rPurokSitioSubdivision, rHouseholdNumber, rLastName, rFirstName, rAge, rGender, rMothersMaidenName, rNHTSHousehold, rCategory, rHHHeadPhilHealthMember, voters_id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO residentrecord (rVotersID, rvoterstatus, rBHS, rPurokSitioSubdivision, rHouseholdNumber, rLastName, rFirstName, rAge, rGender, rMothersMaidenName, rNHTSHousehold, rIP, rCategory, rHHHeadPhilHealthMember, voters_id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssssss", $VotersID, $voterstatus, $BHS, $Purok, $Household, $Lastname, $Firstname, $Age, $Gender, $Maiden, $NHTS, $Category, $HH, $targetFile);
+    $stmt->bind_param("sssssssssssssss", $VotersID, $voterstatus, $BHS, $Purok, $Household, $Lastname, $Firstname, $Age, $Gender, $Maiden, $NHTS, $IP, $Category, $HH, $targetFile);
 
     // Execute the query and get the ID of the inserted record
     if ($stmt->execute()) {
         $resident_id = $conn->insert_id;
     } else {
-        echo "Error: " . $stmt->error;
+        $_SESSION['invalid_insert'] = true;
+        header("Location: ../Dashboard/ResidentsRecord.php");
+        exit();
     }
 
 
@@ -77,9 +83,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("sssssssss", $resident_id, $mLastname, $mFirstname, $mMaiden, $mRelationship, $mGender, $mAge, $mRisk, $mQuarter);
 
     if ($stmt->execute()) {
-        echo "New record created successfully";
+        $_SESSION['success_insert'] = true;
+        header("Location: ../Dashboard/ResidentsRecord.php");
     } else {
-        echo "Error: " . $stmt->error;
+        $_SESSION['invalid_insert'] = true;
+        header("Location: ../Dashboard/ResidentsRecord.php");
     }
 }
 
@@ -103,9 +111,11 @@ for ($i = 1; $i <= $memberCount; $i++) {
     $stmt->bind_param("sssssssss", $resident_id, $mLastname1, $mFirstname1, $mMaiden1, $mRelationship1, $mGender1, $mAge1, $mRisk1, $mQuarter1);
 
     if ($stmt->execute()) {
-        echo "New record created successfully";
+        $_SESSION['success_insert'] = true;
+        header("Location: ../Dashboard/ResidentsRecord.php");
     } else {
-        echo "Error: " . $stmt->error;
+        $_SESSION['invalid_insert'] = true;
+        header("Location: ../Dashboard/ResidentsRecord.php");
     }
 }
 $conn->close();

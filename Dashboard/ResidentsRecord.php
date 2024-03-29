@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -76,18 +75,69 @@ $_SESSION['show_login_message'] = false;
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup" class="popup">
-        <p>Passwords do not match!</p>
+        <p>New record created successfully!</p>
     </div>
 
     <!--VALIDATION MESSAGE-->
-    <div id="validationPopup" class="popup2">
-        <p>Passwords do not match!</p>
+    <div id="validationPopup1" class="popup2">
+        <p>Invalid Image Extension!</p>
     </div>
 
     <!--VALIDATION MESSAGE-->
-    <div id="validationPopup" class="popup2">
-        <p>Passwords do not match!</p>
+    <div id="validationPopup2" class="popup2">
+        <p>Image Size Is Too Large!</p>
     </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup3" class="popup2">
+        <p>Error Creating a new resident record!</p>
+    </div>
+
+
+    <?php
+    if (isset($_SESSION['invalid_image'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup1").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup1").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['invalid_image']);
+    } elseif (isset($_SESSION['invalid_size'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup2").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup2").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['invalid_size']);
+    } elseif (isset($_SESSION['invalid_insert'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup3").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup3").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['invalid_insert']);
+    } elseif (isset($_SESSION['success_insert'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['success_insert']);
+    }
+    ?>
+
 
 
 
@@ -144,7 +194,7 @@ $_SESSION['show_login_message'] = false;
                             include '../Php/db.php';
 
                             $idnum = $_SESSION['idnumber'];
-                            $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
+                            $sql = "SELECT * FROM residentrecord WHERE id != $idnum";
                             $result = $conn->query($sql);
 
                             if ($result) {
@@ -153,14 +203,12 @@ $_SESSION['show_login_message'] = false;
                             echo "<h1 class='titleTable'>Total Residents: " . $totalUsers . "</h1>";
                             ?>
                         </div>
-                        <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;"
-                            onclick="toggleResidentForm()">
+                        <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;" onclick="toggleResidentForm()">
                             <i class='bx bxs-plus-circle'></i>
                             <p class="exportTitle">Add Resident</p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()"
-                            style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -237,13 +285,12 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="rInput">
                             <label for="Purok">Purok/Sitio/Subdivision</label>
-                            <input type="text" id="textbox" name="Purok" placeholder="Enter Purok" required>
+                            <input type="text" id="textbox" name="Purok" placeholder="Enter Purok/Sitio/Subdivision" required>
                         </div>
 
                         <div class="rInput">
                             <label for="Household">Household Number</label>
-                            <input type="text" id="textbox" name="Household" placeholder="Enter Household Number"
-                                required>
+                            <input type="text" id="textbox" name="Household" placeholder="Enter Household Number" required>
                         </div>
 
                     </div>
@@ -262,8 +309,7 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="rInput">
                             <label for="Maiden">Mother’s Maiden Name</label>
-                            <input type="text" id="textbox" name="Maiden" placeholder="Enter Mother’s Maiden Name"
-                                required>
+                            <input type="text" id="textbox" name="Maiden" placeholder="Enter Mother’s Maiden Name" required>
                         </div>
 
                     </div>
@@ -277,8 +323,7 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="rInput">
                             <label for="Gender">Gender</label>
-                            <select class="selectbox" id="bussSelect3" name="Gender" required
-                                onchange="changeFontColor('bussSelect3')">
+                            <select class="selectbox" id="bussSelect3" name="Gender" required onchange="changeFontColor('bussSelect3')">
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
@@ -287,8 +332,7 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="rInput">
                             <label for="VotersID">Voter's ID</label>
-                            <select class="selectbox" id="bussSelect4" name="VotersID" required
-                                onchange="changeToTextbox1(this)">
+                            <select class="selectbox" id="bussSelect4" name="VotersID" required onchange="changeToTextbox1(this)">
                                 <option value="">Select</option>
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
@@ -296,9 +340,8 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
                         <div class="rInput2">
-                            <label for="avatar">Upload Voter's ID</label>
-                            <input class="rIDupload" type="file" id="avatar" name="avatar"
-                                accept="image/png, image/jpeg" required disabled />
+                            <label for="avatar" class="required1">Upload Voter's ID</label>
+                            <input class="rIDupload" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" required disabled />
                         </div>
 
                     </div>
@@ -307,19 +350,27 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="rInput">
                             <label for="NHTS">NHTS Household</label>
-                            <select class="selectbox" id="bussSelect1" name="NHTS" required
-                                onchange="changeFontColor('bussSelect1')">
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                            <select class="selectbox" id="bussSelect1" name="NHTS" required onchange="changeFontColor('bussSelect1')">
+                                <option value="">Select</option>
+                                <option value="NHTS-4Ps">NHTS-4Ps</option>
+                                <option value="NHTS-Non-4Ps">NHTS-Non-4Ps</option>
+                                <option value="Non-NHTS">Non-NHTS</option>
+                            </select>
+                        </div>
+
+                        <div class="rInput">
+                            <label for="IP">IP or Non-IP</label>
+                            <select class="selectbox" id="bussSelect8" name="IP" required onchange="changeFontColor('bussSelect8')">
+                                <option value="">Select</option>
+                                <option value="IP">IP</option>
+                                <option value="Non-IP">Non-IP</option>
                             </select>
                         </div>
 
                         <div class="rInput">
                             <label for="HH">HH Head PhilHealth Member</label>
 
-                            <select class="selectbox" id="bussSelect2" name="HH" required
-                                onchange="changeToTextbox(this)">
+                            <select class="selectbox" id="bussSelect2" name="HH" required onchange="changeToTextbox(this)">
                                 <option value="">Select</option>
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
@@ -328,8 +379,14 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="rInput">
                             <label for="Category">Category</label>
-                            <input type="text" id="Category" name="Category" placeholder="Enter Category" required
-                                disabled>
+                            <select class="selectbox" id="Category" name="Category" required disabled onchange="changeToTextbox(this)">
+                                <option value="">Select</option>
+                                <option value="FORMAL ECONOMY">FORMAL ECONOMY</option>
+                                <option value="INFORMAL ECONOMY">INFORMAL ECONOMY</option>
+                                <option value="INDIGENT">INDIGENT</option>
+                                <option value="SPONSORED">SPONSORED</option>
+                                <option value="LIFETIME MEMBER">LIFETIME MEMBER</option>
+                            </select>
                         </div>
 
                     </div>
@@ -355,14 +412,12 @@ $_SESSION['show_login_message'] = false;
 
                             <div class="rInput">
                                 <label for="mFirstname">First Name</label>
-                                <input type="text" id="textbox" name="mFirstname" placeholder="Enter Firstname"
-                                    required>
+                                <input type="text" id="textbox" name="mFirstname" placeholder="Enter Firstname" required>
                             </div>
 
                             <div class="rInput">
                                 <label for="mMaiden">Mother’s Maiden Name</label>
-                                <input type="text" id="textbox" name="mMaiden" placeholder="Enter Mother’s Maiden Name"
-                                    required>
+                                <input type="text" id="textbox" name="mMaiden" placeholder="Enter Mother’s Maiden Name" required>
                             </div>
 
                         </div>
@@ -371,23 +426,27 @@ $_SESSION['show_login_message'] = false;
 
                             <div class="rInput">
                                 <label for="mRelationship">Relationship</label>
-                                <select class="selectbox" id="bussSelect6" name="mRelationship" required
-                                    onchange="changeFontColor('bussSelect6')">
-                                    <option value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                <select class="selectbox" id="bussSelect6" name="mRelationship" required onchange="changeToTextbox2(this)">
+                                    <option value="">Select Relationship</option>
+                                    <option value="Head">Head</option>
+                                    <option value="Spouse">Spouse</option>
+                                    <option value="Son">Son</option>
+                                    <option value="Daughter">Daughter</option>
+                                    <option value="Others">Others</option>
                                 </select>
                             </div>
 
                             <div class="rInput">
                                 <label for="mGender">Gender</label>
-                                <select class="selectbox" id="bussSelect7" name="mGender" required
-                                    onchange="changeFontColor('bussSelect7')">
-                                    <option value="">Select Gender</option>
+                                <select class="selectbox" id="bussSelect7" name="mGender" required onchange="changeFontColor('bussSelect7')">
+                                    <option value="">Select</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                 </select>
                             </div>
+
+
+
 
                             <div class="rInput">
                                 <label for="mAge">Age</label>
@@ -397,17 +456,29 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
                         <div class="rform1">
-
                             <div class="rInput">
                                 <label for="mRisk">Classification by Age/Health Risk</label>
-                                <input type="text" id="textbox" name="mRisk"
-                                    placeholder="Enter Classification by Age/Health Risk" required>
+                                <select class="selectbox" id="bussSelect9" name="mRisk" required onchange="changeFontColor('bussSelect9')">
+                                    <option value="">Select</option>
+                                    <option value="Male">Newborn</option>
+                                    <option value="Female">Infant (29days-11 months old)</option>
+                                    <option value="Male">Under-five (1-4 years old)</option>
+                                    <option value="Female">School-aged children (5-9 years old)</option>
+                                    <option value="Male">Adolescents (10-19 years old)</option>
+                                    <option value="Female">Pregnant</option>
+                                    <option value="Male">Persons with disability</option>
+                                    <option value="Female">Adult (≥25 years old) </option>
+                                    <option value="Male">Adolescent-Pregnant</option>
+                                    <option value="Female">Post Partum</option>
+                                    <option value="Female">Senior Citizen</option>
+                                </select>
                             </div>
+
+
 
                             <div class="rInput">
                                 <label for="mQuarter">Quarter</label>
-                                <select class="selectbox" id="bussSelect8" name="mQuarter" required
-                                    onchange="changeFontColor('bussSelect8')">
+                                <select class="selectbox" id="bussSelect10" name="mQuarter" required onchange="changeFontColor('bussSelect10')">
                                     <option value="">Select Quarter</option>
                                     <option value="First">First</option>
                                     <option value="Second">Second</option>
@@ -415,13 +486,9 @@ $_SESSION['show_login_message'] = false;
                                     <option value="Fourth">Fourth</option>
                                 </select>
                             </div>
-
                         </div>
 
                     </div>
-
-
-
 
                     <div class="addMember" onclick="addMember()">
                         <span>+ Add Household Member</span>
@@ -432,12 +499,12 @@ $_SESSION['show_login_message'] = false;
                     </div>
 
                 </form>
-
-
             </div>
 
-
         </div>
+
+
+    </div>
 </body>
 
 <script>

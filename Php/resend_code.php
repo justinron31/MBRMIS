@@ -63,7 +63,7 @@ if (isset($_GET["email"])) {
         $sql = "UPDATE staff SET verification_code = '" . $verification_code . "' WHERE email = '" . $email . "'";
         mysqli_query($conn, $sql);
 
-        header("Location:/MBRMIS/Login/email-verification.php?email=" . $email);
+        header("Location:../Login/email-verification.php?email=" . $email);
         exit();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -71,7 +71,7 @@ if (isset($_GET["email"])) {
 } else {
     echo '<script>';
     echo 'alert("Failed to resend code. Please try again.");';
-    echo 'window.location.href = "/MBRMIS/Login/email-verification.php";';
+    echo 'window.location.href = "../Login/email-verification.php";';
     echo '</script>';
 }
 

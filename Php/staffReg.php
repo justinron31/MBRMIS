@@ -74,7 +74,7 @@ if (isset($_POST["register"])) {
         // insert in users table
         $sql = "INSERT INTO staff(firstname, lastname, idnumber, email, gender, age, last_login_timestamp, is_logged_in, pass, verification_code, email_verified_at) VALUES ( '" . $firstname . "', '" . $lastname . "', '" . $idnumber . "', '" . $email . "', '" . $gender . "', '" . $age . "', '" . $last_login . "', '" . $is_logged_in . "', '" . $encrypted_password . "', '" . $verification_code . "', NULL)";
         mysqli_query($conn, $sql);
-        header("Location:/MBRMIS/Login/email-verification.php?email=" . $email);
+        header("Location:../Login/email-verification.php?email=" . $email);
         exit();
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
@@ -82,7 +82,7 @@ if (isset($_POST["register"])) {
 } else {
     echo '<script>';
     echo 'alert("Registration failed. Please try again.");';
-    echo 'window.location.href = "/MBRMIS/Login/staffRegister.php";';
+    echo 'window.location.href = "../Login/staffRegister.php";';
     echo '</script>';
 }
 

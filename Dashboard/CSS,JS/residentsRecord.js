@@ -10,7 +10,6 @@ function changeFontColor(dropDownId) {
   }
 }
 
-// ─── Dropdown To Input ────────────────────────────────────────
 // ─── Philhealth ───────────────────────────────────────────────
 function changeToTextbox(selectBox) {
   changeFontColor(selectBox.id);
@@ -81,6 +80,30 @@ function changeToTextbox1(selectBox) {
   }
 }
 
+// ─── Relationship ─────────────────────────────────────────────
+function changeToTextbox2(selectBox) {
+  changeFontColor(selectBox.id);
+
+  if (selectBox.value === "Others") {
+    var textBox = document.createElement("input");
+    textBox.type = "text";
+    textBox.name = selectBox.name;
+    textBox.required = true;
+    textBox.placeholder = "Specify the relationship";
+
+    var originalSelectBox = selectBox;
+
+    textBox.addEventListener("blur", function () {
+      if (textBox.value === "") {
+        originalSelectBox.value = "";
+        textBox.parentNode.replaceChild(originalSelectBox, textBox);
+      }
+    });
+
+    selectBox.parentNode.replaceChild(textBox, selectBox);
+  }
+}
+
 // ─── Toggle Resident Add ──────────────────────────────────────
 function toggleResidentForm() {
   document.querySelector(".residentsForm").style.display = "block";
@@ -134,11 +157,14 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mRelationship${memberCount}">Relationship</label>
-                                <select class="selectbox" id="bussSelect6" name="mRelationship${memberCount}" required onchange="changeFontColor('bussSelect6')">
-                                    <option value="">Select Gender</option>
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                </select>
+                              <select class="selectbox" id="bussSelect6" name="mRelationship${memberCount}" required onchange="changeToTextbox2(this)">
+                                <option value="">Select Relationship</option>
+                                <option value="Head">Head</option>
+                                <option value="Spouse">Spouse</option>
+                                <option value="Son">Son</option>
+                                <option value="Daughter">Daughter</option>
+                                <option value="Others">Others</option>
+                              </select>
                             </div>
 
                             <div class="rInput">
@@ -161,13 +187,26 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mRisk${memberCount}">Classification by Age/Health Risk</label>
-                                <input type="text" id="textbox" name="mRisk${memberCount}" placeholder="Enter Classification by Age/Health Risk" required>
+                                <select class="selectbox" id="bussSelect9" name="mRisk${memberCount}" required onchange="changeFontColor('bussSelect9')">
+                                    <option value="">Select</option>
+                                    <option value="Male">Newborn</option>
+                                    <option value="Female">Infant (29days-11 months old)</option>
+                                    <option value="Male">Under-five (1-4 years old)</option>
+                                    <option value="Female">School-aged children (5-9 years old)</option>
+                                    <option value="Male">Adolescents (10-19 years old)</option>
+                                    <option value="Female">Pregnant</option>
+                                    <option value="Male">Persons with disability</option>
+                                    <option value="Female">Adult (≥25 years old) </option>
+                                    <option value="Male">Adolescent-Pregnant</option>
+                                    <option value="Female">Post Partum</option>
+                                    <option value="Female">Senior Citizen</option>
+                                </select>
                             </div>
 
                             <div class="rInput">
                                 <label for="mQuarter${memberCount}">Quarter</label>
-                                <select class="selectbox" id="bussSelect8" name="mQuarter${memberCount}" required
-                                    onchange="changeFontColor('bussSelect8')">
+                                <select class="selectbox" id="bussSelect10" name="mQuarter${memberCount}" required
+                                    onchange="changeFontColor('bussSelect10')">
                                     <option value="">Select Quarter</option>
                                     <option value="First">First</option>
                                     <option value="Second">Second</option>
