@@ -100,12 +100,12 @@ main.table {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  margin-top: 15px;
 }
 
 .titleTable {
   font-size: 20px;
   text-wrap: nowrap;
-  margin-left: 20px;
   padding: 5px 10px;
   background-color: #377fb9;
   border-radius: 10px;
@@ -121,7 +121,6 @@ main.table {
   justify-content: center;
   align-items: center;
   transition: 0.2s;
-  margin-top: 10px;
 }
 
 .table__header .input-group:hover {
@@ -133,6 +132,10 @@ main.table {
 .table__header .input-group img {
   width: 1.2rem;
   height: 1.2rem;
+}
+
+.bx.bx-search-alt {
+  margin-right: 10px;
 }
 
 .table__header .input-group input {
@@ -311,12 +314,6 @@ thead th.asc span.icon-arrow {
   display: flex;
 }
 
-.bx.bxs-file-export {
-  font-size: 15px;
-  text-align: center;
-  color: white;
-}
-
 .export__file {
   display: flex;
   justify-content: center;
@@ -343,10 +340,12 @@ thead th.asc span.icon-arrow {
   display: inline-block;
   vertical-align: middle;
   color: white;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 .export__file-btn p {
-  font-size: 14px;
+  font-size: 15px;
 }
 
 .export__file-btn i {
@@ -553,4 +552,22 @@ thead th.asc span.icon-arrow {
   background-color: #ccc;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+/* ─── Residents Record ────────────────────────────────────── */
+
+.viewMore {
+  background-color: #377fb9;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  font-weight: 600;
+  color: white;
+}
+
+.viewMore:hover {
+  background-color: #336996;
+  transform: scale(1.05);
 }
