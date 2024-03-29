@@ -229,19 +229,70 @@ $_SESSION['show_login_message'] = false;
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Voters ID </th>
                                     <th title="Filter: Ascending/Descending"> Voter status</th>
+                                    <th title="Filter: Ascending/Descending"> Voters ID Img </th>
+                                    <th title="Filter: Ascending/Descending"> BHS </th>
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
                                     <th title="Filter: Ascending/Descending"> Middlename </th>
                                     <th title="Filter: Ascending/Descending"> Gender </th>
                                     <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> BHS </th>
                                     <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision </th>
                                     <th title="Filter: Ascending/Descending"> Household Number </th>
+                                    <th title="Filter: Ascending/Descending"> NHTS Household </th>
+                                    <th title="Filter: Ascending/Descending"> IP or Non-IP </th>
+                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member </th>
+                                    <th title="Filter: Ascending/Descending"> Category </th>
+                                    <th title="Filter: Ascending/Descending"> Date Created </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
                             <tbody>
+
+                                <?php
+                                include '../Php/db.php';
+
+                                $sql = "SELECT * FROM residentrecord ORDER BY datecreated DESC";
+                                $result = $conn->query($sql);
+
+                                if ($result) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $file_status = strtolower(trim($row["rvoterstatus"]));
+                                        if ($file_status == 'voter') {
+                                            $class = 'delivered';
+                                        } elseif ($file_status == 'non-voter') {
+                                            $class = 'cancelled';
+                                        } else {
+                                            $class = '';
+                                        }
+
+                                        echo "<tr>" .
+                                            "<td><strong>" . $row["rVotersID"] . "</strong></td>" .
+                                            "<td style='text-align: center;'><p class='status $class padding'>" . $row["rvoterstatus"] . "</p></td>" .
+                                            "<td><a href='../ResidentsID/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>" .
+                                            "<td>" . $row["rBHS"] . "</td>" .
+                                            "<td>" . $row["rFirstName"] . "</td>" .
+                                            "<td>" . $row["rLastName"] . "</td>" .
+                                            "<td>" . $row["rMothersMaidenName"] . "</td>" .
+                                            "<td>" . $row["rGender"] . "</td>" .
+                                            "<td>" . $row["rAge"] . "</td>" .
+                                            "<td>" . $row["rPurokSitioSubdivision"] . "</td>" .
+                                            "<td>" . $row["rHouseholdNumber"] . "</td>" .
+                                            "<td>" . $row["rNHTSHousehold"] . "</td>" .
+                                            "<td>" . $row["rIP"] . "</td>" .
+                                            "<td>" . $row["rHHHeadPhilHealthMember"] . "</td>" .
+                                            "<td>" . $row["rCategory"] . "</td>" .
+                                            "<td title='" . date("l", strtotime($row["datecreated"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datecreated"])) . "</td>" .
+                                            "<td><button class='viewMore'>View</button></td>" .
+                                            "</tr>";
+                                    }
+                                    $result->close();
+                                } else {
+                                    echo "<tr><td colspan='8'>No data found</td></tr>";
+                                }
+
+                                $conn->close();
+                                ?>
 
                             </tbody>
                         </table>
@@ -318,7 +369,7 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="rInput">
                             <label for="Age">Age</label>
-                            <input type="text" id="textbox" name="Age" placeholder="Enter Age" required>
+                            <input type="text" id="textbox" name="Age" placeholder="Enter Age" oninput="validateAge(this)" required>
                         </div>
 
                         <div class="rInput">
@@ -334,7 +385,7 @@ $_SESSION['show_login_message'] = false;
                             <label for="VotersID">Voter's ID</label>
                             <select class="selectbox" id="bussSelect4" name="VotersID" required onchange="changeToTextbox1(this)">
                                 <option value="">Select</option>
-                                <option value="No">No</option>
+                                <option value="None">No</option>
                                 <option value="Yes">Yes</option>
                             </select>
                         </div>
@@ -450,7 +501,7 @@ $_SESSION['show_login_message'] = false;
 
                             <div class="rInput">
                                 <label for="mAge">Age</label>
-                                <input type="text" id="textbox" name="mAge" placeholder="Enter Age" required>
+                                <input type="text" id="textbox" name="mAge" placeholder="Enter Age" oninput="validateAge(this)" required>
                             </div>
 
                         </div>

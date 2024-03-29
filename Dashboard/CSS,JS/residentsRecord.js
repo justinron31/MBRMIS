@@ -35,6 +35,7 @@ function changeToTextbox(selectBox) {
         var categoryInput = document.getElementById("Category");
         categoryInput.disabled = true;
         categoryInput.removeAttribute("required");
+        categoryInput.value = "";
       } else {
         // If the text box has a value, enable the "Category" input and add the 'required' attribute
         var categoryInput = document.getElementById("Category");
@@ -178,7 +179,7 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mAge${memberCount}">Age</label>
-                                <input type="text" id="textbox" name="mAge${memberCount}" placeholder="Enter Age" required>
+                                <input type="text" id="textbox" name="mAge${memberCount}" placeholder="Enter Age"  oninput="validateAge(this)"required>
                             </div>
 
                         </div>
@@ -242,4 +243,15 @@ function removeMember(member) {
   // Update the total number of family members
   var memberCountField = document.getElementById("memberCount");
   memberCountField.value = memberCount;
+}
+
+// ─── Age Validate ─────────────────────────────────────────────
+function validateAge(input) {
+  // Remove non-numeric characters
+  input.value = input.value.replace(/\D/g, "");
+
+  // Limit to two digits
+  if (input.value.length > 2) {
+    input.value = input.value.slice(0, 2);
+  }
 }

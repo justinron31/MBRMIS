@@ -3,6 +3,7 @@
 include 'db.php';
 
 session_start();
+date_default_timezone_set('Asia/Manila');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $BHS = $_POST['BHS'];
@@ -17,14 +18,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $NHTS = $_POST['NHTS'];
     $HH = $_POST['HH'];
     $IP = $_POST['IP'];
-
+    $datecreated = date('Y-m-d H:i:s');
 
     $VotersID = $_POST['VotersID'];
-    $voterstatus = (!empty($VotersID)) ? 'voter' : 'non-voter';
-
-    if (isset($_POST['Category'])) {
-        $Category = $_POST['Category'];
+    if ($VotersID == 'None') {
+        $voterstatus = 'Non-voter';
+    } elseif (!empty($VotersID)) {
+        $voterstatus = 'Voter';
+    } else {
+        $voterstatus = 'Non-voter';
     }
+
+    $Category = isset($_POST['Category']) && !empty($_POST['Category']) ? $_POST['Category'] : 'None';
 
 
     if (isset($_FILES['avatar'])) {
@@ -52,11 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // SQL query to insert data into the residentrecord table
-    $sql = "INSERT INTO residentrecord (rVotersID, rvoterstatus, rBHS, rPurokSitioSubdivision, rHouseholdNumber, rLastName, rFirstName, rAge, rGender, rMothersMaidenName, rNHTSHousehold, rIP, rCategory, rHHHeadPhilHealthMember, voters_id_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?)";
+    $sql = "INSERT INTO residentrecord (rVotersID, rvoterstatus, rBHS, rPurokSitioSubdivision, rHouseholdNumber, rLastName, rFirstName, rAge, rGender, rMothersMaidenName, rNHTSHousehold, rIP, rCategory, rHHHeadPhilHealthMember, voters_id_image, datecreated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssssss", $VotersID, $voterstatus, $BHS, $Purok, $Household, $Lastname, $Firstname, $Age, $Gender, $Maiden, $NHTS, $IP, $Category, $HH, $targetFile);
+    $stmt->bind_param("ssssssssssssssss", $VotersID, $voterstatus, $BHS, $Purok, $Household, $Lastname, $Firstname, $Age, $Gender, $Maiden, $NHTS, $IP, $Category, $HH, $targetFile, $datecreated);
 
     // Execute the query and get the ID of the inserted record
     if ($stmt->execute()) {
@@ -77,10 +81,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $mAge = $_POST['mAge'];
     $mRisk = $_POST['mRisk'];
     // SQL query to insert data into the familymember table
-    $sql = "INSERT INTO familymember (resident_id, mLastName, mFirstName, mMothersMaidenName, mRelationship, mSex, mAge, mClassificationByAgeHealthRisk, mQuarter) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO familymember (resident_id, mLastName, mFirstName, mMothersMaidenName, mRelationship, mSex, mAge, mClassificationByAgeHealthRisk, mQuarter, datecreated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssss", $resident_id, $mLastname, $mFirstname, $mMaiden, $mRelationship, $mGender, $mAge, $mRisk, $mQuarter);
+    $stmt->bind_param("ssssssssss", $resident_id, $mLastname, $mFirstname, $mMaiden, $mRelationship, $mGender, $mAge, $mRisk, $mQuarter, $datecreated);
 
     if ($stmt->execute()) {
         $_SESSION['success_insert'] = true;

@@ -177,6 +177,15 @@ function checkAvailability(field, value) {
   xhr.send();
 }
 
+/* ID NUMBER VALIDATION */
+function validateIDNumber() {
+  var idnumInput = document.getElementById("idnum");
+  var idnumValue = idnumInput.value;
+
+  // Perform the asynchronous check for ID number availability
+  checkAvailability("idnumber", idnumValue);
+}
+
 // EMAIL FORMAT VALIDATION */
 function validateEmail() {
   var emailInput = document.getElementById("email");
@@ -216,16 +225,6 @@ function validateEmail() {
   }
 
   return true;
-}
-
-/* ID NUMBER VALIDATION */
-function validateIDNumber() {
-  var idnumInput = document.getElementById("idnum");
-  var idnumValue = idnumInput.value;
-  var submitBtn = document.querySelector(".login-button");
-
-  // Perform the asynchronous check for ID number availability
-  checkAvailability("idnumber", idnumValue);
 }
 
 /*CONFIRM PASS*/

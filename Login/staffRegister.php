@@ -64,6 +64,9 @@
 
 
 
+
+
+
     <!--LOGIN FORM-->
     <div class="login-containerReg">
         <div class="logo-container">
@@ -92,7 +95,7 @@
                 <!-- ─── Id Number ────────────────────────────────────────── -->
                 <div class="staffName2">
                     <label class="required">ID Number</label>
-                    <input type="text" id="idnum" name="idnum" placeholder="Enter ID number" oninput="validateIDNumber();" required />
+                    <input type="text" id="idnum" name="idnum" placeholder="Enter ID number" oninput="validateIDNumber(); " required />
                 </div>
 
                 <!-- ─── Age ──────────────── -->
@@ -104,7 +107,7 @@
                 <!-- ─── Gender ───────────── -->
                 <div class="staffName2">
                     <label class="required">Gender</label>
-                    <select class="selectbox" id="genderSelect" name="genderSelect" required onchange="changeFontColor()">
+                    <select class="selectbox" id="genderSelect" name="genderSelect" required onchange="changeFontColor(); validateIDNumber2()">
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
