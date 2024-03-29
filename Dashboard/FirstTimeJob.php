@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -111,26 +110,28 @@ $_SESSION['show_login_message'] = false;
                     <div class="input-group">
                         <input type="search" placeholder="Search...">
                         <i class='bx bx-search-alt'></i>
+
+                        <div class="tableHead">
+                            <!--TOTAL USER-->
+                            <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
+                        </div>
+
                     </div>
 
-                </section>
-
-
-
-                <div class="tableHead">
-                    <!--TOTAL USER-->
-                    <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
-
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
                         </button>
                     </div>
 
-                </div>
+
+                </section>
+
+
+
+
 
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
@@ -138,26 +139,26 @@ $_SESSION['show_login_message'] = false;
                         <table id="headerTable">
                             <thead>
                                 <tr>
-                                    <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Remarks <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Birthdate <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Civil Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Address <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Recidency <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Education <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Course <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> JobStart Program <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> ID Img <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th title="Filter: Ascending/Descending"> Tracking Number </th>
+                                    <th title="Filter: Ascending/Descending"> Status </th>
+                                    <th title="Filter: Ascending/Descending"> Remarks </th>
+                                    <th title="Filter: Ascending/Descending"> Firstname </th>
+                                    <th title="Filter: Ascending/Descending"> Lastname </th>
+                                    <th title="Filter: Ascending/Descending"> Birthdate </th>
+                                    <th title="Filter: Ascending/Descending"> Age </th>
+                                    <th title="Filter: Ascending/Descending"> Gender </th>
+                                    <th title="Filter: Ascending/Descending"> Contact Number </th>
+                                    <th title="Filter: Ascending/Descending"> Civil Status </th>
+                                    <th title="Filter: Ascending/Descending"> Address </th>
+                                    <th title="Filter: Ascending/Descending"> Recidency </th>
+                                    <th title="Filter: Ascending/Descending"> Education </th>
+                                    <th title="Filter: Ascending/Descending"> Course </th>
+                                    <th title="Filter: Ascending/Descending"> JobStart Program </th>
+                                    <th title="Filter: Ascending/Descending"> ID Number </th>
+                                    <th title="Filter: Ascending/Descending"> ID Img </th>
+                                    <th title="Filter: Ascending/Descending"> Purpose </th>
+                                    <th title="Filter: Ascending/Descending"> Pickup Date </th>
+                                    <th title="Filter: Ascending/Descending"> Date Submitted </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -225,8 +226,7 @@ $_SESSION['show_login_message'] = false;
                                     <div class="custom-modal-content">
                                         <h2 class="editAccountTitle">Update File Request Status </h2>
                                         <p id="TrackingN"></p>
-                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php"
-                                            method="post">
+                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php" method="post">
                                             <div class="updatecon">
                                                 <div class="accountstatus">
                                                     <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
@@ -237,8 +237,7 @@ $_SESSION['show_login_message'] = false;
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
-                                                <button id="updateButton1" class="updateButton"
-                                                    type="submit">Update</button>
+                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
                                         </form>
                                     </div>
                                 </div>

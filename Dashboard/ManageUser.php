@@ -114,26 +114,25 @@ $_SESSION['show_login_message'] = false;
                     <div class="input-group">
                         <input type="search" placeholder="Search...">
                         <i class='bx bx-search-alt'></i>
+
+                        <div class="tableHead">
+                            <!--TOTAL USER-->
+                            <?php
+                            include '../Php/db.php';
+
+                            $idnum = $_SESSION['idnumber'];
+                            $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
+                            $result = $conn->query($sql);
+
+                            if ($result) {
+                                $totalUsers = $result->num_rows;
+                            }
+                            echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
+                            ?>
+
+                        </div>
+
                     </div>
-
-                </section>
-
-
-
-                <div class="tableHead">
-                    <!--TOTAL USER-->
-                    <?php
-                    include '../Php/db.php';
-
-                    $idnum = $_SESSION['idnumber'];
-                    $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
-                    $result = $conn->query($sql);
-
-                    if ($result) {
-                        $totalUsers = $result->num_rows;
-                    }
-                    echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
-                    ?>
 
                     <div class="export__file">
                         <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
@@ -142,8 +141,11 @@ $_SESSION['show_login_message'] = false;
                         </button>
                     </div>
 
+                </section>
 
-                </div>
+
+
+
 
                 <section class="table__body">
                     <!--TABLE CONTENT-->
@@ -151,16 +153,16 @@ $_SESSION['show_login_message'] = false;
                         <table id="headerTable">
                             <thead>
                                 <tr>
-                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Role <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Date Created <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th title="Filter: Ascending/Descending"> ID Number </th>
+                                    <th title="Filter: Ascending/Descending"> Firstname </th>
+                                    <th title="Filter: Ascending/Descending"> Lastname </th>
+                                    <th title="Filter: Ascending/Descending"> Gender </th>
+                                    <th title="Filter: Ascending/Descending"> Age </th>
+                                    <th title="Filter: Ascending/Descending"> Email </th>
+                                    <th title="Filter: Ascending/Descending"> Role </th>
+                                    <th class="center"> Account Status </th>
+                                    <th title="Filter: Ascending/Descending"> Last Login </th>
+                                    <th title="Filter: Ascending/Descending"> Date Created </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -168,7 +170,7 @@ $_SESSION['show_login_message'] = false;
                             <tbody>
 
                                 <?php
-                                include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
+                                include '../Php/db.php';
 
                                 $idnum = $_SESSION['idnumber'];
 

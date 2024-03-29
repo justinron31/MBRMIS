@@ -94,30 +94,34 @@ main.table {
   width: 100%;
   height: 10%;
   background-color: white;
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 1.9rem;
+  padding-bottom: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 30px;
 }
 
 .titleTable {
   font-size: 20px;
   text-wrap: nowrap;
-  margin-left: 40px;
+  margin-left: 20px;
+  padding: 5px 10px;
+  background-color: #377fb9;
+  border-radius: 10px;
+  color: white;
 }
 
 .table__header .input-group {
   width: 35%;
   height: 40px;
   background-color: rgba(207, 207, 207, 0.333);
-  padding: 0 0.8rem;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: 0.2s;
   margin-top: 10px;
-  margin-left: 20px;
 }
 
 .table__header .input-group:hover {
@@ -133,7 +137,7 @@ main.table {
 
 .table__header .input-group input {
   width: 100%;
-  padding: 0 0.5rem 0 0.3rem;
+  padding: 0 0.5rem 0 0.8rem;
   background-color: transparent;
   border: none;
   outline: none;
@@ -315,7 +319,8 @@ thead th.asc span.icon-arrow {
 
 .export__file {
   display: flex;
-  margin-left: 85%;
+  justify-content: center;
+  text-align: center;
   text-wrap: nowrap;
 }
 
@@ -326,10 +331,6 @@ thead th.asc span.icon-arrow {
   cursor: pointer;
   border: none;
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-  position: fixed;
-  top: 10px;
-  right: 25px;
-  margin: 10px;
 }
 
 .export__file-btn:hover {
@@ -350,13 +351,6 @@ thead th.asc span.icon-arrow {
 
 .export__file-btn i {
   margin-right: 5px;
-}
-
-.export__file {
-  display: inline-block;
-  width: fit-content;
-  margin-bottom: 10px;
-  border: none;
 }
 
 .export__file-btn:disabled {

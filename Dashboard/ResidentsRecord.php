@@ -12,6 +12,7 @@
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
+
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
@@ -22,17 +23,18 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
     <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
-
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
 
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
-    <script src="../Dashboard/CSS,JS/Export.js"></script>
+    <script src="../Dashboard/CSS,JS/Export.js" defer></script>
 
 
-    <title>MAKILING BRMI SYSTEM - Certificate of Recidency</title>
+
+
+    <title>MAKILING BRMI SYSTEM - Residents Record</title>
 </head>
 
 
@@ -46,7 +48,6 @@ if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_S
     header("Location: /MBRMIS/Login/loginStaff.php");
     exit();
 }
-
 
 $userName = $_SESSION['user_name'];
 
@@ -77,7 +78,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    CERTIFICATE OF RESIDENCY
+                    RESIDENTS RECORD
                 </h1>
 
                 <div class="access">
@@ -93,7 +94,6 @@ $_SESSION['show_login_message'] = false;
                     </p>
                 </div>
 
-
             </div>
         </div>
 
@@ -107,8 +107,8 @@ $_SESSION['show_login_message'] = false;
             <!--TABLE-->
             <main class="table" id="customers_table">
 
-                <section class="table__header">
 
+                <section class="table__header">
                     <!-- SEARCH BAR-->
                     <div class="input-group">
                         <input type="search" placeholder="Search...">
@@ -116,110 +116,126 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="tableHead">
                             <!--TOTAL USER-->
-                            <h1 class="titleTable">Total File Request: <span id="totalReq1">0</span></h1>
+                            <?php
+                            include '../Php/db.php';
+
+                            $idnum = $_SESSION['idnumber'];
+                            $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
+                            $result = $conn->query($sql);
+
+                            if ($result) {
+                                $totalUsers = $result->num_rows;
+                            }
+                            echo "<h1 class='titleTable'>Total Residents: " . $totalUsers . "</h1>";
+                            ?>
                         </div>
 
                     </div>
 
                     <div class="export__file">
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
-
                         </button>
                     </div>
+
                 </section>
 
 
+                <section class="table__body">
 
-
-
-                <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table>
+                        <table id="headerTable">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> Tracking Number </th>
-                                    <th title="Filter: Ascending/Descending"> Status </th>
-                                    <th title="Filter: Ascending/Descending"> Remarks </th>
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Contact Number </th>
-                                    <th title="Filter: Ascending/Descending"> Voters ID Number </th>
-                                    <th title="Filter: Ascending/Descending"> Voters ID Img </th>
-                                    <th title="Filter: Ascending/Descending"> Purpose </th>
-                                    <th title="Filter: Ascending/Descending"> Pickup Date </th>
-                                    <th title="Filter: Ascending/Descending"> Date Submitted </th>
+                                    <th title="Filter: Ascending/Descending"> Middlename </th>
+                                    <th title="Filter: Ascending/Descending"> Gender </th>
+                                    <th title="Filter: Ascending/Descending"> Age </th>
+                                    <th title="Filter: Ascending/Descending"> Email </th>
+                                    <th title="Filter: Ascending/Descending"> Role </th>
+                                    <th class="center"> Account Status </th>
+                                    <th title="Filter: Ascending/Descending"> Last Login </th>
+                                    <th title="Filter: Ascending/Descending"> Date Created </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
                             <tbody>
+
                                 <?php
                                 include '../Php/db.php';
 
-                                $sql = "SELECT id, lastname, firstname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Residency' ORDER BY datetime_created DESC";
+                                $idnum = $_SESSION['idnumber'];
+
+                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp,dateCreated FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
                                     while ($row = $result->fetch_assoc()) {
-                                        $file_status = strtolower(trim($row["file_status"]));
-                                        if ($file_status == 'ready for pickup') {
-                                            $class = 'delivered';
-                                        } elseif ($file_status == 'declined') {
-                                            $class = 'cancelled';
-                                        } elseif ($file_status == 'reviewing') {
-                                            $class = 'pending';
-                                        } elseif ($file_status == 'processing') {
-                                            $class = 'processing';
-                                        } else {
-                                            $class = '';
-                                        }
-                                        $uniqueId = 'edit_' . $row["id"];
+                                        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
+                                        $uniqueId = 'edit_' . $row["idnumber"];
                                         echo "<tr>" .
-                                            "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
-                                            "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
-                                            "<td>" . $row["remarks"] . "</td>" .
+                                            "<td><strong>" . $row["idnumber"] . "</strong></td>" .
                                             "<td>" . $row["firstname"] . "</td>" .
                                             "<td>" . $row["lastname"] . "</td>" .
-                                            "<td>" . $row["contact_number"] . "</td>" .
-                                            "<td>" . $row["voters_id_number"] . "</td>" .
-                                            "<td><a href='../Uploaded File/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>" .
-                                            "<td>" . $row["purpose_description"] . "</td>" .
-                                            "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
-                                            "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                            "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>" .
+                                            "<td>" . $row["gender"] . "</td>" .
+                                            "<td>" . $row["age"] . "</td>" .
+                                            "<td>" . $row["email"] . "</td>" .
+                                            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
+                                            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+                                            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
+                                            "<td title='" . date("l", strtotime($row["dateCreated"])) . "'>" . date("F j, Y, g:i a", strtotime($row["dateCreated"])) . "</td>" .
+                                            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
                                             "</tr>";
                                     }
                                     $result->close();
                                 } else {
-                                    echo "<tr><td colspan='8'>No data found</td></tr>";
+                                    echo "<tr><td colspan='7'>No data found</td></tr>";
                                 }
 
                                 $conn->close();
                                 ?>
-
-
-                                <div id="customEditModal1" class="custom-modal">
+                                <!-- POPUP FORM ACCOUNT EDIT -->
+                                <div id="customEditModal" class="custom-modal">
                                     <div class="custom-modal-content">
-                                        <h2 class="editAccountTitle">Update File Request Status </h2>
-                                        <p id="TrackingN"></p>
-                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile.php" method="post">
+                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
+                                        <p id="customUserName"></p>
+                                        <p id="dateCreated"></p>
+                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
+
                                             <div class="updatecon">
                                                 <div class="accountstatus">
-                                                    <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
-                                                    <label for="fileStatus">File Status:</label>
-                                                    <select id="fileStatus" name="fileStatus">
-                                                        <option value="Ready for Pickup">Ready for Pickup</option>
-                                                        <option value="Declined">Declined</option>
-                                                        <option value="Reviewing">Reviewing</option>
+                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
+                                                    <label for="customRole">Role:</label>
+                                                    <select id="customRole" name="customRole">
+                                                        <option value="Admin">Admin</option>
+                                                        <option value="Staff">Staff</option>
                                                     </select>
+
+
                                                 </div>
-                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
+
+                                                <div class="rolestatus">
+
+                                                    <label for="customStatus">Account Status:</label>
+                                                    <select id="customStatus" name="customStatus">
+                                                        <option value="Activated">Activated</option>
+                                                        <option value="Deactivated">Deactivated</option>
+                                                    </select>
+
+                                                </div>
+
+
+                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
+
+
                                         </form>
                                     </div>
                                 </div>
+
 
 
                             </tbody>

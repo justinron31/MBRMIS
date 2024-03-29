@@ -194,7 +194,7 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="reqHead">
                             <div class="card-nameR">PENDING FILE REQUEST</div>
-                            <div class="seeMore"> <a href="#">See more</a></div>
+
                         </div>
 
                         <div class="reqItem">

@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -79,7 +78,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    MANAGE SYSTEM USER
+                    REPORTING VIEW
                 </h1>
 
                 <div class="access">
@@ -151,15 +150,15 @@ $_SESSION['show_login_message'] = false;
                         <table id="headerTable">
                             <thead>
                                 <tr>
-                                    <th> ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Gender <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Age <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Email <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Role <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th class="center"> Account Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Last Login <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th title="Filter: Ascending/Descending"> ID Number </th>
+                                    <th title="Filter: Ascending/Descending"> Firstname </th>
+                                    <th title="Filter: Ascending/Descending"> Lastname </th>
+                                    <th title="Filter: Ascending/Descending"> Gender </th>
+                                    <th title="Filter: Ascending/Descending"> Age </th>
+                                    <th title="Filter: Ascending/Descending"> Email </th>
+                                    <th title="Filter: Ascending/Descending"> Role </th>
+                                    <th class="center"> Account Status </th>
+                                    <th title="Filter: Ascending/Descending"> Last Login </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>

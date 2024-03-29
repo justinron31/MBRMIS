@@ -112,23 +112,24 @@ $_SESSION['show_login_message'] = false;
                     <div class="input-group">
                         <input type="search" placeholder="Search...">
                         <i class='bx bx-search-alt'></i>
+
+                        <div class="tableHead">
+
+                            <h1 class="titleTable">Total File Request: <span id="totalReq">0</span></h1>
+                        </div>
                     </div>
-
-                </section>
-
-                <div class="tableHead">
-
-                    <h1 class="titleTable">Total File Request: <span id="totalReq">0</span></h1>
 
                     <div class="export__file">
                         <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
-
                         </button>
                     </div>
 
-                </div>
+                </section>
+
+
+
 
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
@@ -137,17 +138,17 @@ $_SESSION['show_login_message'] = false;
                         <table>
                             <thead>
                                 <tr>
-                                    <th> Tracking Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Status <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Remarks <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Firstname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Lastname <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Contact Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Voters ID Number <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Voters ID Img <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Purpose <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Pickup Date <span class="icon-arrow">&UpArrow;</span></th>
-                                    <th> Date Submitted <span class="icon-arrow">&UpArrow;</span></th>
+                                    <th title="Filter: Ascending/Descending"> Tracking Number </th>
+                                    <th title="Filter: Ascending/Descending"> Status </th>
+                                    <th title="Filter: Ascending/Descending"> Remarks </th>
+                                    <th title="Filter: Ascending/Descending"> Firstname </th>
+                                    <th title="Filter: Ascending/Descending"> Lastname </th>
+                                    <th title="Filter: Ascending/Descending"> Contact Number </th>
+                                    <th title="Filter: Ascending/Descending"> Voters ID Number </th>
+                                    <th title="Filter: Ascending/Descending"> Voters ID Img </th>
+                                    <th title="Filter: Ascending/Descending"> Purpose </th>
+                                    <th title="Filter: Ascending/Descending"> Pickup Date </th>
+                                    <th title="Filter: Ascending/Descending"> Date Submitted </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>

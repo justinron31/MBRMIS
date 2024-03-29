@@ -269,8 +269,6 @@ p.name {
   color: #266e60;
   font-weight: 900;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .access .tophead {
@@ -294,7 +292,7 @@ p.name {
 
 .name {
   white-space: nowrap;
-  overflow: hidden;
+
   text-align: right;
   justify-content: flex-end;
   margin-left: -10px;
