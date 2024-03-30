@@ -179,20 +179,40 @@
             </div>
 
         </div>
-
-        <div class="rButcon">
-            <?php
-            if ($_SESSION['user_type'] === 'admin') {
-            ?>
-                <button class="rSubmit1">DELETE</button>
-            <?php
-            }
-            ?>
-            <button class="rSubmit">EDIT</button>
-        </div>
-
-
-
-
     </form>
+    <div class="rButcon">
+        <?php
+        if ($_SESSION['user_type'] === 'admin') {
+        ?>
+            <button class="rSubmit1">DELETE</button>
+        <?php
+        }
+        ?>
+        <button class="rSubmit">EDIT</button>
+    </div>
+
+
+
+
+
+</div>
+
+<div class="overlayD"></div>
+<div class="modalD">
+    <div class="modal-header1">
+        <h2>IMPORTANT</h2>
+    </div>
+
+    <div class="modal-body1">
+        <div class="modal-message1">
+
+            <p>Are you sure you want to delete this Record?</p>
+            <p>This action cannot be <Strong>UNDONE</Strong>.</p>
+        </div>
+        <div class="modal-buttons1">
+            <button class="yes1">Yes</button>
+            <button class="no1">No</button>
+        </div>
+    </div>
+
 </div>

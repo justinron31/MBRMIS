@@ -62,7 +62,6 @@ body {
     rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   transition: all 0.3s ease;
   border-radius: 0px 0px 10px 0px;
-  z-index: 990;
   flex: 1;
 }
 

@@ -384,3 +384,31 @@ function toggleResidentForm1(id) {
     },
   });
 }
+
+// ─── Delete Popup ─────────────────────────────────────────────
+document.querySelector(".rSubmit1").addEventListener("click", function () {
+  document.querySelector(".overlayD").style.display = "block";
+  document.querySelector(".modalD").style.display = "block";
+
+  var yesButton = document.querySelector(".yes1");
+  yesButton.disabled = true;
+
+  var counter = 5;
+  yesButton.innerText = `Yes (${counter})`;
+
+  var intervalId = setInterval(function () {
+    counter--;
+    if (counter >= 0) {
+      yesButton.innerText = `Yes (${counter})`;
+    } else {
+      yesButton.disabled = false;
+      yesButton.innerText = "Yes";
+      clearInterval(intervalId);
+    }
+  }, 1000);
+});
+
+document.querySelector(".no1").addEventListener("click", function () {
+  document.querySelector(".overlayD").style.display = "none";
+  document.querySelector(".modalD").style.display = "none";
+});
