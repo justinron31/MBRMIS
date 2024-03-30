@@ -207,6 +207,7 @@
         <div class="modal-message1">
 
             <p>Are you sure you want to delete this Record?</p>
+            <p>It will also delete the <strong>Household Members</strong>.</p>
             <p>This action cannot be <Strong>UNDONE</Strong>.</p>
         </div>
         <div class="modal-buttons1">

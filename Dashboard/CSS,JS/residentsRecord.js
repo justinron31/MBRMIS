@@ -264,6 +264,7 @@ function hideResidentForm1() {
 }
 
 // ─── View Residents Data ──────────────────────────────────────
+
 function toggleResidentForm1(id) {
   document.querySelector(".residentsForm1").style.display = "block";
   document.querySelector(".overlayR").style.display = "block";
@@ -383,6 +384,33 @@ function toggleResidentForm1(id) {
       console.log(textStatus, errorThrown);
     },
   });
+
+  // ─── Delete RECORD ─────────────────────────────────────────────
+  document.querySelector(".yes1").addEventListener("click", function () {
+    // Call the delete function
+    deleteRecordAndFamilyMembers(selectedRowId);
+  });
+
+  function deleteRecordAndFamilyMembers(id) {
+    $.ajax({
+      url: "../Php/deleteRecord.php",
+      type: "POST",
+      data: { id: id },
+      success: function (data) {
+        if (data === "success") {
+          // Redirect on success
+          window.location.href = "../Dashboard/ResidentsRecord.php";
+        } else {
+          // Handle failure case
+          console.log("Deletion failed");
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        // Handle the error case
+        console.log(textStatus, errorThrown);
+      },
+    });
+  }
 }
 
 // ─── Delete Popup ─────────────────────────────────────────────

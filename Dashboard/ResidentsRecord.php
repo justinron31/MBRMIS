@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -79,6 +80,13 @@ $_SESSION['show_login_message'] = false;
     </div>
 
     <!--VALIDATION MESSAGE-->
+    <div id="validationPopup5" class="popup">
+        <p>Record deleted successfully!</p>
+    </div>
+
+
+
+    <!--VALIDATION MESSAGE-->
     <div id="validationPopup1" class="popup2">
         <p>Invalid Image Extension!</p>
     </div>
@@ -92,6 +100,12 @@ $_SESSION['show_login_message'] = false;
     <div id="validationPopup3" class="popup2">
         <p>Error Creating a new resident record!</p>
     </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup4" class="popup2">
+        <p>Error deleting resident record!</p>
+    </div>
+
 
 
     <?php
@@ -135,6 +149,26 @@ $_SESSION['show_login_message'] = false;
             });
           </script>';
         unset($_SESSION['success_insert']);
+    } elseif (isset($_SESSION['success_delete'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup5").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup5").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['success_delete']);
+    } elseif (isset($_SESSION['failure_delete'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup4").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup4").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['failure_delete']);
     }
     ?>
 
@@ -203,12 +237,14 @@ $_SESSION['show_login_message'] = false;
                             echo "<h1 class='titleTable'>Total Residents: " . $totalUsers . "</h1>";
                             ?>
                         </div>
-                        <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;" onclick="toggleResidentForm()">
+                        <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;"
+                            onclick="toggleResidentForm()">
                             <i class='bx bxs-plus-circle'></i>
                             <p class="exportTitle">Add Resident</p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>

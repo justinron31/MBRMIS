@@ -22,7 +22,7 @@
                               <span class="title">Dashboard</span>
                               <span class="line"></span>
                           </div>
-                          <li class="item">
+                          <li class="item" id="overview-item">
                               <a href="../Dashboard/Home.php" class="link flex">
                                   <i class="bx bxs-dashboard"></i>
                                   <span>Overview</span>
@@ -269,5 +269,17 @@
                       // Save 'active' item to localStorage
                       localStorage.setItem('activeItem', '.item:contains("' + $(this).text() + '")');
                   });
+
+                  // If the activeItem is not set, set the dashboard as the active item
+                  if (!activeItem) {
+                      // Remove 'active' class from all '.item' elements
+                      $('.item').removeClass('active');
+
+                      // Add 'active' class to the dashboard tab
+                      $('#overview-item').addClass('active');
+
+                      // Save 'active' item to localStorage
+                      localStorage.setItem('activeItem', 'overview-item');
+                  }
               });
           </script>
