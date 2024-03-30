@@ -242,7 +242,7 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> IP or Non-IP </th>
                                     <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member </th>
                                     <th title="Filter: Ascending/Descending"> Category </th>
-                                    <th title="Filter: Ascending/Descending"> Date Created </th>
+                                    <th title="Filter: Ascending/Descending"> Date Inserted </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>

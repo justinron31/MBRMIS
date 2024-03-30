@@ -122,7 +122,17 @@ $_SESSION['show_login_message'] = false;
                         </span>
                     </div>
                     <div class="card-content">
-                        <div class="number">0</div>
+
+                        <?php
+                        $sql = "SELECT * FROM residentrecord";
+                        $result = $conn->query($sql);
+
+                        if ($result) {
+                            $totalReq = $result->num_rows;
+                        }
+                        ?>
+
+                        <div class="number"><?php echo $totalReq; ?></div>
                         <div class="card-name">Population</div>
                     </div>
                 </div>
@@ -133,8 +143,20 @@ $_SESSION['show_login_message'] = false;
                             man
                         </span>
                     </div>
+
+
                     <div class="card-content">
-                        <div class="number">0</div>
+
+                        <?php
+                        $sql = "SELECT * FROM residentrecord WHERE rGender = 'Male'";
+                        $result = $conn->query($sql);
+
+                        if ($result) {
+                            $totalReq = $result->num_rows;
+                        }
+                        ?>
+
+                        <div class="number"><?php echo $totalReq; ?></div>
                         <div class="card-name">Male</div>
                     </div>
                 </div>
@@ -146,7 +168,18 @@ $_SESSION['show_login_message'] = false;
                         </span>
                     </div>
                     <div class="card-content">
-                        <div class="number">0</div>
+
+
+                        <?php
+                        $sql = "SELECT * FROM residentrecord WHERE rGender = 'Female'";
+                        $result = $conn->query($sql);
+
+                        if ($result) {
+                            $totalReq = $result->num_rows;
+                        }
+                        ?>
+
+                        <div class="number"><?php echo $totalReq; ?></div>
                         <div class="card-name">Female</div>
                     </div>
                 </div>
@@ -161,7 +194,18 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
                         <div class="card-content">
-                            <div class="number1">0</div>
+
+
+                            <?php
+                            $sql = "SELECT * FROM residentrecord WHERE rvoterstatus = 'Voter'";
+                            $result = $conn->query($sql);
+
+                            if ($result) {
+                                $totalReq = $result->num_rows;
+                            }
+                            ?>
+
+                            <div class="number"><?php echo $totalReq; ?></div>
                             <div class="card-name1">Voters</div>
                         </div>
 
@@ -174,7 +218,15 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
                         <div class="card-content">
-                            <div class="number1">0</div>
+                            <?php
+                            $sql = "SELECT * FROM residentrecord WHERE rvoterstatus = 'Non-voter'";
+                            $result = $conn->query($sql);
+
+                            if ($result) {
+                                $totalReq = $result->num_rows;
+                            }
+                            ?>
+                            <div class="number"><?php echo $totalReq; ?></div>
                             <div class="card-name1">Non - Voters</div>
                         </div>
 
