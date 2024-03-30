@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -134,7 +135,8 @@ $_SESSION['show_login_message'] = false;
                             <h1 class="titleTable">Total File Request: <span><?php echo $total; ?></span></h1>
                         </div>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -169,10 +171,12 @@ $_SESSION['show_login_message'] = false;
                                 include '../Php/db.php';
 
                                 $sql = "SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created
-FROM file_request
-UNION ALL
-SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created
-FROM first_time_job";
+                                FROM file_request
+                                WHERE file_status = 'reviewing'
+                                UNION ALL
+                                SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created
+                                FROM first_time_job
+                                WHERE file_status = 'reviewing'";
                                 $result = $conn->query($sql);
 
                                 if ($result) {

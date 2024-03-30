@@ -278,6 +278,22 @@
   transform: scale(1.05);
 }
 
+.rSubmit1 {
+  background-color: red;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  color: white;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.rSubmit1:hover {
+  transform: scale(1.05);
+}
+
 .rButcon {
   display: flex;
   justify-content: flex-end;

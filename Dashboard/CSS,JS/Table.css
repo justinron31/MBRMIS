@@ -372,9 +372,8 @@ thead th.asc span.icon-arrow {
   border: none;
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
   position: fixed;
-  top: 10px;
   right: 75px;
-  margin: 10px;
+  margin-right: 8px;
   display: none;
 }
 

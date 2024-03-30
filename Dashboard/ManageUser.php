@@ -161,6 +161,7 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Email </th>
                                     <th title="Filter: Ascending/Descending"> Role </th>
                                     <th class="center"> Account Status </th>
+                                    <th class="center"> Online Status </th>
                                     <th title="Filter: Ascending/Descending"> Last Login </th>
                                     <th title="Filter: Ascending/Descending"> Date Created </th>
                                     <th class="center"> Action </th>

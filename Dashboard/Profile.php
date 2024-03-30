@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -160,105 +161,118 @@ if (isset($_SESSION['password_updated'])) {
 
                     <h1 class="profileTitle">PROFILE INFORMATION </h1>
 
-                    <div class="export__file">
-                        <button type="button" class="export__file-btn" id="editButton" onclick="toggleEdit()">
-                            <p class="exportTitle"><strong>EDIT</strong></p>
-                        </button>
 
 
-                        <form method="POST">
-                            <button type="submit" class="export__file-btn1" id="saveButton" name="saveButton" style="display: none;" disabled>
+
+                    <form method="POST">
+
+                        <div class="export__file">
+                            <button type="button" class="export__file-btn" id="editButton" onclick="toggleEdit()">
+                                <p class="exportTitle"><strong>EDIT</strong></p>
+                            </button>
+                            <button type="submit" class="export__file-btn1" id="saveButton" name="saveButton"
+                                style="display: none;" disabled>
                                 <p class="exportTitle"><strong>SAVE</strong></p>
                             </button>
-
-                    </div>
+                        </div>
                 </section>
 
                 <div class="profileCon">
                     <?php if ($result->num_rows > 0) : ?>
-                        <?php $row = $result->fetch_assoc(); ?>
+                    <?php $row = $result->fetch_assoc(); ?>
 
-                        <div class="firstcon">
-                            <div class="f1">
-                                <label class="required">ID number</label>
-                                <input type="text" id="idnum" name="idnum" value="<?php echo isset($row["idnumber"]) ? $row["idnumber"] : ''; ?>" readonly />
-                            </div>
-
-                            <div class="f2">
-                                <label class="required">Email</label>
-                                <input type="text" id="email" name="email" value="<?php echo isset($row["email"]) ? $row["email"] : ''; ?>" readonly />
-                            </div>
+                    <div class="firstcon">
+                        <div class="f1">
+                            <label class="required">ID number</label>
+                            <input type="text" id="idnum" name="idnum"
+                                value="<?php echo isset($row["idnumber"]) ? $row["idnumber"] : ''; ?>" readonly />
                         </div>
 
-                        <div class="firstcon">
-                            <div class="f1">
-                                <label class="required">Firstname</label>
-                                <input type="text" id="fname" name="fname" value="<?php echo isset($row["firstname"]) ? $row["firstname"] : ''; ?>" disabled />
-                            </div>
+                        <div class="f2">
+                            <label class="required">Email</label>
+                            <input type="text" id="email" name="email"
+                                value="<?php echo isset($row["email"]) ? $row["email"] : ''; ?>" readonly />
+                        </div>
+                    </div>
 
-                            <div class="f2">
-                                <label class="required">Lastname</label>
-                                <input type="text" id="lname" name="lname" value="<?php echo isset($row["lastname"]) ? $row["lastname"] : ''; ?>" disabled />
-                            </div>
+                    <div class="firstcon">
+                        <div class="f1">
+                            <label class="required">Firstname</label>
+                            <input type="text" id="fname" name="fname"
+                                value="<?php echo isset($row["firstname"]) ? $row["firstname"] : ''; ?>" disabled />
                         </div>
 
-                        <div class="firstcon">
-                            <div class="f1">
-                                <label class="required">Age</label>
-                                <input type="text" id="age" name="age" maxlength="2" oninput="validateAge(this)" value=" <?php echo isset($row["age"]) ? $row["age"] : ''; ?>" disabled />
+                        <div class="f2">
+                            <label class="required">Lastname</label>
+                            <input type="text" id="lname" name="lname"
+                                value="<?php echo isset($row["lastname"]) ? $row["lastname"] : ''; ?>" disabled />
+                        </div>
+                    </div>
+
+                    <div class="firstcon">
+                        <div class="f1">
+                            <label class="required">Age</label>
+                            <input type="text" id="age" name="age" maxlength="2" oninput="validateAge(this)"
+                                value=" <?php echo isset($row["age"]) ? $row["age"] : ''; ?>" disabled />
+                        </div>
+
+                        <div class="f2">
+                            <label class="required">Gender</label>
+                            <select id="gender" name="gender" disabled>
+                                <option value="Male"
+                                    <?php echo isset($row["gender"]) && $row["gender"] === "Male" ? "selected" : ""; ?>>
+                                    Male</option>
+                                <option value="Female"
+                                    <?php echo isset($row["gender"]) && $row["gender"] === "Female" ? "selected" : ""; ?>>
+                                    Female</option>
+                            </select>
+                        </div>
+                        </form>
+
+                    </div>
+
+                    <div class="passCon" id="passCon" style="display: none;">
+                        <button type=" button" class="reset__password-btn" onclick="toggleForm()">Change
+                            Password</button>
+                    </div>
+
+
+                    <div class="passForm" id="passForm" style="display: none;">
+                        <form id="passForm1" method="post" action="/MBRMIS/Php/updatePassword.php">
+
+                            <br>
+                            <div class="passForm__group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" name="currentPassword"
+                                    placeholder="Enter Current Password" required>
                             </div>
+                            <div class="passForm__group">
 
-                            <div class="f2">
-                                <label class="required">Gender</label>
-                                <select id="gender" name="gender" disabled>
-                                    <option value="Male" <?php echo isset($row["gender"]) && $row["gender"] === "Male" ? "selected" : ""; ?>>
-                                        Male</option>
-                                    <option value="Female" <?php echo isset($row["gender"]) && $row["gender"] === "Female" ? "selected" : ""; ?>>
-                                        Female</option>
-                                </select>
+                                <p id="validationPopup4">Password must contain at least <strong>one uppercase
+                                        letter</strong>, <strong>one
+                                        lowercase
+                                        letter</strong>, <strong>one digit</strong>, and at least <strong>8
+                                        characters long.</strong></p>
+
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="pass" name="pass" placeholder="Enter Password" required
+                                    oninput="validatePassword1()">
                             </div>
-                            </form>
-
-                        </div>
-
-                        <div class="passCon" id="passCon" style="display: none;">
-                            <button type=" button" class="reset__password-btn" onclick="toggleForm()">Change
-                                Password</button>
-                        </div>
-
-
-                        <div class="passForm" id="passForm" style="display: none;">
-                            <form id="passForm1" method="post" action="/MBRMIS/Php/updatePassword.php">
-
-                                <br>
-                                <div class="passForm__group">
-                                    <label for="currentPassword">Current Password</label>
-                                    <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter Current Password" required>
-                                </div>
-                                <div class="passForm__group">
-
-                                    <p id="validationPopup4">Password must contain at least <strong>one uppercase
-                                            letter</strong>, <strong>one
-                                            lowercase
-                                            letter</strong>, <strong>one digit</strong>, and at least <strong>8
-                                            characters long.</strong></p>
-
-                                    <label for="newPassword">New Password</label>
-                                    <input type="password" id="pass" name="pass" placeholder="Enter Password" required oninput="validatePassword1()">
-                                </div>
-                                <div class="passForm__group">
-                                    <label for="confirmPassword">Confirm Password</label>
-                                    <input type="password" id="cpass" name="cpass" placeholder="Confirm Password" oninput="validatePassword();" required>
-                                </div>
-                                <button type=" submit" id="resetButton" class="reset__password-btn" name="changePassword">Save changes
-                                </button>
-                            </form>
-                        </div>
+                            <div class="passForm__group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" id="cpass" name="cpass" placeholder="Confirm Password"
+                                    oninput="validatePassword();" required>
+                            </div>
+                            <button type=" submit" id="resetButton" class="reset__password-btn"
+                                name="changePassword">Save changes
+                            </button>
+                        </form>
+                    </div>
 
                 </div>
-            <?php else : ?>
+                <?php else : ?>
                 <p>No results found</p>
-            <?php endif; ?>
+                <?php endif; ?>
         </div>
         </main>
     </div>
@@ -268,15 +282,15 @@ if (isset($_SESSION['password_updated'])) {
 </div>
 
 <script>
-    $(document).ready(function() {
-        // Check for session variable on page load
-        <?php if ($_SESSION['showPopup']) : ?>
-            // Show a custom popup if the session variable is set
-            showCustomPopup('Details Updated Successfully!');
-            // Unset the session variable
-            <?php unset($_SESSION['showPopup']); ?>
-        <?php endif; ?>
-    });
+$(document).ready(function() {
+    // Check for session variable on page load
+    <?php if ($_SESSION['showPopup']) : ?>
+    // Show a custom popup if the session variable is set
+    showCustomPopup('Details Updated Successfully!');
+    // Unset the session variable
+    <?php unset($_SESSION['showPopup']); ?>
+    <?php endif; ?>
+});
 </script>
 
 

@@ -80,8 +80,7 @@
 
             <div class="rInput2">
                 <label for="avatar" class="required1">Upload Voter's ID</label>
-                <input class="rIDupload" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
-                    readonly />
+                <input class="rIDupload" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" readonly />
             </div>
 
         </div>
@@ -138,8 +137,7 @@
 
                     <div class="rInput">
                         <label for="mMaiden">Mother’s Maiden Name</label>
-                        <input type="text" id="mMaiden" name="mMaiden" placeholder="Enter Mother’s Maiden Name"
-                            readonly>
+                        <input type="text" id="mMaiden" name="mMaiden" placeholder="Enter Mother’s Maiden Name" readonly>
                     </div>
 
                 </div>
@@ -148,8 +146,7 @@
 
                     <div class="rInput">
                         <label for="mRelationship">Relationship</label>
-                        <input type="text" id="mRelationship" name="mRelationship" placeholder="Enter Relationship"
-                            readonly>
+                        <input type="text" id="mRelationship" name="mRelationship" placeholder="Enter Relationship" readonly>
                     </div>
 
                     <div class="rInput">
@@ -160,8 +157,7 @@
 
                     <div class="rInput">
                         <label for="mAge">Age</label>
-                        <input type="text" id="mAge" name="mAge" placeholder="Enter Age" oninput="validateAge(this)"
-                            readonly>
+                        <input type="text" id="mAge" name="mAge" placeholder="Enter Age" oninput="validateAge(this)" readonly>
                     </div>
 
                 </div>
@@ -183,6 +179,20 @@
             </div>
 
         </div>
+
+        <div class="rButcon">
+            <?php
+            if ($_SESSION['user_type'] === 'admin') {
+            ?>
+                <button class="rSubmit1">DELETE</button>
+            <?php
+            }
+            ?>
+            <button class="rSubmit">EDIT</button>
+        </div>
+
+
+
 
     </form>
 </div>
