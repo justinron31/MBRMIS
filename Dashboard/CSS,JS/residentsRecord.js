@@ -10,6 +10,12 @@ function changeFontColor(dropDownId) {
   }
 }
 
+// ─── Household number ──────────────────────────────────────────
+function validateNumberInput(input) {
+  // Remove non-numeric characters
+  input.value = input.value.replace(/[^0-9]/g, "");
+}
+
 // ─── Philhealth ───────────────────────────────────────────────
 function changeToTextbox(selectBox) {
   changeFontColor(selectBox.id);
@@ -117,7 +123,6 @@ function hideResidentForm() {
 }
 
 // ─── Add Member ───────────────────────────────────────────────
-
 var memberCount = 0;
 function addMember() {
   memberCount++;
@@ -245,6 +250,134 @@ function removeMember(member) {
   memberCountField.value = memberCount;
 }
 
+// ─── Add Member ───────────────────────────────────────────────
+var memberCount = 0;
+function addMember1() {
+  memberCount++;
+  var newMember = document.createElement("div");
+  newMember.className = "addmember";
+  newMember.innerHTML = `
+               <div class="addmember">
+         <div class="rheadTitle">
+
+                        <div class="rheadcon">
+                            <div class="line"></div>
+                            <p>ADD HOUSEHOLD MEMBER ${memberCount}</p>
+                            <div class="line"></div>
+                        </div>
+
+                    </div>
+                        <div class="rform1">
+
+
+                            <div class="rInput">
+                                <label for="mLastname${memberCount}">Last Name</label>
+                                <input type="text" id="mLastname" name="mLastname${memberCount}" placeholder="Enter Lastname" required>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mFirstname${memberCount}">First Name</label>
+                                <input type="text" id="mFirstname" name="mFirstname${memberCount}" placeholder="Enter Firstname" required>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mMaiden${memberCount}">Mother’s Maiden Name</label>
+                                <input type="text" id="textbox" name="mMaiden${memberCount}" placeholder="Enter Mother’s Maiden Name" required>
+                            </div>
+
+                        </div>
+
+                        <div class="rform1">
+
+                            <div class="rInput">
+                                <label for="mRelationship${memberCount}">Relationship</label>
+                              <select class="selectbox" id="bussSelect6" name="mRelationship${memberCount}" required onchange="changeToTextbox2(this)">
+                                <option value="">Select Relationship</option>
+                                <option value="Head">Head</option>
+                                <option value="Spouse">Spouse</option>
+                                <option value="Son">Son</option>
+                                <option value="Daughter">Daughter</option>
+                                <option value="Others">Others</option>
+                              </select>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mGender${memberCount}">Gender</label>
+                                <select class="selectbox" id="bussSelect7" name="mGender${memberCount}" required onchange="changeFontColor('bussSelect7')">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mAge${memberCount}">Age</label>
+                                <input type="text" id="textbox" name="mAge${memberCount}" placeholder="Enter Age"  oninput="validateAge(this)"required>
+                            </div>
+
+                        </div>
+
+                        <div class="rform1">
+
+                            <div class="rInput">
+                                <label for="mRisk${memberCount}">Classification by Age/Health Risk</label>
+                                <select class="selectbox" id="bussSelect9" name="mRisk${memberCount}" required onchange="changeFontColor('bussSelect9')">
+                                    <option value="">Select</option>
+                                    <option value="Male">Newborn</option>
+                                    <option value="Female">Infant (29days-11 months old)</option>
+                                    <option value="Male">Under-five (1-4 years old)</option>
+                                    <option value="Female">School-aged children (5-9 years old)</option>
+                                    <option value="Male">Adolescents (10-19 years old)</option>
+                                    <option value="Female">Pregnant</option>
+                                    <option value="Male">Persons with disability</option>
+                                    <option value="Female">Adult (≥25 years old) </option>
+                                    <option value="Male">Adolescent-Pregnant</option>
+                                    <option value="Female">Post Partum</option>
+                                    <option value="Female">Senior Citizen</option>
+                                </select>
+                            </div>
+
+                            <div class="rInput">
+                                <label for="mQuarter${memberCount}">Quarter</label>
+                                <select class="selectbox" id="bussSelect10" name="mQuarter${memberCount}" required
+                                    onchange="changeFontColor('bussSelect10')">
+                                    <option value="">Select Quarter</option>
+                                    <option value="First">First</option>
+                                    <option value="Second">Second</option>
+                                    <option value="Third">Third</option>
+                                    <option value="Fourth">Fourth</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                   <div class="addMember3" onclick="removeMember(this.parentElement)">
+  <span>- Remove Household Member</span>
+</div>
+
+                    </div>
+
+                </div>
+        `;
+  var formContainer = document.getElementById("formContainer2");
+  var addMemberButton = document.querySelector(".addMember1");
+
+  formContainer.insertBefore(newMember, addMemberButton);
+
+  // Update the total number of family members
+  var memberCountField = document.getElementById("memberCount");
+  memberCountField.value = memberCount;
+}
+
+function removeMember1(member) {
+  member.remove();
+  memberCount--;
+
+  // Update the total number of family members
+  var memberCountField = document.getElementById("memberCount");
+  memberCountField.value = memberCount;
+}
+
 // ─── Age Validate ─────────────────────────────────────────────
 function validateAge(input) {
   // Remove non-numeric characters
@@ -257,10 +390,18 @@ function validateAge(input) {
 }
 
 // ─── Toggle Resident View ──────────────────────────────────────
-
 function hideResidentForm1() {
   document.querySelector(".residentsForm1").style.display = "none";
   document.querySelector(".overlayR").style.display = "none";
+  var inputs = formDiv.querySelectorAll(".rInput input, .rInput2 input");
+  var formDiv = document.querySelector(".residentsForm1");
+  var addMember = document.querySelector(".addMember2");
+
+  addMember.style.display = "";
+  formDiv.style.border = "";
+  inputs.forEach(function (input) {
+    input.setAttribute("readonly", true);
+  });
 }
 
 // ─── View Residents Data ──────────────────────────────────────
@@ -440,3 +581,39 @@ document.querySelector(".no1").addEventListener("click", function () {
   document.querySelector(".overlayD").style.display = "none";
   document.querySelector(".modalD").style.display = "none";
 });
+
+// ─── Edit Resident Information ────────────────────────────────
+document.addEventListener("click", function (event) {
+  if (event.target.matches(".rSubmit")) {
+    var formDiv = document.querySelector(".residentsForm1");
+    var inputs = formDiv.querySelectorAll("input");
+    var addMember = document.querySelector(".addMember2");
+
+    inputs.forEach(function (input) {
+      if (input.hasAttribute("readonly")) {
+        input.removeAttribute("readonly");
+        formDiv.style.border = "7px solid #377fb9";
+        addMember.style.display = "block";
+      } else {
+        input.setAttribute("readonly", true);
+        formDiv.style.border = "";
+        addMember.style.display = "none";
+      }
+    });
+
+    var deleteButton = document.querySelector(".rSubmit1");
+    var saveButton = document.querySelector(".rSubmit2");
+
+    if (deleteButton.style.display !== "none") {
+      deleteButton.style.display = "none";
+      saveButton.style.display = "block";
+    } else {
+      deleteButton.style.display = "block";
+      saveButton.style.display = "none";
+      saveButton.disabled = true;
+    }
+  }
+});
+
+// Initially disable the "SAVE" button
+document.querySelector(".rSubmit2").disabled = true;

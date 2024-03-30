@@ -20,7 +20,7 @@
 
 
     <!-- form  -->
-    <form>
+    <form id="formContainer2">
         <div class=" rform1">
 
             <input type="hidden" id="memberCount" name="memberCount" value="0">
@@ -179,7 +179,13 @@
             </div>
 
         </div>
+        <div class="addMember2" onclick="addMember1()">
+            <span>+ Add Household Member</span>
+        </div>
+
     </form>
+
+
     <div class="rButcon">
         <?php
         if ($_SESSION['user_type'] === 'admin') {
@@ -188,15 +194,15 @@
         <?php
         }
         ?>
+        <button class="rSubmit2">SAVE</button>
         <button class="rSubmit">EDIT</button>
     </div>
 
-
-
-
-
 </div>
 
+
+
+<!-- delete popup -->
 <div class="overlayD"></div>
 <div class="modalD">
     <div class="modal-header1">
@@ -205,7 +211,7 @@
 
     <div class="modal-body1">
         <div class="modal-message1">
-
+            <i class='bx bxs-error-circle'></i>
             <p>Are you sure you want to delete this Record?</p>
             <p>It will also delete the <strong>Household Members</strong>.</p>
             <p>This action cannot be <Strong>UNDONE</Strong>.</p>

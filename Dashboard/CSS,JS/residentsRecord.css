@@ -239,7 +239,8 @@
   font-weight: 400;
 }
 
-.addMember {
+.addMember,
+.addMember2 {
   color: #15917a;
   cursor: pointer;
   font-size: 0.8rem;
@@ -250,7 +251,15 @@
   text-decoration: underline;
 }
 
-.addMember1 {
+.addMember2:hover {
+  text-decoration: underline;
+}
+
+.addMember2 {
+  display: none;
+}
+.addMember1,
+.addMember3 {
   color: red;
   cursor: pointer;
   font-size: 0.8rem;
@@ -258,6 +267,9 @@
 }
 
 .addMember1:hover {
+  text-decoration: underline;
+}
+.addMember3:hover {
   text-decoration: underline;
 }
 
@@ -292,6 +304,29 @@
 
 .rSubmit1:hover {
   transform: scale(1.05);
+}
+
+.rSubmit2 {
+  display: none;
+  background-color: #63c566;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  color: white;
+  font-weight: 600;
+  margin-right: 10px;
+}
+
+.rSubmit2:hover {
+  transform: scale(1.05);
+}
+
+.rSubmit2:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .rButcon {
@@ -399,4 +434,9 @@
 
 .modal-buttons1 button.no1:hover {
   transform: scale(1.1);
+}
+
+.bx.bxs-error-circle {
+  color: #e0574d;
+  font-size: 2.1rem;
 }

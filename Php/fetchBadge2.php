@@ -3,7 +3,7 @@ include 'db.php';
 
 $count = 0;
 $notifCount = 0;
-$query = "SELECT * FROM first_time_job WHERE DATE(datetime_created) = DATE(NOW()) AND file_status = 'Processing' ";
+$query = "SELECT * FROM first_time_job WHERE file_status = 'Processing' ";
 $result = mysqli_query($conn, $query);
 
 if ($result) {

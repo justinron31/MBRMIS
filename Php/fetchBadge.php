@@ -3,7 +3,7 @@ include 'db.php';
 
 $count = 0;
 $notifCount = 0;
-$query = "SELECT * FROM file_request WHERE DATE(datetime_created) = DATE(NOW()) AND file_status = 'Processing' AND type='Certificate of Indigency'";
+$query = "SELECT * FROM file_request WHERE file_status = 'Processing' AND type='Certificate of Indigency'";
 $result = mysqli_query($conn, $query);
 
 if ($result) {

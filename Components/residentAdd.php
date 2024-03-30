@@ -37,7 +37,8 @@
 
              <div class="rInput">
                  <label for="Household">Household Number</label>
-                 <input type="text" id="textbox" name="Household" placeholder="Enter Household Number" required>
+                 <input type="text" id="textbox" name="Household" placeholder="Enter Household Number"
+                     oninput="validateNumberInput(this)" required>
              </div>
 
          </div>
@@ -89,9 +90,9 @@
              </div>
 
              <div class="rInput2">
-                 <label for="avatar" class="required1">Upload Voter's ID</label>
-                 <input class="rIDupload" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" required
-                     disabled />
+                 <label for="avatar" id="required1" class=" required1">Upload Voter's ID</label>
+                 <input class="rIDupload" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
+                     required />
              </div>
 
          </div>
