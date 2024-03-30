@@ -17,7 +17,8 @@
 }
 
 /* ─── Form ────────────────────────────────────────────────── */
-.residentsForm {
+.residentsForm,
+.residentsForm1 {
   display: none;
   background-color: white;
   padding: 0px 30px 30px 30px;
@@ -129,6 +130,24 @@
   box-shadow: 0 0 5px #266e60;
 }
 
+.rform1 input:read-only {
+  border-color: none;
+  border: none;
+  outline: none;
+  background-color: #f1f1f1;
+  box-shadow: none;
+  color: #757575;
+}
+
+.rform2 input:read-only {
+  border-color: none;
+  border: none;
+  outline: none;
+  background-color: #f1f1f1;
+  box-shadow: none;
+  color: #757575;
+}
+
 .rform1 label {
   display: block;
   text-align: left;
@@ -156,6 +175,15 @@
   border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
+  color: #757575;
+}
+
+.selectbox:disabled {
+  border-color: none;
+  border: none;
+  outline: none;
+  background-color: #f1f1f1;
+  box-shadow: none;
   color: #757575;
 }
 

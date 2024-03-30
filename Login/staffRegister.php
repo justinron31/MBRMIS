@@ -60,8 +60,27 @@
         <p>Entered Email Address is already taken.</p>
     </div>
 
+    <!--VALIDATION Email-->
+    <div id="validationPopup5" class="popup2">
+        <p>Registration failed. The provided ID number does not exist in our records..</p>
+    </div>
 
 
+    <?php
+    session_start();
+
+    if (isset($_SESSION['invalid'])) {
+        echo '<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("validationPopup5").style.display = "block";
+            setTimeout(function() {
+                document.getElementById("validationPopup5").style.display = "none";
+            }, 3000);
+        });
+    </script>';
+        unset($_SESSION['invalid']);
+    }
+    ?>
 
 
 

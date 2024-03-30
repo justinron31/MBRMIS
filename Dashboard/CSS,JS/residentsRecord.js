@@ -255,3 +255,132 @@ function validateAge(input) {
     input.value = input.value.slice(0, 2);
   }
 }
+
+// ─── Toggle Resident View ──────────────────────────────────────
+
+function hideResidentForm1() {
+  document.querySelector(".residentsForm1").style.display = "none";
+  document.querySelector(".overlayR").style.display = "none";
+}
+
+// ─── View Residents Data ──────────────────────────────────────
+function toggleResidentForm1(id) {
+  document.querySelector(".residentsForm1").style.display = "block";
+  document.querySelector(".overlayR").style.display = "block";
+
+  var selectedRowId = id;
+
+  $.ajax({
+    url: "../Php/viewResidents.php",
+    type: "POST",
+    data: { id: selectedRowId },
+    success: function (data) {
+      var parsedData = JSON.parse(data);
+      console.log(parsedData);
+      $("#BHS").val(parsedData[0].rBHS);
+      $("#Purok").val(parsedData[0].rPurokSitioSubdivision);
+      $("#Household").val(parsedData[0].rHouseholdNumber);
+      $("#Lastname").val(parsedData[0].rLastName);
+      $("#Firstname").val(parsedData[0].rFirstName);
+      $("#Maiden").val(parsedData[0].rMothersMaidenName);
+      $("#Age").val(parsedData[0].rAge);
+      $("#Gender").val(parsedData[0].rGender);
+      $("#VotersID").val(parsedData[0].rVotersID);
+      $("#NHTS").val(parsedData[0].rNHTSHousehold);
+      $("#IP").val(parsedData[0].rIP);
+      $("#HH").val(parsedData[0].rHHHeadPhilHealthMember);
+      $("#Category1").val(parsedData[0].rCategory);
+      // $("#avatar").val(parsedData[0].voters_id_image);
+
+      // Clear the existing members
+      $(".membersCon").empty();
+      // Loop through each member
+      parsedData.forEach(function (member, index) {
+        // Create a new member element
+        var memberElement = `
+
+<div class="rheadTitle">
+
+            <div class="rheadcon">
+                <div class="line"></div>
+                <p>HOUSEHOLD MEMBER ${index + 1}</p>
+                <div class="line"></div>
+            </div>
+
+        </div>
+
+    <div class="rform1">
+
+      <div class="rInput">
+        <label for="mLastname">Last Name</label>
+        <input type="text" id="mLastname" name="mLastname" placeholder="Enter Lastname" readonly value="${
+          member.mLastName
+        }">
+      </div>
+
+      <div class="rInput">
+        <label for="mFirstname">First Name</label>
+        <input type="text" id="mFirstname" name="mFirstname" placeholder="Enter Firstname" readonly value="${
+          member.mFirstName
+        }">
+      </div>
+
+      <div class="rInput">
+        <label for="mMaiden">Mother’s Maiden Name</label>
+        <input type="text" id="mMaiden" name="mMaiden" placeholder="Enter Mother’s Maiden Name" readonly value="${
+          member.mMothersMaidenName
+        }">
+      </div>
+
+      </div>
+
+        <div class="rform1">
+      <div class="rInput">
+        <label for="mRelationship">Relationship</label>
+        <input type="text" id="mRelationship" name="mRelationship" placeholder="Enter Relationship" readonly value="${
+          member.mRelationship
+        }">
+      </div>
+
+      <div class="rInput">
+        <label for="mSex">Sex</label>
+        <input type="text" id="mSex" name="mSex" placeholder="Enter Sex" readonly value="${
+          member.mSex
+        }">
+      </div>
+
+      <div class="rInput">
+        <label for="mAge">Age</label>
+        <input type="text" id="mAge" name="mAge" placeholder="Enter Age" readonly value="${
+          member.mAge
+        }">
+      </div>
+        </div>
+
+<div class="rform1">
+      <div class="rInput">
+        <label for="mRisk">Classification By Age Health Risk</label>
+        <input type="text" id="mRisk" name="mRisk" placeholder="Enter Classification By Age Health Risk" readonly value="${
+          member.mClassificationByAgeHealthRisk
+        }">
+      </div>
+
+      <div class="rInput">
+        <label for="mQuarter">Quarter</label>
+        <input type="text" id="mQuarter" name="mQuarter" placeholder="Enter Quarter" readonly value="${
+          member.mQuarter
+        }">
+      </div>
+    </div>
+
+
+        `;
+        // Append the new member element to the parent
+        $(".membersCon").append(memberElement);
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.log(textStatus, errorThrown);
+    },
+  });
+}

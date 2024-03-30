@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -124,7 +125,8 @@ $_SESSION['show_login_message'] = false;
 
 
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -189,7 +191,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["lastname"] . "</td>" .
                                             "<td>" . $row["contact_number"] . "</td>" .
                                             "<td>" . $row["voters_id_number"] . "</td>" .
-                                            "<td><a href='../Uploaded File/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a></td>" .
+                                            "<td>" . (!empty($row["voters_id_image"]) ? "<a href='../ResidentsID/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a>" : "None") . "</td>" .
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
@@ -220,7 +222,8 @@ $_SESSION['show_login_message'] = false;
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
-                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
+                                                <button id="updateButton1" class="updateButton"
+                                                    type="submit">Update</button>
                                         </form>
                                     </div>
                                 </div>

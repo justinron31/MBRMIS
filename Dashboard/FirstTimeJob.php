@@ -205,7 +205,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["course"] . "</td>" .
                                             "<td>" . $row["job_start_beneficiary"] . "</td>" .
                                             "<td>" . $row["id_number"] . "</td>" .
-                                            "<td><a href='../Uploaded File/" . $row["avatar"] . "' target='_blank'>View Voters ID</a></td>" .
+                                            "<td>" . (!empty($row["voters_id_image"]) ? "<a href='../ResidentsID/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a>" : "None") . "</td>" .
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
