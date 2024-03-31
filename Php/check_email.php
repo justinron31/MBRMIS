@@ -47,11 +47,11 @@ if ($result->num_rows > 0) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'jeyanggg@gmail.com';
-        $mail->Password = 'cwgqizbuqjelotat';
+        $mail->Username = 'barangay.makiling24@gmail.com';
+        $mail->Password = 'uzpgybuoyxerjsmm';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
-        $mail->setFrom('jeyanggg@gmail.com', 'MBRMIS');
+        $mail->setFrom('barangay.makiling24@gmail.com', 'MBRMIS');
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'Password Reset Request';

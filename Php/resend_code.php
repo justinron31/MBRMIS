@@ -31,10 +31,10 @@ if (isset($_GET["email"])) {
         $mail->SMTPAuth = true;
 
         //SMTP username
-        $mail->Username = 'jeyanggg@gmail.com';
+        $mail->Username = 'barangay.makiling24@gmail.com';
 
         //SMTP password
-        $mail->Password = 'cwgqizbuqjelotat';
+        $mail->Password = 'uzpgybuoyxerjsmm';
 
         //Enable TLS encryption;
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
@@ -43,7 +43,7 @@ if (isset($_GET["email"])) {
         $mail->Port = 587;
 
         //Recipients
-        $mail->setFrom('jeyanggg@gmail.com', 'MBRMIS');
+        $mail->setFrom('barangay.makiling24@gmail.com', 'MBRMIS');
 
         //Add a recipient
         $mail->addAddress($email);

@@ -33,11 +33,11 @@ if (isset($_POST["verify_email"])) {
         $mail->Port = 587;
 
         // Enter your email ID
-        $mail->Username = "jeyanggg@gmail.com";
-        $mail->Password = "cwgqizbuqjelotat";
+        $mail->Username = "barangay.makiling24@gmail.com";
+        $mail->Password = "uzpgybuoyxerjsmm";
 
         // Your email ID and Email Title
-        $mail->setFrom("jeyanggg@gmail.com", "MBRMIS");
+        $mail->setFrom("barangay.makiling24@gmail.com", "MBRMIS");
 
         $mail->addAddress($email);
 
