@@ -24,7 +24,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pickup_datetime = date('Y-m-d h:i A', strtotime("$pickup_date $pickup_time"));
 
     $purpose_description = $_POST['purpose'];
+
     $voters_id_number = $_POST['voteId'];
+
+    // Retrieve the most recent record for this voter ID
+    $stmt = $conn->prepare("SELECT datetime_created FROM file_request WHERE voters_id_number = ? ORDER BY datetime_created DESC LIMIT 1");
+    $stmt->bind_param("s", $voters_id_number);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    // Check if a record was found and if it was created within the last 60 seconds
+    if ($row && strtotime($row['datetime_created']) > strtotime('-12 hours')) {
+        echo "<script type='text/javascript'>
+    alert('You must wait 12 hours between submissions.');
+    window.location.href = '../Website/homepage.html';
+    </script>";
+        exit();
+    }
+
+
+
 
     // File upload logic
     $file = $_FILES['avatar'];
@@ -87,4 +107,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $conn->close();
 }
-?>

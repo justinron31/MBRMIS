@@ -37,6 +37,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $id_number = $_POST['idNum'];
 
+    // Retrieve the most recent record for this voter ID
+    $stmt = $conn->prepare("SELECT datetime_created FROM first_time_job WHERE id_number = ? ORDER BY datetime_created DESC LIMIT 1");
+    $stmt->bind_param("s", $id_number);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    // Check if a record was found and if it was created within the last 60 seconds
+    if ($row && strtotime($row['datetime_created']) > strtotime('-12 hours')) {
+        echo "<script type='text/javascript'>
+    alert('You must wait 12 hours between submissions.');
+    window.location.href = '../Website/homepage.html';
+    </script>";
+        exit();
+    }
+
     $certificate_type = "First Time Job Seeker";
 
     // File upload logic

@@ -44,46 +44,46 @@
     <p>Sundays are not allowed. Please choose another date.</p>
   </div>
 
-  
- <!--ALERT MESSAGE 1-->
+
+  <!--ALERT MESSAGE 1-->
   <div id="alerPopup2" class="popup1">
     <p>Please verify that you are not a robot.</p>
   </div>
-  
-  
-<script>
-  function onCaptchaVerify(token) {
-    document.getElementById("submitBtn").removeAttribute("disabled");
-    document.querySelector(".error-shadow").classList.remove("red-shadow");
-    document.querySelector(".error-shadow").classList.add("transparent-shadow");
-  }
 
-  function onCaptchaExpired() {
-    document.getElementById("submitBtn").setAttribute("disabled", "disabled");
-    document.getElementById("alerPopup2").style.display = "block"; // Show the alert
-    document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
-    setTimeout(function() {
-      document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
-      document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
-    }, 3000);
-  }
 
-  function submitForm() {
-    if (grecaptcha.getResponse() === "") {
+  <script>
+    function onCaptchaVerify(token) {
+      document.getElementById("submitBtn").removeAttribute("disabled");
+      document.querySelector(".error-shadow").classList.remove("red-shadow");
+      document.querySelector(".error-shadow").classList.add("transparent-shadow");
+    }
+
+    function onCaptchaExpired() {
       document.getElementById("submitBtn").setAttribute("disabled", "disabled");
       document.getElementById("alerPopup2").style.display = "block"; // Show the alert
       document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
-      setTimeout(function() {
+      setTimeout(function () {
         document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
         document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
       }, 3000);
-      return false; // Prevent form submission
-    } else {
-      return true; // Allow form submission
     }
-  }
-</script>
-  
+
+    function submitForm() {
+      if (grecaptcha.getResponse() === "") {
+        document.getElementById("submitBtn").setAttribute("disabled", "disabled");
+        document.getElementById("alerPopup2").style.display = "block"; // Show the alert
+        document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
+        setTimeout(function () {
+          document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
+          document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
+        }, 3000);
+        return false; // Prevent form submission
+      } else {
+        return true; // Allow form submission
+      }
+    }
+  </script>
+
 
   <!-- MODAL POPUP1-->
   <!--<div id="overlay" class="overlay1"></div>-->
@@ -158,8 +158,8 @@
       <hr />
     </div>
 
-    <form id="myForm" action="../Php/certIndigency.php" method="post" enctype="multipart/form-data"
-      autocomplete="off" onsubmit="return submitForm();">
+    <form id="myForm" action="../Php/certIndigency.php" method="post" enctype="multipart/form-data" autocomplete="off"
+      onsubmit="return submitForm();">
 
       <!-- ─── Name ─────────────────────── -->
       <div class="uploader">
@@ -175,19 +175,19 @@
       </div>
 
       <!-- ─── Contact Number ───────────── -->
-      
-     <div class="uploader">
-      <div class="uploadContent1">
-      <label for="contNum" class="required">Contact Number</label>
-      <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
-        oninput="validateContactNumber(this)" required />
-    </div>
 
-    <div class="uploadContent">
+      <div class="uploader">
+        <div class="uploadContent1">
+          <label for="contNum" class="required">Contact Number</label>
+          <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
+            oninput="validateContactNumber(this)" required />
+        </div>
+
+        <div class="uploadContent">
           <label for="Purok" class="required">Purok/Sitio/Subdivision</label>
           <input type="text" id="Purok" name="purok" placeholder="Enter your Purok/Sitio/Subdivision" required />
         </div>
-    </div>
+      </div>
 
 
       <!-- ─── Datatime ─────────────────────────────────────────── -->
@@ -201,11 +201,12 @@
 
       <!-- ─── Purpose ──────────────────── -->
       <div class="uploader">
-     
-      <div class="uploadContent">
-      <label for="purpose" class="required">Purpose Description</label>
-      <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
-      </div>
+
+        <div class="uploadContent">
+          <label for="purpose" class="required">Purpose Description</label>
+          <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description"
+            required></textarea>
+        </div>
       </div>
 
       <!-- ─── Upload Id ────────────────── -->
@@ -219,7 +220,7 @@
           </div>
         </div>
 
-      <!--   ─── Id Number ────────── -->
+        <!--   ─── Id Number ────────── -->
         <div class="uploadContent">
           <label for="contNum" class="required">Valid ID Number</label>
           <input type="text" id="voteId" name="voteId" placeholder="Enter your Valid ID Number" required />
@@ -231,7 +232,7 @@
         <div class="firstCheck">
           <input type="checkbox" id="termsCheckbox" required />
           <label for="checkbox">I have read and agree to the
-             <a href="#"><strong>Terms and Conditions</strong></a>  and data privacy
+            <a href="#"><strong>Terms and Conditions</strong></a> and data privacy
             policy.</label>
 
         </div>
@@ -245,11 +246,12 @@
 
       <!-- ─── Captcha ──────────────────────────── -->
       <div class="error-shadow">
-     <div class="g-recaptcha" data-sitekey="6LeXJaspAAAAAFlki9u4Cja_VhMZjWNHT6iRwoX7" data-callback="onCaptchaVerify" data-expired-callback="onCaptchaExpired" required></div>
-     </div>
-     
+        <div class="g-recaptcha" data-sitekey="6LeXJaspAAAAAFlki9u4Cja_VhMZjWNHT6iRwoX7" data-callback="onCaptchaVerify"
+          data-expired-callback="onCaptchaExpired" required></div>
+      </div>
+
       <br />
-       <button type="submit" id="submitBtn" class="login-button">SUBMIT</button>
+      <button type="submit" id="submitBtn" class="login-button">SUBMIT</button>
       <br />
       <br />
     </form>
@@ -263,11 +265,11 @@
       rights reserved.
     </p>
   </footer>
-  
 
- 
-  
-  
+
+
+
+
 </body>
 
 </html>

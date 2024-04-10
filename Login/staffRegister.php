@@ -62,7 +62,7 @@
 
     <!--VALIDATION Email-->
     <div id="validationPopup5" class="popup2">
-        <p>Registration failed. The provided ID number does not exist in our records..</p>
+        <p>Registration failed. The provided ID number does not exist in our records.</p>
     </div>
 
 

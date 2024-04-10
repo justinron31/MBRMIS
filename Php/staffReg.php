@@ -16,20 +16,18 @@ include "db.php";
 if (isset($_POST["register"])) {
     $idnumber = $_POST['idnum'];
 
-     // Check if the idnum exists in the staff_information table
-    // $checkIdnum = $conn->prepare("SELECT idnumber FROM staff_information WHERE idnumber = ?");
-    // $checkIdnum->bind_param("s", $idnumber);
-    // $checkIdnum->execute();
-    // $checkIdnumResult = $checkIdnum->get_result();
+    // Check if the idnum exists in the staff_information table
+    $checkIdnum = $conn->prepare("SELECT idnumber FROM staff_information WHERE idnumber = ?");
+    $checkIdnum->bind_param("s", $idnumber);
+    $checkIdnum->execute();
+    $checkIdnumResult = $checkIdnum->get_result();
 
-    // if ($checkIdnumResult->num_rows == 0) {
-    //     // idnum does not exist in the staff_information table
-    //     $_SESSION['invalid'] = true;
-    //     header("Location: ../Login/staffRegister.php");
-        // exit();
-    // } else 
-    
-    {
+    if ($checkIdnumResult->num_rows == 0) {
+        // idnum does not exist in the staff_information table
+        $_SESSION['invalid'] = true;
+        header("Location: ../Login/staffRegister.php");
+        exit();
+    } else {
         // idnum exists in the staff_information table, continue with the registration process
         $firstname = $_POST['fname'];
         $lastname = $_POST['lname'];

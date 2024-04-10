@@ -85,44 +85,44 @@
     <p>Please agree to the terms and confirm the accuracy of information.</p>
   </div>
 
- <!--ALERT MESSAGE 1-->
+  <!--ALERT MESSAGE 1-->
   <div id="alerPopup2" class="popup1">
     <p>Please verify that you are not a robot.</p>
   </div>
-  
-  
-<script>
-  function onCaptchaVerify(token) {
-    document.getElementById("submitBtn").removeAttribute("disabled");
-    document.querySelector(".error-shadow").classList.remove("red-shadow");
-    document.querySelector(".error-shadow").classList.add("transparent-shadow");
-  }
 
-  function onCaptchaExpired() {
-    document.getElementById("submitBtn").setAttribute("disabled", "disabled");
-    document.getElementById("alerPopup2").style.display = "block"; // Show the alert
-    document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
-    setTimeout(function() {
-      document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
-      document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
-    }, 3000);
-  }
 
-  function submitForm() {
-    if (grecaptcha.getResponse() === "") {
+  <script>
+    function onCaptchaVerify(token) {
+      document.getElementById("submitBtn").removeAttribute("disabled");
+      document.querySelector(".error-shadow").classList.remove("red-shadow");
+      document.querySelector(".error-shadow").classList.add("transparent-shadow");
+    }
+
+    function onCaptchaExpired() {
       document.getElementById("submitBtn").setAttribute("disabled", "disabled");
       document.getElementById("alerPopup2").style.display = "block"; // Show the alert
       document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
-      setTimeout(function() {
+      setTimeout(function () {
         document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
         document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
       }, 3000);
-      return false; // Prevent form submission
-    } else {
-      return true; // Allow form submission
     }
-  }
-</script>
+
+    function submitForm() {
+      if (grecaptcha.getResponse() === "") {
+        document.getElementById("submitBtn").setAttribute("disabled", "disabled");
+        document.getElementById("alerPopup2").style.display = "block"; // Show the alert
+        document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
+        setTimeout(function () {
+          document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
+          document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
+        }, 3000);
+        return false; // Prevent form submission
+      } else {
+        return true; // Allow form submission
+      }
+    }
+  </script>
 
   <!-- FORM-->
 
@@ -132,8 +132,7 @@
       <hr>
     </div>
 
-    <form id="myForm" action="../Php/firstTimeJob.php" method="post" enctype="multipart/form-data"
-      autocomplete="off">
+    <form id="myForm" action="../Php/firstTimeJob.php" method="post" enctype="multipart/form-data" autocomplete="off">
 
       <!-- ─── Name ─────────────────────── -->
       <div class="uploader">
@@ -317,10 +316,11 @@
 
       </div>
 
-       <!-- ─── Captcha ──────────────────────────── -->
+      <!-- ─── Captcha ──────────────────────────── -->
       <div class="error-shadow">
-     <div class="g-recaptcha" data-sitekey="6LeXJaspAAAAAFlki9u4Cja_VhMZjWNHT6iRwoX7" data-callback="onCaptchaVerify" data-expired-callback="onCaptchaExpired" required></div>
-     </div>
+        <div class="g-recaptcha" data-sitekey="6LeXJaspAAAAAFlki9u4Cja_VhMZjWNHT6iRwoX7" data-callback="onCaptchaVerify"
+          data-expired-callback="onCaptchaExpired" required></div>
+      </div>
       <br />
 
       <!-- ─── Submit Button ────────────── -->

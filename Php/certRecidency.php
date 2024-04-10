@@ -20,13 +20,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pickup_date = $_POST['datepicker'];
     $pickup_time = $_POST['timepicker'];
     $purok = $_POST['purok'];
-    
+
 
     // Combine date and time into a single datetime string in the correct format
     $pickup_datetime = date('Y-m-d h:i A', strtotime("$pickup_date $pickup_time"));
 
     $purpose_description = $_POST['purpose'];
     $voters_id_number = $_POST['voteId'];
+
+    // Retrieve the most recent record for this voter ID
+    $stmt = $conn->prepare("SELECT datetime_created FROM file_request WHERE voters_id_number = ? ORDER BY datetime_created DESC LIMIT 1");
+    $stmt->bind_param("s", $voters_id_number);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    // Check if a record was found and if it was created within the last 60 seconds
+    if ($row && strtotime($row['datetime_created']) > strtotime('-12 hours')) {
+        echo "<script type='text/javascript'>
+    alert('You must wait 12 hours between submissions.');
+    window.location.href = '../Website/homepage.html';
+    </script>";
+        exit();
+    }
 
     // File upload logic
     $file = $_FILES['avatar'];
@@ -56,11 +72,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Generate a unique tracking number
     $tracking_number = uniqid();
-    
+
     // Get current date and time for datetime_created
     $datetime_created = date('Y-m-d H:i:s');
 
-   // Use prepared statement to prevent SQL injection
+    // Use prepared statement to prevent SQL injection
     $stmt = $conn->prepare("INSERT INTO file_request (purok, tracking_number, firstname, lastname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, type, datetime_created) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Bind parameters
