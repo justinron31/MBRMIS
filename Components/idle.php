@@ -26,6 +26,14 @@
 
 </div>
 
+<!--incompatibility CONTENT-->
+<div class="incomp">
+    <div id="logcon">
+                <img class="logo" src="../images/logo.png" alt="Makiling logo" />
+                <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
+            </div>
+<h3>"Please access the solution on your larger devices to maximize functionality and view."</h3>
+</div>
 
 <!-- ─── logout popup ───────────────────── -->
 <div id="overlay" class="overlay"></div>

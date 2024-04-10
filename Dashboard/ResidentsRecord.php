@@ -14,11 +14,11 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
-    <!--CSS-->
+        <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
-    <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
-    <link rel="stylesheet" href="../Dashboard/CSS,JS/Table.css" />
-    <link rel="stylesheet" href="../Dashboard/CSS,JS/residentsRecord.css" />
+    <link rel="stylesheet" href="./CSS,JS/Dashboard.css" />
+    <link rel="stylesheet" href="./CSS,JS/Table.css" />
+    <link rel="stylesheet" href="./CSS,JS/residentsRecord.css" />
 
 
 
@@ -29,11 +29,12 @@
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
 
-
-    <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
-    <script src="../Dashboard/CSS,JS/Table.js" defer></script>
-    <script src="../Dashboard/CSS,JS/Export.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>    
     <script src="../Dashboard/CSS,JS/residentsRecord.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Table.js" defer></script>
+    <script src="../Dashboard/CSS,JS/Export.js"></script>
+ 
+
 
 
 
@@ -48,7 +49,7 @@ session_start();
 // Check if the user is not logged in as admin or staff, or if idnumber is not set
 if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
-    header("Location: /MBRMIS/Login/loginStaff.php");
+    header("Location: ../Login/loginStaff.php");
     exit();
 }
 
@@ -84,7 +85,15 @@ $_SESSION['show_login_message'] = false;
         <p>Record deleted successfully!</p>
     </div>
 
+ <!--VALIDATION MESSAGE-->
+    <div id="validationPopup6" class="popup">
+        <p>Record updated successfully!</p>
+    </div>
 
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup7" class="popup2">
+        <p>Error updating residents record.</p>
+    </div>
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup1" class="popup2">
@@ -223,19 +232,7 @@ $_SESSION['show_login_message'] = false;
                     <div class="export__file">
 
                         <div class="tableHead">
-                            <!--TOTAL USER-->
-                            <?php
-                            include '../Php/db.php';
-
-                            $idnum = $_SESSION['idnumber'];
-                            $sql = "SELECT * FROM residentrecord WHERE id != $idnum";
-                            $result = $conn->query($sql);
-
-                            if ($result) {
-                                $totalUsers = $result->num_rows;
-                            }
-                            echo "<h1 class='titleTable'>Total Residents: " . $totalUsers . "</h1>";
-                            ?>
+                          <h1 class="titleTable">Total Residents: <span id="totalReq3">0</span></h1>
                         </div>
                         <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;"
                             onclick="toggleResidentForm()">
@@ -243,7 +240,7 @@ $_SESSION['show_login_message'] = false;
                             <p class="exportTitle">Add Resident</p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()"
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnResidentReport('residentsRec')"
                             style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
@@ -260,12 +257,12 @@ $_SESSION['show_login_message'] = false;
 
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="headerTable">
+                        <table id="residentsRec">
                             <thead>
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Voters ID </th>
                                     <th title="Filter: Ascending/Descending"> Voter status</th>
-                                    <th title="Filter: Ascending/Descending"> Voters ID Img </th>
+                                    <!--<th title="Filter: Ascending/Descending"> Voters ID Img </th>-->
                                     <th title="Filter: Ascending/Descending"> BHS </th>
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
@@ -285,27 +282,28 @@ $_SESSION['show_login_message'] = false;
 
                             <tbody>
 
-                                <?php
+                               <?php
                                 include '../Php/db.php';
-
+                                
                                 $sql = "SELECT * FROM residentrecord ORDER BY datecreated DESC";
                                 $result = $conn->query($sql);
-
-                                if ($result) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $file_status = strtolower(trim($row["rvoterstatus"]));
-                                        if ($file_status == 'voter') {
-                                            $class = 'delivered';
-                                        } elseif ($file_status == 'non-voter') {
-                                            $class = 'cancelled';
-                                        } else {
-                                            $class = '';
-                                        }
+                                
+                               if ($result) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $file_status = strtolower(trim($row["rvoterstatus"]));
+                                    if ($file_status == 'voter') {
+                                        $class = 'delivered';
+                                    } elseif ($file_status == 'non-voter' || $file_status == 'none' || $file_status == 'n/a') {
+                                        $class = 'cancelled';
+                                    } else {
+                                        $class = '';
+                                    }
+                                
 
                                         echo "<tr>" .
-                                            "<td><strong>" . $row["rVotersID"] . "</strong></td>" .
+                                            "<td><strong>" . (!empty($row["rVotersID"]) ? $row["rVotersID"] : "None") . "</strong></td>" .
                                             "<td style='text-align: center;'><p class='status $class padding'>" . $row["rvoterstatus"] . "</p></td>" .
-                                            "<td>" . (!empty($row["voters_id_image"]) ? "<a href='../ResidentsID/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a>" : "None") . "</td>" .
+                                            // "<td>" . (!empty($row["voters_id_image"]) ? "<a href='../ResidentsID/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a>" : "None") . "</td>" .
                                             "<td>" . $row["rBHS"] . "</td>" .
                                             "<td>" . $row["rFirstName"] . "</td>" .
                                             "<td>" . $row["rLastName"] . "</td>" .
@@ -326,7 +324,7 @@ $_SESSION['show_login_message'] = false;
                                 } else {
                                     echo "<tr><td colspan='8'>No data found</td></tr>";
                                 }
-
+                                
                                 $conn->close();
                                 ?>
 
@@ -347,9 +345,28 @@ $_SESSION['show_login_message'] = false;
     </div>
 </body>
 
+
 <script>
+$(document).ready(function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var update = urlParams.get('update');
 
+    var popupId;
+    if (update === 'success') {
+        popupId = 'validationPopup6';
+    } else if (update === 'error') {
+        popupId = 'validationPopup7';
+    }
+
+    if (popupId) {
+        var popup = document.getElementById(popupId);
+        popup.style.display = 'block';
+
+        setTimeout(function() {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+});
 </script>
-
 
 </html>

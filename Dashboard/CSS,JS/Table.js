@@ -110,7 +110,7 @@ $(document).ready(function () {
   function fetchUserInfo(userId, callback) {
     $.ajax({
       type: "POST",
-      url: "/MBRMIS/Php/fetchUserInfo.php", // Create a new PHP file to handle this request
+      url: "../Php/fetchUserInfo.php", // Create a new PHP file to handle this request
       data: { userId: userId },
       dataType: "json",
       success: function (data) {
@@ -172,7 +172,7 @@ function closeCustomModal() {
 function fetchUserInfo(userId, callback) {
   $.ajax({
     type: "POST",
-    url: "/MBRMIS/Php/fetchUserInfo.php", // Create a new PHP file to handle this request
+    url: "../Php/fetchUserInfo.php", // Create a new PHP file to handle this request
     data: { userId: userId },
     dataType: "json",
     success: function (data) {
@@ -228,7 +228,7 @@ $(document).ready(function () {
       // Send an AJAX request to updateAstatus.php
       $.ajax({
         type: "POST",
-        url: "/MBRMIS/Php/updateAstatus.php",
+        url: "../Php/updateAstatus.php",
         data: formData,
         dataType: "json", // Specify that you expect JSON in the response
         success: function (data) {
@@ -279,7 +279,7 @@ function deleteUser(id) {
   if (confirmation) {
     $.ajax({
       type: "POST",
-      url: "/MBRMIS/Php/deleteUser.php",
+      url: "../Php/deleteUser.php",
       data: { id: id },
       dataType: "json", // Specify that you expect JSON in the response
       success: function (data) {
@@ -326,7 +326,7 @@ $(document).ready(function () {
   function fetchFileInfo(fileId, callback) {
     $.ajax({
       type: "POST",
-      url: "/MBRMIS/Php/fetchFileInfo.php",
+      url: "../Php/fetchFileInfo.php",
       data: { id: fileId },
       dataType: "json",
       success: function (data) {
@@ -391,7 +391,7 @@ $(document).ready(function () {
       formData += "&remarks=" + encodeURIComponent(remarks);
       $.ajax({
         type: "POST",
-        url: "/MBRMIS/Php/updateFile.php",
+        url: "../Php/updateFile.php",
         data: formData,
         dataType: "json",
         success: function (data) {
@@ -429,7 +429,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   function fetchTotalRequests() {
     $.ajax({
-      url: "/MBRMIS/Php/fetchTotal.php",
+      url: "../Php/fetchTotal.php",
       type: "GET",
       success: function (response) {
         var data = JSON.parse(response);
@@ -446,7 +446,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   function fetchTotalRequests() {
     $.ajax({
-      url: "/MBRMIS/Php/fetchTotal1.php",
+      url: "../Php/fetchTotal1.php",
       type: "GET",
       success: function (response) {
         var data = JSON.parse(response);
@@ -463,7 +463,7 @@ $(document).ready(function () {
 $(document).ready(function () {
   function fetchTotalRequests() {
     $.ajax({
-      url: "/MBRMIS/Php/fetchTotal2.php",
+      url: "../Php/fetchTotal2.php",
       type: "GET",
       success: function (response) {
         var data = JSON.parse(response);
@@ -475,3 +475,22 @@ $(document).ready(function () {
   fetchTotalRequests();
   setInterval(fetchTotalRequests, 2000);
 });
+
+// ─── fetch total residents ────────────────────────────────────────────
+$(document).ready(function () {
+  function fetchTotalRequests() {
+    $.ajax({
+      url: "../Php/fetchTotal3.php",
+      type: "GET",
+      success: function (response) {
+        var data = JSON.parse(response);
+        $("#totalReq3").text(data.totalReq);
+      },
+    });
+  }
+
+  fetchTotalRequests();
+  setInterval(fetchTotalRequests, 2000);
+});
+
+

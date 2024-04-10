@@ -3,9 +3,9 @@
 // Set the default timezone to Philippines
 date_default_timezone_set('Asia/Manila');
 // Import PHPMailer classes into the global namespace
-require "../../MBRMIS/Login/phpmailer/src/PHPMailer.php";
-require "../../MBRMIS/Login/phpmailer/src/SMTP.php";
-require "../../MBRMIS/Login/phpmailer/src/Exception.php";
+require "../Login/phpmailer/src/PHPMailer.php";
+require "../Login/phpmailer/src/SMTP.php";
+require "../Login/phpmailer/src/Exception.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -55,9 +55,9 @@ if ($result->num_rows > 0) {
         $mail->addAddress($email);
         $mail->isHTML(true);
         $mail->Subject = 'Password Reset Request';
-        $resetLink = 'http://localhost/MBRMIS/Login/passwordReset.php?token=' . $token;
+        $resetLink = 'https://makiling.website/Login/passwordReset.php?token=' . $token;
         $mail->Body    =
-            '<p>Your request for a password reset has been received. Kindly proceed with the steps outlined in this email to initiate the password reset process.</p><p> Click the button below to reset your password securely:</p> <a href="' . $resetLink . '"><button style="padding: 10px; border-radius:10px; font-weight:600; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Reset Password</button></a>';
+             '<p>Your request for a password reset has been received. Kindly proceed with the steps outlined in this email to initiate the password reset process.</p> <p><strong>The password reset link provided below will be valid for the next 5 minutes. </strong></p><p> Click the button below to reset your password securely:</p> <a href="' . $resetLink . '"><button style="padding: 10px; border-radius:10px; font-weight:600; background-color: #4CAF50; color: white; border: none; cursor: pointer;">Reset Password</button></a>';
         $mail->send();
         echo json_encode(array("success" => true));
     } catch (Exception $e) {

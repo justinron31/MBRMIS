@@ -6,12 +6,16 @@
           <nav class="sidebar locked">
               <div class="logo_items flex">
                   <span class="nav_image">
-                      <img src="../Images/logo.png" alt="logo_img" />
+                      <img src="../images/logo.png" alt="logo_img" />
                   </span>
                   <span class="logo_name"> MBRMI SYSTEM</span>
                   <i class="bx bxs-lock-alt" id="lock-icon" title="Unlock Sidebar"></i>
                   <i class="bx bx-x" id="sidebar-close" title="lock Sidebar"></i>
               </div>
+
+
+
+
 
 
               <!--SIDEBAR CONTENT-->
@@ -97,6 +101,7 @@
                                       <span class="material-symbols-outlined">
                                           home_storage
                                       </span>
+                                      <span class="badge3"></span>
                                   </i>
                                   <span>Requested Documents</span>
                               </a>
@@ -246,6 +251,38 @@
                   setInterval(fetchCount, 1000);
               });
           </script>
+          
+        <script>
+    $(document).ready(function() {
+         var audio = new Audio('../audio/notif.mp3');
+          
+        function fetchCount() {
+            $.ajax({
+                url: '../Php/fetchBadge3.php',
+                type: 'GET',
+                success: function(response) {
+                    var data = JSON.parse(response);
+                    var count1 = parseInt(data.count1);
+                    var count2 = parseInt(data.count2);
+                    var totalCount = count1 + count2;
+                    if (totalCount > 0) {
+                        $('.badge3').css('display', 'inline-block');
+                        $('.badge3').text(totalCount);
+                        
+                        if (data.notifCount > 0) {
+                                      audio.play();
+                                  }
+                    } else {
+                        $('.badge3').css('display', 'none');
+                    }
+                }
+            });
+        }
+
+        fetchCount();
+        setInterval(fetchCount, 1000);
+    });
+</script>
 
 
           <script>

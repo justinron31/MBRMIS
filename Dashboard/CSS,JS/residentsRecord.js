@@ -26,6 +26,12 @@ function changeToTextbox(selectBox) {
     textBox.name = selectBox.name;
     textBox.required = true;
     textBox.placeholder = "Enter your PhilHealth Number";
+    textBox.pattern ="[0-9\-]*";
+    
+    // Add an event listener for input event to restrict the input to numbers and hyphens
+    textBox.addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9-]/g, ''); // Replace anything that is not a number or "-"
+    });
 
     // Store the original select box in a variable
     var originalSelectBox = selectBox;
@@ -33,10 +39,10 @@ function changeToTextbox(selectBox) {
     // Add an event listener for the blur event
     textBox.addEventListener("blur", function () {
       // If the text box is empty, replace it with the original select box
-      if (textBox.value === "") {
+      if (this.value === "") {
         // Set the value of the select box to "No"
         originalSelectBox.value = "No";
-        textBox.parentNode.replaceChild(originalSelectBox, textBox);
+        this.parentNode.replaceChild(originalSelectBox, this);
         // Disable the "Category" input and remove the 'required' attribute
         var categoryInput = document.getElementById("Category");
         categoryInput.disabled = true;
@@ -54,6 +60,7 @@ function changeToTextbox(selectBox) {
   }
 }
 
+
 // ─── Voters Id ────────────────────────────────────────────────
 function changeToTextbox1(selectBox) {
   changeFontColor(selectBox.id);
@@ -66,18 +73,18 @@ function changeToTextbox1(selectBox) {
     textBox.placeholder = "Enter your Voter's ID Number";
 
     var originalSelectBox = selectBox;
-    var uploadDiv = document.querySelector(".rInput2");
+    // var uploadDiv = document.querySelector(".rInput2");
     var avatarInput = document.getElementById("avatar");
 
     textBox.addEventListener("blur", function () {
       if (textBox.value === "") {
         originalSelectBox.value = "No";
         textBox.parentNode.replaceChild(originalSelectBox, textBox);
-        uploadDiv.style.display = "none";
+        // uploadDiv.style.display = "none";
         avatarInput.disabled = true;
         avatarInput.removeAttribute("required");
       } else {
-        uploadDiv.style.display = "block";
+        // uploadDiv.style.display = "block";
         avatarInput.disabled = false;
         avatarInput.required = true;
       }
@@ -144,17 +151,17 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mLastname${memberCount}">Last Name</label>
-                                <input type="text" id="mLastname" name="mLastname${memberCount}" placeholder="Enter Lastname" required>
+                                <input type="text" id="mLastname" name="mLastname${memberCount}" placeholder="Enter Lastname" >
                             </div>
 
                             <div class="rInput">
                                 <label for="mFirstname${memberCount}">First Name</label>
-                                <input type="text" id="mFirstname" name="mFirstname${memberCount}" placeholder="Enter Firstname" required>
+                                <input type="text" id="mFirstname" name="mFirstname${memberCount}" placeholder="Enter Firstname" >
                             </div>
 
                             <div class="rInput">
                                 <label for="mMaiden${memberCount}">Mother’s Maiden Name</label>
-                                <input type="text" id="textbox" name="mMaiden${memberCount}" placeholder="Enter Mother’s Maiden Name" required>
+                                <input type="text" id="textbox" name="mMaiden${memberCount}" placeholder="Enter Mother’s Maiden Name" >
                             </div>
 
                         </div>
@@ -163,7 +170,7 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mRelationship${memberCount}">Relationship</label>
-                              <select class="selectbox" id="bussSelect6" name="mRelationship${memberCount}" required onchange="changeToTextbox2(this)">
+                              <select class="selectbox" id="bussSelect6" name="mRelationship${memberCount}"  onchange="changeToTextbox2(this)">
                                 <option value="">Select Relationship</option>
                                 <option value="Head">Head</option>
                                 <option value="Spouse">Spouse</option>
@@ -175,7 +182,7 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mGender${memberCount}">Gender</label>
-                                <select class="selectbox" id="bussSelect7" name="mGender${memberCount}" required onchange="changeFontColor('bussSelect7')">
+                                <select class="selectbox" id="bussSelect7" name="mGender${memberCount}"  onchange="changeFontColor('bussSelect7')">
                                     <option value="">Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -184,7 +191,7 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mAge${memberCount}">Age</label>
-                                <input type="text" id="textbox" name="mAge${memberCount}" placeholder="Enter Age"  oninput="validateAge(this)"required>
+                                <input type="text" id="textbox" name="mAge${memberCount}" placeholder="Enter Age"  oninput="validateAge(this)">
                             </div>
 
                         </div>
@@ -193,25 +200,26 @@ function addMember() {
 
                             <div class="rInput">
                                 <label for="mRisk${memberCount}">Classification by Age/Health Risk</label>
-                                <select class="selectbox" id="bussSelect9" name="mRisk${memberCount}" required onchange="changeFontColor('bussSelect9')">
+                                <select class="selectbox" id="bussSelect9" name="mRisk${memberCount}"  onchange="changeFontColor('bussSelect9')">
                                     <option value="">Select</option>
-                                    <option value="Male">Newborn</option>
-                                    <option value="Female">Infant (29days-11 months old)</option>
-                                    <option value="Male">Under-five (1-4 years old)</option>
-                                    <option value="Female">School-aged children (5-9 years old)</option>
-                                    <option value="Male">Adolescents (10-19 years old)</option>
-                                    <option value="Female">Pregnant</option>
-                                    <option value="Male">Persons with disability</option>
-                                    <option value="Female">Adult (≥25 years old) </option>
-                                    <option value="Male">Adolescent-Pregnant</option>
-                                    <option value="Female">Post Partum</option>
-                                    <option value="Female">Senior Citizen</option>
+                         <option value="Newborn">Newborn</option>
+                         <option value="Infant (29days-11 months old)">Infant (29days-11 months old)</option>
+                         <option value="Under-five (1-4 years old)">Under-five (1-4 years old)</option>
+                         <option value="School-aged children (5-9 years old)">School-aged children (5-9 years old)
+                         </option>
+                         <option value="Adolescents (10-19 years old)">Adolescents (10-19 years old)</option>
+                         <option value="Pregnant">Pregnant</option>
+                         <option value="Persons with disability">Persons with disability</option>
+                         <option value="Adult (≥25 years old)">Adult (≥25 years old) </option>
+                         <option value="Adolescent-Pregnant">Adolescent-Pregnant</option>
+                         <option value="Post Partum">Post Partum</option>
+                         <option value="Senior Citizen">Senior Citizen</option>
                                 </select>
                             </div>
 
                             <div class="rInput">
                                 <label for="mQuarter${memberCount}">Quarter</label>
-                                <select class="selectbox" id="bussSelect10" name="mQuarter${memberCount}" required
+                                <select class="selectbox" id="bussSelect10" name="mQuarter${memberCount}"
                                     onchange="changeFontColor('bussSelect10')">
                                     <option value="">Select Quarter</option>
                                     <option value="First">First</option>
@@ -322,18 +330,19 @@ function addMember1() {
                             <div class="rInput">
                                 <label for="mRisk${memberCount}">Classification by Age/Health Risk</label>
                                 <select class="selectbox" id="bussSelect9" name="mRisk${memberCount}" required onchange="changeFontColor('bussSelect9')">
-                                    <option value="">Select</option>
-                                    <option value="Male">Newborn</option>
-                                    <option value="Female">Infant (29days-11 months old)</option>
-                                    <option value="Male">Under-five (1-4 years old)</option>
-                                    <option value="Female">School-aged children (5-9 years old)</option>
-                                    <option value="Male">Adolescents (10-19 years old)</option>
-                                    <option value="Female">Pregnant</option>
-                                    <option value="Male">Persons with disability</option>
-                                    <option value="Female">Adult (≥25 years old) </option>
-                                    <option value="Male">Adolescent-Pregnant</option>
-                                    <option value="Female">Post Partum</option>
-                                    <option value="Female">Senior Citizen</option>
+                                   <option value="">Select</option>
+                         <option value="Newborn">Newborn</option>
+                         <option value="Infant (29days-11 months old)">Infant (29days-11 months old)</option>
+                         <option value="Under-five (1-4 years old)">Under-five (1-4 years old)</option>
+                         <option value="School-aged children (5-9 years old)">School-aged children (5-9 years old)
+                         </option>
+                         <option value="Adolescents (10-19 years old)">Adolescents (10-19 years old)</option>
+                         <option value="Pregnant">Pregnant</option>
+                         <option value="Persons with disability">Persons with disability</option>
+                         <option value="Adult (≥25 years old)">Adult (≥25 years old) </option>
+                         <option value="Adolescent-Pregnant">Adolescent-Pregnant</option>
+                         <option value="Post Partum">Post Partum</option>
+                         <option value="Senior Citizen">Senior Citizen</option>
                                 </select>
                             </div>
 
@@ -359,8 +368,8 @@ function addMember1() {
 
                 </div>
         `;
-  var formContainer = document.getElementById("formContainer2");
-  var addMemberButton = document.querySelector(".addMember1");
+  var formContainer = document.getElementById("formContainer3");
+  var addMemberButton = document.querySelector(".addMember4");
 
   formContainer.insertBefore(newMember, addMemberButton);
 
@@ -389,28 +398,18 @@ function validateAge(input) {
   }
 }
 
-// ─── Toggle Resident View ──────────────────────────────────────
-function hideResidentForm1() {
-  document.querySelector(".residentsForm1").style.display = "none";
-  document.querySelector(".overlayR").style.display = "none";
-  var inputs = formDiv.querySelectorAll(".rInput input, .rInput2 input");
-  var formDiv = document.querySelector(".residentsForm1");
-  var addMember = document.querySelector(".addMember2");
-
-  addMember.style.display = "";
-  formDiv.style.border = "";
-  inputs.forEach(function (input) {
-    input.setAttribute("readonly", true);
-  });
-}
-
 // ─── View Residents Data ──────────────────────────────────────
-
+var selectedRowId;
 function toggleResidentForm1(id) {
   document.querySelector(".residentsForm1").style.display = "block";
   document.querySelector(".overlayR").style.display = "block";
+  document.querySelector(".formform").style.display = "block";
+  document.querySelector(".formform1").style.display = "none";
+  document.querySelector(".residentsForm1").style.border = "";
 
-  var selectedRowId = id;
+  selectedRowId = id;
+
+  fetchresidentData(selectedRowId);
 
   $.ajax({
     url: "../Php/viewResidents.php",
@@ -418,7 +417,7 @@ function toggleResidentForm1(id) {
     data: { id: selectedRowId },
     success: function (data) {
       var parsedData = JSON.parse(data);
-      console.log(parsedData);
+
       $("#BHS").val(parsedData[0].rBHS);
       $("#Purok").val(parsedData[0].rPurokSitioSubdivision);
       $("#Household").val(parsedData[0].rHouseholdNumber);
@@ -430,7 +429,17 @@ function toggleResidentForm1(id) {
       $("#VotersID").val(parsedData[0].rVotersID);
       $("#NHTS").val(parsedData[0].rNHTSHousehold);
       $("#IP").val(parsedData[0].rIP);
-      $("#HH").val(parsedData[0].rHHHeadPhilHealthMember);
+      
+     var rHHHeadPhilHealthMember = parsedData[0].rHHHeadPhilHealthMember;
+
+// Check if the fetched data is empty or not
+if (rHHHeadPhilHealthMember) {
+    $("#HH").val(rHHHeadPhilHealthMember);
+} else {
+    $("#HH").val("No");
+}
+
+      
       $("#Category1").val(parsedData[0].rCategory);
       // $("#avatar").val(parsedData[0].voters_id_image);
 
@@ -521,9 +530,7 @@ function toggleResidentForm1(id) {
         $(".membersCon").append(memberElement);
       });
     },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.log(textStatus, errorThrown);
-    },
+    error: function (jqXHR, textStatus, errorThrown) {},
   });
 
   // ─── Delete RECORD ─────────────────────────────────────────────
@@ -583,37 +590,372 @@ document.querySelector(".no1").addEventListener("click", function () {
 });
 
 // ─── Edit Resident Information ────────────────────────────────
-document.addEventListener("click", function (event) {
-  if (event.target.matches(".rSubmit")) {
-    var formDiv = document.querySelector(".residentsForm1");
-    var inputs = formDiv.querySelectorAll("input");
-    var addMember = document.querySelector(".addMember2");
+function toggleAndPopulateForms() {
+  event.preventDefault();
+  var form1 = document.querySelector(".formform");
+  var form2 = document.querySelector(".formform1");
+  var buttonUp = document.querySelector(".rSubmit2");
+  var mainForm = document.querySelector(".residentsForm1");
 
-    inputs.forEach(function (input) {
-      if (input.hasAttribute("readonly")) {
-        input.removeAttribute("readonly");
-        formDiv.style.border = "7px solid #377fb9";
-        addMember.style.display = "block";
-      } else {
-        input.setAttribute("readonly", true);
-        formDiv.style.border = "";
-        addMember.style.display = "none";
-      }
-    });
+  // Initially disable the button
+  buttonUp.disabled = true;
 
-    var deleteButton = document.querySelector(".rSubmit1");
-    var saveButton = document.querySelector(".rSubmit2");
+  // Add event listener to the form
+  form2.addEventListener("input", function () {
+    // Enable the button when the form changes
+    buttonUp.disabled = false;
+  });
 
-    if (deleteButton.style.display !== "none") {
-      deleteButton.style.display = "none";
-      saveButton.style.display = "block";
-    } else {
-      deleteButton.style.display = "block";
-      saveButton.style.display = "none";
-      saveButton.disabled = true;
-    }
+  if (form1.style.display === "block" || form1.style.display === "") {
+    form1.style.display = "none";
+    form2.style.display = "block";
+    buttonUp.style.display = "block";
+    mainForm.style.border = "6px solid #377fb9";
+  } else {
+    form1.style.display = "block";
+    form2.style.display = "none";
+    buttonUp.style.display = "none";
+    mainForm.style.border = "";
   }
+}
+
+function fetchresidentData(id) {
+  $.ajax({
+    url: "../Php/viewResidents.php",
+    type: "POST",
+    data: { id: selectedRowId },
+    success: function (data) {
+      var parsedData = JSON.parse(data);
+
+      if (parsedData.error) {
+      } else {
+        var record = parsedData[0];
+
+        document.getElementById("BHS1").value = record.rBHS;
+        document.getElementById("Purok1").value = record.rPurokSitioSubdivision;
+        document.getElementById("Household1").value = record.rHouseholdNumber;
+
+        document.getElementById("Lastname1").value = record.rLastName;
+        document.getElementById("Firstname1").value = record.rFirstName;
+        document.getElementById("Maiden1").value = record.rMothersMaidenName;
+
+        document.getElementById("Age1").value = record.rAge;
+        document.getElementById("bussSelect31").value = record.rGender;
+        
+        var votersIDElement = document.getElementById("bussSelect41");
+        votersIDElement.value = record.rVotersID;
+
+        if (votersIDElement.value !== "None") {
+          var newInput = document.createElement("input");
+          newInput.id = "bussSelect41"; // Set the ID to "VotersID"
+          newInput.value = votersIDElement.value;
+          votersIDElement.parentNode.replaceChild(newInput, votersIDElement);
+        }
+
+        document.getElementById("bussSelect11").value = record.rNHTSHousehold;
+        document.getElementById("bussSelect81").value = record.rIP;
+        document.getElementById("bussSelect21").value = record.rHHHeadPhilHealthMember;
+         
+        document.getElementById("Category11").value = record.rCategory;
+
+        // Clear the existing members
+        $(".membersContainer").empty();
+        var memberNumber = 1;
+
+        parsedData.forEach(function (member) {
+          var memberElement = `
+
+    <div class="membersCon1">
+             <div class="rheadTitle">
+
+                 <div class="rheadcon">
+                     <div class="line"></div>
+                     <p>HOUSEHOLD MEMBER ${memberNumber}</p>
+                     <div class="line"></div>
+                 </div>
+
+             </div>
+
+             <div class="addmember">
+                 <div class="rform1">
+
+                     <div class="rInput">
+                         <label for="mLastname">Last Name</label>
+                         <input type="text" id="textbox" name="mLastname" placeholder="Enter Lastname" value="${
+                           member.mLastName
+                         }" >
+                     </div>
+
+                     <div class="rInput">
+                         <label for="mFirstname">First Name</label>
+                         <input type="text" id="textbox" name="mFirstname" placeholder="Enter Firstname" value="${
+                           member.mFirstName
+                         }" >
+                     </div>
+
+                     <div class="rInput">
+                         <label for="mMaiden">Mother’s Maiden Name</label>
+                         <input type="text" id="textbox" name="mMaiden" placeholder="Enter Mother’s Maiden Name" value="${
+                           member.mMothersMaidenName
+                         }"
+                              >
+                     </div>
+
+                 </div>
+
+                 <div class="rform1">
+
+                     <div class="rInput">
+                         <label for="mRelationship">Relationship</label>
+                        <select class="selectbox" id="bussSelect6" name="mRelationship"  onchange="changeToTextbox2(this)">
+                          <option value="">Select Relationship</option>
+                          <option value="Head" ${
+                            member.mRelationship === "Head" ? "selected" : ""
+                          }>Head</option>
+                          <option value="Spouse" ${
+                            member.mRelationship === "Spouse" ? "selected" : ""
+                          }>Spouse</option>
+                          <option value="Son" ${
+                            member.mRelationship === "Son" ? "selected" : ""
+                          }>Son</option>
+                          <option value="Daughter" ${
+                            member.mRelationship === "Daughter"
+                              ? "selected"
+                              : ""
+                          }>Daughter</option>
+                          <option value="Others" ${
+                            member.mRelationship === "Others" ? "selected" : ""
+                          }>Others</option>
+                        </select>
+                     </div>
+
+                     <div class="rInput">
+                         <label for="mGender">Gender</label>
+                         <select class="selectbox" id="bussSelect7" name="mGender"  onchange="changeFontColor('bussSelect7')" value="${
+                           member.mAge
+                         }">
+    <option value="">Select</option>
+    <option value="Male" ${
+      member.mSex === "Male" ? "selected" : ""
+    }>Male</option>
+    <option value="Female" ${
+      member.mSex === "Female" ? "selected" : ""
+    }>Female</option>
+</select>
+                     </div>
+
+
+
+
+                     <div class="rInput">
+                         <label for="mAge">Age</label>
+                         <input type="text" id="textbox" name="mAge" placeholder="Enter Age" oninput="validateAge(this)" value="${
+                           member.mAge
+                         }"
+                             >
+                     </div>
+
+                 </div>
+
+                 <div class="rform1">
+                     <div class="rInput">
+                         <label for="mRisk">Classification by Age/Health Risk</label>
+                        <select class="selectbox" id="bussSelect9" name="mRisk"  onchange="changeFontColor('bussSelect9')">
+                          <option value="">Select</option>
+                          <option value="Newborn" ${
+                            member.mClassificationByAgeHealthRisk === "Newborn"
+                              ? "selected"
+                              : ""
+                          }>Newborn</option>
+                          <option value="Infant (29days-11 months old)" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Infant (29days-11 months old)"
+                              ? "selected"
+                              : ""
+                          }>Infant (29days-11 months old)</option>
+                          <option value="Under-five (1-4 years old)" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Under-five (1-4 years old)"
+                              ? "selected"
+                              : ""
+                          }>Under-five (1-4 years old)</option>
+                          <option value="School-aged children (5-9 years old)" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "School-aged children (5-9 years old)"
+                              ? "selected"
+                              : ""
+                          }>School-aged children (5-9 years old)</option>
+                          <option value="Adolescents (10-19 years old)" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Adolescents (10-19 years old)"
+                              ? "selected"
+                              : ""
+                          }>Adolescents (10-19 years old)</option>
+                          <option value="Pregnant" ${
+                            member.mClassificationByAgeHealthRisk === "Pregnant"
+                              ? "selected"
+                              : ""
+                          }>Pregnant</option>
+                          <option value="Persons with disability" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Persons with disability"
+                              ? "selected"
+                              : ""
+                          }>Persons with disability</option>
+                          <option value="Adult (≥25 years old)" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Adult (≥25 years old)"
+                              ? "selected"
+                              : ""
+                          }>Adult (≥25 years old)</option>
+                          <option value="Adolescent-Pregnant" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Adolescent-Pregnant"
+                              ? "selected"
+                              : ""
+                          }>Adolescent-Pregnant</option>
+                          <option value="Post Partum" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Post Partum"
+                              ? "selected"
+                              : ""
+                          }>Post Partum</option>
+                          <option value="Senior Citizen" ${
+                            member.mClassificationByAgeHealthRisk ===
+                            "Senior Citizen"
+                              ? "selected"
+                              : ""
+                          }>Senior Citizen</option>
+                        </select>
+                     </div>
+
+
+
+                     <div class="rInput">
+                         <label for="mQuarter">Quarter</label>
+                        <select class="selectbox" id="bussSelect10" name="mQuarter" onchange="changeFontColor('bussSelect10')">
+                          <option value="">Select Quarter</option>
+                          <option value="First" ${
+                            member.mQuarter === "First" ? "selected" : ""
+                          }>First</option>
+                          <option value="Second" ${
+                            member.mQuarter === "Second" ? "selected" : ""
+                          }>Second</option>
+                          <option value="Third" ${
+                            member.mQuarter === "Third" ? "selected" : ""
+                          }>Third</option>
+                          <option value="Fourth" ${
+                            member.mQuarter === "Fourth" ? "selected" : ""
+                          }>Fourth</option>
+                        </select>
+                     </div>
+                 </div>
+
+             </div>
+
+
+
+         </div>
+          `;
+          // Append the new member element to the parent
+          $(".membersContainer").append(memberElement);
+          memberNumber++;
+        });
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error:", errorThrown);
+    },
+  });
+}
+
+// ─── Information Update ───────────────────────────────────────
+$("#formContainer3").on("submit", function (event) {
+  event.preventDefault();
+
+  var formData = {
+    id: selectedRowId,
+    rBHS: $("#BHS1").val(),
+    rPurokSitioSubdivision: $("#Purok1").val(),
+    rHouseholdNumber: $("#Household1").val(),
+    rLastName: $("#Lastname1").val(),
+    rFirstName: $("#Firstname1").val(),
+    rMothersMaidenName: $("#Maiden1").val(),
+    rAge: $("#Age1").val(),
+    rGender: $("#bussSelect31").val(),
+    rVotersID: $("#bussSelect41").val(),
+    rNHTSHousehold: $("#bussSelect11").val(),
+    rIP: $("#bussSelect81").val(),
+    rHHHeadPhilHealthMember: $("#bussSelect21").val(),
+    rCategory: $("#Category11").val(),
+    members: [],
+  };
+
+  $(".membersCon1").each(function () {
+    var member = {
+      mLastName: $(this).find("input[name='mLastname']").val(),
+      mFirstName: $(this).find("input[name='mFirstname']").val(),
+      mMothersMaidenName: $(this).find("input[name='mMaiden']").val(),
+      mRelationship: $(this).find("select[name='mRelationship']").val(),
+      mGender: $(this).find("select[name='mGender']").val(),
+      mAge: $(this).find("input[name='mAge']").val(),
+      mClassificationByAgeHealthRisk: $(this)
+        .find("select[name='mRisk']")
+        .val(),
+      mQuarter: $(this).find("select[name='mQuarter']").val(),
+    };
+    formData.members.push(member);
+  });
+
+  $.ajax({
+    url: "../Php/updateResidents.php",
+    type: "POST",
+    data: JSON.stringify(formData), // Stringify the formData object
+    contentType: "application/json", // Tell the server you're sending JSON
+    success: function (response) {
+      console.log("Response:", response);
+      var results = JSON.parse(response);
+
+      // Initialize a flag to check if all operations were successful
+      var allSuccessful = true;
+
+      // Loop through each result
+      results.forEach(function (result) {
+        if (result.error) {
+          console.error("Error:", result.error);
+          allSuccessful = false;
+        } else if (result.success) {
+          console.log("Success:", result.success);
+        } else if (result.message) {
+          console.log("Message:", result.message);
+        }
+      });
+
+      // If all operations were successful, redirect to the dashboard
+      if (allSuccessful) {
+        window.location.href =
+          "../Dashboard/ResidentsRecord.php?update=success";
+      } else {
+        window.location.href = "../Dashboard/ResidentsRecord.php?update=error";
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error:", errorThrown);
+    },
+  });
 });
 
-// Initially disable the "SAVE" button
-document.querySelector(".rSubmit2").disabled = true;
+// ─── Toggle Resident View ──────────────────────────────────────
+function hideResidentForm1() {
+  document.querySelector(".residentsForm1").style.display = "none";
+  document.querySelector(".overlayR").style.display = "none";
+
+  var form2 = document.querySelector(".formform1");
+  var form1 = document.querySelector(".formform");
+  var addMember = document.querySelector(".addMember2");
+
+  addMember.style.display = "";
+  formDiv.style.border = "";
+  form2.style.display = "none";
+  form1.style.display = "block";
+}

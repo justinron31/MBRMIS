@@ -119,7 +119,7 @@ $_SESSION['show_login_message'] = false;
                             <!--TOTAL USER-->
                             <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
                         </div>
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnIndigencyReport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnJobseekerReport('firsttime')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -136,7 +136,7 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__body" id="headerTable">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="headerTable">
+                        <table id="firsttime">
                             <thead>
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Tracking Number </th>
@@ -205,7 +205,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["course"] . "</td>" .
                                             "<td>" . $row["job_start_beneficiary"] . "</td>" .
                                             "<td>" . $row["id_number"] . "</td>" .
-                                            "<td>" . (!empty($row["voters_id_image"]) ? "<a href='../ResidentsID/" . $row["voters_id_image"] . "' target='_blank'>View Voters ID</a>" : "None") . "</td>" .
+                                            "<td>" . (!empty($row["voters_id_image"]) ? "<a href='../ResidentsID/" . $row["voters_id_image"] . "' target='_blank'>View Valid ID</a>" : "None") . "</td>" .
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
@@ -226,13 +226,13 @@ $_SESSION['show_login_message'] = false;
                                     <div class="custom-modal-content">
                                         <h2 class="editAccountTitle">Update File Request Status </h2>
                                         <p id="TrackingN"></p>
-                                        <form id="customEditForm1" action="/MBRMIS/Php/updateFile_first_time_job.php" method="post">
+                                        <form id="customEditForm1"  method="post">
                                             <div class="updatecon">
                                                 <div class="accountstatus">
                                                     <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
                                                     <label for="fileStatus">File Status:</label>
                                                     <select id="fileStatus" name="fileStatus">
-                                                        <option value="Ready for Pickup">Ready for Pickup</option>
+                                                     
                                                         <option value="Declined">Declined</option>
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>

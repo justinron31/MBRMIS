@@ -1,9 +1,10 @@
 <?php
-//Import PHPMailer classes into the global namespace
-require "../../MBRMIS/Login/phpmailer/src/PHPMailer.php";
-require "../../MBRMIS/Login/phpmailer/src/SMTP.php";
-require "../../MBRMIS/Login/phpmailer/src/Exception.php";
 
+date_default_timezone_set('Asia/Manila');
+//Import PHPMailer classes into the global namespace
+require "../Login/phpmailer/src/PHPMailer.php";
+require "../Login/phpmailer/src/SMTP.php";
+require "../Login/phpmailer/src/Exception.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -18,40 +19,48 @@ if (isset($_POST["verify_email"])) {
     $email = $_POST["email"];
     $verification_code = $_POST["verification_code"];
 
-    // mark email as verified
-    $sql = "UPDATE staff SET email_verify = 1, email_verified_at = NOW(), verification_code = NULL WHERE email = '" . $email . "'";
-    $result  = mysqli_query($conn, $sql);
+    // Check if the verification code matches the one stored in the database
+    $sql = "SELECT * FROM staff WHERE email = '$email' AND verification_code = '$verification_code'";
+    $result = mysqli_query($conn, $sql);
 
-    if (mysqli_affected_rows($conn) > 0) {
-        // Send confirmation email
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->SMTPSecure = "tls";
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+    if (mysqli_num_rows($result) > 0) {
+        // Mark email as verified
+        $update_sql = "UPDATE staff SET email_verify = 1, email_verified_at = NOW(), verification_code = NULL WHERE email = '$email'";
+        $update_result  = mysqli_query($conn, $update_sql);
 
-        // Enter your email ID
-        $mail->Username = "barangay.makiling24@gmail.com";
-        $mail->Password = "uzpgybuoyxerjsmm";
+        if ($update_result) {
+            // Send confirmation email
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->SMTPAuth = true;
+            $mail->SMTPSecure = "tls";
+            $mail->Host = "smtp.gmail.com";
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port = 587;
 
-        // Your email ID and Email Title
-        $mail->setFrom("barangay.makiling24@gmail.com", "MBRMIS");
+            // Enter your email ID
+            $mail->Username = "barangay.makiling24@gmail.com";
+            $mail->Password = "uzpgybuoyxerjsmm";
 
-        $mail->addAddress($email);
+            // Your email ID and Email Title
+            $mail->setFrom("barangay.makiling24@gmail.com", "MBRMIS");
 
-        // You can change the subject according to your requirement!
-        $mail->Subject = "Account Successfully Activated";
+            $mail->addAddress($email);
 
-        // You can change the Body Message according to your requirement!
-        $mail->Body = "Hello, Your account registration has been successfully completed! You can now log in to your account.";
-        $mail->send();
+            // You can change the subject according to your requirement!
+            $mail->Subject = "Account Successfully Activated";
 
-        header("Location: /MBRMIS/Login/loginStaff.php?email_verified=true");
-        exit();
+            // You can change the Body Message according to your requirement!
+            $mail->Body = "Hello, Your account registration has been successfully completed! You can now log in to your account.";
+            $mail->send();
+
+            header("Location: ../Login/loginStaff.php?email_verified=true");
+            exit();
+        } else {
+            $showPopup = true; // Error occurred while updating database
+        }
     } else {
-        $showPopup = true;
+        $showPopup = true; // Verification code does not match
     }
 }
 ?>
@@ -90,7 +99,7 @@ if (isset($_POST["verify_email"])) {
     <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
     <!-- CSS / JAVASCRIPT -->
-    <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
+    <link rel="stylesheet" href="./CSS,JS/login.css" />
 
 
 
@@ -115,7 +124,7 @@ if (isset($_POST["verify_email"])) {
         <!--NAVBAR-->
         <div id="nav-bar">
             <div id="logcon">
-                <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+                <img class="logo" src="../images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
             <a href="loginStaff.php"><button class="switchButton" role="button">
@@ -127,9 +136,9 @@ if (isset($_POST["verify_email"])) {
     <!--LOGIN FORM-->
     <div class="login-container">
         <div class="logo-container">
-            <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
+            <img class="logo1" src="../images/logo.png" alt="Makiling logo" />
             <p class="login-text" style="margin-bottom: 0;">Enter verification code sent to your email.</p>
-            <a id="resend-link" class="resend-link" href="/MBRMIS/Php/resend_code.php?email=<?php echo $_GET['email']; ?>">Resend code</a>
+            <a id="resend-link" class="resend-link" href="../Php/resend_code.php?email=<?php echo $_GET['email']; ?>">Resend code</a>
 
         </div>
         <br>
@@ -146,7 +155,7 @@ if (isset($_POST["verify_email"])) {
         <p>&copy; 2024 BARANGAY MAKILING RECORD MANAGEMENT AND ISSUANCE SYSTEM | All rights reserved.</p>
     </footer>
 
-    <script src="../Login/CSS,JS/login.js"></script>
+    <script src="./CSS,JS/login.js"></script>
 </body>
 
 <script>

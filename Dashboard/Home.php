@@ -245,7 +245,20 @@ $_SESSION['show_login_message'] = false;
                     <div class="Req">
 
                         <div class="reqHead">
-                            <div class="card-nameR">PENDING FILE REQUEST</div>
+                            
+                             <?php
+                                    include '../Php/db.php';
+                                    
+                                    $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request ");
+                                    $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job ");
+                                    
+                                    $row1 = mysqli_fetch_assoc($result1);
+                                    $row2 = mysqli_fetch_assoc($result2);
+                                    
+                                    $totalAll = $row1['count'] + $row2['count'];
+                                    ?>
+                            
+                            <div class="card-nameR">TOTAL FILE REQUEST : (<?php echo $totalAll; ?>) </div>
 
                         </div>
 
@@ -323,17 +336,17 @@ $_SESSION['show_login_message'] = false;
                                 </div>
 
                                 <?php
-                                include '../Php/db.php';
+                                    include '../Php/db.php';
+                                    
+                                    $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request WHERE file_status = 'Reviewing'");
+                                    $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job WHERE file_status = 'Reviewing'");
+                                    
+                                    $row1 = mysqli_fetch_assoc($result1);
+                                    $row2 = mysqli_fetch_assoc($result2);
+                                    
+                                    $total = $row1['count'] + $row2['count'];
+                                    ?>
 
-
-                                $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request");
-                                $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job");
-
-                                $row1 = mysqli_fetch_assoc($result1);
-                                $row2 = mysqli_fetch_assoc($result2);
-
-                                $total = $row1['count'] + $row2['count'];
-                                ?>
                                 <div class="numberP"><?php echo $total; ?></div>
                             </div>
 

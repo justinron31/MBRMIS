@@ -15,8 +15,8 @@
 
     <!-- CSS / JAVASCRIPT -->
 
-    <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
-    <script src="../Login/CSS,JS/login.js"></script>
+    <link rel="stylesheet" href="./CSS,JS/login.css" />
+    <script src="./CSS,JS/login.js"></script>
 
     <title>Registration - Staff</title>
 </head>
@@ -31,7 +31,7 @@
         <!--NAVBAR-->
         <div id="nav-bar">
             <div id="logcon">
-                <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+                <img class="logo" src="../images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
             <a href="loginStaff.php"><button class="switchButton" role="button">

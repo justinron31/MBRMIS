@@ -16,6 +16,14 @@
   transform: scale(1.05);
 }
 
+
+.leave{
+    font-size:0.6rem;
+    color:red;
+    
+}
+
+
 /* ─── Form ────────────────────────────────────────────────── */
 .residentsForm,
 .residentsForm1 {
@@ -240,7 +248,8 @@
 }
 
 .addMember,
-.addMember2 {
+.addMember2,
+.addMember4 {
   color: #15917a;
   cursor: pointer;
   font-size: 0.8rem;
@@ -254,12 +263,16 @@
 .addMember2:hover {
   text-decoration: underline;
 }
+.addMember4:hover {
+  text-decoration: underline;
+}
 
 .addMember2 {
   display: none;
 }
 .addMember1,
-.addMember3 {
+.addMember3,
+.addMember5 {
   color: red;
   cursor: pointer;
   font-size: 0.8rem;
@@ -270,6 +283,9 @@
   text-decoration: underline;
 }
 .addMember3:hover {
+  text-decoration: underline;
+}
+.addMember5:hover {
   text-decoration: underline;
 }
 

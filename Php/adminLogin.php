@@ -3,6 +3,9 @@
 session_start();
 include 'db.php';
 
+date_default_timezone_set('Asia/Manila');
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['id'];
     $password = $_POST['password'];
@@ -31,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (password_verify($password, $row['pass'])) {
                 // Check if email is verified
                 if ($row['email_verify'] == 0) {
-                    header("Location: /MBRMIS/Login/email-verification.php?email=" . $row['email']);
+                    header("Location: ../Login/email-verification.php?email=" . $row['email']);
                     exit();
                 }
 
@@ -54,10 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect based on user type
                 if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'staff') {
-                    header("Location: /MBRMIS/Dashboard/Home.php");
+                    header("Location: ../Dashboard/Home.php");
                 } else {
                     $_SESSION['error_message'] = "Invalid role";
-                    header("Location: /MBRMIS/Login/loginStaff.php");
+                    header("Location: ../Login/loginStaff.php");
                 }
 
                 exit();
@@ -71,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['error_message'] = "Error.";
     }
 
-    header("Location: /MBRMIS/Login/loginStaff.php");
+    header("Location: ../Login/loginStaff.php");
     exit();
 }
 

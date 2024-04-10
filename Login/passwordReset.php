@@ -15,7 +15,7 @@
     <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
     <!-- CSS / JAVASCRIPT -->
-    <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
+    <link rel="stylesheet" href="./CSS,JS/login.css" />
 
     <title>Create New Password - Staff</title>
 
@@ -55,7 +55,7 @@
         <!--NAVBAR-->
         <div id="nav-bar">
             <div id="logcon">
-                <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+                <img class="logo" src="../images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
 
@@ -65,7 +65,7 @@
     <!--LOGIN FORM-->
     <div class="login-container">
         <div class="logo-container">
-            <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
+            <img class="logo1" src="../images/logo.png" alt="Makiling logo" />
             <p class="login-text">CREATE NEW PASSWORD</p>
         </div>
 

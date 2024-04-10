@@ -56,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         $date = date('Y-m-d'); // get current date
-        $newImageName = 'VotersID_' . $lastname . '_' . $firstname . '_' . $date . '.' . $imageExtension;
+        $newImageName = 'ValidID_' . $lastname . '_' . $firstname . '_' . $date . '.' . $imageExtension;
         $targetDirectory = "../Uploaded File/";
         $targetFile = $targetDirectory . basename($newImageName);
         move_uploaded_file($fileTmpName, $targetFile);
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo "<script type='text/javascript'>
         alert('Record submitted successfully');
-        window.location.href = '/MBRMIS/Website/confirmTrack.html';
+        window.location.href = '../Website/confirmTrack.php';
         </script>";
         echo "<script type='text/javascript'>
         window.onbeforeunload = function() {

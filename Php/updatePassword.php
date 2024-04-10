@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['changePassword'])) {
             if (password_verify($newPassword, $storedPasswordHash)) {
                 // New password is the same as the current password, redirect and display the custom popup in Profile.php
                 $_SESSION['same_password'] = true;
-                header("Location: /MBRMIS/Dashboard/Profile.php");
+                header("Location: ../Dashboard/Profile.php");
                 exit();
             }
             // New password is different, now update the password
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['changePassword'])) {
             if (mysqli_stmt_execute($updateStmt)) {
                 $_SESSION['password_updated'] = true;
                 // Redirect first, and then display the custom popup in Profile.php
-                header("Location: /MBRMIS/Dashboard/Profile.php");
+                header("Location: ../Dashboard/Profile.php");
                 exit();
             } else {
                 echo "Error updating password: " . mysqli_error($conn);
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['changePassword'])) {
         } else {
             // Incorrect current password, redirect and display the custom popup in Profile.php
             $_SESSION['incorrect_password'] = true;
-            header("Location: /MBRMIS/Dashboard/Profile.php");
+            header("Location: ../Dashboard/Profile.php");
             exit();
         }
     } else {

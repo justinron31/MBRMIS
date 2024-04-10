@@ -107,47 +107,36 @@ $_SESSION['show_login_message'] = false;
             <!--TABLE-->
             <main class="table" id="customers_table">
 
-                <section class="table__header">
+               
+                  <section class="table__header">
 
                     <!-- SEARCH BAR-->
                     <div class="input-group">
                         <input type="search" placeholder="Search">
                         <i class='bx bx-search-alt'></i>
-                    </div>
 
+                    </div>
 
                     <div class="export__file">
 
-                        <div class="tableHead">
-                            <!--TOTAL USER-->
-                            <?php
-                            include '../Php/db.php';
 
-                            $idnum = $_SESSION['idnumber'];
-                            $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
-                            $result = $conn->query($sql);
-
-                            if ($result) {
-                                $totalUsers = $result->num_rows;
-                            }
-                            echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
-                            ?>
-                        </div>
-
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport('reporting')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
+                        
                     </div>
 
                 </section>
 
 
 
+
+
                 <section class="table__body">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="headerTable">
+                        <table id="reporting">
                             <thead>
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> ID Number </th>
@@ -159,50 +148,23 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Role </th>
                                     <th class="center"> Account Status </th>
                                     <th title="Filter: Ascending/Descending"> Last Login </th>
+                                    <th title="Filter: Ascending/Descending"> Date Created </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                                <?php
-                                include 'C:\xampp\htdocs\MBRMIS\Php\db.php';
-
-                                $idnum = $_SESSION['idnumber'];
-
-                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
-                                $result = $conn->query($sql);
-
-                                if ($result) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
-                                        $uniqueId = 'edit_' . $row["idnumber"];
-                                        echo "<tr>" .
-                                            "<td><strong>" . $row["idnumber"] . "</strong></td>" .
-                                            "<td>" . $row["firstname"] . "</td>" .
-                                            "<td>" . $row["lastname"] . "</td>" .
-                                            "<td>" . $row["gender"] . "</td>" .
-                                            "<td>" . $row["age"] . "</td>" .
-                                            "<td>" . $row["email"] . "</td>" .
-                                            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-                                            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-                                            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
-                                            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
-                                            "</tr>";
-                                    }
-                                    $result->close();
-                                } else {
-                                    echo "<tr><td colspan='7'>No data found</td></tr>";
-                                }
-
-                                $conn->close();
-                                ?>
+                               
+                                
 
 
                             </tbody>
                         </table>
                     </div>
                 </section>
+               
+               
             </main>
 
 

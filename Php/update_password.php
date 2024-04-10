@@ -3,9 +3,9 @@
 session_start();
 
 //Import PHPMailer classes into the global namespace
-require "../../MBRMIS/Login/phpmailer/src/PHPMailer.php";
-require "../../MBRMIS/Login/phpmailer/src/SMTP.php";
-require "../../MBRMIS/Login/phpmailer/src/Exception.php";
+require "../Login/phpmailer/src/PHPMailer.php";
+require "../Login/phpmailer/src/SMTP.php";
+require "../Login/phpmailer/src/Exception.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Password updated successfully, show an alert and then redirect to loginstaff.php
                 echo "<script>
     alert('Password updated successfully');
-    window.location.href='../Login/loginstaff.php';
+    window.location.href='../Login/loginStaff.php';
     </script>";
             } catch (Exception $e) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

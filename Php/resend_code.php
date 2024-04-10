@@ -1,8 +1,8 @@
 <?php
 //Import PHPMailer classes into the global namespace
-require "../../MBRMIS/Login/phpmailer/src/PHPMailer.php";
-require "../../MBRMIS/Login/phpmailer/src/SMTP.php";
-require "../../MBRMIS/Login/phpmailer/src/Exception.php";
+require "../Login/phpmailer/src/PHPMailer.php";
+require "../Login/phpmailer/src/SMTP.php";
+require "../Login/phpmailer/src/Exception.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

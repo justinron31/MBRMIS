@@ -15,8 +15,8 @@
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
-    <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
-    <link rel="stylesheet" href="../Dashboard/CSS,JS/Table.css" />
+    <link rel="stylesheet" href="./CSS,JS/Dashboard.css" />
+    <link rel="stylesheet" href="./CSS,JS/Table.css" />
 
 
     <!--JAVASCRIPT-->
@@ -26,10 +26,9 @@
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
 
-
-    <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
-    <script src="../Dashboard/CSS,JS/Table.js" defer></script>
-    <script src="../Dashboard/CSS,JS/Export.js" defer></script>
+    <script src="./CSS,JS/Table.js" defer></script>
+    <script src="./CSS,JS/Dashboard.js" defer></script>
+    <script src="./CSS,JS/Export.js" defer></script>
 
 
 
@@ -45,7 +44,7 @@ session_start();
 // Check if the user is not logged in as admin or staff, or if idnumber is not set
 if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
-    header("Location: /MBRMIS/Login/loginStaff.php");
+    header("Location: ../Login/loginStaff.php");
     exit();
 }
 
@@ -120,25 +119,38 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="tableHead">
                             <!--TOTAL USER-->
-                            <?php
-                            include '../Php/db.php';
+                          
+                          <?php
+include '../Php/db.php';
 
-                            $idnum = $_SESSION['idnumber'];
-                            $sql = "SELECT * FROM staff WHERE idnumber != $idnum";
-                            $result = $conn->query($sql);
+$idnum = $_SESSION['idnumber'];
 
-                            if ($result) {
-                                $totalUsers = $result->num_rows;
-                            }
-                            echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
-                            ?>
+$sql = "SELECT * FROM staff WHERE idnumber != ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $idnum);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result) {
+    $totalUsers = $result->num_rows;
+    echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
+} else {
+    echo "Error: " . $conn->error;
+}
+
+$stmt->close();
+$conn->close();
+?>
+
+
 
                         </div>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport('manageUser')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
+                        
                     </div>
 
                 </section>
@@ -150,7 +162,7 @@ $_SESSION['show_login_message'] = false;
                 <section class="table__body">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="headerTable">
+                        <table id="manageUser">
                             <thead>
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> ID Number </th>
@@ -161,7 +173,6 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Email </th>
                                     <th title="Filter: Ascending/Descending"> Role </th>
                                     <th class="center"> Account Status </th>
-                                    <th class="center"> Online Status </th>
                                     <th title="Filter: Ascending/Descending"> Last Login </th>
                                     <th title="Filter: Ascending/Descending"> Date Created </th>
                                     <th class="center"> Action </th>
@@ -171,37 +182,40 @@ $_SESSION['show_login_message'] = false;
                             <tbody>
 
                                 <?php
-                                include '../Php/db.php';
-
-                                $idnum = $_SESSION['idnumber'];
-
-                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp,dateCreated FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
-                                $result = $conn->query($sql);
-
-                                if ($result) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
-                                        $uniqueId = 'edit_' . $row["idnumber"];
-                                        echo "<tr>" .
-                                            "<td><strong>" . $row["idnumber"] . "</strong></td>" .
-                                            "<td>" . $row["firstname"] . "</td>" .
-                                            "<td>" . $row["lastname"] . "</td>" .
-                                            "<td>" . $row["gender"] . "</td>" .
-                                            "<td>" . $row["age"] . "</td>" .
-                                            "<td>" . $row["email"] . "</td>" .
-                                            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-                                            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-                                            "<td title='" . date("l", strtotime($row["last_login_timestamp"])) . "'>" . date("F j, Y, g:i a", strtotime($row["last_login_timestamp"])) . "</td>" .
-                                            "<td title='" . date("l", strtotime($row["dateCreated"])) . "'>" . date("F j, Y, g:i a", strtotime($row["dateCreated"])) . "</td>" .
-                                            "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
-                                            "</tr>";
+                                    include '../Php/db.php';
+                                
+                                
+                                    $idnum = $_SESSION['idnumber'];
+                                
+                                    $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp,dateCreated FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
+                                    $result = $conn->query($sql);
+                                
+                                    if ($result) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
+                                            $uniqueId = 'edit_' . $row["idnumber"];
+                                            $last_login_timestamp = date('F j, Y, g:i a', strtotime($row["last_login_timestamp"]));
+                                            $dateCreated = date('F j, Y, g:i a', strtotime($row["dateCreated"]));
+                                            echo "<tr>" .
+                                                "<td><strong>" . $row["idnumber"] . "</strong></td>" .
+                                                "<td>" . $row["firstname"] . "</td>" .
+                                                "<td>" . $row["lastname"] . "</td>" .
+                                                "<td>" . $row["gender"] . "</td>" .
+                                                "<td>" . $row["age"] . "</td>" .
+                                                "<td>" . $row["email"] . "</td>" .
+                                                "<td><strong>" . $row["staff_role"] . "</strong></td>" .
+                                                "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
+                                                "<td>" . date('F j, Y, g:i a', strtotime($row["last_login_timestamp"])) . "</td>" .
+                                                "<td>" . date('F j, Y, g:i a', strtotime($row["dateCreated"])) . "</td>" .
+                                                "<td><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\")'></i> <i class='bx bxs-trash-alt' onclick='deleteUser(\"{$row["idnumber"]}\")'></i></td>" .
+                                                "</tr>";
+                                        }
+                                        $result->close();
+                                    } else {
+                                        echo "<tr><td colspan='7'>No data found</td></tr>";
                                     }
-                                    $result->close();
-                                } else {
-                                    echo "<tr><td colspan='7'>No data found</td></tr>";
-                                }
-
-                                $conn->close();
+                                
+                                    $conn->close();
                                 ?>
                                 <!-- POPUP FORM ACCOUNT EDIT -->
                                 <div id="customEditModal" class="custom-modal">
@@ -209,7 +223,7 @@ $_SESSION['show_login_message'] = false;
                                         <h2 class="editAccountTitle">Edit Account Role and Status </h2>
                                         <p id="customUserName"></p>
                                         <p id="dateCreated"></p>
-                                        <form id="customEditForm" action="/MBRMIS/Php/updateAstatus.php" method="post">
+                                        <form id="customEditForm" action="../Php/updateAstatus.php" method="post">
 
                                             <div class="updatecon">
                                                 <div class="accountstatus">

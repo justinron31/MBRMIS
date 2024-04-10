@@ -1,7 +1,5 @@
 <?php
-
 session_start();
-
 include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -15,6 +13,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $firstname = $_POST['fname'];
     $lastname = $_POST['lname'];
     $contact_number = $_POST['contNum'];
+    $purok = $_POST['purok'];
+
 
     // Retrieve date and time from the nested aeon-datepicker
     $pickup_date = $_POST['datepicker'];
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     } else {
         $date = date('Y-m-d'); // get current date
-        $newImageName = 'VotersID_' . $lastname . '_' . $firstname . '_' . $date . '.' . $imageExtension;
+        $newImageName = 'ValidID_' . $lastname . '_' . $firstname . '_' . $date . '.' . $imageExtension;
         $targetDirectory = "../Uploaded File/";
         $targetFile = $targetDirectory . basename($newImageName);
         move_uploaded_file($fileTmpName, $targetFile);
@@ -55,11 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Generate a unique tracking number
     $tracking_number = uniqid();
 
+    // Get current date and time for datetime_created
+    $datetime_created = date('Y-m-d H:i:s');
+
     // Use prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO file_request (tracking_number, firstname, lastname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO file_request (purok, tracking_number, firstname, lastname, contact_number, pickup_datetime, purpose_description, voters_id_image, voters_id_number, type, datetime_created) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
     // Bind parameters
-    $stmt->bind_param("sssssssss", $tracking_number, $firstname, $lastname, $contact_number, $pickup_datetime, $purpose_description, $targetFile, $voters_id_number, $certificate_type);
+    $stmt->bind_param("sssssssssss", $purok, $tracking_number, $firstname, $lastname, $contact_number, $pickup_datetime, $purpose_description, $targetFile, $voters_id_number, $certificate_type, $datetime_created);
 
     if ($stmt->execute()) {
         // Store tracking number in session
@@ -67,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         echo "<script type='text/javascript'>
         alert('Record submitted successfully');
-        window.location.href = '/MBRMIS/Website/confirmTrack.html';
+        window.location.href = '../Website/confirmTrack.php';
         </script>";
         echo "<script type='text/javascript'>
         window.onbeforeunload = function() {
@@ -84,3 +87,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->close();
     $conn->close();
 }
+?>

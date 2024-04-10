@@ -15,7 +15,7 @@
     <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
     <!-- CSS / JAVASCRIPT -->
-    <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
+    <link rel="stylesheet" href="./CSS,JS/login.css" />
 
 
     <title>Login</title>
@@ -37,7 +37,7 @@ if (isset($_SESSION['user_name']) && !empty($_SESSION['user_name'])) :
 if (isset($_SESSION['user_type'])) {
     $userType = $_SESSION['user_type'];
     if ($userType === 'admin' || $userType === 'staff') {
-        header('Location: /MBRMIS/Dashboard/Home.php');
+        header('Location: ../Dashboard/Home.php');
         exit;
     }
 }
@@ -52,11 +52,20 @@ if (isset($_SESSION['user_type'])) {
     </div>
 
 
+<!--incompatibility CONTENT-->
+<div class="incomp">
+    <div id="logcon">
+                <img class="logo" src="../images/logo.png" alt="Makiling logo" stlye="width:30px"/>
+                <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
+            </div>
+<h3>"Please access the solution on your larger devices to maximize functionality and view."</h3>
+</div>
+
     <nav>
         <!--NAVBAR-->
         <div id="nav-bar">
             <div id="logcon">
-                <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+                <img class="logo" src="../images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
         </div>
@@ -81,7 +90,7 @@ if (isset($_SESSION['user_type'])) {
     <!--LOGIN FORM-->
     <div class="login-container">
         <div class="logo-container">
-            <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
+            <img class="logo1" src="../images/logo.png" alt="Makiling logo" />
             <p class="login-text">STAFF LOGIN</p>
         </div>
         <form class="login-form" action="../Php/adminLogin.php" method="post">
@@ -97,7 +106,7 @@ if (isset($_SESSION['user_type'])) {
             <p class="forgot-password"><a href="resetPassword.php">Forget Password?</a></p>
             <button type="submit" class="login-button">LOGIN</button>
 
-            <p class="register-link">Don’t have an account? <a href="staffRegister.php">Register here</a></p>
+            <p class="register-link">Don’t have an account? <a href="dataConsent.html">Register here</a></p>
         </form>
     </div>
     <br />

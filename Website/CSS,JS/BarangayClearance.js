@@ -59,20 +59,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
   timepicker.addEventListener("input", function () {
     var currentDate = new Date();
-    var selectedDate = new Date(datepicker.value + "T" + timepicker.value);
+    var selectedTime = timepicker.value;
+    var selectedHour = parseInt(selectedTime.split(":")[0]); // Extract the selected hour
+    var selectedMinute = parseInt(selectedTime.split(":")[1]); // Extract the selected minute
 
-    // Check if the selected time is in the past
-    if (selectedDate < currentDate) {
-      showCustomAlert("alerPopup");
-      timepicker.value = "";
-      timepicker.style.borderColor = "red";
-      timepicker.style.boxShadow = "0 0 5px red";
+    // Check if the selected time is in the past or outside of 8 AM to 5 PM
+    if (selectedHour < 8 || selectedHour >= 17 || (selectedHour === 17 && selectedMinute > 0) || currentDate > new Date(selectedTime)) {
+        
+     showCustomAlert("alerPopup");
+        timepicker.value = "";
+        timepicker.style.borderColor = "red";
+        timepicker.style.boxShadow = "0 0 5px red";
     } else {
-      // It's not in the past, reset the styles to default
-      timepicker.style.borderColor = ""; // Set to default border color
-      timepicker.style.boxShadow = ""; // Remove the box shadow
+        // It's within the allowed time range and not in the past, reset the styles to default
+        timepicker.style.borderColor = ""; // Set to default border color
+        timepicker.style.boxShadow = ""; // Remove the box shadow
     }
-  });
+});
+
 });
 
 function showCustomAlert(alertId) {
@@ -198,4 +202,9 @@ function validateContactNumber(input) {
   }
 }
 
-// ─── Button Disabled ──────────────────────────────────────────
+// ─── captcha ──────────────────────────────────────────
+
+
+ 
+  
+

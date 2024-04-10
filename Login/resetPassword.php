@@ -15,7 +15,7 @@
     <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
     <!-- CSS / JAVASCRIPT -->
-    <link rel="stylesheet" href="../Login/CSS,JS/login.css" />
+    <link rel="stylesheet" href="./CSS,JS/login.css" />
 
     <title>Reset Password - Staff</title>
 
@@ -43,7 +43,7 @@
         <!--NAVBAR-->
         <div id="nav-bar">
             <div id="logcon">
-                <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+                <img class="logo" src="../images/logo.png" alt="Makiling logo" />
                 <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
             </div>
             <a href="loginStaff.php"><button class="switchButton" role="button">
@@ -56,7 +56,7 @@
     <!--RESET PASS FORM-->
     <div class="login-container">
         <div class="logo-container">
-            <img class="logo1" src="../Images/logo.png" alt="Makiling logo" />
+            <img class="logo1" src="../images/logo.png" alt="Makiling logo" />
             <p class="login-text">ENTER YOUR REGISTERED EMAIL ADDRESS</p>
         </div>
 
@@ -73,7 +73,7 @@
         <p>&copy; 2024 BARANGAY MAKILING RECORD MANAGEMENT AND ISSUANCE SYSTEM | All rights reserved.</p>
     </footer>
 
-    <script src="../Login/CSS,JS/login.js"></script>
+    <script src="./CSS,JS/login.js"></script>
 
     <script>
         function validateEmail1() {

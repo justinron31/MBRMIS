@@ -10,11 +10,11 @@ body {
   min-height: 100vh;
 }
 
-/* html {
+ html {
   ::-webkit-scrollbar {
     display: none;
   }
-} */
+} 
 
 html {
   ::-webkit-scrollbar {
@@ -29,7 +29,6 @@ html {
 
   ::-webkit-scrollbar-thumb {
     background: #888;
-    border-radius: 10px;
     border-radius: 10px;
   }
 
@@ -361,7 +360,7 @@ input:focus {
   border-radius: 5px;
   box-sizing: border-box;
   resize: vertical;
-  height: 70px;
+  height: 48px;
   max-height: 200px;
 }
 
@@ -473,17 +472,27 @@ label[for="checkbox"] {
 
 /* ─── Responsive Form ─────────────────────────────────────── */
 
-@media only screen and (max-width: 1440px) {
+@media only screen and (max-width: 1540px) {
   .required1:after {
     font-size: 9px;
   }
+  
+    label {
+  font-size: 13px;
+}
 }
 
 @media only screen and (max-width: 1024px) {
   .login-container {
     width: 70%;
   }
+  
+  label {
+  font-size: 13px;
 }
+}
+
+
 
 @media only screen and (max-width: 768px) {
   .login-container {
@@ -604,7 +613,7 @@ label[for="checkbox"] {
   }
 
   .logoname {
-    white-space: nowrap;
+    white-space: normal;
     font-size: 16px;
   }
 
@@ -655,7 +664,7 @@ footer p {
   top: 50%;
   transform: translate(-50%, -50%);
   /* Center the element */
-  background-image: url(../../Images/loader.gif);
+  background-image: url(../../images/loader.gif);
   mix-blend-mode: multiply;
   background-repeat: no-repeat;
   background-position: center;
@@ -829,7 +838,7 @@ tr:nth-child(even) {
   }
 
   p.login-text {
-    white-space: nowrap;
+    white-space: normal;
     font-size: 16px;
   }
 }
@@ -1103,3 +1112,18 @@ input#avatar {
 }
 
 /* ─── Table  track request───────────────────────────────────────────────── */
+#tracking-number{
+    cursor:pointer;
+}
+
+.red-shadow {
+    box-shadow: 0 0 5px 2px red;
+    width: fit-content;
+  }
+
+  .transparent-shadow {
+    box-shadow: none;
+  }
+  
+  
+

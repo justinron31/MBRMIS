@@ -1,1 +1,3 @@
+DirectoryIndex Website/homepage.html
+
 AddType application/x-httpd-php .htm .html

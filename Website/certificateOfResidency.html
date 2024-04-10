@@ -14,11 +14,11 @@
   <meta name="authors" content="Arcillas, Galang, Ignacio" />
 
   <!-- CSS / JAVASCRIPT -->
-  <link rel="stylesheet" href="/MBRMIS/Website/CSS,JS/BarangayClearance.css" />
-  <script src="/MBRMIS/Website/CSS,JS/BarangayClearance.js"></script>
+  <link rel="stylesheet" href="../Website/CSS,JS/BarangayClearance.css" />
+  <script src="../Website/CSS,JS/BarangayClearance.js"></script>
 
   <!-- CAPTCHA-->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
   <!-- IMPORTS-->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
@@ -34,75 +34,117 @@
 
   <!--ALERT MESSAGE-->
   <div id="alerPopup" class="popup1">
-    <p>Please choose a date and time in the future.</p>
+   <p>Please choose a time between 8AM - 5PM.</p>
   </div>
 
   <!--ALERT MESSAGE 1-->
   <div id="alerPopup1" class="popup1">
     <p>Sundays are not allowed. Please choose another date.</p>
   </div>
+  
+ <!--ALERT MESSAGE 1-->
+  <div id="alerPopup2" class="popup1">
+    <p>Please verify that you are not a robot.</p>
+  </div>
+  
+  
+<script>
+  function onCaptchaVerify(token) {
+    document.getElementById("submitBtn").removeAttribute("disabled");
+    document.querySelector(".error-shadow").classList.remove("red-shadow");
+    document.querySelector(".error-shadow").classList.add("transparent-shadow");
+  }
+
+  function onCaptchaExpired() {
+    document.getElementById("submitBtn").setAttribute("disabled", "disabled");
+    document.getElementById("alerPopup2").style.display = "block"; // Show the alert
+    document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
+    setTimeout(function() {
+      document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
+      document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
+    }, 3000);
+  }
+
+  function submitForm() {
+    if (grecaptcha.getResponse() === "") {
+      document.getElementById("submitBtn").setAttribute("disabled", "disabled");
+      document.getElementById("alerPopup2").style.display = "block"; // Show the alert
+      document.querySelector(".error-shadow").classList.add("red-shadow"); // Add error shadow
+      setTimeout(function() {
+        document.getElementById("alerPopup2").style.display = "none"; // Hide the alert after 3 seconds
+        document.querySelector(".error-shadow").classList.remove("red-shadow"); // Remove error shadow
+      }, 3000);
+      return false; // Prevent form submission
+    } else {
+      return true; // Allow form submission
+    }
+  }
+</script>
+
+  
 
   <!-- MODAL POPUP1-->
-  <div id="overlay" class="overlay1"></div>
-  <div id="logoutModal" class="modal">
-    <div class="modal-message">
-      <h3>Confirmation</h3>
-      <p class="no-asterisk">
-        Are you a registered voter here in Barangay Makiling?
-      </p>
-      <p>
-        If <strong>yes</strong>, you will be redirected to fill out the form.
-      </p>
-      <p>
-        If <strong>no</strong>, go to Makiling Hall for registration of Voters
-        ID.
-      </p>
-    </div>
-    <div class="modal-buttons">
-      <button class="yes" onclick="hideModal()">Yes</button>
-      <button class="no" onclick="showSecondModal()">No</button>
-    </div>
-  </div>
+  <!--<div id="overlay" class="overlay1"></div>-->
+  <!--<div id="logoutModal" class="modal">-->
+  <!--  <div class="modal-message">-->
+  <!--    <h3>Confirmation</h3>-->
+  <!--    <p class="no-asterisk">-->
+  <!--      Are you a registered voter here in Barangay Makiling?-->
+  <!--    </p>-->
+  <!--    <p>-->
+  <!--      If <strong>yes</strong>, you will be redirected to fill out the form.-->
+  <!--    </p>-->
+  <!--    <p>-->
+  <!--      If <strong>no</strong>, go to Makiling Hall for registration of Voters-->
+  <!--      ID.-->
+  <!--    </p>-->
+  <!--  </div>-->
+  <!--  <div class="modal-buttons">-->
+  <!--    <button class="yes" onclick="hideModal()">Yes</button>-->
+  <!--    <button class="no" onclick="showSecondModal()">No</button>-->
+  <!--  </div>-->
+  <!--</div>-->
 
   <!-- MODAL POPUP2-->
-  <div id="overlay2" class="overlay2"></div>
-  <div id="logoutModal2" class="modal1">
-    <h3>Confirmation</h3>
-    <p class="about-text">
-      If you have not yet registered as a voter, please visit the Barangay
-      Hall to complete the necessary registration process. For more
-      information, refer to the <strong>"Contact Us"</strong> section.
-    </p>
-    <br />
-    <div class="modal-buttons">
-      <button id="proceedButton" class="yes" onclick="redirectToHomePage()">Proceed</button>
-    </div>
-  </div>
+  <!--<div id="overlay2" class="overlay2"></div>-->
+  <!--<div id="logoutModal2" class="modal1">-->
+  <!--  <h3>Confirmation</h3>-->
+  <!--  <p class="about-text">-->
+  <!--    If you have not yet registered as a voter, please visit the Barangay-->
+  <!--    Hall to complete the necessary registration process. For more-->
+  <!--    information, refer to the <strong>"Contact Us"</strong> section.-->
+  <!--  </p>-->
+  <!--  <br />-->
+  <!--  <div class="modal-buttons">-->
+  <!--    <button id="proceedButton" class="yes" onclick="redirectToHomePage()">Proceed</button>-->
+  <!--  </div>-->
+  <!--</div>-->
+  
   <!--OVERLAY MENU-->
   <div id="myNav" class="overlay">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <div class="overlay-content">
-      <img class="logooverlay" src="../Images/logo.png" alt="Makiling logo" />
-      <a href="/MBRMIS/Website/homepage.html#home" id="homeButton1" onclick="closeNav()">Home</a>
-      <a href="/MBRMIS/Website/homepage.html#service" id="servicesButton1" onclick="closeNav()">Services</a>
-      <a href="/MBRMIS/Website/trackRequest.html">Track Request</a>
-      <a href="/MBRMIS/Website/homepage.html#contactus" id="contactusButton1" onclick="closeNav()">Contact Us</a>
+      <img class="logooverlay" src="../images/logo.png" alt="Makiling logo" />
+      <a href="../Website/homepage.html#home" id="homeButton1" onclick="closeNav()">Home</a>
+      <a href="../Website/homepage.html#service" id="servicesButton1" onclick="closeNav()">Services</a>
+      <a href="../Website/trackRequest.html">Track Request</a>
+      <a href="../Website/homepage.html#contactus" id="contactusButton1" onclick="closeNav()">Contact Us</a>
     </div>
   </div>
 
   <!-- NAV-->
   <nav>
     <div id="logcon">
-      <img class="logo" src="../Images/logo.png" alt="Makiling logo" />
+      <img class="logo" src="../images/logo.png" alt="Makiling logo" />
       <h1 class="logoname">BARANGAY MAKILING</h1>
       <i class="bx bx-menu-alt-right" onclick="openNav()"></i>
     </div>
 
     <div id="nav-links">
-      <a href="/MBRMIS/Website/homepage.html#home" class="nav-link" id="homeButton">Home</a>
-      <a href="/MBRMIS/Website/homepage.html#service" class="nav-link" id="servicesButton">Services</a>
-      <a href="/MBRMIS/Website/trackRequest.html" class="nav-link">Track Request</a>
-      <a href="/MBRMIS/Website/homepage.html#contactus" class="nav-link" id="contactusButton">Contact Us</a>
+      <a href="../Website/homepage.html#home" class="nav-link" id="homeButton">Home</a>
+      <a href="../Website/homepage.html#service" class="nav-link" id="servicesButton">Services</a>
+      <a href="../Website/trackRequest.html" class="nav-link">Track Request</a>
+      <a href="../Website/homepage.html#contactus" class="nav-link" id="contactusButton">Contact Us</a>
     </div>
   </nav>
 
@@ -113,8 +155,8 @@
       <hr />
     </div>
 
-    <form id="myForm" action="/MBRMIS/Php/certRecidency.php" method="post" enctype="multipart/form-data"
-      autocomplete="off">
+    <form id="myForm" action="../Php/certRecidency.php" method="post" enctype="multipart/form-data"
+      autocomplete="off" onsubmit="return submitForm();">
 
       <!-- ─── Name ─────────────────────── -->
       <div class="uploader">
@@ -129,10 +171,21 @@
         </div>
       </div>
 
-      <!-- ─── Contact Number ───────────── -->
+
+ <!-- ─── Contact Number ───────────── -->
+      
+     <div class="uploader">
+      <div class="uploadContent1">
       <label for="contNum" class="required">Contact Number</label>
       <input type="text" id="contNum" name="contNum" placeholder="Enter your Contact number"
         oninput="validateContactNumber(this)" required />
+    </div>
+
+    <div class="uploadContent">
+          <label for="Purok" class="required">Purok/Sitio/Subdivision</label>
+          <input type="text" id="Purok" name="purok" placeholder="Enter your Purok/Sitio/Subdivision" required />
+        </div>
+    </div>
 
       <!-- ─── Datatime ─────────────────────────────────────────── -->
       <label for="datepicker" class="required">Pick-Up Date and Time</label>
@@ -144,25 +197,28 @@
       </aeon-datepicker>
 
       <!-- ─── Purpose ──────────────────── -->
+      <div class="uploader">
+      <div class="uploadContent">
       <label for="purpose" class="required">Purpose Description</label>
-      <textarea class="purpose" id="purpose" name="purpose" placeholder="Enter your Purpose Description"
-        required></textarea>
-
+      <textarea class="purpose" id="id" name="purpose" placeholder="Enter your Purpose Description" required></textarea>
+      </div>
+      </div>
+      
       <!-- ─── Upload Id ────────────────── -->
       <div class="uploader">
         <div class="uploadContent1">
-          <label class="required1" for="avatar">Upload Voter's ID</label>
+          <label class="required1" for="avatar">Upload Valid ID</label>
           <div id="image-preview">
-            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
-              onchange="previewImage()" />
+            <input class="uploadFile" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg, image/jpg"
+              onchange="previewImage()" required />
             <img id="preview" />
           </div>
         </div>
 
-        <!-- ─── Id Number ────────── -->
+      <!--   ─── Id Number ────────── -->
         <div class="uploadContent">
-          <label for="voteId" class="required">Voter's ID Number</label>
-          <input type="text" id="voteId" name="voteId" placeholder="Enter your Voter's  ID Number" required />
+          <label for="contNum" class="required">Valid ID Number</label>
+          <input type="text" id="voteId" name="voteId" placeholder="Enter your Valid ID Number" required />
         </div>
       </div>
 
@@ -185,8 +241,11 @@
 
       </div>
 
-      <!-- ─── Captcha ──────────────────────────── -->
-      <!-- <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY"></div> -->
+       <!-- ─── Captcha ──────────────────────────── -->
+      <div class="error-shadow">
+     <div class="g-recaptcha" data-sitekey="6LeXJaspAAAAAFlki9u4Cja_VhMZjWNHT6iRwoX7" data-callback="onCaptchaVerify" data-expired-callback="onCaptchaExpired" required></div>
+     </div>
+     
 
       <br />
 
@@ -207,6 +266,12 @@
       rights reserved.
     </p>
   </footer>
+  
+
+
+
+
+  
 </body>
 
 </html>

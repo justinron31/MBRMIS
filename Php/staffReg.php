@@ -1,8 +1,8 @@
 <?php
 //Import PHPMailer classes into the global namespace
-require "../../MBRMIS/Login/phpmailer/src/PHPMailer.php";
-require "../../MBRMIS/Login/phpmailer/src/SMTP.php";
-require "../../MBRMIS/Login/phpmailer/src/Exception.php";
+require "../Login/phpmailer/src/PHPMailer.php";
+require "../Login/phpmailer/src/SMTP.php";
+require "../Login/phpmailer/src/Exception.php";
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -16,18 +16,20 @@ include "db.php";
 if (isset($_POST["register"])) {
     $idnumber = $_POST['idnum'];
 
-    // Check if the idnum exists in the staff_information table
-    $checkIdnum = $conn->prepare("SELECT idnumber FROM staff_information WHERE idnumber = ?");
-    $checkIdnum->bind_param("s", $idnumber);
-    $checkIdnum->execute();
-    $checkIdnumResult = $checkIdnum->get_result();
+     // Check if the idnum exists in the staff_information table
+    // $checkIdnum = $conn->prepare("SELECT idnumber FROM staff_information WHERE idnumber = ?");
+    // $checkIdnum->bind_param("s", $idnumber);
+    // $checkIdnum->execute();
+    // $checkIdnumResult = $checkIdnum->get_result();
 
-    if ($checkIdnumResult->num_rows == 0) {
-        // idnum does not exist in the staff_information table
-        $_SESSION['invalid'] = true;
-        header("Location: ../Login/staffRegister.php");
-        exit();
-    } else {
+    // if ($checkIdnumResult->num_rows == 0) {
+    //     // idnum does not exist in the staff_information table
+    //     $_SESSION['invalid'] = true;
+    //     header("Location: ../Login/staffRegister.php");
+        // exit();
+    // } else 
+    
+    {
         // idnum exists in the staff_information table, continue with the registration process
         $firstname = $_POST['fname'];
         $lastname = $_POST['lname'];

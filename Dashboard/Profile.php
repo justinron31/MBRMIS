@@ -16,15 +16,15 @@
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
-    <link rel="stylesheet" href="../Dashboard/CSS,JS/Dashboard.css" />
-    <link rel="stylesheet" href="../Dashboard/CSS,JS/Table.css" />
+    <link rel="stylesheet" href="./CSS,JS/Dashboard.css" />
+    <link rel="stylesheet" href="./CSS,JS/Table.css" />
 
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
-    <script src="../Dashboard/CSS,JS/Table.js" defer></script>
+  <script src="./CSS,JS/Table.js" defer></script>
+    <script src="./CSS,JS/Dashboard.js" defer></script>
+  
 
 
     <title>MAKILING BRMI SYSTEM - Profile</title>
@@ -39,7 +39,7 @@ session_start();
 // Check if the user is not logged in as admin or staff, or if idnumber is not set
 if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
     // Redirect to login page
-    header("Location: /MBRMIS/Login/loginStaff.php");
+    header("Location: ../Login/loginStaff.php");
     exit();
 }
 
@@ -153,7 +153,7 @@ if (isset($_SESSION['password_updated'])) {
         <div class="supermaincontain">
 
             <?php
-            include '../Php/Admindb.php';
+            include '../Php/admindb.php';
             ?>
 
             <main class="table1" id="customers_table">
@@ -238,7 +238,7 @@ if (isset($_SESSION['password_updated'])) {
 
 
                     <div class="passForm" id="passForm" style="display: none;">
-                        <form id="passForm1" method="post" action="/MBRMIS/Php/updatePassword.php">
+                        <form id="passForm1" method="post" action="../Php/updatePassword.php">
 
                             <br>
                             <div class="passForm__group">
@@ -274,7 +274,8 @@ if (isset($_SESSION['password_updated'])) {
                 <p>No results found</p>
                 <?php endif; ?>
         </div>
-        </main>
+
+           
     </div>
 </body>
 
