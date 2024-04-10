@@ -271,37 +271,73 @@ $(document).ready(function () {
   }
 });
 
-// ─── Delete User ──────────────────────────────────────────────
+// ─── Delete MODAL ──────────────────────────────────────────────
+
+function showDeleteModal(id) {
+  document.querySelector(".overlayD").style.display = "block";
+  document.querySelector(".modalD").style.display = "block";
+
+  var yesButton = document.querySelector(".yes1");
+  yesButton.disabled = true;
+
+  var counter = 5;
+  yesButton.innerText = `Yes (${counter})`;
+
+  var intervalId = startTimer(yesButton, counter);
+
+  yesButton.addEventListener("click", function () {
+    deleteUser(id);
+    clearInterval(intervalId);
+  });
+
+  document.querySelector(".no1").addEventListener("click", function () {
+    document.querySelector(".overlayD").style.display = "none";
+    document.querySelector(".modalD").style.display = "none";
+    clearInterval(intervalId);
+    yesButton.innerText = "Yes";
+    yesButton.disabled = true;
+  });
+}
+
+function startTimer(yesButton, counter) {
+  return setInterval(function () {
+    counter--;
+    if (counter >= 0) {
+      yesButton.innerText = `Yes (${counter})`;
+    } else {
+      yesButton.disabled = false;
+      yesButton.innerText = "Yes";
+      clearInterval(intervalId);
+    }
+  }, 1000);
+}
+
+// ─── Delete Function ──────────────────────────────────────────
 function deleteUser(id) {
-  // Display a confirmation prompt
-  var confirmation = confirm("Are you sure you want to delete this user?");
-
-  if (confirmation) {
-    $.ajax({
-      type: "POST",
-      url: "../Php/deleteUser.php",
-      data: { id: id },
-      dataType: "json", // Specify that you expect JSON in the response
-      success: function (data) {
-        // Check the status in the response
-        if (data.status === "success") {
-          // Set session storage value
-          sessionStorage.setItem("showCustomPopup", data.message);
-          // Refresh the page
-          location.reload();
-        } else {
-          // Show a custom error popup
-          showCustomPopup(data.message);
-        }
-      },
-      error: function (error) {
-        console.log("Error deleting user: ", error);
-
+  $.ajax({
+    type: "POST",
+    url: "../Php/deleteUser.php",
+    data: { id: id },
+    dataType: "json",
+    success: function (data) {
+      // Check the status in the response
+      if (data.status === "success") {
+        // Set session storage value
+        sessionStorage.setItem("showCustomPopup", data.message);
+        // Refresh the page
+        location.reload();
+      } else {
         // Show a custom error popup
-        showCustomPopup("Error deleting user");
-      },
-    });
-  }
+        showCustomPopup(data.message);
+      }
+    },
+    error: function (error) {
+      console.log("Error deleting user: ", error);
+
+      // Show a custom error popup
+      showCustomPopup("Error deleting user");
+    },
+  });
 }
 
 // Function to show a custom popup
@@ -492,5 +528,3 @@ $(document).ready(function () {
   fetchTotalRequests();
   setInterval(fetchTotalRequests, 2000);
 });
-
-

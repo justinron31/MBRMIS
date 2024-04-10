@@ -112,26 +112,34 @@
                       <?php
                         if ($_SESSION['user_type'] === 'admin') {
                         ?>
-                          <ul class="menu_item">
-                              <div class="menu_title flex">
-                                  <span class="title">Others</span>
-                                  <span class="line"></span>
-                              </div>
+                      <ul class="menu_item">
+                          <div class="menu_title flex">
+                              <span class="title">Others</span>
+                              <span class="line"></span>
+                          </div>
 
-                              <li class="item">
-                                  <a href="../Dashboard/ManageUser.php" class="link flex">
-                                      <i class='bx bxs-user-detail'></i>
-                                      <span>Manage System User</span>
-                                  </a>
-                              </li>
+                          <li class="item">
+                              <a href="../Dashboard/ManageUser.php" class="link flex">
+                                  <i class='bx bxs-user-detail'></i>
+                                  <span>Manage System User</span>
+                              </a>
+                          </li>
 
-                              <li class="item ">
-                                  <a href="../Dashboard/Reporting.php" class="link flex">
-                                      <i class='bx bxs-report'></i>
-                                      <span>Reporting View</span>
-                                  </a>
-                              </li>
-                          </ul>
+                          <li class="item">
+                              <a href="../Dashboard/Staff.php" class="link flex">
+                                  <i class='bx bx-street-view'></i>
+                                  <span>Staff Database</span>
+                              </a>
+                          </li>
+
+
+                          <li class="item ">
+                              <a href="../Dashboard/Reporting.php" class="link flex">
+                                  <i class='bx bxs-report'></i>
+                                  <span>Reporting View</span>
+                              </a>
+                          </li>
+                      </ul>
                       <?php
                         }
                         ?>
@@ -166,157 +174,157 @@
 
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
           <script>
-              $(document).ready(function() {
-                  var audio = new Audio('../audio/notif.mp3');
+          $(document).ready(function() {
+              var audio = new Audio('../audio/notif.mp3');
 
-                  function fetchCount() {
-                      $.ajax({
-                          url: '../Php/fetchBadge.php',
-                          type: 'GET',
-                          success: function(response) {
-                              var data = JSON.parse(response);
-                              if (data.count > 0) {
-                                  $('.badge').css('display', 'inline-block');
-                                  $('.badge').text(data.count);
+              function fetchCount() {
+                  $.ajax({
+                      url: '../Php/fetchBadge.php',
+                      type: 'GET',
+                      success: function(response) {
+                          var data = JSON.parse(response);
+                          if (data.count > 0) {
+                              $('.badge').css('display', 'inline-block');
+                              $('.badge').text(data.count);
 
-                                  if (data.notifCount > 0) {
-                                      audio.play();
-                                  }
-                              } else {
-                                  $('.badge').css('display', 'none');
+                              if (data.notifCount > 0) {
+                                  audio.play();
                               }
+                          } else {
+                              $('.badge').css('display', 'none');
                           }
-                      });
-                  }
-
-                  fetchCount();
-                  setInterval(fetchCount, 1000);
-              });
-          </script>
-
-          <script>
-              $(document).ready(function() {
-                  var audio = new Audio('../audio/notif.mp3');
-
-                  function fetchCount() {
-                      $.ajax({
-                          url: '../Php/fetchBadge1.php',
-                          type: 'GET',
-                          success: function(response) {
-                              var data = JSON.parse(response);
-                              if (data.count > 0) {
-                                  $('.badge1').css('display', 'inline-block');
-                                  $('.badge1').text(data.count);
-
-                                  if (data.notifCount > 0) {
-                                      audio.play();
-                                  }
-                              } else {
-                                  $('.badge1').css('display', 'none');
-                              }
-                          }
-                      });
-                  }
-
-                  fetchCount();
-                  setInterval(fetchCount, 1000);
-              });
-          </script>
-
-          <script>
-              $(document).ready(function() {
-                  var audio = new Audio('../audio/notif.mp3');
-
-                  function fetchCount() {
-                      $.ajax({
-                          url: '../Php/fetchBadge2.php',
-                          type: 'GET',
-                          success: function(response) {
-                              var data = JSON.parse(response);
-                              if (data.count > 0) {
-                                  $('.badge2').css('display', 'inline-block');
-                                  $('.badge2').text(data.count);
-
-                                  if (data.notifCount > 0) {
-                                      audio.play();
-                                  }
-                              } else {
-                                  $('.badge2').css('display', 'none');
-                              }
-                          }
-                      });
-                  }
-
-                  fetchCount();
-                  setInterval(fetchCount, 1000);
-              });
-          </script>
-          
-        <script>
-    $(document).ready(function() {
-         var audio = new Audio('../audio/notif.mp3');
-          
-        function fetchCount() {
-            $.ajax({
-                url: '../Php/fetchBadge3.php',
-                type: 'GET',
-                success: function(response) {
-                    var data = JSON.parse(response);
-                    var count1 = parseInt(data.count1);
-                    var count2 = parseInt(data.count2);
-                    var totalCount = count1 + count2;
-                    if (totalCount > 0) {
-                        $('.badge3').css('display', 'inline-block');
-                        $('.badge3').text(totalCount);
-                        
-                        if (data.notifCount > 0) {
-                                      audio.play();
-                                  }
-                    } else {
-                        $('.badge3').css('display', 'none');
-                    }
-                }
-            });
-        }
-
-        fetchCount();
-        setInterval(fetchCount, 1000);
-    });
-</script>
-
-
-          <script>
-              $(document).ready(function() {
-                  // Get saved 'active' item from localStorage
-                  var activeItem = localStorage.getItem('activeItem');
-
-                  // If there is an 'active' item saved, add 'active' class to it
-                  if (activeItem) {
-                      $(activeItem).addClass('active');
-                  }
-
-                  // Handle click event on '.item' class
-                  $('.item').click(function() {
-                      // Remove 'active' class from all '.item' elements
-                      $('.item').removeClass('active');
-
-                      // Add 'active' class to the clicked '.item' element
-                      $(this).addClass('active');
-
-                      // Save 'active' item to localStorage
-                      localStorage.setItem('activeItem', '.item:contains("' + $(this).text() + '")');
+                      }
                   });
+              }
 
-                  // If the activeItem is not set, set the dashboard as the active item
-                  if (!activeItem) {
-                      // Remove 'active' class from all '.item' elements
-                      $('.item').removeClass('active');
+              fetchCount();
+              setInterval(fetchCount, 1000);
+          });
+          </script>
 
-                      // Add 'active' class to the dashboard tab
-                      $('#overview-item').addClass('active');
+          <script>
+          $(document).ready(function() {
+              var audio = new Audio('../audio/notif.mp3');
 
-                      // Save 'active' item to localStorage
-                      localStorage.setItem('activeItem', 'overview-item');
-                  }
+              function fetchCount() {
+                  $.ajax({
+                      url: '../Php/fetchBadge1.php',
+                      type: 'GET',
+                      success: function(response) {
+                          var data = JSON.parse(response);
+                          if (data.count > 0) {
+                              $('.badge1').css('display', 'inline-block');
+                              $('.badge1').text(data.count);
+
+                              if (data.notifCount > 0) {
+                                  audio.play();
+                              }
+                          } else {
+                              $('.badge1').css('display', 'none');
+                          }
+                      }
+                  });
+              }
+
+              fetchCount();
+              setInterval(fetchCount, 1000);
+          });
+          </script>
+
+          <script>
+          $(document).ready(function() {
+              var audio = new Audio('../audio/notif.mp3');
+
+              function fetchCount() {
+                  $.ajax({
+                      url: '../Php/fetchBadge2.php',
+                      type: 'GET',
+                      success: function(response) {
+                          var data = JSON.parse(response);
+                          if (data.count > 0) {
+                              $('.badge2').css('display', 'inline-block');
+                              $('.badge2').text(data.count);
+
+                              if (data.notifCount > 0) {
+                                  audio.play();
+                              }
+                          } else {
+                              $('.badge2').css('display', 'none');
+                          }
+                      }
+                  });
+              }
+
+              fetchCount();
+              setInterval(fetchCount, 1000);
+          });
+          </script>
+
+          <script>
+          $(document).ready(function() {
+              var audio = new Audio('../audio/notif.mp3');
+
+              function fetchCount() {
+                  $.ajax({
+                      url: '../Php/fetchBadge3.php',
+                      type: 'GET',
+                      success: function(response) {
+                          var data = JSON.parse(response);
+                          var count1 = parseInt(data.count1);
+                          var count2 = parseInt(data.count2);
+                          var totalCount = count1 + count2;
+                          if (totalCount > 0) {
+                              $('.badge3').css('display', 'inline-block');
+                              $('.badge3').text(totalCount);
+
+                              if (data.notifCount > 0) {
+                                  audio.play();
+                              }
+                          } else {
+                              $('.badge3').css('display', 'none');
+                          }
+                      }
+                  });
+              }
+
+              fetchCount();
+              setInterval(fetchCount, 1000);
+          });
+          </script>
+
+
+          <script>
+          $(document).ready(function() {
+              // Get saved 'active' item from localStorage
+              var activeItem = localStorage.getItem('activeItem');
+
+              // If there is an 'active' item saved, add 'active' class to it
+              if (activeItem) {
+                  $(activeItem).addClass('active');
+              }
+
+              // Handle click event on '.item' class
+              $('.item').click(function() {
+                  // Remove 'active' class from all '.item' elements
+                  $('.item').removeClass('active');
+
+                  // Add 'active' class to the clicked '.item' element
+                  $(this).addClass('active');
+
+                  // Save 'active' item to localStorage
+                  localStorage.setItem('activeItem', '.item:contains("' + $(this).text() + '")');
               });
+
+              // If the activeItem is not set, set the dashboard as the active item
+              if (!activeItem) {
+                  // Remove 'active' class from all '.item' elements
+                  $('.item').removeClass('active');
+
+                  // Add 'active' class to the dashboard tab
+                  $('#overview-item').addClass('active');
+
+                  // Save 'active' item to localStorage
+                  localStorage.setItem('activeItem', 'overview-item');
+              }
+          });
           </script>

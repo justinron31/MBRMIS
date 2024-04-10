@@ -52,14 +52,14 @@ if (isset($_SESSION['user_type'])) {
     </div>
 
 
-<!--incompatibility CONTENT-->
-<div class="incomp">
-    <div id="logcon">
-                <img class="logo" src="../images/logo.png" alt="Makiling logo" stlye="width:30px"/>
-                <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
-            </div>
-<h3>"Please access the solution on your larger devices to maximize functionality and view."</h3>
-</div>
+    <!--incompatibility CONTENT-->
+    <div class="incomp">
+        <div id="logcon">
+            <img class="logo" src="../images/logo.png" alt="Makiling logo" stlye="width:30px" />
+            <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
+        </div>
+        <h3>"Please access the solution on your larger devices to maximize functionality and view."</h3>
+    </div>
 
     <nav>
         <!--NAVBAR-->
@@ -91,14 +91,14 @@ if (isset($_SESSION['user_type'])) {
     <div class="login-container">
         <div class="logo-container">
             <img class="logo1" src="../images/logo.png" alt="Makiling logo" />
-            <p class="login-text">STAFF LOGIN</p>
+            <!-- <p class="login-text">STAFF LOGIN</p> -->
         </div>
         <form class="login-form" action="../Php/adminLogin.php" method="post">
 
             <?php if (!empty($error_message)) : ?>
-                <div class="error-message" style="color: red;">
-                    <?php echo $error_message; ?>
-                </div>
+            <div class="error-message" style="color: red;">
+                <?php echo $error_message; ?>
+            </div>
             <?php endif; ?>
 
             <input type="text" id="id" name="id" placeholder="ID" autofocus required>
@@ -119,16 +119,16 @@ if (isset($_SESSION['user_type'])) {
     <script src="../Login/CSS,JS/login.js"></script>
 
     <script>
-        // Check if the 'verified' parameter is in the URL
-        if (window.location.search.indexOf('verified=true') > -1) {
-            // Show the verifyPopup div
-            document.getElementById('verifyPopup').style.display = 'block';
+    // Check if the 'verified' parameter is in the URL
+    if (window.location.search.indexOf('verified=true') > -1) {
+        // Show the verifyPopup div
+        document.getElementById('verifyPopup').style.display = 'block';
 
-            // Hide the verifyPopup div after 3 seconds
-            setTimeout(function() {
-                document.getElementById('verifyPopup').style.display = 'none';
-            }, 3000);
-        }
+        // Hide the verifyPopup div after 3 seconds
+        setTimeout(function() {
+            document.getElementById('verifyPopup').style.display = 'none';
+        }, 3000);
+    }
     </script>
 
 

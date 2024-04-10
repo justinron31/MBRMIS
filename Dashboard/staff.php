@@ -78,7 +78,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    MANAGE SYSTEM USER
+                    STAFF DATABASE
                 </h1>
 
                 <div class="access">
@@ -105,7 +105,7 @@ $_SESSION['show_login_message'] = false;
 
 
             <!--TABLE-->
-            <main class="table" id="customers_table">
+            <main class="table" id="stafftable">
 
                 <section class="table__header">
 
@@ -124,17 +124,14 @@ $_SESSION['show_login_message'] = false;
                             <?php
                             include '../Php/db.php';
 
-                            $idnum = $_SESSION['idnumber'];
-
-                            $sql = "SELECT * FROM staff WHERE idnumber != ?";
+                            $sql = "SELECT * FROM staff_information";
                             $stmt = $conn->prepare($sql);
-                            $stmt->bind_param("s", $idnum);
                             $stmt->execute();
                             $result = $stmt->get_result();
 
                             if ($result) {
                                 $totalUsers = $result->num_rows;
-                                echo "<h1 class='titleTable'>Total User: " . $totalUsers . "</h1>";
+                                echo "<h1 class='titleTable'>Total Staff: " . $totalUsers . "</h1>";
                             } else {
                                 echo "Error: " . $conn->error;
                             }
@@ -144,9 +141,13 @@ $_SESSION['show_login_message'] = false;
                             ?>
                         </div>
 
+                        <button type="button" class="export__file-btn" style="margin-left:10px;">
+                            <i class='bx bxs-plus-circle'></i>
+                            <p class="exportTitle">Add Staff </p>
+                        </button>
 
                         <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnManageReport('manageUser')" style="margin-left:10px;">
+                            onclick="fnManageReport('managestaff')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -156,25 +157,16 @@ $_SESSION['show_login_message'] = false;
                 </section>
 
 
-
-
-
                 <section class="table__body">
                     <!--TABLE CONTENT-->
                     <div class="tableWrap">
-                        <table id="manageUser">
+                        <table id="managestaff">
                             <thead>
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> ID Number </th>
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Gender </th>
-                                    <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> Email </th>
-                                    <th title="Filter: Ascending/Descending"> Role </th>
-                                    <th class="center"> Account Status </th>
-                                    <th title="Filter: Ascending/Descending"> Last Login </th>
-                                    <th title="Filter: Ascending/Descending"> Date Created </th>
+                                    <th title="Filter: Ascending/Descending"> Date Added </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -184,30 +176,18 @@ $_SESSION['show_login_message'] = false;
                                 <?php
                                 include '../Php/db.php';
 
-
-                                $idnum = $_SESSION['idnumber'];
-
-                                $sql = "SELECT firstname, lastname, idnumber, email, gender,staff_role,age, account_status, last_login_timestamp,dateCreated FROM staff WHERE idnumber != '$idnum' ORDER BY dateCreated DESC";
+                                $sql = "SELECT id, first_name, last_name, idnumber, dateCreated FROM staff_information ORDER BY dateCreated DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
                                     while ($row = $result->fetch_assoc()) {
-                                        $class = (strtolower(trim($row["account_status"])) == 'activated') ? 'delivered' : 'cancelled';
-                                        $uniqueId = 'edit_' . $row["idnumber"];
-                                        $last_login_timestamp = date('F j, Y, g:i a', strtotime($row["last_login_timestamp"]));
                                         $dateCreated = date('F j, Y, g:i a', strtotime($row["dateCreated"]));
                                         echo "<tr>" .
                                             "<td><strong>" . $row["idnumber"] . "</strong></td>" .
-                                            "<td>" . $row["firstname"] . "</td>" .
-                                            "<td>" . $row["lastname"] . "</td>" .
-                                            "<td>" . $row["gender"] . "</td>" .
-                                            "<td>" . $row["age"] . "</td>" .
-                                            "<td>" . $row["email"] . "</td>" .
-                                            "<td><strong>" . $row["staff_role"] . "</strong></td>" .
-                                            "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
-                                            "<td>" . date('F j, Y, g:i a', strtotime($row["last_login_timestamp"])) . "</td>" .
-                                            "<td>" . date('F j, Y, g:i a', strtotime($row["dateCreated"])) . "</td>" .
-                                            "<td class><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\", \"{$row["staff_role"]}\")'></i> <i class='bx bxs-trash-alt' onclick='showDeleteModal(\"{$row["idnumber"]}\")'></i></td>" .
+                                            "<td>" . $row["first_name"] . "</td>" .
+                                            "<td>" . $row["last_name"] . "</td>" .
+                                            "<td>" . $dateCreated . "</td>" .
+                                            "<td class=\"center\"><i class='bx bxs-edit edit-icon'></i> <i class='bx bxs-trash-alt' onclick='showDeleteModal1(\"{$row["idnumber"]}\")'></i></td>" .
                                             "</tr>";
                                     }
                                     $result->close();
@@ -217,54 +197,13 @@ $_SESSION['show_login_message'] = false;
 
                                 $conn->close();
                                 ?>
-                                <!-- POPUP FORM ACCOUNT EDIT -->
-                                <div id="customEditModal" class="custom-modal">
-                                    <div class="custom-modal-content">
-                                        <h2 class="editAccountTitle">Edit Account Role and Status </h2>
-                                        <p id="customUserName"></p>
-                                        <p id="dateCreated"></p>
-                                        <form id="customEditForm" action="../Php/updateAstatus.php" method="post">
-
-                                            <div class="updatecon">
-                                                <div class="accountstatus">
-                                                    <input type="hidden" id="customUserId" name="customUserId" value="">
-                                                    <label for="customRole">Role:</label>
-                                                    <select id="customRole" name="customRole">
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Staff">Staff</option>
-                                                    </select>
-
-
-                                                </div>
-
-                                                <div class="rolestatus">
-
-                                                    <label for="customStatus">Account Status:</label>
-                                                    <select id="customStatus" name="customStatus">
-                                                        <option value="Activated">Activated</option>
-                                                        <option value="Deactivated">Deactivated</option>
-                                                    </select>
-
-                                                </div>
-
-
-                                                <button id="updateButton" class="updateButton"
-                                                    type="submit">Update</button>
-
-
-                                        </form>
-                                    </div>
-                                </div>
-
 
 
                             </tbody>
                         </table>
                     </div>
-
                 </section>
             </main>
-
 
 
         </div>
@@ -280,7 +219,7 @@ $_SESSION['show_login_message'] = false;
             <div class="modal-body1">
                 <div class="modal-message1">
                     <i class='bx bxs-error-circle'></i>
-                    <p>Are you sure you want to delete this User?</p>
+                    <p>Are you sure you want to delete this Record?</p>
                     <p>This action cannot be <Strong>UNDONE</Strong>.</p>
                 </div>
                 <div class="modal-buttons1">
@@ -291,11 +230,105 @@ $_SESSION['show_login_message'] = false;
 
         </div>
 
+        <script>
+        // ─── Delete MODAL ──────────────────────────────────────────────
+        var intervalId;
+
+        function showDeleteModal1(id) {
+
+            document.querySelector(".overlayD").style.display = "block";
+            document.querySelector(".modalD").style.display = "block";
+
+            var yesButton = document.querySelector(".yes1");
+            yesButton.disabled = true;
+
+            var counter = 5;
+            yesButton.innerText = `Yes (${counter})`;
+            var intervalId = startTimer(yesButton, counter);
+
+            yesButton.addEventListener("click", function() {
+                deleteUserStaff(id);
+                clearInterval(intervalId);
+            });
+
+            document.querySelector(".no1").addEventListener("click", function() {
+                document.querySelector(".overlayD").style.display = "none";
+                document.querySelector(".modalD").style.display = "none";
+                clearInterval(intervalId);
+                yesButton.innerText = "Yes";
+                yesButton.disabled = true;
+            });
+        }
+
+        function startTimer(yesButton, counter) {
+            return setInterval(function() {
+                counter--;
+                if (counter >= 0) {
+                    yesButton.innerText = `Yes (${counter})`;
+                } else {
+                    yesButton.disabled = false;
+                    yesButton.innerText = "Yes";
+                    clearInterval(intervalId);
+                }
+            }, 1000);
+        }
+
+        // ─── Delete Function ──────────────────────────────────────────
+        function deleteUserStaff(id) {
+            console.log("Deleting user with id: ", id);
+            $.ajax({
+                type: "POST",
+                url: "../Php/deleteUserStaff.php",
+                data: {
+                    id: id,
+                },
+                dataType: "json",
+                success: function(data) {
+                    // Check the status in the response
+                    if (data.status === "success") {
+                        // Set session storage value
+                        sessionStorage.setItem("showCustomPopup", data.message);
+                        // Refresh the page
+                        location.reload();
+                    } else {
+                        // Show a custom error popup
+                        showCustomPopup(data.message);
+                    }
+                },
+                error: function(error) {
+                    console.log("Error deleting user: ", error);
+
+                    // Show a custom error popup
+                    showCustomPopup("Error deleting user");
+                },
+            });
+        }
+
+        // Function to show a custom popup
+        function showCustomPopup(message) {
+            var popupContainer = $('<div class="custom-popup"></div>').text(message);
+            $("body").append(popupContainer);
+
+            popupContainer
+                .css("display", "none")
+                .fadeIn(200, function() {
+                    $(this).animate({
+                            top: "-20px",
+                            opacity: 0,
+                        },
+                        300,
+                        function() {
+                            $(this).remove();
+                        }
+                    );
+                })
+                .delay(2000);
+        }
+        </script>
+
+
 
 
 </body>
-
-
-
 
 </html>

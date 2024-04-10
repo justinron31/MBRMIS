@@ -26,11 +26,11 @@ function changeToTextbox(selectBox) {
     textBox.name = selectBox.name;
     textBox.required = true;
     textBox.placeholder = "Enter your PhilHealth Number";
-    textBox.pattern ="[0-9\-]*";
-    
+    textBox.pattern = "[0-9-]*";
+
     // Add an event listener for input event to restrict the input to numbers and hyphens
     textBox.addEventListener("input", function () {
-      this.value = this.value.replace(/[^0-9-]/g, ''); // Replace anything that is not a number or "-"
+      this.value = this.value.replace(/[^0-9-]/g, ""); // Replace anything that is not a number or "-"
     });
 
     // Store the original select box in a variable
@@ -59,7 +59,6 @@ function changeToTextbox(selectBox) {
     selectBox.parentNode.replaceChild(textBox, selectBox);
   }
 }
-
 
 // ─── Voters Id ────────────────────────────────────────────────
 function changeToTextbox1(selectBox) {
@@ -429,17 +428,16 @@ function toggleResidentForm1(id) {
       $("#VotersID").val(parsedData[0].rVotersID);
       $("#NHTS").val(parsedData[0].rNHTSHousehold);
       $("#IP").val(parsedData[0].rIP);
-      
-     var rHHHeadPhilHealthMember = parsedData[0].rHHHeadPhilHealthMember;
 
-// Check if the fetched data is empty or not
-if (rHHHeadPhilHealthMember) {
-    $("#HH").val(rHHHeadPhilHealthMember);
-} else {
-    $("#HH").val("No");
-}
+      var rHHHeadPhilHealthMember = parsedData[0].rHHHeadPhilHealthMember;
 
-      
+      // Check if the fetched data is empty or not
+      if (rHHHeadPhilHealthMember) {
+        $("#HH").val(rHHHeadPhilHealthMember);
+      } else {
+        $("#HH").val("No");
+      }
+
       $("#Category1").val(parsedData[0].rCategory);
       // $("#avatar").val(parsedData[0].voters_id_image);
 
@@ -582,11 +580,21 @@ document.querySelector(".rSubmit1").addEventListener("click", function () {
       clearInterval(intervalId);
     }
   }, 1000);
-});
 
-document.querySelector(".no1").addEventListener("click", function () {
-  document.querySelector(".overlayD").style.display = "none";
-  document.querySelector(".modalD").style.display = "none";
+  yesButton.addEventListener("click", function () {
+    // Add your delete logic here
+    clearInterval(intervalId);
+    yesButton.innerText = "Yes";
+    yesButton.disabled = true;
+  });
+
+  document.querySelector(".no1").addEventListener("click", function () {
+    document.querySelector(".overlayD").style.display = "none";
+    document.querySelector(".modalD").style.display = "none";
+    clearInterval(intervalId);
+    yesButton.innerText = "Yes";
+    yesButton.disabled = true;
+  });
 });
 
 // ─── Edit Resident Information ────────────────────────────────
@@ -641,7 +649,7 @@ function fetchresidentData(id) {
 
         document.getElementById("Age1").value = record.rAge;
         document.getElementById("bussSelect31").value = record.rGender;
-        
+
         var votersIDElement = document.getElementById("bussSelect41");
         votersIDElement.value = record.rVotersID;
 
@@ -654,8 +662,9 @@ function fetchresidentData(id) {
 
         document.getElementById("bussSelect11").value = record.rNHTSHousehold;
         document.getElementById("bussSelect81").value = record.rIP;
-        document.getElementById("bussSelect21").value = record.rHHHeadPhilHealthMember;
-         
+        document.getElementById("bussSelect21").value =
+          record.rHHHeadPhilHealthMember;
+
         document.getElementById("Category11").value = record.rCategory;
 
         // Clear the existing members
