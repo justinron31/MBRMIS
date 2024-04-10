@@ -25,7 +25,7 @@
              <div class="rform1">
                  <div class="rInput">
                      <label for="idnum">ID Number</label>
-                     <input type="text" id="idnum" name="idnum" placeholder="Enter Id Number" required>
+                     <input type="text" id="idnum" name="idnum" placeholder="Enter ID Number" required>
                  </div>
 
                  <div class="rInput">
