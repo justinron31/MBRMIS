@@ -18,10 +18,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="./CSS,JS/Dashboard.css" />
     <link rel="stylesheet" href="./CSS,JS/Table.css" />
+    <link rel="stylesheet" href="./CSS,JS/staff.css" />
 
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
     <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
@@ -29,12 +31,13 @@
 
     <script src="./CSS,JS/Table.js" defer></script>
     <script src="./CSS,JS/Dashboard.js" defer></script>
+    <script src="./CSS,JS/staff.js" defer></script>
     <script src="./CSS,JS/Export.js" defer></script>
 
 
 
 
-    <title>MAKILING BRMI SYSTEM - Manage Users</title>
+    <title>MAKILING BRMI SYSTEM - Staff Database</title>
 </head>
 
 
@@ -70,6 +73,75 @@ $_SESSION['show_login_message'] = false;
     <!-- Sidenav-->
     <?php include '../Components/sidenav.php'; ?>
 
+
+
+    <!-- MESSAGE-->
+    <div id="loginPopup" class="popup">
+        <p>User Added Successfully!</p>
+    </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup" class="popup2">
+        <p>Error Deleting User!</p>
+    </div>
+
+    <!-- MESSAGE-->
+    <div id="loginPopup1" class="popup">
+        <p>User Updated Successfully!</p>
+    </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup1" class="popup2">
+        <p>Error Updating User!</p>
+    </div>
+
+    <?php
+    if (isset($_SESSION['success_delete'])) {
+        echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("loginPopup").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("loginPopup").style.display = "none";
+        }, 3000);
+    });
+    </script>';
+        unset($_SESSION['success_delete']);
+    }
+
+    if (isset($_SESSION['error_delete'])) {
+        echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("validationPopup").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("validationPopup").style.display = "none";
+        }, 3000);
+    });
+    </script>';
+        unset($_SESSION['error_delete']);
+    }
+    if (isset($_SESSION['success_update'])) {
+        echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("loginPopup1").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("loginPopup1").style.display = "none";
+        }, 3000);
+    });
+    </script>';
+        unset($_SESSION['success_update']);
+    }
+    if (isset($_SESSION['error_update'])) {
+        echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("validationPopup1").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("validationPopup1").style.display = "none";
+        }, 3000);
+    });
+    </script>';
+        unset($_SESSION['error_update']);
+    }
+    ?>
 
     <!-- MAIN CONTENT-->
     <div class="headermain">
@@ -141,7 +213,8 @@ $_SESSION['show_login_message'] = false;
                             ?>
                         </div>
 
-                        <button type="button" class="export__file-btn" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" style="margin-left:10px;"
+                            onclick="displayElements()">
                             <i class='bx bxs-plus-circle'></i>
                             <p class="exportTitle">Add Staff </p>
                         </button>
@@ -167,6 +240,7 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Firstname </th>
                                     <th title="Filter: Ascending/Descending"> Lastname </th>
                                     <th title="Filter: Ascending/Descending"> Date Added </th>
+                                    <th title="Filter: Ascending/Descending"> Date Updated </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -176,18 +250,20 @@ $_SESSION['show_login_message'] = false;
                                 <?php
                                 include '../Php/db.php';
 
-                                $sql = "SELECT id, first_name, last_name, idnumber, dateCreated FROM staff_information ORDER BY dateCreated DESC";
+                                $sql = "SELECT id, first_name, last_name, idnumber, dateCreated, date_updated FROM staff_information ORDER BY dateCreated DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
                                     while ($row = $result->fetch_assoc()) {
                                         $dateCreated = date('F j, Y, g:i a', strtotime($row["dateCreated"]));
+                                        $dateUpdated = isset($row["date_updated"]) ? date('F j, Y, g:i a', strtotime($row["date_updated"])) : '';
                                         echo "<tr>" .
                                             "<td><strong>" . $row["idnumber"] . "</strong></td>" .
                                             "<td>" . $row["first_name"] . "</td>" .
                                             "<td>" . $row["last_name"] . "</td>" .
                                             "<td>" . $dateCreated . "</td>" .
-                                            "<td class=\"center\"><i class='bx bxs-edit edit-icon'></i> <i class='bx bxs-trash-alt' onclick='showDeleteModal1(\"{$row["idnumber"]}\")'></i></td>" .
+                                            "<td>" .  $dateUpdated  . "</td>" .
+                                            "<td class=\"center\"><i class='bx bxs-edit edit-icon' onclick='populateForm11(\"{$row["idnumber"]}\")'></i> <i class='bx bxs-trash-alt' onclick='showDeleteModal1(\"{$row["idnumber"]}\")'></i></td>" .
                                             "</tr>";
                                     }
                                     $result->close();
@@ -205,8 +281,12 @@ $_SESSION['show_login_message'] = false;
                 </section>
             </main>
 
-
         </div>
+
+
+        <!-- Staff EDit-->
+        <?php include '../Components/staffEdit.php'; ?>
+
 
         <!-- delete popup -->
         <div class=" overlayD">
@@ -230,12 +310,17 @@ $_SESSION['show_login_message'] = false;
 
         </div>
 
+
+        <!-- Staff add-->
+        <?php include '../Components/staffAdd.php'; ?>
+
+
+
         <script>
         // ─── Delete MODAL ──────────────────────────────────────────────
         var intervalId;
 
         function showDeleteModal1(id) {
-
             document.querySelector(".overlayD").style.display = "block";
             document.querySelector(".modalD").style.display = "block";
 
@@ -325,6 +410,7 @@ $_SESSION['show_login_message'] = false;
                 .delay(2000);
         }
         </script>
+
 
 
 
