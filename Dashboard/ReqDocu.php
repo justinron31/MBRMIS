@@ -137,8 +137,8 @@ $_SESSION['show_login_message'] = false;
                             <h1 class="titleTable">Total File Request: <span><?php echo $total; ?></span></h1>
                         </div>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnRequestAllReport('reqdocu')"
-                            style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File"
+                            onclick="fnRequestAllReport('reqdocu')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -155,16 +155,22 @@ $_SESSION['show_login_message'] = false;
                         <table id="reqdocu">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> Document Type </th>
-                                    <th class="center" title="Filter: Ascending/Descending"> Status </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Tracking Number </th>
-                                    <th title="Filter: Ascending/Descending"> Contact Number </th>
-                              
-                                    <th title="Filter: Ascending/Descending"> Purpose </th>
-                                    <th title="Filter: Ascending/Descending"> Pickup Date </th>
-                                    <th title="Filter: Ascending/Descending"> Date Submitted </th>
+                                    <th title="Filter: Ascending/Descending"> Document Type <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Tracking Number <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Contact Number <i class='bx bx-sort'></i>
+                                    </th>
+
+                                    <th title="Filter: Ascending/Descending"> Purpose <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Pickup Date <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Date Submitted <i class='bx bx-sort'></i>
+                                    </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -173,13 +179,14 @@ $_SESSION['show_login_message'] = false;
                                 <?php
                                 include '../Php/db.php';
 
-                                $sql = "SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created, purok
+                                $sql = "SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created, purok, file_data_updated
                                 FROM file_request
                                 WHERE file_status = 'reviewing'
                                 UNION ALL
-                                SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created, address
+                                SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created, address, file_data_updated
                                 FROM first_time_job
-                                WHERE file_status = 'reviewing'";
+                                WHERE file_status = 'reviewing'
+                                ORDER BY file_data_updated DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -207,9 +214,8 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                          "<td><i class='bx bxs-edit edit-icon' onclick=\"generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "')\" data-file-id='" . $row["id"] . "'></i></td>".
-"</tr>";
-
+                                            "<td><button class='viewMore' onclick=\"generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "')\" data-file-id='" . $row["id"] . "'>Print</button></td>" .
+                                            "</tr>";
                                     }
                                     $result->close();
                                 } else {

@@ -388,7 +388,7 @@ $(document).ready(function () {
     $("#updateButton1").prop("disabled", selectedStatus === currentStatus);
   }
 
-  $(".edit-icon").on("click", function () {
+  $(".viewMore").on("click", function () {
     var fileId = $(this).data("file-id");
     fetchFileInfo(fileId, function (fileStatus) {
       $("#fileStatus").val(fileStatus);

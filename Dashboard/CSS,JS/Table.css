@@ -291,7 +291,8 @@ thead th.asc span.icon-arrow {
   transform: rotate(180deg);
 }
 
-.bx.bxs-edit {
+.bx.bxs-edit,
+.bx.bxs-printer {
   color: #377fb9;
   font-size: 25px;
   margin-left: 15px;
@@ -304,6 +305,7 @@ thead th.asc span.icon-arrow {
   transition: transform 0.2s ease-in-out;
 }
 
+.bx.bxs-printer:hover,
 .bx.bxs-trash-alt:hover {
   transform: scale(1.1);
   cursor: pointer;
@@ -648,4 +650,37 @@ thead th.asc span.icon-arrow {
 .bx.bxs-error-circle {
   color: #e0574d;
   font-size: 2.1rem;
+}
+
+/* ─── Viewmore ────────────────────────────────────────────── */
+.viewMore {
+  background-color: #377fb9;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  font-weight: 600;
+  color: white;
+}
+
+.viewMore:hover {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+
+.viewMore1 {
+  background-color: #e0574d;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  font-weight: 600;
+  color: white;
+}
+
+.viewMore1:hover {
+  background-color: #e0574d;
+  transform: scale(1.05);
 }

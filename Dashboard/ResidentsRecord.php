@@ -14,7 +14,7 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
-        <!--CSS-->
+    <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
     <link rel="stylesheet" href="./CSS,JS/Dashboard.css" />
     <link rel="stylesheet" href="./CSS,JS/Table.css" />
@@ -29,11 +29,11 @@
     <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
 
-    <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>    
+    <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/residentsRecord.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
     <script src="../Dashboard/CSS,JS/Export.js"></script>
- 
+
 
 
 
@@ -85,7 +85,7 @@ $_SESSION['show_login_message'] = false;
         <p>Record deleted successfully!</p>
     </div>
 
- <!--VALIDATION MESSAGE-->
+    <!--VALIDATION MESSAGE-->
     <div id="validationPopup6" class="popup">
         <p>Record updated successfully!</p>
     </div>
@@ -232,7 +232,7 @@ $_SESSION['show_login_message'] = false;
                     <div class="export__file">
 
                         <div class="tableHead">
-                          <h1 class="titleTable">Total Residents: <span id="totalReq3">0</span></h1>
+                            <h1 class="titleTable">Total Residents: <span id="totalReq3">0</span></h1>
                         </div>
                         <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;"
                             onclick="toggleResidentForm()">
@@ -240,8 +240,8 @@ $_SESSION['show_login_message'] = false;
                             <p class="exportTitle">Add Resident</p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnResidentReport('residentsRec')"
-                            style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File"
+                            onclick="fnResidentReport('residentsRec')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -260,45 +260,52 @@ $_SESSION['show_login_message'] = false;
                         <table id="residentsRec">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> Voters ID </th>
-                                    <th title="Filter: Ascending/Descending"> Voter status</th>
+                                    <th title="Filter: Ascending/Descending"> Voters ID <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Voter status <i class='bx bx-sort'></i>
+                                    </th>
                                     <!--<th title="Filter: Ascending/Descending"> Voters ID Img </th>-->
-                                    <th title="Filter: Ascending/Descending"> BHS </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Middlename </th>
-                                    <th title="Filter: Ascending/Descending"> Gender </th>
-                                    <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision </th>
-                                    <th title="Filter: Ascending/Descending"> Household Number </th>
-                                    <th title="Filter: Ascending/Descending"> NHTS Household </th>
-                                    <th title="Filter: Ascending/Descending"> IP or Non-IP </th>
-                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member </th>
-                                    <th title="Filter: Ascending/Descending"> Category </th>
-                                    <th title="Filter: Ascending/Descending"> Date Inserted </th>
+                                    <th title="Filter: Ascending/Descending"> BHS <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Middlename <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Gender <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Age <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Household Number <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> NHTS Household <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> IP or Non-IP <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Category <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Date Inserted <i class='bx bx-sort'></i>
+                                    </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                               <?php
+                                <?php
                                 include '../Php/db.php';
-                                
+
                                 $sql = "SELECT * FROM residentrecord ORDER BY datecreated DESC";
                                 $result = $conn->query($sql);
-                                
-                               if ($result) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $file_status = strtolower(trim($row["rvoterstatus"]));
-                                    if ($file_status == 'voter') {
-                                        $class = 'delivered';
-                                    } elseif ($file_status == 'non-voter' || $file_status == 'none' || $file_status == 'n/a') {
-                                        $class = 'cancelled';
-                                    } else {
-                                        $class = '';
-                                    }
-                                
+
+                                if ($result) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        $file_status = strtolower(trim($row["rvoterstatus"]));
+                                        if ($file_status == 'voter') {
+                                            $class = 'delivered';
+                                        } elseif ($file_status == 'non-voter' || $file_status == 'none' || $file_status == 'n/a') {
+                                            $class = 'cancelled';
+                                        } else {
+                                            $class = '';
+                                        }
+
 
                                         echo "<tr>" .
                                             "<td><strong>" . (!empty($row["rVotersID"]) ? $row["rVotersID"] : "None") . "</strong></td>" .
@@ -324,7 +331,7 @@ $_SESSION['show_login_message'] = false;
                                 } else {
                                     echo "<tr><td colspan='8'>No data found</td></tr>";
                                 }
-                                
+
                                 $conn->close();
                                 ?>
 

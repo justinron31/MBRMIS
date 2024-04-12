@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -119,7 +120,8 @@ $_SESSION['show_login_message'] = false;
                             <!--TOTAL USER-->
                             <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
                         </div>
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnJobseekerReport('firsttime')" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File"
+                            onclick="fnJobseekerReport('firsttime')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -139,26 +141,33 @@ $_SESSION['show_login_message'] = false;
                         <table id="firsttime">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> Tracking Number </th>
-                                    <th class="center" title="Filter: Ascending/Descending"> Status </th>
-                                    <th title="Filter: Ascending/Descending"> Remarks </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Birthdate </th>
-                                    <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> Gender </th>
-                                    <th title="Filter: Ascending/Descending"> Contact Number </th>
-                                    <th title="Filter: Ascending/Descending"> Civil Status </th>
-                                    <th title="Filter: Ascending/Descending"> Address </th>
-                                    <th title="Filter: Ascending/Descending"> Recidency </th>
-                                    <th title="Filter: Ascending/Descending"> Education </th>
-                                    <th title="Filter: Ascending/Descending"> Course </th>
-                                    <th title="Filter: Ascending/Descending"> JobStart Program </th>
-                                    <th title="Filter: Ascending/Descending"> ID Number </th>
+                                    <th title="Filter: Ascending/Descending"> Tracking Number <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Remarks <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Birthdate <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Age <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Gender <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Contact Number <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Civil Status <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Address <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Recidency <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Education <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Course <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> JobStart Program <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> ID Number <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> ID Img </th>
-                                    <th title="Filter: Ascending/Descending"> Purpose </th>
-                                    <th title="Filter: Ascending/Descending"> Pickup Date </th>
-                                    <th title="Filter: Ascending/Descending"> Date Submitted </th>
+                                    <th title="Filter: Ascending/Descending"> Purpose <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Pickup Date <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Date Submitted <i class='bx bx-sort'></i>
+                                    </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -209,7 +218,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                            "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>" .
+                                            "<td><button class='viewMore' data-file-id='" . $row["id"] . "'>Edit</button></td>" .
                                             "</tr>";
                                     }
                                     $result->close();
@@ -226,18 +235,19 @@ $_SESSION['show_login_message'] = false;
                                     <div class="custom-modal-content">
                                         <h2 class="editAccountTitle">Update File Request Status </h2>
                                         <p id="TrackingN"></p>
-                                        <form id="customEditForm1"  method="post">
+                                        <form id="customEditForm1" method="post">
                                             <div class="updatecon">
                                                 <div class="accountstatus">
                                                     <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
                                                     <label for="fileStatus">File Status:</label>
                                                     <select id="fileStatus" name="fileStatus">
-                                                     
+
                                                         <option value="Declined">Declined</option>
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
-                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
+                                                <button id="updateButton1" class="updateButton"
+                                                    type="submit">Update</button>
                                         </form>
                                     </div>
                                 </div>

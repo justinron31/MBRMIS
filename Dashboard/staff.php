@@ -236,11 +236,12 @@ $_SESSION['show_login_message'] = false;
                         <table id="managestaff">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> ID Number </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Date Added </th>
-                                    <th title="Filter: Ascending/Descending"> Date Updated </th>
+                                    <th title="Filter: Ascending/Descending"> ID Number <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Date Added <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Date Updated <i class='bx bx-sort'></i>
+                                    </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -263,7 +264,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["last_name"] . "</td>" .
                                             "<td>" . $dateCreated . "</td>" .
                                             "<td>" .  $dateUpdated  . "</td>" .
-                                            "<td class=\"center\"><i class='bx bxs-edit edit-icon' onclick='populateForm11(\"{$row["idnumber"]}\")'></i> <i class='bx bxs-trash-alt' onclick='showDeleteModal1(\"{$row["idnumber"]}\")'></i></td>" .
+                                            "<td class=\"center\"><button class='viewMore' onclick='populateForm11(\"{$row["idnumber"]}\")'>Edit</button> <button class='viewMore1' onclick='showDeleteModal1(\"{$row["idnumber"]}\")'>Delete</button></td>" .
                                             "</tr>";
                                     }
                                     $result->close();

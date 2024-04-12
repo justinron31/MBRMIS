@@ -125,8 +125,8 @@ $_SESSION['show_login_message'] = false;
 
 
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnResidencyReport('residency')"
-                            style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File"
+                            onclick="fnResidencyReport('residency')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -146,18 +146,25 @@ $_SESSION['show_login_message'] = false;
                         <table id="residency">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> Tracking Number </th>
-                                    <th class="center" title="Filter: Ascending/Descending"> Status </th>
-                                    <th title="Filter: Ascending/Descending"> Remarks </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Contact Number </th>
-                                     <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision </th>
-                                    <th title="Filter: Ascending/Descending"> Valid ID Number </th>
+                                    <th title="Filter: Ascending/Descending"> Tracking Number <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Remarks <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Contact Number <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Valid ID Number <i class='bx bx-sort'></i>
+                                    </th>
                                     <th title="Filter: Ascending/Descending"> ID Img </th>
-                                    <th title="Filter: Ascending/Descending"> Purpose </th>
-                                    <th title="Filter: Ascending/Descending"> Pickup Date </th>
-                                    <th title="Filter: Ascending/Descending"> Date Submitted </th>
+                                    <th title="Filter: Ascending/Descending"> Purpose <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Pickup Date <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Date Submitted <i class='bx bx-sort'></i>
+                                    </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -186,7 +193,7 @@ $_SESSION['show_login_message'] = false;
                                         $uniqueId = 'edit_' . $row["id"];
                                         echo "<tr>" .
                                             "<td><strong>" . $row["tracking_number"] . "</strong></td>" .
-                                            "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" . 
+                                            "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
                                             "<td>" . $row["remarks"] . "</td>" .
                                             "<td>" . $row["firstname"] . "</td>" .
                                             "<td>" . $row["lastname"] . "</td>" .
@@ -197,7 +204,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                            "<td><i class='bx bxs-edit edit-icon' data-file-id='" . $row["id"] . "'></i></td>" .
+                                            "<td><button class='viewMore' data-file-id='" . $row["id"] . "'>Edit</button></td>" .
                                             "</tr>";
                                     }
                                     $result->close();
@@ -219,7 +226,7 @@ $_SESSION['show_login_message'] = false;
                                                     <input type="hidden" id="fileStatusId" name="fileStatusId" value="">
                                                     <label for="fileStatus">File Status:</label>
                                                     <select id="fileStatus" name="fileStatus">
-                                                        
+
                                                         <option value="Declined">Declined</option>
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>

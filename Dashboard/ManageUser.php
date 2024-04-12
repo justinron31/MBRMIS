@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -145,8 +144,7 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
 
-                        <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnManageReport('manageUser')" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport('manageUser')" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -165,16 +163,17 @@ $_SESSION['show_login_message'] = false;
                         <table id="manageUser">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> ID Number </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Gender </th>
-                                    <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> Email </th>
-                                    <th title="Filter: Ascending/Descending"> Role </th>
-                                    <th class="center"> Account Status </th>
-                                    <th title="Filter: Ascending/Descending"> Last Login </th>
-                                    <th title="Filter: Ascending/Descending"> Date Created </th>
+                                    <th title="Filter: Ascending/Descending"> ID Number <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Gender <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Age <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Email <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Role <i class='bx bx-sort'></i></th>
+                                    <th class="center"> Account Status <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Last Login <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Date Created <i class='bx bx-sort'></i>
+                                    </th>
                                     <th class="center"> Action </th>
                                 </tr>
                             </thead>
@@ -207,7 +206,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td ><p class='status $class'>" . $row["account_status"] . "</p></td>" .
                                             "<td>" . date('F j, Y, g:i a', strtotime($row["last_login_timestamp"])) . "</td>" .
                                             "<td>" . date('F j, Y, g:i a', strtotime($row["dateCreated"])) . "</td>" .
-                                            "<td class><i class='bx bxs-edit edit-icon' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\", \"{$row["staff_role"]}\")'></i> <i class='bx bxs-trash-alt' onclick='showDeleteModal(\"{$row["idnumber"]}\")'></i></td>" .
+                                            "<td class><button class='viewMore' onclick='openCustomModal(\"{$row["idnumber"]}\", \"{$row["account_status"]}\", \"{$row["staff_role"]}\")'>Edit</button> <button class='viewMore1' onclick='showDeleteModal(\"{$row["idnumber"]}\")'>Delete</button></td>" .
                                             "</tr>";
                                     }
                                     $result->close();
@@ -248,8 +247,7 @@ $_SESSION['show_login_message'] = false;
                                                 </div>
 
 
-                                                <button id="updateButton" class="updateButton"
-                                                    type="submit">Update</button>
+                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
 
 
                                         </form>
