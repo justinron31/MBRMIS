@@ -348,9 +348,13 @@ $(document).ready(function () {
     var confirmation;
     var remarks = "";
     if (selectedStatus === "Declined") {
-      confirmation = remarks = prompt(
-        "Please enter your remarks for declining:"
-      );
+      remarks = prompt("Please enter your remarks for declining:");
+      var words = remarks.split(" ");
+      if (words.length <= 1) {
+        alert("Please enter more than one word in remarks.");
+        return;
+      }
+      confirmation = remarks;
     } else {
       confirmation = confirm(
         "Are you sure you want to update the file status?"

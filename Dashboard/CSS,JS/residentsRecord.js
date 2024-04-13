@@ -664,8 +664,12 @@ function fetchresidentData(id) {
 
         document.getElementById("bussSelect11").value = record.rNHTSHousehold;
         document.getElementById("bussSelect81").value = record.rIP;
-        document.getElementById("bussSelect21").value =
-          record.rHHHeadPhilHealthMember;
+        if (record.rHHHeadPhilHealthMember === "No") {
+          document.getElementById("bussSelect21").value = "";
+        } else {
+          document.getElementById("bussSelect21").value =
+            record.rHHHeadPhilHealthMember;
+        }
 
         document.getElementById("Category11").value = record.rCategory;
 
@@ -881,80 +885,83 @@ function fetchresidentData(id) {
 }
 
 // ─── Information Update ───────────────────────────────────────
-$("#formContainer3").on("submit", function (event) {
-  event.preventDefault();
+function submitFormResident() {
+  $("#formContainer3").on("submit", function (event) {
+    event.preventDefault();
 
-  var formData = {
-    id: selectedRowId,
-    rBHS: $("#BHS1").val(),
-    rPurokSitioSubdivision: $("#Purok1").val(),
-    rHouseholdNumber: $("#Household1").val(),
-    rLastName: $("#Lastname1").val(),
-    rFirstName: $("#Firstname1").val(),
-    rMothersMaidenName: $("#Maiden1").val(),
-    rAge: $("#Age1").val(),
-    rGender: $("#bussSelect31").val(),
-    rVotersID: $("#bussSelect41").val(),
-    rNHTSHousehold: $("#bussSelect11").val(),
-    rIP: $("#bussSelect81").val(),
-    rHHHeadPhilHealthMember: $("#bussSelect21").val(),
-    rCategory: $("#Category11").val(),
-    members: [],
-  };
-
-  $(".membersCon1").each(function () {
-    var member = {
-      mLastName: $(this).find("input[name='mLastname']").val(),
-      mFirstName: $(this).find("input[name='mFirstname']").val(),
-      mMothersMaidenName: $(this).find("input[name='mMaiden']").val(),
-      mRelationship: $(this).find("select[name='mRelationship']").val(),
-      mGender: $(this).find("select[name='mGender']").val(),
-      mAge: $(this).find("input[name='mAge']").val(),
-      mClassificationByAgeHealthRisk: $(this)
-        .find("select[name='mRisk']")
-        .val(),
-      mQuarter: $(this).find("select[name='mQuarter']").val(),
+    var formData = {
+      id: selectedRowId,
+      rBHS: $("#BHS1").val(),
+      rPurokSitioSubdivision: $("#Purok1").val(),
+      rHouseholdNumber: $("#Household1").val(),
+      rLastName: $("#Lastname1").val(),
+      rFirstName: $("#Firstname1").val(),
+      rMothersMaidenName: $("#Maiden1").val(),
+      rAge: $("#Age1").val(),
+      rGender: $("#bussSelect31").val(),
+      rVotersID: $("#bussSelect41").val(),
+      rNHTSHousehold: $("#bussSelect11").val(),
+      rIP: $("#bussSelect81").val(),
+      rHHHeadPhilHealthMember: $("#bussSelect21").val(),
+      rCategory: $("#Category11").val(),
+      members: [],
     };
-    formData.members.push(member);
-  });
 
-  $.ajax({
-    url: "../Php/updateResidents.php",
-    type: "POST",
-    data: JSON.stringify(formData), // Stringify the formData object
-    contentType: "application/json", // Tell the server you're sending JSON
-    success: function (response) {
-      console.log("Response:", response);
-      var results = JSON.parse(response);
+    $(".membersCon1").each(function () {
+      var member = {
+        mLastName: $(this).find("input[name='mLastname']").val(),
+        mFirstName: $(this).find("input[name='mFirstname']").val(),
+        mMothersMaidenName: $(this).find("input[name='mMaiden']").val(),
+        mRelationship: $(this).find("select[name='mRelationship']").val(),
+        mGender: $(this).find("select[name='mGender']").val(),
+        mAge: $(this).find("input[name='mAge']").val(),
+        mClassificationByAgeHealthRisk: $(this)
+          .find("select[name='mRisk']")
+          .val(),
+        mQuarter: $(this).find("select[name='mQuarter']").val(),
+      };
+      formData.members.push(member);
+    });
 
-      // Initialize a flag to check if all operations were successful
-      var allSuccessful = true;
+    $.ajax({
+      url: "../Php/updateResidents.php",
+      type: "POST",
+      data: JSON.stringify(formData), // Stringify the formData object
+      contentType: "application/json", // Tell the server you're sending JSON
+      success: function (response) {
+        console.log("Response:", response);
+        var results = JSON.parse(response);
 
-      // Loop through each result
-      results.forEach(function (result) {
-        if (result.error) {
-          console.error("Error:", result.error);
-          allSuccessful = false;
-        } else if (result.success) {
-          console.log("Success:", result.success);
-        } else if (result.message) {
-          console.log("Message:", result.message);
+        // Initialize a flag to check if all operations were successful
+        var allSuccessful = true;
+
+        // Loop through each result
+        results.forEach(function (result) {
+          if (result.error) {
+            console.error("Error:", result.error);
+            allSuccessful = false;
+          } else if (result.success) {
+            console.log("Success:", result.success);
+          } else if (result.message) {
+            console.log("Message:", result.message);
+          }
+        });
+
+        // If all operations were successful, redirect to the dashboard
+        if (allSuccessful) {
+          window.location.href =
+            "../Dashboard/ResidentsRecord.php?update=success";
+        } else {
+          window.location.href =
+            "../Dashboard/ResidentsRecord.php?update=error";
         }
-      });
-
-      // If all operations were successful, redirect to the dashboard
-      if (allSuccessful) {
-        window.location.href =
-          "../Dashboard/ResidentsRecord.php?update=success";
-      } else {
-        window.location.href = "../Dashboard/ResidentsRecord.php?update=error";
-      }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      console.error("Error:", errorThrown);
-    },
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.error("Error:", errorThrown);
+      },
+    });
   });
-});
+}
 
 // ─── Toggle Resident View ──────────────────────────────────────
 function hideResidentForm1() {

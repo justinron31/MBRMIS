@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -126,8 +125,7 @@ $_SESSION['show_login_message'] = false;
 
 
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
-                            style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -149,22 +147,20 @@ $_SESSION['show_login_message'] = false;
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Tracking Number <i class='bx bx-sort'></i>
                                     </th>
-                                    <th class="center" title="Filter: Ascending/Descending"> Status <i
-                                            class='bx bx-sort'></i></th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Remarks <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Contact Number <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i
-                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Valid ID Number <i class='bx bx-sort'></i>
                                     </th>
                                     <th title="Filter: Ascending/Descending"> ID Img </th>
                                     <th title="Filter: Ascending/Descending"> Purpose <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Pickup Date <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Pickup Date/Time <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> Date Submitted <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Date/Time Submitted <i class='bx bx-sort'></i>
                                     </th>
                                     <th class="center"> Action </th>
                                 </tr>
@@ -174,7 +170,7 @@ $_SESSION['show_login_message'] = false;
                                 <?php
                                 include '../Php/db.php';
 
-                                $sql = "SELECT id, lastname, firstname, contact_number, purok, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Indigency' ORDER BY file_status ASC, datetime_created DESC";
+                                $sql = "SELECT id, lastname, firstname, contact_number, purok, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Residency' ORDER BY file_status ASC, datetime_created DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -232,8 +228,7 @@ $_SESSION['show_login_message'] = false;
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
-                                                <button id="updateButton1" class="updateButton"
-                                                    type="submit">Update</button>
+                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
                                         </form>
                                     </div>
                                 </div>
@@ -250,56 +245,56 @@ $_SESSION['show_login_message'] = false;
 </body>
 
 <script>
-new DataTable("#residency", {
-    paging: false,
-    searching: true,
-    info: false,
-    order: false,
-    layout: {
-        topStart: {
-            buttons: [{
-                    extend: 'excel',
-                    exportOptions: {
-                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
-                    }
-                },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
+    new DataTable("#residency", {
+        paging: false,
+        searching: true,
+        info: false,
+        order: false,
+        layout: {
+            topStart: {
+                buttons: [{
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                        }
                     },
-                    orientation: 'landscape',
-                    pageSize: 'A4'
-                },
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                        }
                     },
-                    autoPrint: true
-                }
-            ],
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                        },
+                        orientation: 'landscape',
+                        pageSize: 'A4'
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                        },
+                        autoPrint: true
+                    }
+                ],
+            },
         },
-    },
-    // Use a custom search input
-    initComplete: function() {
-        let input = document.querySelector(".input-group input");
-        this.api().columns().every(function() {
-            let that = this;
-            $(input).on('keyup change clear', function() {
-                if (that.search() !== this.value) {
-                    that.search(this.value).draw();
-                }
+        // Use a custom search input
+        initComplete: function() {
+            let input = document.querySelector(".input-group input");
+            this.api().columns().every(function() {
+                let that = this;
+                $(input).on('keyup change clear', function() {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
             });
-        });
-    },
-});
+        },
+    });
 </script>
 
 

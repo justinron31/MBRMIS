@@ -13,7 +13,7 @@ function logUserActivity($conn, $action, $trackingNumber, $type)
     $role = $_SESSION['user_type'];
     $actionDate = date('Y-m-d H:i:s');
 
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate, request_tracking_number, Type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate, request_tracking_number, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("isssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $trackingNumber, $type);
 
@@ -44,20 +44,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($updateResult1 && $updateResult2) {
 
-        // Fetch the tracking number and type
-        $fetchSql = "SELECT tracking_number, type FROM file_request WHERE id = ?";
-        $stmt = $conn->prepare($fetchSql);
-        $stmt->bind_param('i', $userId);
-        $fetchResult = $stmt->execute();
+        // Fetch the tracking number and type from file_request table
+        $fetchSql1 = "SELECT tracking_number, type FROM file_request WHERE id = ?";
+        $stmt1 = $conn->prepare($fetchSql1);
+        $stmt1->bind_param('i', $userId);
+        $fetchResult1 = $stmt1->execute();
 
-        if ($fetchResult) {
-            $result = $stmt->get_result();
-            $data = $result->fetch_assoc();
-            $trackingNumber = $data['tracking_number'];
-            $type = $data['type'];
-            logUserActivity($conn, 'Updated a file status', $trackingNumber, $type);
+        if ($fetchResult1) {
+            $result1 = $stmt1->get_result();
+            if ($result1 && $data1 = $result1->fetch_assoc()) {
+                $trackingNumber1 = $data1['tracking_number'];
+                $type1 = $data1['type'];
+                logUserActivity($conn, 'Updated File Status', $trackingNumber1, $type1);
+            } else {
+                error_log("No data found in file_request for user with ID: " . $userId);
+            }
         } else {
-            error_log("Error fetching tracking number and type: " . $stmt->error);
+            error_log("Error fetching tracking number and type from file_request: " . mysqli_stmt_error($stmt1));
+        }
+
+        // Fetch the tracking number and type from first_time_job table
+        $fetchSql2 = "SELECT tracking_number, type FROM first_time_job WHERE id = ?";
+        $stmt2 = $conn->prepare($fetchSql2);
+        $stmt2->bind_param('i', $userId);
+        $fetchResult2 = $stmt2->execute();
+
+        if ($fetchResult2) {
+            $result2 = $stmt2->get_result();
+            if ($result2 && $data2 = $result2->fetch_assoc()) {
+                $trackingNumber2 = $data2['tracking_number'];
+                $type2 = $data2['type'];
+                logUserActivity($conn, 'Updated File Status', $trackingNumber2, $type2);
+            } else {
+                error_log("No data found in first_time_job for user with ID: " . $userId);
+            }
+        } else {
+            error_log("Error fetching tracking number and type from first_time_job: " . mysqli_stmt_error($stmt2));
         }
 
         $fetchSql = "SELECT * FROM file_request WHERE id = ?";
@@ -77,7 +99,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $stmt->close();
-    $stmt2->close();
 }
-
-$conn->close();

@@ -253,7 +253,7 @@
              <?php
                 }
                 ?>
-             <button type="submit" class="rSubmit2">SAVE</button>
+             <button type="submit" class="rSubmit2" onclick="submitFormResident()">SAVE</button>
              <button class="rSubmit" onclick="toggleAndPopulateForms()">EDIT</button>
          </div>
 

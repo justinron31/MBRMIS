@@ -52,16 +52,15 @@
 session_start();
 
 // Check if the user is not logged in as admin or staff, or if idnumber is not set
-if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
+if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber']) || !isset($_SESSION['lastname'])) {
     // Redirect to login page
     header("Location: ../Login/loginStaff.php");
     exit();
 }
 
 $userName = $_SESSION['user_name'];
-
-// Add idnumber to the session
 $idNumber = $_SESSION['idnumber'];
+$lastName = $_SESSION['lastname'];
 
 // Check if the login message should be displayed
 $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true;
@@ -69,7 +68,6 @@ $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_lo
 // Reset the session variable to avoid displaying the message on page refresh
 $_SESSION['show_login_message'] = false;
 ?>
-
 
 <body>
 
@@ -100,6 +98,12 @@ $_SESSION['show_login_message'] = false;
     <div id="validationPopup1" class="popup2">
         <p>Error Updating User!</p>
     </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup2" class="popup2">
+        <p>User already exist in the database. </p>
+    </div>
+
 
     <?php
     if (isset($_SESSION['success_delete'])) {
@@ -146,6 +150,18 @@ $_SESSION['show_login_message'] = false;
     });
     </script>';
         unset($_SESSION['error_update']);
+    }
+
+    if (isset($_SESSION['exists'])) {
+        echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("validationPopup2").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("validationPopup2").style.display = "none";
+        }, 3000);
+    });
+    </script>';
+        unset($_SESSION['exists']);
     }
     ?>
 
@@ -239,8 +255,10 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> ID Number <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Date Added <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Date Updated <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Added <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Datetime Updated <i
+                                            class='bx bx-sort'></i>
                                     </th>
                                     <th class="center"> Action </th>
                                 </tr>

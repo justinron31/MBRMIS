@@ -4,8 +4,9 @@ include 'db.php';
 session_start();
 // Set timezone to UTC +08:00
 date_default_timezone_set('Asia/Singapore');
+$response = [];
 
-function logUserActivity($conn, $action)
+function logUserActivity($conn, $action, $residentFirstName, $residentLastName)
 {
     // Assuming you store user data in session after they log in
     $staffId = $_SESSION['idnumber'];
@@ -13,16 +14,15 @@ function logUserActivity($conn, $action)
     $lastName = $_SESSION['lastname'];
     $role = $_SESSION['user_type'];
     $actionDate = date('Y-m-d H:i:s');
+    $type = 'Resident Record';
 
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate, type,ResidentFirstName,ResidentLastName) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssss", $staffId, $firstName, $lastName, $role, $action, $actionDate);
+    $stmt->bind_param("issssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type, $residentFirstName, $residentLastName);
     $stmt->execute();
 }
 
 
-
-$response = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Decode the JSON data
@@ -56,9 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->error) {
         $response[] = ['error' => $stmt->error];
-    } else if ($stmt->affected_rows > 0) {
+    } else if ($stmt->execute() === TRUE) {
         $response[] = ['success' => "Record updated successfully for resident: "];
-        logUserActivity($conn, 'Updated a resident record');
+        $residentFirstName = $_POST['rFirstName'];
+        $residentLastName = $_POST['rLastName'];
+        logUserActivity($conn, 'Update/Edit', $residentFirstName, $residentLastName);
     } else {
         $response[] = ['message' => "No records were updated in residentrecord."];
     }
@@ -80,7 +82,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $response[] = ['error' => $stmt->error];
             } else if ($stmt->affected_rows > 0) {
                 $response[] = ['success' => "Record updated successfully for household member: "];
-                logUserActivity($conn, 'Updated a household record');
             } else {
                 $response[] = ['message' => "No records were updated in household member."];
             }

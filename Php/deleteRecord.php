@@ -11,10 +11,11 @@ function logUserActivity($conn, $action)
     $lastName = $_SESSION['lastname'];
     $role = $_SESSION['user_type'];
     $actionDate = date('Y-m-d H:i:s');
+    $type = 'Resident Record';
 
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type) VALUES (?, ?, ?, ?, ?, ?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssss", $staffId, $firstName, $lastName, $role, $action, $actionDate);
+    $stmt->bind_param("issssss", $staffId, $firstName, $lastName, $role, $action, $actionDate,  $type);
     $stmt->execute();
 }
 

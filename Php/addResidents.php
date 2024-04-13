@@ -15,10 +15,11 @@ function logUserActivity($conn, $action)
     $lastName = $_SESSION['lastname'];
     $role = $_SESSION['user_type'];
     $actionDate = date('Y-m-d H:i:s');
+    $type = 'Resident Record';
 
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate) VALUES (?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type) VALUES (?, ?, ?, ?, ?, ?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssss", $staffId, $firstName, $lastName, $role, $action, $actionDate);
+    $stmt->bind_param("issssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type);
     $stmt->execute();
 }
 
@@ -82,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute the query and get the ID of the inserted record
     if ($stmt->execute()) {
         $resident_id = $conn->insert_id;
-        logUserActivity($conn, 'Inserted a resident');
+        logUserActivity($conn, 'Added a resident');
     } else {
         $_SESSION['invalid_insert'] = true;
         header("Location: ../Dashboard/ResidentsRecord.php");
@@ -106,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         $_SESSION['success_insert'] = true;
-        logUserActivity($conn, 'Inserted a household member');
+        logUserActivity($conn, 'Added a household member');
         header("Location: ../Dashboard/ResidentsRecord.php");
     } else {
         $_SESSION['invalid_insert'] = true;
@@ -135,7 +136,7 @@ for ($i = 1; $i <= $memberCount; $i++) {
 
     if ($stmt->execute()) {
         $_SESSION['success_insert'] = true;
-        logUserActivity($conn, 'Inserted a family member');
+        logUserActivity($conn, 'Added a household member');
         header("Location: ../Dashboard/ResidentsRecord.php");
     } else {
         $_SESSION['invalid_insert'] = true;
