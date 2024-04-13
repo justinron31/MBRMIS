@@ -139,22 +139,13 @@ $_SESSION['show_login_message'] = false;
                         <table id="reporting">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> ID Number </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Gender </th>
-                                    <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> Email </th>
-                                    <th title="Filter: Ascending/Descending"> Role </th>
-                                    <th class="center"> Account Status </th>
-                                    <th title="Filter: Ascending/Descending"> Last Login </th>
-                                    <th title="Filter: Ascending/Descending"> Date Created </th>
-                                    <th class="center"> Action </th>
+                                    <th title="Filter: Ascending/Descending"> Date</th>
+                                    <th title="Filter: Ascending/Descending"> Activity</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-
+                                
                                
                                 
 
