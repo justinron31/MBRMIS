@@ -3,6 +3,9 @@ session_start(); // Start the session
 
 include 'db.php';
 
+// Set timezone to UTC +08:00
+date_default_timezone_set('Asia/Singapore');
+
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

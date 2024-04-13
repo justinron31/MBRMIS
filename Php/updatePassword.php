@@ -2,6 +2,9 @@
 session_start();
 include 'db.php';
 
+date_default_timezone_set('Asia/Singapore');
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['changePassword'])) {
     $userId = $_SESSION['user_id']; // Assuming user_id is stored in the session
 

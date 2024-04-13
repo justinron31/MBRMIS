@@ -1,5 +1,8 @@
 <?php
 include 'db.php';
+
+date_default_timezone_set('Asia/Singapore');
+
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

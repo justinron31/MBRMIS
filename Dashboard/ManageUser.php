@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -21,10 +22,16 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
-    <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
-    <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
 
     <script src="./CSS,JS/Table.js" defer></script>
     <script src="./CSS,JS/Dashboard.js" defer></script>
@@ -108,12 +115,6 @@ $_SESSION['show_login_message'] = false;
 
                 <section class="table__header">
 
-                    <!-- SEARCH BAR-->
-                    <div class="input-group">
-                        <input type="search" placeholder="Search">
-                        <i class='bx bx-search-alt'></i>
-
-                    </div>
 
                     <div class="export__file">
 
@@ -144,7 +145,8 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport('manageUser')" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" onclick="toggleExport()" title="Export File"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -247,7 +249,8 @@ $_SESSION['show_login_message'] = false;
                                                 </div>
 
 
-                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
+                                                <button id="updateButton" class="updateButton"
+                                                    type="submit">Update</button>
 
 
                                         </form>
@@ -294,6 +297,57 @@ $_SESSION['show_login_message'] = false;
 </body>
 
 
-
+<script>
+new DataTable("#manageUser", {
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
+                    },
+                    autoPrint: true
+                }
+            ],
+        },
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
+            });
+        });
+    },
+});
+</script>
 
 </html>

@@ -21,11 +21,17 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
-    <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
-    <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
 
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
@@ -110,11 +116,6 @@ $_SESSION['show_login_message'] = false;
 
                 <section class="table__header">
 
-                    <!-- SEARCH BAR-->
-                    <div class="input-group">
-                        <input type="search" placeholder="Search">
-                        <i class='bx bx-search-alt'></i>
-                    </div>
 
                     <div class="export__file">
 
@@ -125,8 +126,8 @@ $_SESSION['show_login_message'] = false;
 
 
 
-                        <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnResidencyReport('residency')" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -173,7 +174,7 @@ $_SESSION['show_login_message'] = false;
                                 <?php
                                 include '../Php/db.php';
 
-                                $sql = "SELECT id, lastname, firstname, contact_number,purok, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Residency' ORDER BY datetime_created DESC";
+                                $sql = "SELECT id, lastname, firstname, contact_number, purok, pickup_datetime, purpose_description, voters_id_image, voters_id_number, datetime_created, tracking_number, file_status,remarks FROM file_request WHERE type='Certificate of Indigency' ORDER BY file_status ASC, datetime_created DESC";
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -248,7 +249,58 @@ $_SESSION['show_login_message'] = false;
         </div>
 </body>
 
-
+<script>
+new DataTable("#residency", {
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                    }
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':not(:nth-child(9)):not(:nth-child(13))'
+                    },
+                    autoPrint: true
+                }
+            ],
+        },
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
+            });
+        });
+    },
+});
+</script>
 
 
 </html>

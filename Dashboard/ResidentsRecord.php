@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -24,10 +23,16 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
-    <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
-    <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/residentsRecord.js" defer></script>
@@ -43,20 +48,21 @@
 
 
 <!--LOGIN PHP -->
+
 <?php
 session_start();
 
+
 // Check if the user is not logged in as admin or staff, or if idnumber is not set
-if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber'])) {
+if (!isset($_SESSION['user_name']) || ($_SESSION['user_type'] !== 'admin' && $_SESSION['user_type'] !== 'staff') || !isset($_SESSION['idnumber']) || !isset($_SESSION['lastname'])) {
     // Redirect to login page
     header("Location: ../Login/loginStaff.php");
     exit();
 }
 
 $userName = $_SESSION['user_name'];
-
-// Add idnumber to the session
 $idNumber = $_SESSION['idnumber'];
+$lastName = $_SESSION['lastname'];
 
 // Check if the login message should be displayed
 $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_login_message'] === true;
@@ -222,26 +228,19 @@ $_SESSION['show_login_message'] = false;
 
 
                 <section class="table__header">
-                    <!-- SEARCH BAR-->
-                    <div class="input-group">
-                        <input type="search" placeholder="Search">
-                        <i class='bx bx-search-alt'></i>
 
-                    </div>
 
                     <div class="export__file">
 
                         <div class="tableHead">
                             <h1 class="titleTable">Total Residents: <span id="totalReq3">0</span></h1>
                         </div>
-                        <button type="button" id="addResident" class="export__file-btn" style="margin-left:10px;"
-                            onclick="toggleResidentForm()">
+                        <button type="button" id="addResident" class="export__file-btn2" style="margin-left:10px;" onclick="toggleResidentForm()">
                             <i class='bx bxs-plus-circle'></i>
-                            <p class="exportTitle">Add Resident</p>
+                            <p class="exportTitle1">Add Resident</p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File"
-                            onclick="fnResidentReport('residentsRec')" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -270,16 +269,13 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Middlename <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Gender <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Age <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i
-                                            class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Household Number <i
-                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Household Number <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> NHTS Household <i class='bx bx-sort'></i>
                                     </th>
                                     <th title="Filter: Ascending/Descending"> IP or Non-IP <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member <i
-                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Category <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Date Inserted <i class='bx bx-sort'></i>
                                     </th>
@@ -293,6 +289,7 @@ $_SESSION['show_login_message'] = false;
                                 include '../Php/db.php';
 
                                 $sql = "SELECT * FROM residentrecord ORDER BY datecreated DESC";
+
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -354,26 +351,80 @@ $_SESSION['show_login_message'] = false;
 
 
 <script>
-$(document).ready(function() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var update = urlParams.get('update');
+    $(document).ready(function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var update = urlParams.get('update');
 
-    var popupId;
-    if (update === 'success') {
-        popupId = 'validationPopup6';
-    } else if (update === 'error') {
-        popupId = 'validationPopup7';
-    }
+        var popupId;
+        if (update === 'success') {
+            popupId = 'validationPopup6';
+        } else if (update === 'error') {
+            popupId = 'validationPopup7';
+        }
 
-    if (popupId) {
-        var popup = document.getElementById(popupId);
-        popup.style.display = 'block';
+        if (popupId) {
+            var popup = document.getElementById(popupId);
+            popup.style.display = 'block';
 
-        setTimeout(function() {
-            popup.style.display = 'none';
-        }, 3000);
-    }
-});
+            setTimeout(function() {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+    });
+</script>
+
+
+<script>
+    new DataTable("#residentsRec", {
+        paging: false,
+        searching: true,
+        info: false,
+        order: false,
+        layout: {
+            topStart: {
+                buttons: [{
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':not(:nth-child(16))'
+                        }
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':not(:nth-child(16))'
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        exportOptions: {
+                            columns: ':not(:nth-child(16))'
+                        },
+                        orientation: 'landscape',
+                        pageSize: 'A4'
+                    },
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':not(:nth-child(16))'
+                        },
+                        autoPrint: true
+                    }
+                ],
+            },
+        },
+        // Use a custom search input
+        initComplete: function() {
+            let input = document.querySelector(".input-group input");
+            this.api().columns().every(function() {
+                let that = this;
+                $(input).on('keyup change clear', function() {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+            });
+        },
+    });
 </script>
 
 </html>

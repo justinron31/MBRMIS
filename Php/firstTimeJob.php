@@ -3,6 +3,9 @@ session_start();
 
 include 'db.php';
 
+// Set timezone to UTC +08:00
+date_default_timezone_set('Asia/Singapore');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check the connection

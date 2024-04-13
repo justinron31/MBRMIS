@@ -14,6 +14,9 @@ use PHPMailer\PHPMailer\Exception;
 // Database connection code here
 include 'db.php';
 
+date_default_timezone_set('Asia/Singapore');
+
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the token from the form

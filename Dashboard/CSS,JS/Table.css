@@ -101,6 +101,7 @@ main.table {
   align-items: center;
   margin-bottom: 30px;
   margin-top: 15px;
+  justify-content: flex-end;
 }
 
 .titleTable {
@@ -112,7 +113,7 @@ main.table {
   color: white;
 }
 
-.table__header .input-group {
+/* .table__header .input-group {
   width: 35%;
   height: 40px;
   background-color: rgba(207, 207, 207, 0.333);
@@ -132,7 +133,7 @@ main.table {
 .table__header .input-group img {
   width: 1.2rem;
   height: 1.2rem;
-}
+} */
 
 .bx.bx-search-alt {
   margin-right: 10px;
@@ -323,7 +324,8 @@ thead th.asc span.icon-arrow {
   text-wrap: nowrap;
 }
 
-.export__file-btn {
+.export__file-btn,
+.export__file-btn2 {
   background-color: #377fb9;
   padding: 5px 15px;
   border-radius: 10px;
@@ -337,6 +339,11 @@ thead th.asc span.icon-arrow {
   transform: scale(1.05);
 }
 
+.export__file-btn2:hover {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+.export__file-btn2 i,
 .export__file-btn i,
 .export__file-btn p {
   display: inline-block;
@@ -344,6 +351,14 @@ thead th.asc span.icon-arrow {
   color: white;
   font-weight: 500;
   font-size: 20px;
+}
+
+.export__file-btn2 p {
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
 }
 
 .export__file-btn p {
@@ -683,4 +698,79 @@ thead th.asc span.icon-arrow {
 .viewMore1:hover {
   background-color: #e0574d;
   transform: scale(1.05);
+}
+
+/* ─── Export button ──────────────────────────────────────────────── */
+.dt-layout-cell.dt-start {
+  display: none;
+  position: absolute;
+  margin-top: 70px;
+  margin-right: 15px;
+  right: 17px;
+  top: 0;
+  justify-content: flex-end;
+  background-color: #377fb9;
+  border-radius: 10px;
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.236);
+}
+
+.dt-buttons {
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.236);
+  background-color: #377fb9;
+  border-radius: 10px;
+}
+
+.dt-buttons button {
+  background-color: #377fb9;
+  padding: 10px 15px;
+  cursor: pointer;
+  border: none;
+  color: white;
+  font-weight: 500;
+  border-radius: 10px;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.dt-buttons button:hover {
+  background-color: #336996;
+  transform: scale(1.05);
+}
+
+/* ─── Table Search ────────────────────────────────────────── */
+.dt-search label {
+  display: none;
+}
+
+.dt-input {
+  width: 30%;
+  height: 40px;
+  background-color: rgba(207, 207, 207, 0.333);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  border: none;
+  position: absolute;
+  z-index: 98;
+  top: 0;
+  margin-top: 27px;
+  padding: 10px;
+  outline: none;
+}
+
+.dt-input:hover {
+  width: 31%;
+  background-color: white;
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.236);
+  outline: none;
+}
+
+.dt-search input[type="search"]:hover {
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.236);
+  background-color: white;
+  outline: none;
 }

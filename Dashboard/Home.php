@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -55,24 +56,24 @@ $_SESSION['show_login_message'] = false;
 
     <!-- JavaScript for Popup -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            <?php if ($showLoginMessage) : ?>
-                var loginPopup = document.getElementById('loginPopup');
-                if (loginPopup) {
-                    loginPopup.style.display = 'block';
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($showLoginMessage) : ?>
+        var loginPopup = document.getElementById('loginPopup');
+        if (loginPopup) {
+            loginPopup.style.display = 'block';
 
-                    // Trigger the slide-up animation after 2 seconds
-                    setTimeout(function() {
-                        loginPopup.classList.add('slide-up');
-                    }, 1500);
+            // Trigger the slide-up animation after 2 seconds
+            setTimeout(function() {
+                loginPopup.classList.add('slide-up');
+            }, 1500);
 
-                    // Hide the popup after 3 seconds
-                    setTimeout(function() {
-                        loginPopup.style.display = 'none';
-                    }, 2000);
-                }
-            <?php endif; ?>
-        });
+            // Hide the popup after 3 seconds
+            setTimeout(function() {
+                loginPopup.style.display = 'none';
+            }, 2000);
+        }
+        <?php endif; ?>
+    });
     </script>
 
     <!-- Idle and logout modal-->
@@ -245,19 +246,19 @@ $_SESSION['show_login_message'] = false;
                     <div class="Req">
 
                         <div class="reqHead">
-                            
-                             <?php
+
+                            <?php
                                     include '../Php/db.php';
-                                    
+
                                     $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request ");
                                     $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job ");
-                                    
+
                                     $row1 = mysqli_fetch_assoc($result1);
                                     $row2 = mysqli_fetch_assoc($result2);
-                                    
+
                                     $totalAll = $row1['count'] + $row2['count'];
                                     ?>
-                            
+
                             <div class="card-nameR">TOTAL FILE REQUEST : (<?php echo $totalAll; ?>) </div>
 
                         </div>
@@ -337,13 +338,13 @@ $_SESSION['show_login_message'] = false;
 
                                 <?php
                                     include '../Php/db.php';
-                                    
+
                                     $result1 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM file_request WHERE file_status = 'Reviewing'");
                                     $result2 = mysqli_query($conn, "SELECT COUNT(*) AS count FROM first_time_job WHERE file_status = 'Reviewing'");
-                                    
+
                                     $row1 = mysqli_fetch_assoc($result1);
                                     $row2 = mysqli_fetch_assoc($result2);
-                                    
+
                                     $total = $row1['count'] + $row2['count'];
                                     ?>
 

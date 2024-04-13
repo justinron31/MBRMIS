@@ -3,15 +3,15 @@
 session_start();
 include 'db.php';
 
-date_default_timezone_set('Asia/Manila');
-
+// Set timezone to UTC +08:00
+date_default_timezone_set('Asia/Singapore');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['id'];
     $password = $_POST['password'];
 
     // Check the staff database using prepared statement
-    $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, pass,email, account_status, staff_role, last_login_timestamp, is_logged_in, email_verify FROM staff WHERE idnumber = ?");
+    $staffQuery = $conn->prepare("SELECT id, idnumber, firstname, lastname, pass, email, account_status, staff_role, last_login_timestamp, is_logged_in, email_verify FROM staff WHERE idnumber = ?");
     $staffQuery->bind_param("s", $username);
     $staffQuery->execute();
     $staffResult = $staffQuery->get_result();
@@ -39,11 +39,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $name = $row['firstname'];
+                $lastname = $row['lastname'];
                 $role = $row['staff_role'];
 
                 $_SESSION['show_login_message'] = true;
                 $_SESSION['user_id'] = $user_id;
                 $_SESSION['user_name'] = $name;
+                $_SESSION['lastname'] = $lastname;
                 $_SESSION['idnumber'] = $idnum;
                 $_SESSION['last_login_timestamp'] = $row['last_login_timestamp'];
 
@@ -54,6 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $updateLoginTimestamp = $conn->prepare("UPDATE staff SET last_login_timestamp = NOW(), is_logged_in = 1 WHERE id = ?");
                 $updateLoginTimestamp->bind_param("i", $user_id);
                 $updateLoginTimestamp->execute();
+
+                // Insert login activity into UserActivity table
+                $insertUserActivity = $conn->prepare("INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate) VALUES (?, ?, ?, ?, 'Logged in', NOW())");
+                $insertUserActivity->bind_param("isss", $user_id, $name, $lastname, $role);
+                $insertUserActivity->execute();
 
                 // Redirect based on user type
                 if ($_SESSION['user_type'] === 'admin' || $_SESSION['user_type'] === 'staff') {

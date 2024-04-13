@@ -34,7 +34,8 @@
 
              <div class="rInput">
                  <label for="Household">Household Number</label>
-                 <input type="text" id="Household1" name="Household" placeholder="Enter Household Number" oninput="validateNumberInput(this)" required>
+                 <input type="text" id="Household1" name="Household" placeholder="Enter Household Number"
+                     oninput="validateNumberInput(this)" required>
              </div>
 
          </div>
@@ -67,7 +68,8 @@
 
              <div class="rInput">
                  <label for="Gender">Gender</label>
-                 <select class="selectbox" id="bussSelect31" name="Gender" required onchange="changeFontColor('bussSelect3')">
+                 <select class="selectbox" id="bussSelect31" name="Gender" required
+                     onchange="changeFontColor('bussSelect3')">
                      <option value="">Select Gender</option>
                      <option value="Male">Male</option>
                      <option value="Female">Female</option>
@@ -75,8 +77,8 @@
              </div>
 
              <div class="rInput">
-                 <label for="VotersID" > Voter's ID </label>
-                  <input type="text" id="bussSelect41" name="VotersID"  placeholder="Leave it blank if None" >
+                 <label for="VotersID"> Voter's ID </label>
+                 <input type="text" id="bussSelect41" name="VotersID" placeholder="Leave it blank if None">
              </div>
 
              <!--<div class="rInput2">-->
@@ -90,7 +92,8 @@
 
              <div class="rInput">
                  <label for="NHTS">NHTS Household</label>
-                 <select class="selectbox" id="bussSelect11" name="NHTS" required onchange="changeFontColor('bussSelect1')">
+                 <select class="selectbox" id="bussSelect11" name="NHTS" required
+                     onchange="changeFontColor('bussSelect1')">
                      <option value="">Select</option>
                      <option value="NHTS-4Ps">NHTS-4Ps</option>
                      <option value="NHTS-Non-4Ps">NHTS-Non-4Ps</option>
@@ -100,23 +103,24 @@
 
              <div class="rInput">
                  <label for="IP">IP or Non-IP</label>
-                 <select class="selectbox" id="bussSelect81" name="IP" required onchange="changeFontColor('bussSelect8')">
+                 <select class="selectbox" id="bussSelect81" name="IP" required
+                     onchange="changeFontColor('bussSelect8')">
                      <option value="">Select</option>
                      <option value="IP">IP</option>
                      <option value="Non-IP">Non-IP</option>
                  </select>
              </div>
-             
-            <div class="rInput">
-                <label for="HH">HH Head PhilHealth Member</label>
-                <input type="text" id="bussSelect21" name="HH" pattern="[0-9\-]*" placeholder="Leave it blank if None" >
-            </div>
+
+             <div class="rInput">
+                 <label for="HH">HH Head PhilHealth Member</label>
+                 <input type="text" id="bussSelect21" name="HH" pattern="[0-9\-]*" placeholder="Leave it blank if None">
+             </div>
 
 
 
              <div class="rInput">
                  <label for="Category">Category</label>
-                 <select class="selectbox" id="Category11" name="Category" required >
+                 <select class="selectbox" id="Category11" name="Category" required>
                      <option value="">Select</option>
                      <option value="None">None</option>
                      <option value="FORMAL ECONOMY">FORMAL ECONOMY</option>
@@ -159,7 +163,8 @@
 
                          <div class="rInput">
                              <label for="mMaiden">Mother’s Maiden Name</label>
-                             <input type="text" id="textbox" name="mMaiden" placeholder="Enter Mother’s Maiden Name" required>
+                             <input type="text" id="textbox" name="mMaiden" placeholder="Enter Mother’s Maiden Name"
+                                 required>
                          </div>
 
                      </div>
@@ -168,7 +173,8 @@
 
                          <div class="rInput">
                              <label for="mRelationship">Relationship</label>
-                             <select class="selectbox" id="bussSelect6" name="mRelationship" required onchange="changeToTextbox2(this)">
+                             <select class="selectbox" id="bussSelect6" name="mRelationship" required
+                                 onchange="changeToTextbox2(this)">
                                  <option value="">Select Relationship</option>
                                  <option value="Head">Head</option>
                                  <option value="Spouse">Spouse</option>
@@ -180,7 +186,8 @@
 
                          <div class="rInput">
                              <label for="mGender">Gender</label>
-                             <select class="selectbox" id="bussSelect7" name="mGender" required onchange="changeFontColor('bussSelect7')">
+                             <select class="selectbox" id="bussSelect7" name="mGender" required
+                                 onchange="changeFontColor('bussSelect7')">
                                  <option value="">Select</option>
                                  <option value="Male">Male</option>
                                  <option value="Female">Female</option>
@@ -192,7 +199,8 @@
 
                          <div class="rInput">
                              <label for="mAge">Age</label>
-                             <input type="text" id="textbox" name="mAge" placeholder="Enter Age" oninput="validateAge(this)" required>
+                             <input type="text" id="textbox" name="mAge" placeholder="Enter Age"
+                                 oninput="validateAge(this)" required>
                          </div>
 
                      </div>
@@ -200,7 +208,8 @@
                      <div class="rform1">
                          <div class="rInput">
                              <label for="mRisk">Classification by Age/Health Risk</label>
-                             <select class="selectbox" id="bussSelect9" name="mRisk" required onchange="changeFontColor('bussSelect9')">
+                             <select class="selectbox" id="bussSelect9" name="mRisk" required
+                                 onchange="changeFontColor('bussSelect9')">
                                  <option value="">Select</option>
                                  <option value="Male">Newborn</option>
                                  <option value="Female">Infant (29days-11 months old)</option>
@@ -220,7 +229,8 @@
 
                          <div class="rInput">
                              <label for="mQuarter">Quarter</label>
-                             <select class="selectbox" id="bussSelect10" name="mQuarter" required onchange="changeFontColor('bussSelect10')">
+                             <select class="selectbox" id="bussSelect10" name="mQuarter" required
+                                 onchange="changeFontColor('bussSelect10')">
                                  <option value="">Select Quarter</option>
                                  <option value="First">First</option>
                                  <option value="Second">Second</option>
@@ -239,11 +249,11 @@
              <?php
                 if ($_SESSION['user_type'] === 'admin') {
                 ?>
-                 <button class="rSubmit1">DELETE</button>
+             <button class="rSubmit1">DELETE</button>
              <?php
                 }
                 ?>
-             <button type="submit" class="rSubmit2">SUBMIT</button>
+             <button type="submit" class="rSubmit2">SAVE</button>
              <button class="rSubmit" onclick="toggleAndPopulateForms()">EDIT</button>
          </div>
 
@@ -252,10 +262,10 @@
 
  </div>
  </div>
- 
- 
-<script>
-    // Get references to the input and select elements
+
+
+ <script>
+// Get references to the input and select elements
 var inputHH = document.getElementById("bussSelect21");
 var selectCategory = document.getElementById("Category11");
 
@@ -276,5 +286,4 @@ inputHH.addEventListener("input", function() {
         selectCategory.setAttribute("required", "required");
     }
 });
-
-</script> 
+ </script>

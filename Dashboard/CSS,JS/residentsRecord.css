@@ -265,6 +265,22 @@
   text-decoration: underline;
 }
 
+.addMember7 {
+  color: #377eb7;
+  cursor: pointer;
+  font-size: 0.8rem;
+  width: fit-content;
+}
+
+.addMember7:hover {
+  text-decoration: underline;
+}
+
+.addMember7:active {
+  text-decoration: underline;
+  font-weight: 800;
+}
+
 .addMember2 {
   display: none;
 }

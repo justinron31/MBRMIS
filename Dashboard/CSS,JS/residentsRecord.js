@@ -132,6 +132,7 @@ function hideResidentForm() {
 var memberCount = 0;
 function addMember() {
   memberCount++;
+  document.querySelector(".addMember7").style.display = "none";
   var newMember = document.createElement("div");
   newMember.className = "addmember";
   newMember.innerHTML = `
@@ -249,6 +250,7 @@ function addMember() {
 }
 
 function removeMember(member) {
+  document.querySelector(".addMember7").style.display = "block";
   member.remove();
   memberCount--;
 

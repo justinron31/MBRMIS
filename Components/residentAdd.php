@@ -37,7 +37,8 @@
 
              <div class="rInput">
                  <label for="Household">Household Number</label>
-                 <input type="text" id="textbox" name="Household" placeholder="Enter Household Number" oninput="validateNumberInput(this)" required>
+                 <input type="text" id="textbox" name="Household" placeholder="Enter Household Number"
+                     oninput="validateNumberInput(this)" required>
              </div>
 
          </div>
@@ -65,12 +66,14 @@
 
              <div class="rInput">
                  <label for="Age">Age</label>
-                 <input type="text" id="textbox" name="Age" placeholder="Enter Age" oninput="validateAge(this)" required>
+                 <input type="text" id="textbox" name="Age" placeholder="Enter Age" oninput="validateAge(this)"
+                     required>
              </div>
 
              <div class="rInput">
                  <label for="Gender">Gender</label>
-                 <select class="selectbox" id="bussSelect3" name="Gender" required onchange="changeFontColor('bussSelect3')">
+                 <select class="selectbox" id="bussSelect3" name="Gender" required
+                     onchange="changeFontColor('bussSelect3')">
                      <option value="">Select Gender</option>
                      <option value="Male">Male</option>
                      <option value="Female">Female</option>
@@ -79,7 +82,7 @@
 
              <div class="rInput">
                  <label for="VotersID">Voter's ID</label>
-                 <select class="selectbox" id="bussSelect4" name="VotersID" required onchange="changeToTextbox1(this)" >
+                 <select class="selectbox" id="bussSelect4" name="VotersID" required onchange="changeToTextbox1(this)">
                      <option value="">Select</option>
                      <option value="None">No</option>
                      <option value="Yes">Yes</option>
@@ -97,7 +100,8 @@
 
              <div class="rInput">
                  <label for="NHTS">NHTS Household</label>
-                 <select class="selectbox" id="bussSelect1" name="NHTS" required onchange="changeFontColor('bussSelect1')">
+                 <select class="selectbox" id="bussSelect1" name="NHTS" required
+                     onchange="changeFontColor('bussSelect1')">
                      <option value="">Select</option>
                      <option value="NHTS-4Ps">NHTS-4Ps</option>
                      <option value="NHTS-Non-4Ps">NHTS-Non-4Ps</option>
@@ -107,7 +111,8 @@
 
              <div class="rInput">
                  <label for="IP">IP or Non-IP</label>
-                 <select class="selectbox" id="bussSelect8" name="IP" required onchange="changeFontColor('bussSelect8')">
+                 <select class="selectbox" id="bussSelect8" name="IP" required
+                     onchange="changeFontColor('bussSelect8')">
                      <option value="">Select</option>
                      <option value="IP">IP</option>
                      <option value="Non-IP">Non-IP</option>
@@ -126,7 +131,8 @@
 
              <div class="rInput">
                  <label for="Category">Category</label>
-                 <select class="selectbox" id="Category" name="Category" required disabled onchange="changeToTextbox(this)">
+                 <select class="selectbox" id="Category" name="Category" required disabled
+                     onchange="changeToTextbox(this)">
                      <option value="">Select</option>
                      <option value="FORMAL ECONOMY">FORMAL ECONOMY</option>
                      <option value="INFORMAL ECONOMY">INFORMAL ECONOMY</option>
@@ -173,7 +179,8 @@
 
                  <div class="rInput">
                      <label for="mRelationship">Relationship</label>
-                     <select class="selectbox" id="bussSelect6" name="mRelationship" required onchange="changeToTextbox2(this)">
+                     <select class="selectbox" id="bussSelect6" name="mRelationship" required
+                         onchange="changeToTextbox2(this)">
                          <option value="">Select Relationship</option>
                          <option value="Head">Head</option>
                          <option value="Spouse">Spouse</option>
@@ -185,7 +192,8 @@
 
                  <div class="rInput">
                      <label for="mGender">Gender</label>
-                     <select class="selectbox" id="bussSelect7" name="mGender" required onchange="changeFontColor('bussSelect7')">
+                     <select class="selectbox" id="bussSelect7" name="mGender" required
+                         onchange="changeFontColor('bussSelect7')">
                          <option value="">Select</option>
                          <option value="Male">Male</option>
                          <option value="Female">Female</option>
@@ -197,7 +205,8 @@
 
                  <div class="rInput">
                      <label for="mAge">Age</label>
-                     <input type="text" id="textbox" name="mAge" placeholder="Enter Age" oninput="validateAge(this)" required>
+                     <input type="text" id="textbox" name="mAge" placeholder="Enter Age" oninput="validateAge(this)"
+                         required>
                  </div>
 
              </div>
@@ -205,7 +214,8 @@
              <div class="rform1">
                  <div class="rInput">
                      <label for="mRisk">Classification by Age/Health Risk</label>
-                     <select class="selectbox" id="bussSelect9" name="mRisk" required onchange="changeFontColor('bussSelect9')">
+                     <select class="selectbox" id="bussSelect9" name="mRisk" required
+                         onchange="changeFontColor('bussSelect9')">
                          <option value="">Select</option>
                          <option value="Newborn">Newborn</option>
                          <option value="Infant (29days-11 months old)">Infant (29days-11 months old)</option>
@@ -226,7 +236,8 @@
 
                  <div class="rInput">
                      <label for="mQuarter">Quarter</label>
-                     <select class="selectbox" id="bussSelect10" name="mQuarter" required onchange="changeFontColor('bussSelect10')">
+                     <select class="selectbox" id="bussSelect10" name="mQuarter" required
+                         onchange="changeFontColor('bussSelect10')">
                          <option value="">Select Quarter</option>
                          <option value="First">First</option>
                          <option value="Second">Second</option>
@@ -242,8 +253,8 @@
              <span>+ Add Household Member</span>
          </div>
 
-         <div class="addMember" onclick="remove()">
-             <span>No HouseHold Member</span>
+         <div class="addMember7" onclick="remove(); changeText(); toggleDisplay();">
+             <span> No HouseHold Member</span>
          </div>
 
          <div class="rButcon">
@@ -254,18 +265,39 @@
  </div>
 
  <script>
-   function remove() {
-    // Get the .addMember div
+function remove() {
+    // Your existing code
     var memberDiv = document.querySelector('.addmember');
-
-    // Toggle the disabled state of form inputs inside the div
     if (memberDiv) {
         var inputs = memberDiv.querySelectorAll('input, select, textarea');
         inputs.forEach(function(input) {
             input.disabled = !input.disabled;
-            // Clear the value of the input fields
             input.value = '';
         });
+    }
+}
+
+function changeText() {
+    var memberDiv = document.querySelector('.addMember7');
+    if (memberDiv) {
+        var span = memberDiv.querySelector('span');
+        if (span.textContent.trim() === 'No HouseHold Member') {
+            span.textContent = '+ Add household Member';
+        } else {
+            span.textContent = 'No HouseHold Member';
+        }
+    }
+}
+
+// New function to handle display property
+function toggleDisplay() {
+    var memberDiv = document.querySelector('.addMember');
+    if (memberDiv) {
+        if (memberDiv.style.display !== 'none') {
+            memberDiv.style.display = 'none';
+        } else {
+            memberDiv.style.display = 'block';
+        }
     }
 }
  </script>

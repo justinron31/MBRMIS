@@ -1,7 +1,8 @@
 <?php
 include "db.php";
-// Set the default timezone to Philippines
-date_default_timezone_set('Asia/Manila');
+
+// Set timezone to UTC +08:00
+date_default_timezone_set('Asia/Singapore');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the token from the AJAX request

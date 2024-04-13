@@ -21,11 +21,16 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.1/exceljs.min.js"></script>
-    <script src="node_modules/xlsx/dist/xlsx.full.min.js"></script>
-    <script src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
 
     <script src="../Dashboard/CSS,JS/Dashboard.js" defer></script>
     <script src="../Dashboard/CSS,JS/Table.js" defer></script>
@@ -107,24 +112,18 @@ $_SESSION['show_login_message'] = false;
             <!--TABLE-->
             <main class="table" id="customers_table">
 
-               
-                  <section class="table__header">
 
-                    <!-- SEARCH BAR-->
-                    <div class="input-group">
-                        <input type="search" placeholder="Search">
-                        <i class='bx bx-search-alt'></i>
+                <section class="table__header">
 
-                    </div>
 
                     <div class="export__file">
 
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="fnManageReport('reporting')" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
-                        
+
                     </div>
 
                 </section>
@@ -139,32 +138,56 @@ $_SESSION['show_login_message'] = false;
                         <table id="reporting">
                             <thead>
                                 <tr>
-                                    <th title="Filter: Ascending/Descending"> ID Number </th>
-                                    <th title="Filter: Ascending/Descending"> Firstname </th>
-                                    <th title="Filter: Ascending/Descending"> Lastname </th>
-                                    <th title="Filter: Ascending/Descending"> Gender </th>
-                                    <th title="Filter: Ascending/Descending"> Age </th>
-                                    <th title="Filter: Ascending/Descending"> Email </th>
-                                    <th title="Filter: Ascending/Descending"> Role </th>
-                                    <th class="center"> Account Status </th>
-                                    <th title="Filter: Ascending/Descending"> Last Login </th>
-                                    <th title="Filter: Ascending/Descending"> Date Created </th>
-                                    <th class="center"> Action </th>
+
+                                    <th title="Filter: Ascending/Descending"> ID Number <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Role <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Action Type <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> File Type <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> File Reference Number <i class='bx bx-sort'></i>
+                                    </th>
+                                    <th title="Filter: Ascending/Descending"> Date <i class='bx bx-sort'></i></th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
-                               
-                                
+                                <?php
+                                include '../Php/db.php';
 
+                                // Fetch data from UserActivity table
+                                $query = $conn->prepare("SELECT * FROM UserActivity ORDER BY ActionDate DESC");
+                                $query->execute();
+                                $result = $query->get_result();
+                                ?>
+                                <?php while ($row = $result->fetch_assoc()) : ?>
+                                    <tr>
+                                        <td><strong><?php echo $row['StaffID']; ?></strong></td>
+                                        <td><?php echo $row['FirstName']; ?></td>
+                                        <td><?php echo $row['LastName']; ?></td>
+                                        <td><?php echo ucfirst($row['Role']); ?></td>
+                                        <td><?php echo $row['Action']; ?></td>
+                                        <td><?php echo $row['type'] ? $row['type'] : 'None'; ?></td>
+                                        <td><?php echo $row['request_tracking_number'] ? $row['request_tracking_number'] : 'None'; ?>
+                                        </td>
+                                        <td title="<?= date("l", strtotime($row["ActionDate"])) ?>">
+                                            <?= date("F j, Y, g:i a", strtotime($row["ActionDate"])) ?></td>
+                                    </tr>
+                                <?php endwhile; ?>
+
+                                <?php
+                                $conn->close();
+                                ?>
 
                             </tbody>
                         </table>
                     </div>
                 </section>
-               
-               
+
+
             </main>
 
 
@@ -172,6 +195,45 @@ $_SESSION['show_login_message'] = false;
 </body>
 
 
-
+<script>
+    new DataTable("#reporting", {
+        paging: false,
+        searching: true,
+        info: false,
+        order: false,
+        layout: {
+            topStart: {
+                buttons: [{
+                        extend: 'excel'
+                    },
+                    {
+                        extend: 'csv'
+                    },
+                    {
+                        extend: 'pdf',
+                        orientation: 'landscape',
+                        pageSize: 'A4'
+                    },
+                    {
+                        extend: 'print',
+                        autoPrint: true
+                    }
+                ],
+            },
+        },
+        // Use a custom search input
+        initComplete: function() {
+            let input = document.querySelector(".input-group input");
+            this.api().columns().every(function() {
+                let that = this;
+                $(input).on('keyup change clear', function() {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
+            });
+        },
+    });
+</script>
 
 </html>

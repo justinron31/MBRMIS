@@ -11,6 +11,8 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 include "../Php/db.php";
 
+
+
 if (isset($_GET["email"])) {
     $email = $_GET['email'];
 

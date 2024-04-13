@@ -1,28 +1,46 @@
 <?php
 
 include 'db.php';
-
 session_start();
+// Set timezone to UTC +08:00
+date_default_timezone_set('Asia/Singapore');
+
+function logUserActivity($conn, $action)
+{
+    // Assuming you store user data in session after they log in
+    $staffId = $_SESSION['idnumber'];
+    $firstName = $_SESSION['user_name'];
+    $lastName = $_SESSION['lastname'];
+    $role = $_SESSION['user_type'];
+    $actionDate = date('Y-m-d H:i:s');
+
+    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate) VALUES (?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("isssss", $staffId, $firstName, $lastName, $role, $action, $actionDate);
+    $stmt->execute();
+}
+
+
+
 $response = [];
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Decode the JSON data
     $_POST = json_decode(file_get_contents('php://input'), true);
 
+    // Check if rVotersID is empty, None, none, or N/A
+    if (empty($_POST['rVotersID']) || strtolower($_POST['rVotersID']) == 'none' || strtolower($_POST['rVotersID']) == 'n/a') {
+        $rVoterStatus = "Non-voter";
+        $_POST['rVotersID'] = "None";
+    } else {
+        $rVoterStatus = "Voter";
+    }
 
-// Check if rVotersID is empty, None, none, or N/A
-if (empty($_POST['rVotersID']) || strtolower($_POST['rVotersID']) == 'none' || strtolower($_POST['rVotersID']) == 'n/a') {
-    $rVoterStatus = "Non-voter";
-    $_POST['rVotersID'] = "None";
-} else {
-    $rVoterStatus = "Voter";
-}
-
- // Check if rHHHeadPhilHealthMember is empty, None, none, or N/A
+    // Check if rHHHeadPhilHealthMember is empty, None, none, or N/A
     if (empty($_POST['rHHHeadPhilHealthMember']) || strtolower($_POST['rHHHeadPhilHealthMember']) == 'none' || strtolower($_POST['rHHHeadPhilHealthMember']) == 'n/a') {
         $_POST['rHHHeadPhilHealthMember'] = "No";
     }
-    
+
     // Check if rCategory is empty
     if (empty($_POST['rCategory'])) {
         $_POST['rCategory'] = "None";
@@ -40,6 +58,7 @@ if (empty($_POST['rVotersID']) || strtolower($_POST['rVotersID']) == 'none' || s
         $response[] = ['error' => $stmt->error];
     } else if ($stmt->affected_rows > 0) {
         $response[] = ['success' => "Record updated successfully for resident: "];
+        logUserActivity($conn, 'Updated a resident record');
     } else {
         $response[] = ['message' => "No records were updated in residentrecord."];
     }
@@ -61,6 +80,7 @@ if (empty($_POST['rVotersID']) || strtolower($_POST['rVotersID']) == 'none' || s
                 $response[] = ['error' => $stmt->error];
             } else if ($stmt->affected_rows > 0) {
                 $response[] = ['success' => "Record updated successfully for household member: "];
+                logUserActivity($conn, 'Updated a household record');
             } else {
                 $response[] = ['message' => "No records were updated in household member."];
             }

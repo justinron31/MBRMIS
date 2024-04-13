@@ -2,6 +2,9 @@
 // Include your database connection file here
 include 'db.php';
 
+// Set timezone to UTC +08:00
+date_default_timezone_set('Asia/Singapore');
+
 if (isset($_POST['id'])) {
     $id = $_POST['id'];
 

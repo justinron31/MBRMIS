@@ -112,34 +112,34 @@
                       <?php
                         if ($_SESSION['user_type'] === 'admin') {
                         ?>
-                      <ul class="menu_item">
-                          <div class="menu_title flex">
-                              <span class="title">Others</span>
-                              <span class="line"></span>
-                          </div>
+                          <ul class="menu_item">
+                              <div class="menu_title flex">
+                                  <span class="title">Others</span>
+                                  <span class="line"></span>
+                              </div>
 
-                          <li class="item">
-                              <a href="../Dashboard/ManageUser.php" class="link flex">
-                                  <i class='bx bxs-user-detail'></i>
-                                  <span>Manage System User</span>
-                              </a>
-                          </li>
+                              <li class="item">
+                                  <a href="../Dashboard/ManageUser.php" class="link flex">
+                                      <i class='bx bxs-user-detail'></i>
+                                      <span>Manage System User</span>
+                                  </a>
+                              </li>
 
-                          <li class="item">
-                              <a href="../Dashboard/Staff.php" class="link flex">
-                                  <i class='bx bx-street-view'></i>
-                                  <span>Staff Database</span>
-                              </a>
-                          </li>
+                              <li class="item">
+                                  <a href="../Dashboard/Staff.php" class="link flex">
+                                      <i class='bx bx-street-view'></i>
+                                      <span>Staff Database</span>
+                                  </a>
+                              </li>
 
 
-                          <li class="item ">
-                              <a href="../Dashboard/Reporting.php" class="link flex">
-                                  <i class='bx bxs-report'></i>
-                                  <span>Reporting View</span>
-                              </a>
-                          </li>
-                      </ul>
+                              <li class="item ">
+                                  <a href="../Dashboard/Reporting.php" class="link flex">
+                                      <i class='bx bxs-report'></i>
+                                      <span>Reporting View</span>
+                                  </a>
+                              </li>
+                          </ul>
                       <?php
                         }
                         ?>
@@ -173,158 +173,72 @@
 
 
           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
           <script>
-          $(document).ready(function() {
-              var audio = new Audio('../audio/notif.mp3');
+              $(document).ready(function() {
+                  var audio = new Audio('../audio/notif.mp3');
 
-              function fetchCount() {
-                  $.ajax({
-                      url: '../Php/fetchBadge.php',
-                      type: 'GET',
-                      success: function(response) {
-                          var data = JSON.parse(response);
-                          if (data.count > 0) {
-                              $('.badge').css('display', 'inline-block');
-                              $('.badge').text(data.count);
-
-                              if (data.notifCount > 0) {
-                                  audio.play();
+                  function fetchCount(url, badgeClass) {
+                      $.ajax({
+                          url: url,
+                          type: 'GET',
+                          success: function(response) {
+                              var data = JSON.parse(response);
+                              var count = data.count;
+                              if (badgeClass === '.badge3') {
+                                  count = parseInt(data.count1) + parseInt(data.count2);
                               }
-                          } else {
-                              $('.badge').css('display', 'none');
-                          }
-                      }
-                  });
-              }
+                              if (count > 0) {
+                                  $(badgeClass).css('display', 'inline-block');
+                                  $(badgeClass).text(count);
 
-              fetchCount();
-              setInterval(fetchCount, 1000);
-          });
-          </script>
-
-          <script>
-          $(document).ready(function() {
-              var audio = new Audio('../audio/notif.mp3');
-
-              function fetchCount() {
-                  $.ajax({
-                      url: '../Php/fetchBadge1.php',
-                      type: 'GET',
-                      success: function(response) {
-                          var data = JSON.parse(response);
-                          if (data.count > 0) {
-                              $('.badge1').css('display', 'inline-block');
-                              $('.badge1').text(data.count);
-
-                              if (data.notifCount > 0) {
-                                  audio.play();
+                                  if (data.notifCount > 0) {
+                                      audio.play();
+                                  }
+                              } else {
+                                  $(badgeClass).css('display', 'none');
                               }
-                          } else {
-                              $('.badge1').css('display', 'none');
                           }
-                      }
-                  });
-              }
+                      });
+                  }
 
-              fetchCount();
-              setInterval(fetchCount, 1000);
-          });
-          </script>
+                  fetchCount('../Php/fetchBadge.php', '.badge');
+                  fetchCount('../Php/fetchBadge1.php', '.badge1');
+                  fetchCount('../Php/fetchBadge2.php', '.badge2');
+                  fetchCount('../Php/fetchBadge3.php', '.badge3');
 
-          <script>
-          $(document).ready(function() {
-              var audio = new Audio('../audio/notif.mp3');
-
-              function fetchCount() {
-                  $.ajax({
-                      url: '../Php/fetchBadge2.php',
-                      type: 'GET',
-                      success: function(response) {
-                          var data = JSON.parse(response);
-                          if (data.count > 0) {
-                              $('.badge2').css('display', 'inline-block');
-                              $('.badge2').text(data.count);
-
-                              if (data.notifCount > 0) {
-                                  audio.play();
-                              }
-                          } else {
-                              $('.badge2').css('display', 'none');
-                          }
-                      }
-                  });
-              }
-
-              fetchCount();
-              setInterval(fetchCount, 1000);
-          });
-          </script>
-
-          <script>
-          $(document).ready(function() {
-              var audio = new Audio('../audio/notif.mp3');
-
-              function fetchCount() {
-                  $.ajax({
-                      url: '../Php/fetchBadge3.php',
-                      type: 'GET',
-                      success: function(response) {
-                          var data = JSON.parse(response);
-                          var count1 = parseInt(data.count1);
-                          var count2 = parseInt(data.count2);
-                          var totalCount = count1 + count2;
-                          if (totalCount > 0) {
-                              $('.badge3').css('display', 'inline-block');
-                              $('.badge3').text(totalCount);
-
-                              if (data.notifCount > 0) {
-                                  audio.play();
-                              }
-                          } else {
-                              $('.badge3').css('display', 'none');
-                          }
-                      }
-                  });
-              }
-
-              fetchCount();
-              setInterval(fetchCount, 1000);
-          });
-          </script>
-
-
-          <script>
-          $(document).ready(function() {
-              // Get saved 'active' item from localStorage
-              var activeItem = localStorage.getItem('activeItem');
-
-              // If there is an 'active' item saved, add 'active' class to it
-              if (activeItem) {
-                  $(activeItem).addClass('active');
-              }
-
-              // Handle click event on '.item' class
-              $('.item').click(function() {
-                  // Remove 'active' class from all '.item' elements
-                  $('.item').removeClass('active');
-
-                  // Add 'active' class to the clicked '.item' element
-                  $(this).addClass('active');
-
-                  // Save 'active' item to localStorage
-                  localStorage.setItem('activeItem', '.item:contains("' + $(this).text() + '")');
+                  setInterval(function() {
+                      fetchCount('../Php/fetchBadge.php', '.badge');
+                      fetchCount('../Php/fetchBadge1.php', '.badge1');
+                      fetchCount('../Php/fetchBadge2.php', '.badge2');
+                      fetchCount('../Php/fetchBadge3.php', '.badge3');
+                  }, 1000);
               });
 
-              // If the activeItem is not set, set the dashboard as the active item
-              if (!activeItem) {
-                  // Remove 'active' class from all '.item' elements
-                  $('.item').removeClass('active');
+              $(document).ready(function() {
 
-                  // Add 'active' class to the dashboard tab
-                  $('#overview-item').addClass('active');
+                  var activeItem = localStorage.getItem('activeItem');
 
-                  // Save 'active' item to localStorage
-                  localStorage.setItem('activeItem', 'overview-item');
-              }
-          });
+                  if (activeItem) {
+                      $(activeItem).parent().addClass('active');
+                  }
+
+                  $('.item').click(function() {
+
+                      $('.item').removeClass('active');
+
+                      $(this).addClass('active');
+
+                      localStorage.setItem('activeItem', '.link:contains("' + $(this).find('span').last()
+                          .text() + '")');
+                  });
+
+                  if (!activeItem) {
+                      $('.item').removeClass('active');
+
+                      $('#overview-item').addClass('active');
+
+                      localStorage.setItem('activeItem', 'overview-item');
+                  }
+              });
           </script>
