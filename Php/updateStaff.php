@@ -8,7 +8,7 @@ date_default_timezone_set('Asia/Singapore');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-function logUserActivity($conn, $action)
+function logUserActivity($conn, $action, $idnumber)
 {
     // Assuming you store user data in session after they log in
     $staffId = $_SESSION['idnumber'];
@@ -18,9 +18,9 @@ function logUserActivity($conn, $action)
     $actionDate = date('Y-m-d H:i:s');
     $type = 'Staff Database';
 
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type) VALUES (?, ?, ?, ?, ?, ?,?)";
+    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type,request_tracking_number) VALUES (?, ?, ?, ?, ?, ?,?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type);
+    $stmt->bind_param("isssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type, $idnumber);
 
     if (!$stmt->execute()) {
         error_log("Error logging user activity: " . $stmt->error);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Execute the SQL statement
     if ($stmt->execute()) {
-        logUserActivity($conn, "Updated staff information");
+        logUserActivity($conn, "Updated staff information", $idnumber);
         $_SESSION['success_update'] = true;
         header('Location: ../Dashboard/staff.php');
         exit;

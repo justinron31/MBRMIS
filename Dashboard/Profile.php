@@ -22,9 +22,9 @@
 
     <!--JAVASCRIPT-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="./CSS,JS/Table.js" defer></script>
+    <script src="./CSS,JS/Table.js" defer></script>
     <script src="./CSS,JS/Dashboard.js" defer></script>
-  
+
 
 
     <title>MAKILING BRMI SYSTEM - Profile</title>
@@ -157,7 +157,7 @@ if (isset($_SESSION['password_updated'])) {
             ?>
 
             <main class="table1" id="customers_table">
-                <section class="table__header">
+                <section class="table__header1">
 
                     <h1 class="profileTitle">PROFILE INFORMATION </h1>
 
@@ -275,7 +275,7 @@ if (isset($_SESSION['password_updated'])) {
                 <?php endif; ?>
         </div>
 
-           
+
     </div>
 </body>
 

@@ -1,8 +1,24 @@
 <?php
 include 'db.php';
-
+session_start();
 date_default_timezone_set('Asia/Singapore');
 
+function logUserActivity($conn, $action, $idnumber)
+{
+    // Assuming you store user data in session after they log in
+    $staffId = $_SESSION['idnumber'];
+    $firstName = $_SESSION['user_name'];
+    $lastName = $_SESSION['lastname'];
+    $role = $_SESSION['user_type'];
+    $actionDate = date('Y-m-d H:i:s');
+    $type = 'Staff Information';
+    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type,request_tracking_number) VALUES (?, ?, ?, ?, ?, ?,?,?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type, $idnumber);
+    if (!$stmt->execute()) {
+        error_log("Error logging user activity: " . $stmt->error);
+    }
+}
 
 header('Content-Type: application/json');
 
@@ -19,6 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     if ($updateResult) {
+        // Log user activity
+        logUserActivity($conn, "Updated staff account status and role", $userId);
+
         // Fetch the updated data
         $fetchSql = "SELECT * FROM staff WHERE idnumber = ?";
         $stmt = $conn->prepare($fetchSql);

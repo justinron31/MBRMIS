@@ -18,7 +18,7 @@ function logUserActivity($conn, $action, $residentFirstName, $residentLastName)
 
     $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate, type,ResidentFirstName,ResidentLastName) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type, $residentFirstName, $residentLastName);
+    $stmt->bind_param("sssssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type, $residentFirstName, $residentLastName);
     $stmt->execute();
 }
 

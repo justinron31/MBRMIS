@@ -15,7 +15,7 @@ function logUserActivity($conn, $action, $trackingNumber)
 
     $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate, request_tracking_number) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $trackingNumber);
+    $stmt->bind_param("sssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $trackingNumber);
 
     if (!$stmt->execute()) {
         error_log("Error logging user activity: " . $stmt->error);

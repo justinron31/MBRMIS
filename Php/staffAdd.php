@@ -33,7 +33,7 @@ function logUserActivity($conn, $action)
     $lastName = $_SESSION['lastname'];
     $role = $_SESSION['user_type'];
     $actionDate = date('Y-m-d H:i:s');
-    $type = 'Added Staff Information';
+    $type = 'Staff Information';
 
     $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type) VALUES (?, ?, ?, ?, ?, ?,?)";
     $stmt = $conn->prepare($sql);
@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Execute the statement
     if ($stmt->execute()) {
-        logUserActivity($conn, "Insert staff information");
+        logUserActivity($conn, "Added staff information");
         $_SESSION['success_delete'] = true;
         header('Location: ../Dashboard/staff.php');
         exit;
