@@ -3,13 +3,13 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2024 at 07:31 PM
+-- Generation Time: Apr 14, 2024 at 06:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+08:00";
+SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -60,7 +60,7 @@ INSERT INTO `familymember` (`id`, `resident_id`, `mLastName`, `mFirstName`, `mMo
 (76, 68, 'Aquino', 'Michael', 'Fernandez', 'Son', 'Male', 10, 'Male', 'Second', '2024-04-02 16:37:28', NULL),
 (77, 69, 'null', 'null', 'null', '', '', 0, '', '', '2024-04-03 00:39:25', '2024-04-05 17:28:56'),
 (90, 82, 'Guia', 'Luisa', 'Chavez', '', 'Female', 35, 'Adolescent-Pregnant', 'Second', '2024-04-06 15:06:14', '2024-04-13 22:52:42'),
-(102, 94, 'Galang', 'Justin Ron', 'bubbles', 'Spouse', 'Male', 21, 'Newborn', 'First', '2024-04-13 14:36:26', '2024-04-13 23:04:38');
+(107, 98, 'Galang', 'Justin Ron', 'bubbles', 'Spouse', 'Male', 12, 'Adolescents (10-19 years old)', 'First', '2024-04-14 14:36:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -106,16 +106,17 @@ INSERT INTO `file_request` (`id`, `type`, `firstname`, `lastname`, `contact_numb
 (474, 'Certificate of Residency', 'Jose', 'Santos', '63992345678', '', '2024-04-04 08:00:00', 'Applying for Government Assistance', '../Uploaded File/VotersID_Santos_Jose_2024-04-02.jpg', '639812345678', '2024-04-02 14:55:51', '660c1c779b762', 'Declined', 'rwg wr g', 1, '2024-04-13 23:19:08'),
 (475, 'Certificate of Residency', 'Anna', 'Lim', '63971234567', '', '2024-04-03 02:00:00', 'Proof of Address for Bank Account', '../Uploaded File/VotersID_Lim_Anna_2024-04-02.jpg', '8765432109876543', '2024-04-02 14:56:48', '660c1cb0a4a3c', 'Declined', 'fe qfe q', 1, '2024-04-13 23:55:35'),
 (476, 'Certificate of Residency', 'Pedro', 'Gonzales', '63963456789', '', '2024-04-09 09:00:00', 'Applying for Driver\'s License', '../Uploaded File/VotersID_Gonzales_Pedro_2024-04-02.jpg', '639712345678', '2024-04-02 14:57:41', '660c1ce5f0031', 'Declined', 'fq qwf ', 1, '2024-04-13 23:56:04'),
-(477, 'Certificate of Residency', 'Sofia', 'Hernandez', '63974567890', '', '2024-04-08 03:00:00', 'Utility Connection', '../Uploaded File/VotersID_Hernandez_Sofia_2024-04-02.jpg', '639634567890', '2024-04-02 14:58:58', '660c1d3278932', 'Reviewing', '', 1, '2024-04-14 00:34:45'),
+(477, 'Certificate of Residency', 'Sofia', 'Hernandez', '63974567890', '', '2024-04-08 03:00:00', 'Utility Connection', '../Uploaded File/VotersID_Hernandez_Sofia_2024-04-02.jpg', '639634567890', '2024-04-02 14:58:58', '660c1d3278932', 'Reviewing', '', 1, '2024-04-14 22:46:04'),
 (478, 'Certificate of Residency', 'Miguel', 'Reyes', '63985678901', '', '2024-04-08 04:00:00', 'Applying for Loan', '../Uploaded File/VotersID_Reyes_Miguel_2024-04-02.jpg', '639745678901', '2024-04-02 15:01:20', '660c1dc0b8dae', 'Reviewing', '', 1, '2024-04-14 00:08:04'),
 (479, 'Certificate of Residency', 'Fatima', 'Ahmed', '63956789012', '', '2024-04-06 11:00:00', 'Applying for Scholarship', '../Uploaded File/VotersID_Ahmed_Fatima_2024-04-02.jpg', '639856789012', '2024-04-02 15:02:34', '660c1e0aca54b', 'Reviewing', '', 1, NULL),
-(491, 'Certificate of Indigency', 'Mikha', 'Bini', '09122323231', 'Purok 1', '2024-04-08 04:20:00', 'Scholarship', '../Uploaded File/ValidID_Bini_Mikha_2024-04-06.jpg', '123432', '2024-04-06 08:23:42', '6611068e079fd', 'Declined', 'eqf fqe ', 1, '2024-04-14 00:57:26'),
+(491, 'Certificate of Indigency', 'Mikha', 'Bini', '09122323231', 'Purok 1', '2024-04-08 04:20:00', 'Scholarship', '../Uploaded File/ValidID_Bini_Mikha_2024-04-06.jpg', '123432', '2024-04-06 08:23:42', '6611068e079fd', 'Reviewing', '', 1, '2024-04-14 22:45:26'),
 (492, 'Certificate of Residency', 'Mikha', 'Bini', '09122323231', 'Purok 1', '2024-04-08 04:25:00', 'Scholarship', '../Uploaded File/ValidID_Bini_Mikha_2024-04-06.jpg', '123432', '2024-04-06 16:25:33', '661106fd07187', 'Reviewing', '', 1, '2024-04-13 23:51:55'),
 (496, 'Certificate of Indigency', 'Justin Ron', 'Galang', '7457457457', '134134', '2024-04-19 02:33:00', 'eqweqw', '../Uploaded File/ValidID_Galang_Justin Ron_2024-04-10.png', '341343', '2024-04-10 09:33:54', '6616b1620f666', 'Reviewing', '', 1, '2024-04-12 07:31:04'),
 (497, 'Certificate of Indigency', '13213123', '123123', '123123', '12313', '2024-04-20 04:51:00', '13213213', '../Uploaded File/ValidID_123123_13213123_2024-04-13.png', '12313123', '2024-04-13 08:52:07', '661a47b7a7cc9', 'Reviewing', '', 1, '2024-04-13 18:40:12'),
-(498, 'Certificate of Indigency', '13213123', '123123', '123123', '12313', '2024-04-20 04:00:00', '2425545', '../Uploaded File/ValidID_123123_13213123_2024-04-13.png', '123131231', '2024-04-13 09:00:35', '661a49b371a89', 'Reviewing', '', 1, '2024-04-13 23:56:47'),
-(499, 'Certificate of Indigency', '123123', '123', '123123', '213123', '2024-04-20 03:04:00', '123123123', '../Uploaded File/ValidID_123_123123_2024-04-13.png', '1235135135', '2024-04-13 09:04:27', '661a4a9b56480', 'Declined', 'efq q fe', 1, '2024-04-14 00:54:23'),
-(500, 'Certificate of Indigency', 'Justin Ron', 'Galang', '7457457457', '23123', '2024-04-18 01:05:00', '123123123123', '../Uploaded File/ValidID_Galang_Justin Ron_2024-04-13.png', '2y4 qheargerg', '2024-04-13 09:05:50', '661a4aee37601', 'Declined', 'f qeqfe', 1, '2024-04-14 00:52:02');
+(498, 'Certificate of Indigency', '13213123', '123123', '123123', '12313', '2024-04-20 04:00:00', '2425545', '../Uploaded File/ValidID_123123_13213123_2024-04-13.png', '123131231', '2024-04-13 09:00:35', '661a49b371a89', 'Declined', 'q f fqw', 1, '2024-04-14 22:15:49'),
+(499, 'Certificate of Indigency', '123123', '123', '123123', '213123', '2024-04-20 03:04:00', '123123123', '../Uploaded File/ValidID_123_123123_2024-04-13.png', '1235135135', '2024-04-13 09:04:27', '661a4a9b56480', 'Reviewing', '', 1, '2024-04-14 22:41:00'),
+(500, 'Certificate of Indigency', 'Justin Ron', 'Galang', '7457457457', '23123', '2024-04-18 01:05:00', '123123123123', '../Uploaded File/ValidID_Galang_Justin Ron_2024-04-13.png', '2y4 qheargerg', '2024-04-13 09:05:50', '661a4aee37601', 'Reviewing', '', 1, '2024-04-14 22:40:30'),
+(501, 'Certificate of Indigency', 'Justin Ron', 'Galang', '09762911692', 'Purok 1 ng malalakas', '2024-04-16 08:30:00', 'for work', '../Uploaded File/ValidID_Galang_Justin Ron_2024-04-14.png', '24534rqqrw123', '2024-04-14 14:49:48', '661bed0c77317', 'Reviewing', '', 1, '2024-04-14 22:50:30');
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,8 @@ INSERT INTO `first_time_job` (`id`, `type`, `firstname`, `lastname`, `birthdate`
 (24, 'First Time Job Seeker', 'Carlos', 'Rodriguez', '1997-02-12', 27, 'Male', '0987654321', 'Married', ' Barangay Makiling, Calamba, Laguna', 'More than a Year', 'Bachelor\'s Degree', 'NA', 'no', '2024-04-05 02:25:00', '2024-04-02 15:24:40', '7654321', '../Uploaded File/VotersID_Rodriguez_Carlos_2024-04-02.jpg', '660c233854c99', 'Seeking entry-level position in the IT industry.', 'Declined', 'f qf e', 1, '2024-04-14 00:56:16'),
 (25, 'First Time Job Seeker', 'Fatima', 'Ahmed', '2001-03-21', 21, 'Female', '0987654321', 'Single', ' Barangay Makiling, Calamba, Laguna', 'Less than a Year', 'Bachelor\'s Degree', 'NA', 'no', '2024-04-03 02:30:00', '2024-04-02 15:29:05', '4321', '../Uploaded File/VotersID_Ahmed_Fatima_2024-04-02.jpg', '660c2441113e0', 'Applying for a position in customer service.', 'Declined', 'qfe ', 1, '2024-04-14 00:55:38'),
 (26, 'First Time Job Seeker', 'Lorna', 'Tan', '2000-03-12', 22, 'Male', '63922222342', 'Married', ' Barangay Makiling, Calamba, Laguna', 'Less than a Year', 'Vocational/Technical Certificate', 'NA', 'no', '2024-04-04 02:30:00', '2024-04-02 15:31:11', '432123', '../Uploaded File/VotersID_Tan_Lorna_2024-04-02.jpg', '660c24bf2c970', 'Seeking employment in the hospitality industry.', 'Declined', 'ef qqfe ', 1, '2024-04-14 00:54:29'),
-(27, 'First Time Job Seeker', 'Mikha', 'Bini', '2024-04-08', 32, 'Female', '09122323231', 'Single', 'Blk 7 Lot 6 LBEH', 'More than a Year', 'Bachelor\'s Degree', 'NA', 'no', '2024-04-08 04:20:00', '2024-04-06 08:18:56', '12332', '../Uploaded File/ValidID_Bini_Mikha_2024-04-06.jpg', '661105700981f', 'Applying job', 'Reviewing', '', 1, '2024-04-14 00:57:33');
+(27, 'First Time Job Seeker', 'Mikha', 'Bini', '2024-04-08', 32, 'Female', '09122323231', 'Single', 'Blk 7 Lot 6 LBEH', 'More than a Year', 'Bachelor\'s Degree', 'NA', 'no', '2024-04-08 04:20:00', '2024-04-06 08:18:56', '12332', '../Uploaded File/ValidID_Bini_Mikha_2024-04-06.jpg', '661105700981f', 'Applying job', 'Reviewing', '', 1, '2024-04-14 00:57:33'),
+(29, 'First Time Job Seeker', 'Justin Ron', 'Galang', '2002-01-31', 21, 'Male', '7457457457', 'Single', 'Blk 7 Lot 6 LBEH', 'More than a Year', 'High School Diploma', 'BSIT', 'yes', '2024-04-15 08:30:00', '2024-04-14 23:02:57', '542geqweft134', '../Uploaded File/ValidID_Galang_Justin Ron_2024-04-14.png', '661bf02108187', 'for work', 'Reviewing', '', 1, '2024-04-14 23:07:47');
 
 -- --------------------------------------------------------
 
@@ -205,7 +207,7 @@ INSERT INTO `residentrecord` (`id`, `rVotersID`, `rvoterstatus`, `rBHS`, `rPurok
 (68, '8520-1973-6425', 'Voter', 'Makiling', 'Purok 4', 27, 'Aquino ', 'Benjamin', 38, 'Male', 'Fernandez', 'NHTS-4Ps', 'IP', 'None', 'No', '../ResidentsID/RVotersID_Aquino _Benjamin_2024-04-03.jpg', '2024-04-03 00:37:28', NULL),
 (69, '3215363426w', 'Voter', 'Makiling', 'Purok 4', 147, 'Martinez', ' Elena', 55, 'Female', ' Elena', 'NHTS-Non-4Ps', 'IP', 'None', '96896986-908089', '../ResidentsID/RVotersID_Martinez_ Elena_2024-04-03.jpg', '2024-04-03 00:39:25', '2024-04-05 17:28:56'),
 (82, '523445252454', 'Voter', 'Makiling', 'Purok 1', 235, 'Guiass', 'Benhur', 45, 'Male', 'Chavez', 'NHTS-Non-4Ps', 'Non-IP', 'None', 'No', NULL, '2024-04-06 15:06:14', '2024-04-13 22:52:42'),
-(94, 'None', 'Non-voter', 'flow g', 'flow g', 2345234, 'Galang', 'Justin Rons', 34, 'Male', 'flow gg', 'NHTS-4Ps', 'IP', 'None', 'No', NULL, '2024-04-13 14:36:26', '2024-04-13 23:04:38');
+(98, 'None', 'Non-voter', 'flow g', 'flow g', 2345234, 'Galang', 'Justin Ron', 34, 'Male', 'bubbles', 'NHTS-4Ps', 'IP', 'None', 'No', NULL, '2024-04-14 14:36:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -240,7 +242,8 @@ CREATE TABLE `staff` (
 --
 
 INSERT INTO `staff` (`id`, `firstname`, `lastname`, `idnumber`, `email`, `gender`, `age`, `pass`, `staff_role`, `dateCreated`, `last_login_timestamp`, `is_logged_in`, `account_status`, `verification_code`, `email_verify`, `email_verified_at`, `reset_token`, `passreset_timestamp`, `token_expiry`) VALUES
-(144, 'Justin Ron', 'Galang', '125', 'ronronnn31@gmail.com', 'Male', 21, '$2y$10$9otmzI/4xdJXinPmu0WcO.bV20pXW5rNPcEehm6TBASvub2hrOHL6', 'Admin', '2024-04-13 10:52:05', '2024-04-13 14:59:49', 1, 'Activated', NULL, 1, '2024-04-13 18:52:15', NULL, NULL, NULL);
+(144, 'Justin Ron', 'Galang', 'aa23423', 'ronronnn31@gmail.com', 'Male', 21, '$2y$10$9otmzI/4xdJXinPmu0WcO.bV20pXW5rNPcEehm6TBASvub2hrOHL6', 'Staff', '2024-04-13 10:52:05', '2024-04-14 14:27:36', 0, 'Deactivated', NULL, 1, '2024-04-13 18:52:15', NULL, NULL, NULL),
+(146, 'Justin Ron', 'Galang', 'hd245254', 'ronronnn31@gmail.com', 'Male', 21, '$2y$10$9otmzI/4xdJXinPmu0WcO.bV20pXW5rNPcEehm6TBASvub2hrOHL6', 'Admin', '2024-04-13 10:52:05', '2024-04-14 15:37:16', 1, 'Activated', NULL, 1, '2024-04-13 18:52:15', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -265,8 +268,7 @@ INSERT INTO `staff_information` (`id`, `idnumber`, `first_name`, `last_name`, `d
 (3, '125', 'Justine Ron', 'Galang', '2024-04-10 13:52:31', '2024-04-13 17:01:15'),
 (4, '126', 'Koji', 'Ijok', '2024-04-10 13:52:31', NULL),
 (5, '127', 'JC', 'Boi Boi', '2024-04-10 13:52:31', '2024-04-13 07:44:13'),
-(29, 'HS123wrgrg', 'bubbles', 'bubblesdeym bro', '2024-04-13 08:05:21', NULL),
-(50, '1431423ew', 'flow', 'G', '2024-04-13 17:29:53', NULL);
+(29, 'HS123wrgrg', 'bubbles', 'bubblesdeym bro', '2024-04-13 08:05:21', '2024-04-14 13:57:10');
 
 -- --------------------------------------------------------
 
@@ -276,7 +278,7 @@ INSERT INTO `staff_information` (`id`, `idnumber`, `first_name`, `last_name`, `d
 
 CREATE TABLE `useractivity` (
   `ActivityID` int(11) NOT NULL,
-  `StaffID` int(11) DEFAULT NULL,
+  `StaffID` varchar(255) DEFAULT NULL,
   `FirstName` varchar(255) DEFAULT NULL,
   `LastName` varchar(255) DEFAULT NULL,
   `Role` varchar(255) DEFAULT NULL,
@@ -293,9 +295,18 @@ CREATE TABLE `useractivity` (
 --
 
 INSERT INTO `useractivity` (`ActivityID`, `StaffID`, `FirstName`, `LastName`, `Role`, `Action`, `ActionDate`, `request_tracking_number`, `type`, `ResidentFirstName`, `ResidentLastName`) VALUES
-(247, 125, 'Justin Ron', 'Galang', 'admin', 'Deleted staff information with ID: 1431423', '2024-04-14 01:20:33', '1431423', 'Staff Information', NULL, NULL),
-(248, 125, 'Justin Ron', 'Galang', 'admin', 'Deleted staff information ', '2024-04-14 01:21:28', '1431423', 'Staff Information', NULL, NULL),
-(249, 125, 'Justin Ron', 'Galang', 'admin', 'Insert staff information', '2024-04-14 01:29:53', NULL, 'Added Staff Information', NULL, NULL);
+(276, '0', 'Justin Ron', 'Galang', 'admin', 'Added a resident', '2024-04-14 22:36:40', NULL, 'Resident Record', NULL, NULL),
+(277, '0', 'Justin Ron', 'Galang', 'admin', 'Added a household member', '2024-04-14 22:36:40', NULL, 'Resident Record', NULL, NULL),
+(278, '0', 'Justin Ron', 'Galang', 'admin', 'Updated File Status', '2024-04-14 22:40:30', '661a4aee37601', 'Certificate of Indigency', NULL, NULL),
+(279, 'hd245254', 'Justin Ron', 'Galang', 'admin', 'Updated File Status', '2024-04-14 22:41:00', '661a4a9b56480', 'Certificate of Indigency', NULL, NULL),
+(280, 'hd245254', 'Justin Ron', 'Galang', 'admin', 'Updated File Status', '2024-04-14 22:42:17', '660c1d3278932', 'Certificate of Residency', NULL, NULL),
+(281, 'hd245254', 'Justin Ron', 'Galang', 'admin', 'Updated staff account status and role', '2024-04-14 22:43:12', 'aa23423', 'Staff Information', NULL, NULL),
+(282, 'hd245254', 'Justin Ron', 'Galang', 'admin', 'Updated File Status', '2024-04-14 22:45:26', '6611068e079fd', 'Certificate of Indigency', NULL, NULL),
+(283, 'hd245254', 'Justin Ron', 'Galang', 'admin', 'Updated File Status', '2024-04-14 22:46:04', '660c1d3278932', 'Certificate of Residency', NULL, NULL),
+(284, 'hd245254', 'Justin Ron', 'Galang', 'admin', 'Updated File Status', '2024-04-14 22:50:30', '661bed0c77317', 'Certificate of Indigency', NULL, NULL),
+(285, 'hd245254', 'Justin Ron', 'Galang', 'admin', 'Updated File Status', '2024-04-14 23:07:47', '661bf02108187', 'First Time Job Seeker', NULL, NULL),
+(286, '146', 'Justin Ron', 'Galang', 'Admin', 'Logged in', '2024-04-14 23:20:13', NULL, NULL, NULL, NULL),
+(287, '146', 'Justin Ron', 'Galang', 'Admin', 'Logged in', '2024-04-14 23:37:16', NULL, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -352,31 +363,31 @@ ALTER TABLE `useractivity`
 -- AUTO_INCREMENT for table `familymember`
 --
 ALTER TABLE `familymember`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `file_request`
 --
 ALTER TABLE `file_request`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=501;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=502;
 
 --
 -- AUTO_INCREMENT for table `first_time_job`
 --
 ALTER TABLE `first_time_job`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `residentrecord`
 --
 ALTER TABLE `residentrecord`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
 
 --
 -- AUTO_INCREMENT for table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=148;
 
 --
 -- AUTO_INCREMENT for table `staff_information`
@@ -388,7 +399,7 @@ ALTER TABLE `staff_information`
 -- AUTO_INCREMENT for table `useractivity`
 --
 ALTER TABLE `useractivity`
-  MODIFY `ActivityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
+  MODIFY `ActivityID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=288;
 
 --
 -- Constraints for dumped tables
