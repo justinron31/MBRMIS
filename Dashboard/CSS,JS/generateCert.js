@@ -1,8 +1,9 @@
 function generateCertificate(name, date, type, purpose_description, purok) {
   // Splitting name into first and last names
   var nameParts = name.split(" ");
-  var firstName = nameParts[0]; // First name
-  var lastName = nameParts[1]; // Last name
+  var firstName = nameParts.shift();
+  var lastName = nameParts.join(" ");
+  var fullName = firstName + " " + lastName;
 
   // Formatting the date
   var pickupDate = new Date(date);
@@ -14,7 +15,8 @@ function generateCertificate(name, date, type, purpose_description, purok) {
 
   if (type === "First Time Job Seeker") {
     certificateContent = `
-<link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
@@ -29,77 +31,209 @@ function generateCertificate(name, date, type, purpose_description, purok) {
                min-height: 90vh;
                justify-content:space-between;
             }
-            .header{
-                display: flex;
-                flex-direction:column;
-                font-weight:500;
-                text-align:center;
-                align-items:center;
 
-            }
-
-                h5 {
+            h5{
                 diplay:flex;
                  margin:0;
-                 font-size:1rem;
             }
 
-.center-text1{
-    font-size:0.8rem;
-    font-weight:200;
+            h6{
+                margin:0;
+                font-weight:500;
+            }
+
+            h3{
+              display: flex;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+
+            .header .inner {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+            }
+
+
+            .thick-line {
+                width: 100%; /* Adjust the width as needed */
+                height: 1.5px; /* Adjust the thickness as needed */
+                background-color: black; /* Adjust the color as needed */
+            }
+
+
+            .contact{
+                line-height: 1.3;
+            }
+            .contact1{
+                line-height: 1.3;
+
+            }
+
+            .right{
+                justify-content: flex-end;
+            }
+
+            .center {
+              display: flex;
+              flex-direction:column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                font-size:1.2rem;
+            }
+
+            .header img {
+                width: 110px;
+                height: auto;
+            }
+
+
+            .content{
+                font-family: "Inter", sans-serif;
+                justify-content: center;
+                text-align: justify;
+
+            }
+
+            .titleH{
+               margin:0;
+               letter-spacing: 7px;
+            }
+
+
+            .contentsub{
+              margin:0;
+              font-weight:500;
+              font-size:1.2rem;
+              display: flex;
+               align-items: center;
+                text-align: center;
+            }
+
+            .center1{
+              display: flex;
+              flex-direction:column;
+                align-items: center;
+                text-align: center;
+                font-size:1.2rem;
+                margin-top:50px;
+                margin-bottom:40px;
+            }
+
+            p {
+            text-indent: 50px;
+            line-height: 1.2;
+            }
+
+       .seal{
+    font-family: "Inter", sans-serif;
+    padding:0px 20px;
+    width: 240px;
+    position: relative;
+    font-weight:500;
+
 }
 
-.content1{
-    margin-top:60px;
+.seal p {
+    margin-top:0;
+    text-indent:0;
 
 }
 
-b {
-  position: relative;
-  display: inline-block;
+hr{
+    margin-bottom:0;
+}
+.note{
+  width: 215px;
 }
 
-b:after {
-  content: "";
-  position: absolute;
-  left: -10px;
-  right: -10px;
-  bottom: 0;
-  height: 1px;
-  background: currentColor;
+
+.wrap{
+  display: flex;
+  flex-direction:column;
+  align-items: flex-end;
 }
 
         </style>
 
-    <div class="certificate">
+        <div class="certificate">
+        <div class="ConWrap">
+            <div class="header">
+              <div class="inner">
+                <div class="left">
+                    <img src="../images/logo.png" alt="Barangay Makiling Seal">
+                </div>
 
-   <div class="headerCon">
-    <div class="header">
-      <h5 class="center-text">First Time Jobseekers</h5>
-      <h5 class="center-text">Personal Information Sheet Form</h5>
-      <h5 class="center-text">APPLICATION FOR BARANGAY CERTIFICATION</h5>
-      <h5 class="center-text1">(RA 11261, JMC No.001, series of 2019 & DILG MC No. 2020-${year})</h5>
-    </div>
+                    <div class="center">
+                       <div class="contact">
+                        <h5>REPUBLIKA NG PILIPINAS <br> BARANGAY MAKILING <br> KM. 54 Maharlika Highway</h5>
+                         </div>
 
-    <div class="content1">
-      Name: <b><u>${firstName} ${lastName}</u></b>
-      <p>Birthdate: </p>
-      <p>Age: </p>
-      <p>Complete Address: </p>
-      <p>Years/Months of residency in the given address: </p>
-      <p>Contact Number (if any): </p>
-      <p>Sex/Gender: </p>
-      <p> Civil Status: </p>
-      <p>Educational Attainments: </p>
-      <p>Course (if Applicable, put “NA” if not application): </p>
-      <p>Question: Are you a beneficiary of a JobStart Program under RA No. 10869, otherwise known as “An Act Institutionalizing the Nationwide Implementation of the JobStart Philippines Program and Providing Funds Therefor”?</p>
-      <p>(Please check appropriate box)</p>
-    </div>
-     </div>
+                    <div class="contact1">
+                    <h6>Brgy. Makiling, Calamba City</h6>
+                    <h6>City Tel No. (049) 502-790</h6>
+                    </div>
 
-      <p>Signature of Applicant</p>
+                </div>
 
-      <p>RA 11261 Form 1</p>
+                <div class="right">
+                    <img src="../images/calamba.png" alt="Calamba, Laguna Seal">
+                </div>
+            </div>
+                </div>
+
+            <div class="thick-line"></div>
+
+            <div class="content">
+
+            <div class="center1">
+            <h3 class="titleH"><u>CERTIFICATION</u></h3>
+            <div class="contentsub">(First Time Jobseekers Assistance Act - RA 11261)</div>
+            </div>
+
+            <p>This is to certify that <strong>${fullName}</strong>, resident of <strong>${purok}</strong>, Brgy. Makiling, Calamba City for (number of years) is qualified of <strong>RA 11261</strong> or the <strong><em>First Time Jobseekers Act of 2019</em></strong>.</p>
+
+            <p>I further certify that the holder/ bearer was informed of his/ her rights including the
+duties and responsibilities accorded by RA 11261 through the <strong>Oath of Undertaking</strong> he/
+she has signed and executed in the presence of our Barangay Official.</p>
+
+            <p>Issued this <strong>${day}th</strong> day of <strong>${month} ${year}</strong> at the Office of the Punong Barangay, Brgy. Makiling, Calamba City.</p>
+            </div>
+            </div>
+
+            <div class="wrap">
+            <div class="seal">
+    <hr>
+    <p style="text-align:center">DATE</p>
+    <p style="margin-bottom:30px;">Witnessed by:</p>
+    </br>
+    <hr>
+    <p>Barangay Official/ Designation</p>
+    </br>
+    <hr>
+    <p style="text-align:center" >DATE</p>
+</div>
+</div>
+
+  <div class="wrap">
+<div class="note">
+<p style="text-indent:0;">*This certification is valid only
+One (1) year from the issuance*</p>
+</div>
+
+        </div>
+          </div>
+
+
     `;
   } else {
     var typeDisplay;
@@ -246,7 +380,7 @@ b:after {
             <h3>OFFICE OF THE PUNONG BARANGAY</h3>
             <h3 class="typeDoc">${typeDisplay}</h3>
             <p>To whom it may concern:</p>
-            <p>This is to certify that <strong>${firstName} ${lastName}</strong>, of legal age, and a resident of <strong>${purok}</strong>, Brgy. Makiling, Calamba City, Laguna, has no derogatory record filed in this office.</p>
+            <p>This is to certify that <strong>${fullName}</strong>, of legal age, and a resident of <strong>${purok}</strong>, Brgy. Makiling, Calamba City, Laguna, has no derogatory record filed in this office.</p>
             <p>This certification is issued upon the request of <strong>${firstName} ${lastName}</strong>, to be used as a requirement for <strong>${purpose_description}</strong>.</p>
             <p>Given this <strong>${day}th</strong> day of <strong>${month} ${year}</strong> at the Office of the Punong Barangay, Brgy. Makiling, Calamba City.</p>
             </div>
@@ -258,6 +392,8 @@ b:after {
 
 
         </div>
+
+
     `;
   }
   var printWindow = window.open("PRINT", "_blank");
