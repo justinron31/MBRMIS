@@ -1,10 +1,18 @@
-function generateCertificate(name, date, type, purpose_description, purok) {
+function generateCertificate(
+  name,
+  date,
+  type,
+  purpose_description,
+  purok,
+  tracking_number,
+  id
+) {
   // Splitting name into first and last names
   var nameParts = name.split(" ");
   var firstName = nameParts.shift();
   var lastName = nameParts.join(" ");
   var fullName = firstName + " " + lastName;
-
+  var fileType = type;
   // Formatting the date
   var pickupDate = new Date(date);
   var day = pickupDate.getDate();
@@ -407,12 +415,39 @@ One (1) year from the issuance*</p>
 
   // Add an onload event to the window
   printWindow.onload = function () {
-    // Call the print function after the window has fully loaded
     printWindow.print();
-  };
+    setTimeout(function () {
+      printWindow.close();
 
-  printWindow.onafterprint = function () {
-    // Close the window after printing
-    printWindow.close();
+      // Refresh the page after print window is closed
+
+      // Show a confirmation alert
+      if (confirm("Mark the certificate DONE?")) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../Php/printDone.php", true);
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            // Handle the response from the server if needed
+            console.log(xhr.responseText);
+            window.location.reload();
+          }
+        };
+        xhr.send(
+          "trackingNumber=" +
+            encodeURIComponent(tracking_number) +
+            "&fileType=" +
+            encodeURIComponent(fileType) +
+            "&userId=" +
+            encodeURIComponent(id) // Pass userId as parameter
+        );
+      } else {
+        // If user cancels, you can handle it accordingly
+        console.log("File update cancelled by user.");
+      }
+    }, 1000); // Adjust the delay as needed
   };
 }

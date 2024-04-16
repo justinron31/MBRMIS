@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -72,6 +73,38 @@ $_SESSION['show_login_message'] = false;
 <div id="validationPopup3" class="popup2">
     <p>You cannot select a month in the future.</p>
 </div>
+
+
+
+
+
+
+<?php
+if (isset($_SESSION['success_delete'])) {
+    echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("validationPopup1").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("validationPopup1").style.display = "none";
+        }, 3000);
+    });
+    </script>';
+    unset($_SESSION['success_delete']);
+}
+
+if (isset($_SESSION['success_delete'])) {
+    echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById("validationPopup2").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("validationPopup2").style.display = "none";
+        }, 3000);
+    });
+    </script>';
+    unset($_SESSION['success_delete']);
+}
+?>
+
 
 
 <body>
@@ -153,17 +186,20 @@ $_SESSION['show_login_message'] = false;
                                 <p class="filterT">Residency</p>
                             </button>
 
-                            <button type="button" id="processingButton" class="filterB" style="margin-left:5px; margin-right:5px;">
-                                <p class="filterT">First Time Job Seeker</p>
+                            <button type="button" id="processingButton" class="filterB"
+                                style="margin-left:5px; margin-right:5px;">
+                                <p class="filterT">Job Seeker</p>
                             </button>
 
-                            <button type="button" class="filterB" style="margin-right:5px;" onclick="toggleDatePicker()">
+                            <button type="button" class="filterB" style="margin-right:5px;"
+                                onclick="toggleDatePicker()">
                                 <i class='bx bxs-calendar'></i>
                             </button>
                         </div>
 
 
-                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;" onclick="toggleTableFilter()">
+                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;"
+                            onclick="toggleTableFilter()">
                             <i class='bx bxs-filter-alt'></i>
                             <p class="filterT1">Filter</p>
                         </button>
@@ -185,10 +221,11 @@ $_SESSION['show_login_message'] = false;
                             $total = $row1['count'] + $row2['count'];
                             ?>
 
-                            <h1 class="titleTable">Total File Request: <span><?php echo $total; ?></span></h1>
+                            <h1 class="titleTable">Total File: <span><?php echo $total; ?></span></h1>
                         </div>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -207,7 +244,8 @@ $_SESSION['show_login_message'] = false;
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Document Type <i class='bx bx-sort'></i>
                                     </th>
-                                    <th class="center" title="Filter: Ascending/Descending"> Status <i class='bx bx-sort'></i></th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status <i
+                                            class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Tracking Number <i class='bx bx-sort'></i>
@@ -229,13 +267,12 @@ $_SESSION['show_login_message'] = false;
                                 include '../Php/db.php';
 
                                 $sql = "SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created, purok, file_data_updated
-                                FROM file_request
-                                WHERE file_status = 'reviewing'
-                                UNION ALL
-                                SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created, address, file_data_updated
-                                FROM first_time_job
-                                WHERE file_status = 'reviewing'
-                                ORDER BY file_data_updated DESC";
+        FROM file_request WHERE file_status = 'Reviewing' OR file_status = 'Ready for Pickup'
+        UNION ALL
+        SELECT id, type, file_status, firstname, lastname, tracking_number, contact_number,  pickup_datetime, purpose_description,  datetime_created, address, file_data_updated
+        FROM first_time_job WHERE file_status = 'Reviewing' OR file_status = 'Ready for Pickup'
+        ORDER BY file_data_updated DESC";
+
                                 $result = $conn->query($sql);
 
                                 if ($result) {
@@ -243,16 +280,24 @@ $_SESSION['show_login_message'] = false;
                                         $file_status = strtolower(trim($row["file_status"]));
                                         if ($file_status == 'ready for pickup') {
                                             $class = 'delivered';
+                                            $printButton = "<td><button class='viewMore3'>DONE</button></td>";
                                         } elseif ($file_status == 'declined') {
                                             $class = 'cancelled';
+                                            $printButton = "<td><button class='viewMore' onclick=\"if(confirm('Print the selected file request?')) { generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "', '" . $row["tracking_number"] . "', '" . $row["id"] . "') }\" data-file-id='" . $row["id"] . "'>Print</button></td>";
                                         } elseif ($file_status == 'reviewing') {
                                             $class = 'pending';
+                                            $printButton =
+                                                $printButton = "<td><button class='viewMore' onclick=\"if(confirm('Print the selected file request?')) { generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "', '" . $row["tracking_number"] . "', '" . $row["id"] . "') }\" data-file-id='" . $row["id"] . "'>Print</button></td>";
                                         } elseif ($file_status == 'processing') {
                                             $class = 'processing';
+                                            $printButton =
+                                                $printButton = "<td><button class='viewMore' onclick=\"if(confirm('Print the selected file request?')) { generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "', '" . $row["tracking_number"] . "', '" . $row["id"] . "') }\" data-file-id='" . $row["id"] . "'>Print</button></td>";
                                         } else {
                                             $class = '';
                                         }
+
                                         $uniqueId = 'edit_' . $row["id"];
+
                                         echo "<tr>" .
                                             "<td><strong>" . $row["type"] . "</strong></td>" .
                                             "<td style='text-align: center;'><p class='status $class padding'>" . $row["file_status"] . "</p></td>" .
@@ -263,7 +308,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                            "<td><button class='viewMore' onclick=\"if(confirm('Print the selected file request?')) { generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "') }\" data-file-id='" . $row["id"] . "'>Print</button></td>" .
+                                            $printButton .
                                             "</tr>";
                                     }
                                     $result->close();
@@ -273,6 +318,7 @@ $_SESSION['show_login_message'] = false;
 
                                 $conn->close();
                                 ?>
+
 
 
 
@@ -287,115 +333,115 @@ $_SESSION['show_login_message'] = false;
 </body>
 
 <script>
-    var table = new DataTable("#reqdocu", {
-        paging: false,
-        searching: true,
-        info: false,
-        order: false,
-        layout: {
-            topStart: {
-                buttons: [{
-                        extend: 'excel',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        },
-                        autoPrint: true
+var table = new DataTable("#reqdocu", {
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':not(:nth-child(10))'
                     }
-                ],
-            },
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':not(:nth-child(10))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':not(:nth-child(10))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    exportOptions: {
+                        columns: ':not(:nth-child(10))'
+                    },
+                    autoPrint: true
+                }
+            ],
         },
-        // Use a custom search input
-        initComplete: function() {
-            let input = document.querySelector(".input-group input");
-            this.api().columns().every(function() {
-                let that = this;
-                $(input).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
             });
-        },
-    });
-
-    function applyFilter(filter) {
-        if (filter) {
-            table.search(filter).draw();
-            $('input[type="search"]').val(''); // Clear the search input
-        } else {
-            table.search('').draw();
-        }
-    }
-
-    $('#reviewingButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Indigency');
-            applyFilter('Indigency');
-        }
-    });
-
-    $('#declinedButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Residency');
-            applyFilter('Residency');
-        }
-    });
-
-    $('#processingButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'First Time Job Seeker');
-            applyFilter('First Time Job Seeker');
-        }
-    });
-
-
-    document.querySelector(".filterR").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        dateInput.value = '';
-        applyFilter('');
-    });
-
-    // Apply the filter from localStorage when the page loads
-    applyFilter(localStorage.getItem('filter'));
-
-    document.querySelector(".filterB").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        var date = new Date(dateInput.value);
-        var formattedDate = date.toLocaleString('en-US', {
-            month: 'long',
-            year: 'numeric'
         });
-        applyFilter(formattedDate);
+    },
+});
+
+function applyFilter(filter) {
+    if (filter) {
+        table.search(filter).draw();
+        $('input[type="search"]').val(''); // Clear the search input
+    } else {
+        table.search('').draw();
+    }
+}
+
+$('#reviewingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'Indigency');
+        applyFilter('Indigency');
+    }
+});
+
+$('#declinedButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'Residency');
+        applyFilter('Residency');
+    }
+});
+
+$('#processingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'First Time Job Seeker');
+        applyFilter('First Time Job Seeker');
+    }
+});
+
+
+document.querySelector(".filterR").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    dateInput.value = '';
+    applyFilter('');
+});
+
+// Apply the filter from localStorage when the page loads
+applyFilter(localStorage.getItem('filter'));
+
+document.querySelector(".filterB").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    var date = new Date(dateInput.value);
+    var formattedDate = date.toLocaleString('en-US', {
+        month: 'long',
+        year: 'numeric'
     });
+    applyFilter(formattedDate);
+});
 </script>
 
 

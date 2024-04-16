@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['error_message'] = "Account Deactivated. Please contact the admin.";
         }
     } else {
-        $_SESSION['error_message'] = "Error.";
+        $_SESSION['error_message'] = "Invalid Credentials.";
     }
 
     header("Location: ../Login/loginStaff.php");

@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -144,14 +145,6 @@ $_SESSION['show_login_message'] = false;
 
                         <div class="tablefilter">
 
-                            <button type="button" id="loginButton" class="filterB" style="margin-left:5px;">
-                                <p class="filterT">Logged in</p>
-                            </button>
-
-
-                            <button type="button" id="staffButton" class="filterB" style="margin-left:5px;">
-                                <p class="filterT">Staff Info</p>
-                            </button>
 
                             <button type="button" id="residentButton" class="filterB" style="margin-left:5px;">
                                 <p class="filterT">Resident Record</p>
@@ -165,23 +158,27 @@ $_SESSION['show_login_message'] = false;
                                 <p class="filterT">Recidency</p>
                             </button>
 
-                            <button type="button" id="processingButton" class="filterB" style="margin-left:5px; margin-right:5px;">
+                            <button type="button" id="processingButton" class="filterB"
+                                style="margin-left:5px; margin-right:5px;">
                                 <p class="filterT">First Time Job Seeker</p>
                             </button>
 
-                            <button type="button" class="filterB" style="margin-right:5px;" onclick="toggleDatePicker()">
+                            <button type="button" class="filterB" style="margin-right:5px;"
+                                onclick="toggleDatePicker()">
                                 <i class='bx bxs-calendar'></i>
                             </button>
                         </div>
 
 
-                        <button type=" button" class="filterB" style="margin-right:5px; z-index:50;" onclick="toggleTableFilter()">
+                        <button type=" button" class="filterB" style="margin-right:5px; z-index:50;"
+                            onclick="toggleTableFilter()">
                             <i class='bx bxs-filter-alt'></i>
                             <p class="filterT1">Filter</p>
                         </button>
 
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -211,9 +208,11 @@ $_SESSION['show_login_message'] = false;
                                     </th>
                                     <th title="Filter: Ascending/Descending"> Reference <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> Resident Firstname <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Resident Firstname <i
+                                            class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> Resident Lastname <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Resident Lastname <i
+                                            class='bx bx-sort'></i>
                                     </th>
                                     <th title="Filter: Ascending/Descending"> Datetime <i class='bx bx-sort'></i></th>
                                 </tr>
@@ -230,22 +229,22 @@ $_SESSION['show_login_message'] = false;
                                 $result = $query->get_result();
                                 ?>
                                 <?php while ($row = $result->fetch_assoc()) : ?>
-                                    <tr>
-                                        <td><strong><?php echo $row['StaffID']; ?></strong></td>
-                                        <td><?php echo $row['FirstName']; ?></td>
-                                        <td><?php echo $row['LastName']; ?></td>
-                                        <td><?php echo ucfirst($row['Role']); ?></td>
-                                        <td><?php echo $row['Action']; ?></td>
-                                        <td><?php echo $row['type'] ? $row['type'] : 'None'; ?></td>
-                                        <td><?php echo $row['request_tracking_number'] ? $row['request_tracking_number'] : 'None'; ?>
-                                        </td>
-                                        <td><?php echo $row['ResidentFirstName'] ? $row['ResidentFirstName'] : 'None'; ?>
-                                        </td>
-                                        <td><?php echo $row['ResidentLastName'] ? $row['ResidentLastName'] : 'None'; ?>
-                                        </td>
-                                        <td title="<?= date("l", strtotime($row["ActionDate"])) ?>">
-                                            <?= date("F j, Y, g:i a", strtotime($row["ActionDate"])) ?></td>
-                                    </tr>
+                                <tr>
+                                    <td><strong><?php echo $row['StaffID']; ?></strong></td>
+                                    <td><?php echo $row['FirstName']; ?></td>
+                                    <td><?php echo $row['LastName']; ?></td>
+                                    <td><?php echo ucfirst($row['Role']); ?></td>
+                                    <td><?php echo $row['Action']; ?></td>
+                                    <td><?php echo $row['type'] ? $row['type'] : 'None'; ?></td>
+                                    <td><?php echo $row['request_tracking_number'] ? $row['request_tracking_number'] : 'None'; ?>
+                                    </td>
+                                    <td><?php echo $row['ResidentFirstName'] ? $row['ResidentFirstName'] : 'None'; ?>
+                                    </td>
+                                    <td><?php echo $row['ResidentLastName'] ? $row['ResidentLastName'] : 'None'; ?>
+                                    </td>
+                                    <td title="<?= date("l", strtotime($row["ActionDate"])) ?>">
+                                        <?= date("F j, Y, g:i a", strtotime($row["ActionDate"])) ?></td>
+                                </tr>
                                 <?php endwhile; ?>
 
                                 <?php
@@ -266,171 +265,151 @@ $_SESSION['show_login_message'] = false;
 
 
 <script>
-    var table = new DataTable("#reporting", {
-        paging: false,
-        searching: true,
-        info: false,
-        order: false,
-        layout: {
-            topStart: {
-                buttons: [{
-                        extend: 'excel',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'LogsTable_' + dateStr;
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'LogsTable_' + dateStr;
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'LogsTable_' + dateStr;
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'print',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'LogsTable_' + dateStr;
-                        },
-                        autoPrint: true
+var table = new DataTable("#reporting", {
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'LogsTable_' + dateStr;
                     }
-                ],
-            },
+                },
+                {
+                    extend: 'csv',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'LogsTable_' + dateStr;
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'LogsTable_' + dateStr;
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'LogsTable_' + dateStr;
+                    },
+                    autoPrint: true
+                }
+            ],
         },
-        // Use a custom search input
-        initComplete: function() {
-            let input = document.querySelector(".input-group input");
-            this.api().columns().every(function() {
-                let that = this;
-                $(input).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
             });
-        },
-    });
-
-    function applyFilter(filter) {
-        if (filter) {
-            table.search(filter).draw();
-            $('input[type="search"]').val(''); // Clear the search input
-        } else {
-            table.search('').draw();
-        }
-    }
-
-    $('#loginButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Logged in');
-            applyFilter('Logged in');
-        }
-    });
-
-
-
-    $('#staffButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Staff Database');
-            applyFilter('Staff Database');
-        }
-    });
-
-
-    $('#residentButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Resident Record');
-            applyFilter('Resident Record');
-        }
-    });
-
-    $('#reviewingButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Certificate of Indigency');
-            applyFilter('Certificate of Indigency');
-        }
-    });
-
-    $('#declinedButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Certificate of Residency');
-            applyFilter('Certificate of Residency');
-        }
-    });
-
-    $('#processingButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'First Time Job Seeker');
-            applyFilter('First Time Job Seeker');
-        }
-    });
-
-
-    document.querySelector(".filterR").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        dateInput.value = '';
-        applyFilter('');
-    });
-
-    // Apply the filter from localStorage when the page loads
-    applyFilter(localStorage.getItem('filter'));
-    document.querySelector(".filterB").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        var date = new Date(dateInput.value);
-        var formattedDate = date.toLocaleString('en-US', {
-            month: 'long',
-            year: 'numeric'
         });
-        applyFilter(formattedDate);
+    },
+});
+
+function applyFilter(filter) {
+    if (filter) {
+        table.search(filter).draw();
+        $('input[type="search"]').val(''); // Clear the search input
+    } else {
+        table.search('').draw();
+    }
+}
+
+
+
+
+$('#residentButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'Resident Record');
+        applyFilter('Resident Record');
+    }
+});
+
+$('#reviewingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'Certificate of Indigency');
+        applyFilter('Certificate of Indigency');
+    }
+});
+
+$('#declinedButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'Certificate of Residency');
+        applyFilter('Certificate of Residency');
+    }
+});
+
+$('#processingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'First Time Job Seeker');
+        applyFilter('First Time Job Seeker');
+    }
+});
+
+
+document.querySelector(".filterR").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    dateInput.value = '';
+    applyFilter('');
+});
+
+// Apply the filter from localStorage when the page loads
+applyFilter(localStorage.getItem('filter'));
+document.querySelector(".filterB").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    var date = new Date(dateInput.value);
+    var formattedDate = date.toLocaleString('en-US', {
+        month: 'long',
+        year: 'numeric'
     });
+    applyFilter(formattedDate);
+});
 </script>
 
 </html>

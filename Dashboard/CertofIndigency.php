@@ -172,7 +172,7 @@ $_SESSION['show_login_message'] = false;
                         </button>
 
                         <div class="tableHead">
-                            <h1 class="titleTable">Total File Request: <span id="totalReq">0</span></h1>
+                            <h1 class="titleTable">Total File: <span id="totalReq">0</span></h1>
                         </div>
 
                         <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
