@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -63,6 +64,11 @@ $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_lo
 $_SESSION['show_login_message'] = false;
 ?>
 
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup3" class="popup2">
+    <p>You cannot select a month in the future.</p>
+</div>
+
 
 <body>
 
@@ -114,11 +120,60 @@ $_SESSION['show_login_message'] = false;
 
                     <div class="export__file">
 
+
+                        <div class="datepickerE">
+
+                            <div class="datepick">
+                                <i class='bx bxs-x-circle'></i>
+                                <label for="date">Pick a month</label>
+                                <input type="month" id="date" name="date" value="<?php echo date('Y-m'); ?>">
+                            </div>
+                            </br>
+
+                            <button type="button" class=" filterB" style="margin-left:5px;">
+                                <p class="filterT">Filter</p>
+                            </button>
+
+                            <button type="button" class=" filterR" style="margin-left:5px;">
+                                <p class="filterT">Reset</p>
+                            </button>
+                        </div>
+
+                        <div class="tablefilter">
+
+                            <button type="button" id="reviewingButton" class=" filterB" style="margin-left:5px;">
+                                <p class="filterT">Reviewing</p>
+                            </button>
+
+                            <button type="button" id="declinedButton" class="filterB" style="margin-left:5px;">
+                                <p class="filterT">Declined</p>
+                            </button>
+
+                            <button type="button" id="processingButton" class="filterB"
+                                style="margin-left:5px; margin-right:5px;">
+                                <p class="filterT">Processing</p>
+                            </button>
+
+                            <button type="button" class="filterB" style="margin-right:5px;"
+                                onclick="toggleDatePicker()">
+                                <i class='bx bxs-calendar'></i>
+                            </button>
+                        </div>
+
+
+                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;"
+                            onclick="toggleTableFilter()">
+                            <i class='bx bxs-filter-alt'></i>
+                            <p class="filterT1">Filter</p>
+                        </button>
+
+
                         <div class="tableHead">
                             <!--TOTAL USER-->
                             <h1 class="titleTable">Total File Request: <span id="totalReq2">0</span></h1>
                         </div>
-                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -140,7 +195,8 @@ $_SESSION['show_login_message'] = false;
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Tracking Number <i class='bx bx-sort'></i>
                                     </th>
-                                    <th class="center" title="Filter: Ascending/Descending"> Status <i class='bx bx-sort'></i>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status <i
+                                            class='bx bx-sort'></i>
                                     </th>
                                     <th title="Filter: Ascending/Descending"> Remarks <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
@@ -156,13 +212,16 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Recidency <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Education <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Course <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> JobStart Program <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> JobStart Program <i
+                                            class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> ID Number <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> ID Img </th>
                                     <th title="Filter: Ascending/Descending"> Purpose <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Pickup Date/Time <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Pickup Date/Time <i
+                                            class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> Datetime Submitted <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Submitted <i
+                                            class='bx bx-sort'></i>
                                     </th>
                                     <th class="center"> Action </th>
                                 </tr>
@@ -242,7 +301,8 @@ $_SESSION['show_login_message'] = false;
                                                         <option value="Reviewing">Reviewing</option>
                                                     </select>
                                                 </div>
-                                                <button id="updateButton1" class="updateButton" type="submit">Update</button>
+                                                <button id="updateButton1" class="updateButton"
+                                                    type="submit">Update</button>
                                         </form>
                                     </div>
                                 </div>
@@ -260,56 +320,152 @@ $_SESSION['show_login_message'] = false;
 
 
 <script>
-    new DataTable("#firsttime", {
-        paging: false,
-        searching: true,
-        info: false,
-        order: false,
-        layout: {
-            topStart: {
-                buttons: [{
-                        extend: 'excel',
-                        exportOptions: {
-                            columns: ':not(:nth-child(17)):not(:nth-child(21))'
-                        }
+var table = new DataTable("#firsttime", {
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'FirstTimeJobSeekerTable_' + dateStr;
                     },
-                    {
-                        extend: 'csv',
-                        exportOptions: {
-                            columns: ':not(:nth-child(17)):not(:nth-child(21))'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        exportOptions: {
-                            columns: ':not(:nth-child(17)):not(:nth-child(21))'
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: ':not(:nth-child(17)):not(:nth-child(21))'
-                        },
-                        autoPrint: true
+                    exportOptions: {
+                        columns: ':not(:nth-child(17)):not(:nth-child(21))'
                     }
-                ],
-            },
+                },
+                {
+                    extend: 'csv',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'FirstTimeJobSeekerTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(17)):not(:nth-child(21))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'FirstTimeJobSeekerTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(17)):not(:nth-child(21))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'FirstTimeJobSeekerTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(17)):not(:nth-child(21))'
+                    },
+                    autoPrint: true
+                }
+            ],
         },
-        // Use a custom search input
-        initComplete: function() {
-            let input = document.querySelector(".input-group input");
-            this.api().columns().every(function() {
-                let that = this;
-                $(input).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
             });
-        },
+        });
+    },
+});
+
+function applyFilter(filter) {
+    if (filter) {
+        table.search(filter).draw();
+        $('input[type="search"]').val(''); // Clear the search input
+    } else {
+        table.search('').draw();
+    }
+}
+
+$('#reviewingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'reviewing');
+        applyFilter('reviewing');
+    }
+});
+
+$('#declinedButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'declined');
+        applyFilter('declined');
+    }
+});
+
+$('#processingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter');
+        applyFilter(null);
+    } else {
+        localStorage.setItem('filter', 'processing');
+        applyFilter('processing');
+    }
+});
+
+
+
+document.querySelector(".filterR").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    dateInput.value = '';
+    applyFilter('');
+});
+
+// Apply the filter from localStorage when the page loads
+applyFilter(localStorage.getItem('filter'));
+
+document.querySelector(".filterB").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    var date = new Date(dateInput.value);
+    var formattedDate = date.toLocaleString('en-US', {
+        month: 'long',
+        year: 'numeric'
     });
+    applyFilter(formattedDate);
+});
 </script>
 
 </html>

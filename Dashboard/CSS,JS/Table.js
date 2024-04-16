@@ -466,3 +466,100 @@ $(document).ready(function () {
   fetchTotalRequests();
   setInterval(fetchTotalRequests, 2000);
 });
+
+// ─── Table Filter ─────────────────────────────────────────────
+function toggleTableFilter() {
+  var tableFilter = document.querySelector(".tablefilter");
+  var filterButton = document.querySelector(".filterB .filterT1");
+
+  if (window.getComputedStyle(tableFilter).display === "none") {
+    tableFilter.style.display = "flex";
+    setTimeout(function () {}, 0);
+    filterButton.textContent = "X";
+    filterButton.parentNode.style.backgroundColor = "red";
+    filterButton.parentNode.style.border = "none";
+    filterButton.parentNode.style.color = "white";
+  } else {
+    tableFilter.style.display = "none";
+    filterButton.textContent = "FILTER";
+    filterButton.parentNode.style.backgroundColor = "";
+    filterButton.parentNode.style.border = "";
+    filterButton.parentNode.style.color = "";
+  }
+}
+
+// ─── Filterbuttons ────────────────────────────────────────────
+var filterButtons = document.querySelectorAll(".tablefilter .filterB");
+
+filterButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    // If the clicked button is already active, remove the active class
+    if (this.classList.contains("active")) {
+      this.classList.remove("active");
+      localStorage.removeItem("activeButton");
+    } else {
+      // If the clicked button is not active, make it active and remove active class from other buttons
+      filterButtons.forEach(function (btn) {
+        btn.classList.remove("active");
+      });
+      this.classList.add("active");
+      localStorage.setItem("activeButton", this.id); // Store the id of the active button
+    }
+  });
+});
+
+// When the page loads, activate the button stored in localStorage
+var activeButtonId = localStorage.getItem("activeButton");
+if (activeButtonId) {
+  document.getElementById(activeButtonId).classList.add("active");
+}
+
+// ─── Datepicker ───────────────────────────────────────────────
+function toggleDatePicker() {
+  var datepickerE = document.querySelector(".datepickerE");
+
+  var displayStyle = window.getComputedStyle(datepickerE).display;
+  if (displayStyle === "none") {
+    datepickerE.style.display = "flex";
+  } else {
+    datepickerE.style.display = "none";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  var dateInput = document.querySelector("#date");
+  var validationPopup = document.querySelector("#validationPopup3");
+
+  dateInput.addEventListener("change", function () {
+    var inputDate = new Date(this.value + "-01");
+    var today = new Date();
+
+    // If the input date is in the future
+    if (inputDate > today) {
+      // Reset the input value to the current month
+      var month = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+      var year = today.getFullYear();
+      this.value = year + "-" + month;
+
+      // Show the validation message
+      validationPopup.style.display = "block";
+
+      // Hide the validation message after 3 seconds
+      setTimeout(function () {
+        validationPopup.style.display = "none";
+      }, 3000);
+    }
+  });
+
+  // Add event listener to close icon
+  var closeIcon = document.querySelector(".datepick .bx.bxs-x-circle");
+  closeIcon.addEventListener("click", toggleDatePicker);
+  var filterButton = document.querySelector(".filterB");
+  filterButton.addEventListener("click", toggleDatePicker);
+
+  var resetButton = document.querySelector(".filterR");
+  resetButton.addEventListener("click", function () {
+    dateInput.value = "";
+    toggleDatePicker();
+  });
+});

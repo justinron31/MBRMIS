@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -65,6 +66,7 @@ $showLoginMessage = isset($_SESSION['show_login_message']) && $_SESSION['show_lo
 // Reset the session variable to avoid displaying the message on page refresh
 $_SESSION['show_login_message'] = false;
 ?>
+
 
 
 <body>
@@ -144,7 +146,8 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
 
-                        <button type="button" class="export__file-btn" onclick="toggleExport()" title="Export File" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" onclick="toggleExport()" title="Export File"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -172,7 +175,8 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Role <i class='bx bx-sort'></i></th>
                                     <th class="center"> Account Status <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Last Login <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Datetime Created <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Created <i
+                                            class='bx bx-sort'></i>
                                     </th>
                                     <th class="center"> Action </th>
                                 </tr>
@@ -238,7 +242,7 @@ $_SESSION['show_login_message'] = false;
 
                                                 <div class="rolestatus">
 
-                                                    <label for="customStatus">Account Status:</label>
+                                                    <label for="customStatus">Account:</label>
                                                     <select id="customStatus" name="customStatus">
                                                         <option value="Activated">Activated</option>
                                                         <option value="Deactivated">Deactivated</option>
@@ -247,7 +251,8 @@ $_SESSION['show_login_message'] = false;
                                                 </div>
 
 
-                                                <button id="updateButton" class="updateButton" type="submit">Update</button>
+                                                <button id="updateButton" class="updateButton"
+                                                    type="submit">Update</button>
 
 
                                         </form>
@@ -295,56 +300,92 @@ $_SESSION['show_login_message'] = false;
 
 
 <script>
-    new DataTable("#manageUser", {
-        paging: false,
-        searching: true,
-        info: false,
-        order: false,
-        layout: {
-            topStart: {
-                buttons: [{
-                        extend: 'excel',
-                        exportOptions: {
-                            columns: ':not(:nth-child(11))'
-                        }
+new DataTable("#manageUser", {
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ManageUserTable_' + dateStr;
                     },
-                    {
-                        extend: 'csv',
-                        exportOptions: {
-                            columns: ':not(:nth-child(11))'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        exportOptions: {
-                            columns: ':not(:nth-child(11))'
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: ':not(:nth-child(11))'
-                        },
-                        autoPrint: true
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
                     }
-                ],
-            },
+                },
+                {
+                    extend: 'csv',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ManageUserTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ManageUserTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+                {
+                    extend: 'print',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ManageUserTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(11))'
+                    },
+                    autoPrint: true
+                }
+            ],
         },
-        // Use a custom search input
-        initComplete: function() {
-            let input = document.querySelector(".input-group input");
-            this.api().columns().every(function() {
-                let that = this;
-                $(input).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
             });
-        },
-    });
+        });
+    },
+});
 </script>
 
 </html>

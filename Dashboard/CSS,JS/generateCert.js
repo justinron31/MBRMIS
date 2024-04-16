@@ -139,7 +139,7 @@ function generateCertificate(name, date, type, purpose_description, purok) {
     padding:0px 20px;
     width: 240px;
     position: relative;
-    font-weight:500;
+    font-weight:600;
 
 }
 
@@ -212,9 +212,12 @@ she has signed and executed in the presence of our Barangay Official.</p>
 
             <div class="wrap">
             <div class="seal">
-    <hr>
-    <p style="text-align:center">DATE</p>
-    <p style="margin-bottom:30px;">Witnessed by:</p>
+             <p style="text-align:center; margin:0;">AIGRETTE P. LAJARA</p>
+            <hr>
+    <p style="text-align:center">Punong Barangay</p>
+    <hr style="margin-top:50px;">
+    <p style="text-align:center;">DATE</p>
+    <p style="margin-bottom:50px;">Witnessed by:</p>
     </br>
     <hr>
     <p>Barangay Official/ Designation</p>
@@ -396,8 +399,8 @@ One (1) year from the issuance*</p>
 
     `;
   }
-  var printWindow = window.open("PRINT", "_blank");
-  //   var printWindow = window.open("", "_blank");
+  //   var printWindow = window.open("PRINT", "_blank");
+  var printWindow = window.open("", "_blank");
   printWindow.document.write(certificateContent);
   printWindow.document.write("</body></html>");
   printWindow.document.close();
@@ -408,8 +411,8 @@ One (1) year from the issuance*</p>
     printWindow.print();
   };
 
-  //   printWindow.onafterprint = function () {
-  //     // Close the window after printing
-  //     printWindow.close();
-  //   };
+  printWindow.onafterprint = function () {
+    // Close the window after printing
+    printWindow.close();
+  };
 }

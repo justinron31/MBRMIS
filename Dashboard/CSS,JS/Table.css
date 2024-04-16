@@ -90,6 +90,10 @@ main.table {
   overflow: auto;
 }
 
+.dataTable {
+  width: 100% !important;
+}
+
 .table__header {
   width: 100%;
   height: 10%;
@@ -439,7 +443,7 @@ thead th.asc span.icon-arrow {
   position: fixed;
   top: 10px;
   left: 45%;
-  width: 35%;
+  width: fit-content;
   height: 15px;
   justify-content: center;
   align-items: center;
@@ -452,6 +456,7 @@ thead th.asc span.icon-arrow {
   padding: 10px 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 4px solid #377fb9;
 }
 
 @keyframes slideDown {
@@ -494,11 +499,13 @@ thead th.asc span.icon-arrow {
 
 .updatecon {
   display: flex;
-  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .updatecon label {
-  margin-right: 5px;
+  margin: 0 5px 0 0;
 }
 
 .accountstatus {
@@ -783,4 +790,107 @@ thead th.asc span.icon-arrow {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/* ─── Filter Button ───────────────────────────────────────── */
+.filterB {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #377fb9;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #336996;
+  transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out;
+  background-color: #ffffff;
+}
+
+.filterB:hover {
+  background-color: #336996;
+  transform: scale(1.03);
+  color: white;
+}
+
+.filterR {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 3px solid #b81534;
+  padding: 5px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #b81534;
+  transition: background-color 0.1s ease-in-out, transform 0.1s ease-in-out;
+  background-color: #ffffff;
+  margin-top: 10px;
+}
+
+.filterR:hover {
+  background-color: #b81534;
+  transform: scale(1.03);
+  color: white;
+}
+
+.filterT {
+  font-weight: 600;
+}
+.filterT1 {
+  font-weight: 600;
+  margin-left: 5px;
+}
+
+.active {
+  background-color: #336996;
+  color: white;
+}
+
+.tablefilter {
+  display: none;
+}
+
+/* ─── Datepicker Table ────────────────────────────────────── */
+.datepickerE {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* Add these lines if you want to center align the content inside the div */
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border: 4px solid #377fb9;
+}
+
+.datepick i {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.datepick {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 0px 10px;
+}
+
+.bx.bxs-x-circle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  font-size: 25px;
+  margin-left: 10px;
+  color: #336996;
+}
+
+.bx.bxs-x-circle:hover {
+  transform: scale(1.1);
 }

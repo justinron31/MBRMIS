@@ -10,8 +10,7 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -113,13 +112,19 @@ $_SESSION['show_login_message'] = false;
     </div>
 
     <!--VALIDATION MESSAGE-->
-    <div id="validationPopup3" class="popup2">
+    <div id="validationPopup10" class="popup2">
         <p>Error Creating a new resident record!</p>
     </div>
 
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup4" class="popup2">
         <p>Error deleting resident record!</p>
+    </div>
+
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup3" class="popup2">
+        <p>You cannot select a month in the future.</p>
     </div>
 
 
@@ -148,9 +153,9 @@ $_SESSION['show_login_message'] = false;
     } elseif (isset($_SESSION['invalid_insert'])) {
         echo '<script>
             document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById("validationPopup3").style.display = "block";
+                document.getElementById("validationPopup10").style.display = "block";
                 setTimeout(function() {
-                    document.getElementById("validationPopup3").style.display = "none";
+                    document.getElementById("validationPopup10").style.display = "none";
                 }, 3000);
             });
           </script>';
@@ -230,20 +235,53 @@ $_SESSION['show_login_message'] = false;
 
                 <section class="table__header">
 
-
                     <div class="export__file">
+
+
+                        <div class="datepickerE">
+
+                            <div class="datepick">
+                                <i class='bx bxs-x-circle new'></i>
+                                <label for="date">Pick a month</label>
+                                <input type="month" id="date" name="date" value="<?php echo date('Y-m'); ?>">
+                            </div>
+                            </br>
+
+                            <button type="button" class=" filterB" style="margin-left:5px;">
+                                <p class="filterT">Filter</p>
+                            </button>
+
+                            <button type="button" class=" filterR" style="margin-left:5px;">
+                                <p class="filterT">Reset</p>
+                            </button>
+                        </div>
+
+                        <div class="tablefilter">
+
+
+
+                            <button type="button" class="filterB" style="margin-right:5px;" onclick="toggleDatePicker()">
+                                <i class='bx bxs-calendar'></i>
+                            </button>
+                        </div>
+
+
+                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;" onclick="toggleTableFilter()">
+                            <i class='bx bxs-filter-alt'></i>
+                            <p class="filterT1">Filter</p>
+                        </button>
+
+
 
                         <div class="tableHead">
                             <h1 class="titleTable">Total Residents: <span id="totalReq3">0</span></h1>
                         </div>
-                        <button type="button" id="addResident" class="export__file-btn2" style="margin-left:10px;"
-                            onclick="toggleResidentForm()">
+                        <button type="button" id="addResident" class="export__file-btn2" style="margin-left:10px;" onclick="toggleResidentForm()">
                             <i class='bx bxs-plus-circle'></i>
                             <p class="exportTitle1">Add Resident</p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
-                            style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -272,21 +310,16 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Middlename <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Gender <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Age <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i
-                                            class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Household Number <i
-                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Household Number <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> NHTS Household <i class='bx bx-sort'></i>
                                     </th>
                                     <th title="Filter: Ascending/Descending"> IP or Non-IP <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member <i
-                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Category <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Datetime Inserted <i
-                                            class='bx bx-sort'></i>
-                                    <th title="Filter: Ascending/Descending"> Datetime Updated <i
-                                            class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Inserted <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Updated <i class='bx bx-sort'></i>
                                     </th>
                                     <th class="center"> Action </th>
                                 </tr>
@@ -361,80 +394,146 @@ $_SESSION['show_login_message'] = false;
 
 
 <script>
-$(document).ready(function() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var update = urlParams.get('update');
+    $(document).ready(function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var update = urlParams.get('update');
 
-    var popupId;
-    if (update === 'success') {
-        popupId = 'validationPopup6';
-    } else if (update === 'error') {
-        popupId = 'validationPopup7';
-    }
+        var popupId;
+        if (update === 'success') {
+            popupId = 'validationPopup6';
+        } else if (update === 'error') {
+            popupId = 'validationPopup7';
+        }
 
-    if (popupId) {
-        var popup = document.getElementById(popupId);
-        popup.style.display = 'block';
+        if (popupId) {
+            var popup = document.getElementById(popupId);
+            popup.style.display = 'block';
 
-        setTimeout(function() {
-            popup.style.display = 'none';
-        }, 3000);
-    }
-});
+            setTimeout(function() {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+    });
 </script>
 
 
 <script>
-new DataTable("#residentsRec", {
-    paging: false,
-    searching: true,
-    info: false,
-    order: false,
-    layout: {
-        topStart: {
-            buttons: [{
-                    extend: 'excel',
-                    exportOptions: {
-                        columns: ':not(:nth-child(16))'
-                    }
-                },
-                {
-                    extend: 'csv',
-                    exportOptions: {
-                        columns: ':not(:nth-child(16))'
-                    }
-                },
-                {
-                    extend: 'pdf',
-                    exportOptions: {
-                        columns: ':not(:nth-child(16))'
+    var table = new DataTable("#residentsRec", {
+        paging: false,
+        searching: true,
+        info: false,
+        order: false,
+        layout: {
+            topStart: {
+                buttons: [{
+                        extend: 'excel',
+                        filename: function() {
+                            var d = new Date();
+                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                    '0');
+                            return 'ResidentsRecordTable_' + dateStr;
+                        },
+                        exportOptions: {
+                            columns: ':not(:nth-child(17))'
+                        }
                     },
-                    orientation: 'landscape',
-                    pageSize: 'A4'
-                },
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: ':not(:nth-child(16))'
+                    {
+                        extend: 'csv',
+                        filename: function() {
+                            var d = new Date();
+                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                    '0');
+                            return 'ResidentsRecordTable_' + dateStr;
+                        },
+                        exportOptions: {
+                            columns: ':not(:nth-child(17))'
+                        }
                     },
-                    autoPrint: true
-                }
-            ],
+                    {
+                        extend: 'pdf',
+                        filename: function() {
+                            var d = new Date();
+                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                    '0');
+                            return 'ResidentsRecordTable_' + dateStr;
+                        },
+                        exportOptions: {
+                            columns: ':not(:nth-child(17))'
+                        },
+                        orientation: 'landscape',
+                        pageSize: 'A4'
+                    },
+                    {
+                        extend: 'print',
+                        filename: function() {
+                            var d = new Date();
+                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                    '0');
+                            return 'ResidentsRecordTable_' + dateStr;
+                        },
+                        exportOptions: {
+                            columns: ':not(:nth-child(17))'
+                        },
+                        autoPrint: true
+                    }
+                ],
+            },
         },
-    },
-    // Use a custom search input
-    initComplete: function() {
-        let input = document.querySelector(".input-group input");
-        this.api().columns().every(function() {
-            let that = this;
-            $(input).on('keyup change clear', function() {
-                if (that.search() !== this.value) {
-                    that.search(this.value).draw();
-                }
+        // Use a custom search input
+        initComplete: function() {
+            let input = document.querySelector(".input-group input");
+            this.api().columns().every(function() {
+                let that = this;
+                $(input).on('keyup change clear', function() {
+                    if (that.search() !== this.value) {
+                        that.search(this.value).draw();
+                    }
+                });
             });
+        },
+    });
+
+    function applyFilter(filter) {
+        if (filter) {
+            table.search(filter).draw();
+            $('input[type="search"]').val(''); // Clear the search input
+        } else {
+            table.search('').draw();
+        }
+    }
+
+
+    document.querySelector(".filterR").addEventListener("click", function() {
+        var dateInput = document.querySelector("#date");
+        dateInput.value = '';
+        applyFilter('');
+    });
+
+    // Apply the filter from localStorage when the page loads
+    applyFilter(localStorage.getItem('filter'));
+
+    document.querySelector(".filterB").addEventListener("click", function() {
+        var dateInput = document.querySelector("#date");
+        var date = new Date(dateInput.value);
+        var formattedDate = date.toLocaleString('en-US', {
+            month: 'long',
+            year: 'numeric'
         });
-    },
-});
+        applyFilter(formattedDate);
+
+    });
 </script>
 
 </html>

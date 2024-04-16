@@ -68,6 +68,12 @@ $_SESSION['show_login_message'] = false;
 ?>
 
 
+<!--VALIDATION MESSAGE-->
+<div id="validationPopup3" class="popup2">
+    <p>You cannot select a month in the future.</p>
+</div>
+
+
 <body>
 
     <!-- Idle and logout modal-->
@@ -118,6 +124,51 @@ $_SESSION['show_login_message'] = false;
 
 
                     <div class="export__file">
+
+                        <div class="datepickerE">
+
+                            <div class="datepick">
+                                <i class='bx bxs-x-circle'></i>
+                                <label for="date">Pick a month</label>
+                                <input type="month" id="date" name="date" value="<?php echo date('Y-m'); ?>">
+                            </div>
+                            </br>
+
+                            <button type="button" class=" filterB" style="margin-left:5px;">
+                                <p class="filterT">Filter</p>
+                            </button>
+
+                            <button type="button" class=" filterR" style="margin-left:5px;">
+                                <p class="filterT">Reset</p>
+                            </button>
+                        </div>
+
+                        <div class="tablefilter">
+
+                            <button type="button" id="reviewingButton" class=" filterB" style="margin-left:5px;">
+                                <p class="filterT">Indigency</p>
+                            </button>
+
+                            <button type="button" id="declinedButton" class="filterB" style="margin-left:5px;">
+                                <p class="filterT">Residency</p>
+                            </button>
+
+                            <button type="button" id="processingButton" class="filterB" style="margin-left:5px; margin-right:5px;">
+                                <p class="filterT">First Time Job Seeker</p>
+                            </button>
+
+                            <button type="button" class="filterB" style="margin-right:5px;" onclick="toggleDatePicker()">
+                                <i class='bx bxs-calendar'></i>
+                            </button>
+                        </div>
+
+
+                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;" onclick="toggleTableFilter()">
+                            <i class='bx bxs-filter-alt'></i>
+                            <p class="filterT1">Filter</p>
+                        </button>
+
+
 
                         <div class="tableHead">
                             <!--TOTAL USER-->
@@ -212,7 +263,7 @@ $_SESSION['show_login_message'] = false;
                                             "<td>" . $row["purpose_description"] . "</td>" .
                                             "<td title='" . date("l", strtotime($row["pickup_datetime"])) . "'>" . date("F j, Y, g:i a", strtotime($row["pickup_datetime"])) . "</td>" .
                                             "<td title='" . date("l", strtotime($row["datetime_created"])) . "'>" . date("F j, Y, g:i a", strtotime($row["datetime_created"])) . "</td>" .
-                                            "<td><button class='viewMore' onclick=\"generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "')\" data-file-id='" . $row["id"] . "'>Print</button></td>" .
+                                            "<td><button class='viewMore' onclick=\"if(confirm('Print the selected file request?')) { generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "') }\" data-file-id='" . $row["id"] . "'>Print</button></td>" .
                                             "</tr>";
                                     }
                                     $result->close();
@@ -236,7 +287,7 @@ $_SESSION['show_login_message'] = false;
 </body>
 
 <script>
-    new DataTable("#reqdocu", {
+    var table = new DataTable("#reqdocu", {
         paging: false,
         searching: true,
         info: false,
@@ -285,6 +336,65 @@ $_SESSION['show_login_message'] = false;
                 });
             });
         },
+    });
+
+    function applyFilter(filter) {
+        if (filter) {
+            table.search(filter).draw();
+            $('input[type="search"]').val(''); // Clear the search input
+        } else {
+            table.search('').draw();
+        }
+    }
+
+    $('#reviewingButton').on('click', function() {
+        if ($(this).hasClass('active')) {
+            localStorage.removeItem('filter');
+            applyFilter(null);
+        } else {
+            localStorage.setItem('filter', 'Indigency');
+            applyFilter('Indigency');
+        }
+    });
+
+    $('#declinedButton').on('click', function() {
+        if ($(this).hasClass('active')) {
+            localStorage.removeItem('filter');
+            applyFilter(null);
+        } else {
+            localStorage.setItem('filter', 'Residency');
+            applyFilter('Residency');
+        }
+    });
+
+    $('#processingButton').on('click', function() {
+        if ($(this).hasClass('active')) {
+            localStorage.removeItem('filter');
+            applyFilter(null);
+        } else {
+            localStorage.setItem('filter', 'First Time Job Seeker');
+            applyFilter('First Time Job Seeker');
+        }
+    });
+
+
+    document.querySelector(".filterR").addEventListener("click", function() {
+        var dateInput = document.querySelector("#date");
+        dateInput.value = '';
+        applyFilter('');
+    });
+
+    // Apply the filter from localStorage when the page loads
+    applyFilter(localStorage.getItem('filter'));
+
+    document.querySelector(".filterB").addEventListener("click", function() {
+        var dateInput = document.querySelector("#date");
+        var date = new Date(dateInput.value);
+        var formattedDate = date.toLocaleString('en-US', {
+            month: 'long',
+            year: 'numeric'
+        });
+        applyFilter(formattedDate);
     });
 </script>
 
