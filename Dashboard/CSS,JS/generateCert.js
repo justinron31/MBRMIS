@@ -4,6 +4,7 @@ function generateCertificate(
   type,
   purpose_description,
   purok,
+  residency,
   tracking_number,
   id
 ) {
@@ -208,7 +209,7 @@ hr{
             <div class="contentsub">(First Time Jobseekers Assistance Act - RA 11261)</div>
             </div>
 
-            <p>This is to certify that <strong>${fullName}</strong>, resident of <strong>${purok}</strong>, Brgy. Makiling, Calamba City for (number of years) is qualified of <strong>RA 11261</strong> or the <strong><em>First Time Jobseekers Act of 2019</em></strong>.</p>
+            <p>This is to certify that <strong>${fullName}</strong>, resident of <strong>${purok}</strong>, Brgy. Makiling, Calamba City for <strong>${residency}</strong> year/s is qualified of <strong>RA 11261</strong> or the <strong><em>First Time Jobseekers Act of 2019</em></strong>.</p>
 
             <p>I further certify that the holder/ bearer was informed of his/ her rights including the
 duties and responsibilities accorded by RA 11261 through the <strong>Oath of Undertaking</strong> he/
@@ -352,9 +353,16 @@ One (1) year from the issuance*</p>
 
             }
 
-            .seal p {
+           .wrap{
+  display: flex;
+  flex-direction:column;
+  align-items: flex-end;
+}
 
-            }
+.seal p{
+  margin-top:0;
+}
+
 
         </style>
 
@@ -400,6 +408,15 @@ One (1) year from the issuance*</p>
              <div class="seal">
             <p>**NOT VALID BARANGAY SEAL.**</p>
             </div>
+
+            <div class="wrap">
+            <div class="seal">
+             <p style="text-align:center; margin:0;">AIGRETTE P. LAJARA</p>
+            <hr>
+    <p style="text-align:center">Punong Barangay</p>
+
+</div>
+</div>
 
 
         </div>
@@ -450,4 +467,74 @@ One (1) year from the issuance*</p>
       }
     }, 1000); // Adjust the delay as needed
   };
+}
+
+// ─── Edit Certificate Form ───────────────────────────────────────
+function toggleCertEdit(id) {
+  document.querySelector(".overlayR1").style.display = "block";
+  document.querySelector(".residentsForm2").style.display = "block";
+  $.ajax({
+    url: "../Php/fetchCertInfo.php",
+    type: "GET",
+    dataType: "json",
+    data: { id: id },
+    success: function (response) {
+      if (response.status === "success") {
+        const data = response.data;
+        const fields = {
+          trackingC: "tracking_number",
+          idnumC: "id",
+          typeC: "type",
+          fnameC: "firstname",
+          lnameC: "lastname",
+          PurposeC: "purpose_description",
+          ResidencyC: "residency",
+          AddressC:
+            data.type === "Certificate of Residency" ||
+            data.type === "Certificate of Indigency"
+              ? "purok"
+              : "address",
+        };
+
+        // Populate the form fields
+        Object.keys(fields).forEach((field) => {
+          $(`#${field}`).val(data[fields[field]]);
+        });
+
+        if (
+          data.type === "Certificate of Residency" ||
+          data.type === "Certificate of Indigency"
+        ) {
+          // Remove the entire rInputRe div
+          $(".rInputRe").remove();
+        } else {
+          // If the type is not Certificate of Residency or Certificate of Indigency,
+          // enable the input field and show the label
+          $("#ResidencyC").prop("disabled", false);
+          $("label[for='ResidencyC']").show();
+        }
+
+        // Enable or disable the submit button based on changes
+        const button = $(".rSubmit2");
+        Object.keys(fields).forEach((field) => {
+          $(`#${field}`).on("input", function () {
+            const isModified = Object.keys(fields).some(
+              (field) => $(`#${field}`).val() !== data[fields[field]]
+            );
+            button.prop("disabled", !isModified);
+          });
+        });
+      } else {
+        console.log("Error: Failed to fetch data.");
+      }
+    },
+    error: function (error) {
+      console.log(error);
+    },
+  });
+}
+
+function hideDivs() {
+  document.querySelector(".overlayR1").style.display = "none";
+  document.querySelector(".residentsForm2").style.display = "none";
 }

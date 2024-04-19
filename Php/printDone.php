@@ -67,7 +67,7 @@ function logUserActivity($conn, $action, $trackingNumber, $type)
     $actionDate = date('Y-m-d H:i:s');
 
     // Prepare and execute insert query
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate, request_tracking_number, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO useractivity (StaffID, FirstName, LastName, Role, Action, ActionDate, request_tracking_number, type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $trackingNumber, $type);
 

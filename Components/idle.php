@@ -29,10 +29,10 @@
 <!--incompatibility CONTENT-->
 <div class="incomp">
     <div id="logcon">
-                <img class="logo" src="../images/logo.png" alt="Makiling logo" />
-                <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
-            </div>
-<h3>"Please access the solution on your larger devices to maximize functionality and view."</h3>
+        <img class="logo" src="../images/logo.png" alt="Makiling logo" />
+        <h1 class="logoname">MAKILING BRMI SYSTEM</h1>
+    </div>
+    <h3>"Please access the solution on your larger devices to maximize functionality and view."</h3>
 </div>
 
 <!-- ─── logout popup ───────────────────── -->
@@ -56,21 +56,17 @@
 
 
 
-
-
-
-
-
 <script>
     // ─── Idle counter ───────────────────────────────────────────
-    const idleTimeout = 10 * 60; // 10 minutes
-    let remain = 5 * 60; // 5 minutes
+    const idleTimeout = 20; // 10 minutes
+    let remain = 10; // 5 minutes
     let timer;
     let idleTime = 0;
 
     function startIdleTimer() {
         timer = setInterval(function() {
             idleTime++;
+            console.log(idleTime);
 
             if (idleTime >= idleTimeout - remain) {
                 const remainingTime = Math.max(0, idleTimeout - idleTime);
