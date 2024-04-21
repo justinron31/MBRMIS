@@ -301,6 +301,11 @@ $_SESSION['show_login_message'] = false;
 
 <script>
 new DataTable("#manageUser", {
+
+    language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search"
+    },
     paging: false,
     searching: true,
     info: false,
@@ -354,22 +359,6 @@ new DataTable("#manageUser", {
                     orientation: 'landscape',
                     pageSize: 'A4'
                 },
-                {
-                    extend: 'print',
-                    filename: function() {
-                        var d = new Date();
-                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                '0');
-                        return 'ManageUserTable_' + dateStr;
-                    },
-                    exportOptions: {
-                        columns: ':not(:nth-child(11))'
-                    },
-                    autoPrint: true
-                }
             ],
         },
     },

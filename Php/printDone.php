@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = $_POST['userId'];
     $fileType = $_POST['fileType'];
     $newStatus = 'Ready for Pickup';
-    $remarks = isset($_POST['remarks']) ? $_POST['remarks'] : '';
+    $remarks = 'Kindly bring your valid ID upon claiming. Thank you!';
     $currentDateTime = date('Y-m-d H:i:s');
 
     // Determine the table to update based on file type

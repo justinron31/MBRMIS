@@ -1,4 +1,29 @@
 <!-- RESIDENTS FORM EDIT -->
+
+<!-- delete popup -->
+<div class=" overlayD">
+</div>
+<div class="modalD">
+    <div class="modal-header1">
+        <h2>IMPORTANT</h2>
+    </div>
+
+    <div class="modal-body1">
+        <div class="modal-message1">
+            <i class='bx bxs-error-circle'></i>
+            <p>Are you sure you want to delete this Record?</p>
+            <p>It will also delete the <strong>Household Members</strong>.</p>
+            <p>This action cannot be <Strong>UNDONE</Strong>.</p>
+        </div>
+        <div class="modal-buttons1">
+            <button class="yes1">Yes</button>
+            <button class="no1">No</button>
+        </div>
+    </div>
+
+</div>
+
+
 <div class="overlayR"></div>
 
 <div class="residentsForm1">
@@ -11,7 +36,7 @@
 
                 <div class="rheadcon">
                     <div class="line"></div>
-                    <p>RESIDENT'S INFORMATION</p>
+                    <p>RESIDENTS INFORMATION</p>
                     <div class="line"></div>
                     <i class='bx bxs-x-circle' onclick="hideResidentForm1()"></i>
                 </div>
@@ -81,8 +106,7 @@
 
                 <div class="rInput2">
                     <label for="avatar" class="required1">Upload Voter's ID</label>
-                    <input class="rIDupload" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg"
-                        readonly />
+                    <input class="rIDupload" type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" readonly />
                 </div>
 
             </div>
@@ -101,10 +125,10 @@
 
                 <div class="rInput">
                     <label for="HH">HH Head PhilHealth Member</label>
-                    <input type="text" id="HH" name="HH" placeholder="Enter HH"  readonly>
+                    <input type="text" id="HH" name="HH" placeholder="Enter HH" readonly>
                 </div>
-                
-                
+
+
 
                 <div class="rInput">
                     <label for="Category">Category</label>
@@ -141,8 +165,7 @@
 
                         <div class="rInput">
                             <label for="mMaiden">Mother’s Maiden Name</label>
-                            <input type="text" id="mMaiden" name="mMaiden" placeholder="Enter Mother’s Maiden Name"
-                                readonly>
+                            <input type="text" id="mMaiden" name="mMaiden" placeholder="Enter Mother’s Maiden Name" readonly>
                         </div>
 
                     </div>
@@ -151,8 +174,7 @@
 
                         <div class="rInput">
                             <label for="mRelationship">Relationship</label>
-                            <input type="text" id="mRelationship" name="mRelationship" placeholder="Enter Relationship"
-                                readonly>
+                            <input type="text" id="mRelationship" name="mRelationship" placeholder="Enter Relationship" readonly>
                         </div>
 
                         <div class="rInput">
@@ -163,8 +185,7 @@
 
                         <div class="rInput">
                             <label for="mAge">Age</label>
-                            <input type="text" id="mAge" name="mAge" placeholder="Enter Age" oninput="validateAge(this)"
-                                readonly>
+                            <input type="text" id="mAge" name="mAge" placeholder="Enter Age" oninput="validateAge(this)" readonly>
                         </div>
 
                     </div>
@@ -189,13 +210,15 @@
 
 
         </form>
-
+        <div class="addMember" onclick="displayMembersContainer()">
+            <span id="Hmember">+ Toggle Add Household Member</span>
+        </div>
 
         <div class="rButcon">
             <?php
             if ($_SESSION['user_type'] === 'admin') {
             ?>
-            <button class="rSubmit1">DELETE</button>
+                <button class="rSubmit1">DELETE</button>
             <?php
             }
             ?>
@@ -203,31 +226,7 @@
         </div>
 
     </div>
+    <?php include '../Components/addhousehold.php'; ?>
     <?php include '../Components/residentEdit1.php'; ?>
-</div>
-
-
-
-
-<!-- delete popup -->
-<div class=" overlayD">
-</div>
-<div class="modalD">
-    <div class="modal-header1">
-        <h2>IMPORTANT</h2>
-    </div>
-
-    <div class="modal-body1">
-        <div class="modal-message1">
-            <i class='bx bxs-error-circle'></i>
-            <p>Are you sure you want to delete this Record?</p>
-            <p>It will also delete the <strong>Household Members</strong>.</p>
-            <p>This action cannot be <Strong>UNDONE</Strong>.</p>
-        </div>
-        <div class="modal-buttons1">
-            <button class="yes1">Yes</button>
-            <button class="no1">No</button>
-        </div>
-    </div>
 
 </div>

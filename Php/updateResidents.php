@@ -16,7 +16,7 @@ function logUserActivity($conn, $action, $residentFirstName, $residentLastName)
     $actionDate = date('Y-m-d H:i:s');
     $type = 'Resident Record';
 
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate, type,ResidentFirstName,ResidentLastName) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
+    $sql = "INSERT INTO useractivity (StaffID, FirstName, LastName, Role, Action, ActionDate, type,ResidentFirstName,ResidentLastName) VALUES (?, ?, ?, ?, ?, ?, ?,?,?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("sssssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type, $residentFirstName, $residentLastName);
     $stmt->execute();
@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
 
-    $sql = "UPDATE familymember SET mLastName = ?, mFirstName = ?, mMothersMaidenName = ?, mRelationship = ?, mSex = ?, mAge = ?, mClassificationByAgeHealthRisk = ?, mQuarter = ?, dateUpdated = ? WHERE resident_id = ?";
+    $sql = "UPDATE familymember SET mLastName = ?, mFirstName = ?, mMothersMaidenName = ?, mRelationship = ?, mSex = ?, mAge = ?, mClassificationByAgeHealthRisk = ?, mQuarter = ?, dateUpdated = ? WHERE id = ?";
     $dateUpdated = date('Y-m-d H:i:s');
 
     $stmt = $conn->prepare($sql);
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['members']) && !empty($_POST['members'])) {
         // Loop through each member in the members array
         foreach ($_POST['members'] as $member) {
-            $stmt->bind_param("ssssssssss", $member['mLastName'], $member['mFirstName'], $member['mMothersMaidenName'], $member['mRelationship'], $member['mGender'], $member['mAge'], $member['mClassificationByAgeHealthRisk'], $member['mQuarter'],  $dateUpdated, $_POST['id']);
+            $stmt->bind_param("sssssssssi", $member['mLastName'], $member['mFirstName'], $member['mMothersMaidenName'], $member['mRelationship'], $member['mGender'], $member['mAge'], $member['mClassificationByAgeHealthRisk'], $member['mQuarter'],  $dateUpdated, $member['mId']);
             $stmt->execute();
 
             if ($stmt->error) {

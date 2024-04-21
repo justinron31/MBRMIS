@@ -462,6 +462,10 @@ function toggleResidentForm1(id) {
 
     <div class="rform1">
 
+      <input type="text" id="mId" name="mId" placeholder="Enter Member ID" readonly value="${
+        member.id
+      }" hidden>
+
       <div class="rInput">
         <label for="mLastname">Last Name</label>
         <input type="text" id="mLastname" name="mLastname" placeholder="Enter Lastname" readonly value="${
@@ -693,6 +697,9 @@ function fetchresidentData(id) {
 
              <div class="addmember">
                  <div class="rform1">
+   <input type="text" id="mId" name="mId" placeholder="Enter Member ID" readonly value="${
+     member.id
+   }" hidden>
 
                      <div class="rInput">
                          <label for="mLastname">Last Name</label>
@@ -868,7 +875,9 @@ function fetchresidentData(id) {
 
              </div>
 
-
+<div class="deleteMemberButton">
+        <button class="deleteButton">Delete</button>
+      </div>
 
          </div>
           `;
@@ -881,6 +890,32 @@ function fetchresidentData(id) {
     error: function (jqXHR, textStatus, errorThrown) {
       console.error("Error:", errorThrown);
     },
+  });
+
+  // Add event listener for delete buttons
+  $(".membersContainer").on("click", ".deleteButton", function () {
+    var memberId = $(this).closest(".membersCon1").find("#mId").val();
+    // Ask for confirmation before deleting the member
+    if (
+      confirm(
+        "Are you sure you want to delete the selected household member? This action cannot be undone."
+      )
+    ) {
+      // Make AJAX call to delete member
+      $.ajax({
+        url: "../Php/deleteMember.php",
+        type: "POST",
+        data: { memberId: memberId },
+        success: function (response) {
+          // Handle success response
+          $(this).closest(".membersCon1").remove();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          // Handle error response
+          console.error("Error deleting member:", errorThrown);
+        },
+      });
+    }
   });
 }
 
@@ -909,6 +944,7 @@ function submitFormResident() {
 
     $(".membersCon1").each(function () {
       var member = {
+        mId: $(this).find("input[name='mId']").val(),
         mLastName: $(this).find("input[name='mLastname']").val(),
         mFirstName: $(this).find("input[name='mFirstname']").val(),
         mMothersMaidenName: $(this).find("input[name='mMaiden']").val(),
@@ -967,13 +1003,41 @@ function submitFormResident() {
 function hideResidentForm1() {
   document.querySelector(".residentsForm1").style.display = "none";
   document.querySelector(".overlayR").style.display = "none";
+  document.querySelector(".membersContainer1").style.display = "none"; // Added line
 
   var form2 = document.querySelector(".formform1");
   var form1 = document.querySelector(".formform");
   var addMember = document.querySelector(".addMember2");
+  var addButton = document.getElementById("addmo");
 
   addMember.style.display = "";
   formDiv.style.border = "";
   form2.style.display = "none";
   form1.style.display = "block";
+  addButton.style.display = "none";
+}
+
+// ─── Add Household ────────────────────────────────────────────
+function submitAddHousehold() {
+  var form = document.getElementById("addhousehold");
+  var formData = new FormData(form);
+
+  // Get the selectedRowId from wherever it's stored
+  var selectedRowId = getSelectedRowId();
+
+  formData.append("selectedRowId", selectedRowId);
+
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "../Php/addhousehold.php", true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      // Handle response here if needed
+      console.log(xhr.responseText);
+    }
+  };
+  xhr.send(formData);
+}
+
+function getSelectedRowId() {
+  return selectedRowId;
 }

@@ -773,7 +773,7 @@ thead th.asc span.icon-arrow {
 }
 
 .dt-input {
-  width: 30%;
+  width: 25%;
   height: 40px;
   background-color: rgba(207, 207, 207, 0.333);
   border-radius: 10px;
@@ -791,7 +791,7 @@ thead th.asc span.icon-arrow {
 }
 
 .dt-input:hover {
-  width: 31%;
+  width: 27%;
   background-color: white;
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.236);
   outline: none;
@@ -883,7 +883,7 @@ thead th.asc span.icon-arrow {
 
   background-color: #fff;
   border-radius: 10px;
-  padding: 20px 10px;
+  padding: 20px 30px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   border: 4px solid #377fb9;
 }
@@ -895,8 +895,12 @@ thead th.asc span.icon-arrow {
   font-size: 20px;
 }
 
+.datepick i:hover {
+  transform: scale(1.1);
+}
+
 .datepick {
-  width: 200px;
+  width: 250px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -904,14 +908,11 @@ thead th.asc span.icon-arrow {
 }
 
 .bx.bxs-x-circle {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
   font-size: 25px;
-  margin-left: 10px;
   color: #336996;
+  cursor: pointer;
 }
 
-.bx.bxs-x-circle:hover {
-  transform: scale(1.1);
+.near-pickup {
+  background-color: red;
 }

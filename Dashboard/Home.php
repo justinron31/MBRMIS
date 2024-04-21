@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -55,24 +56,24 @@ $_SESSION['show_login_message'] = false;
 
     <!-- JavaScript for Popup -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            <?php if ($showLoginMessage) : ?>
-                var loginPopup = document.getElementById('loginPopup');
-                if (loginPopup) {
-                    loginPopup.style.display = 'block';
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if ($showLoginMessage) : ?>
+        var loginPopup = document.getElementById('loginPopup');
+        if (loginPopup) {
+            loginPopup.style.display = 'block';
 
-                    // Trigger the slide-up animation after 2 seconds
-                    setTimeout(function() {
-                        loginPopup.classList.add('slide-up');
-                    }, 1500);
+            // Trigger the slide-up animation after 2 seconds
+            setTimeout(function() {
+                loginPopup.classList.add('slide-up');
+            }, 1500);
 
-                    // Hide the popup after 3 seconds
-                    setTimeout(function() {
-                        loginPopup.style.display = 'none';
-                    }, 2000);
-                }
-            <?php endif; ?>
-        });
+            // Hide the popup after 3 seconds
+            setTimeout(function() {
+                loginPopup.style.display = 'none';
+            }, 2000);
+        }
+        <?php endif; ?>
+    });
     </script>
 
     <!-- Idle and logout modal-->
@@ -88,7 +89,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    OVERVIEW
+                    DASHBOARD
                 </h1>
 
                 <div class="access">

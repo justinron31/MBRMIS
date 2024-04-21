@@ -479,40 +479,55 @@ function toggleTableFilter() {
     filterButton.parentNode.style.backgroundColor = "red";
     filterButton.parentNode.style.border = "none";
     filterButton.parentNode.style.color = "white";
+    localStorage.setItem("tableFilterState", "flex");
+    localStorage.setItem(
+      "filterButtonState",
+      JSON.stringify({
+        textContent: "X",
+        parentBackgroundColor: "red",
+        parentBorder: "none",
+        parentColor: "white",
+      })
+    );
   } else {
     tableFilter.style.display = "none";
     filterButton.textContent = "FILTER";
     filterButton.parentNode.style.backgroundColor = "";
     filterButton.parentNode.style.border = "";
     filterButton.parentNode.style.color = "";
+    localStorage.setItem("tableFilterState", "none");
+    localStorage.setItem(
+      "filterButtonState",
+      JSON.stringify({
+        textContent: "FILTER",
+        parentBackgroundColor: "",
+        parentBorder: "",
+        parentColor: "",
+      })
+    );
   }
 }
 
-// ─── Filterbuttons ────────────────────────────────────────────
-var filterButtons = document.querySelectorAll(".tablefilter .filterB");
+window.onload = function () {
+  var tableFilter = document.querySelector(".tablefilter");
+  var filterButton = document.querySelector(".filterB .filterT1");
+  var savedTableFilterState = localStorage.getItem("tableFilterState");
+  var savedFilterButtonState = JSON.parse(
+    localStorage.getItem("filterButtonState")
+  );
 
-filterButtons.forEach(function (button) {
-  button.addEventListener("click", function () {
-    // If the clicked button is already active, remove the active class
-    if (this.classList.contains("active")) {
-      this.classList.remove("active");
-      localStorage.removeItem("activeButton");
-    } else {
-      // If the clicked button is not active, make it active and remove active class from other buttons
-      filterButtons.forEach(function (btn) {
-        btn.classList.remove("active");
-      });
-      this.classList.add("active");
-      localStorage.setItem("activeButton", this.id); // Store the id of the active button
-    }
-  });
-});
+  if (savedTableFilterState) {
+    tableFilter.style.display = savedTableFilterState;
+  }
 
-// When the page loads, activate the button stored in localStorage
-var activeButtonId = localStorage.getItem("activeButton");
-if (activeButtonId) {
-  document.getElementById(activeButtonId).classList.add("active");
-}
+  if (savedFilterButtonState) {
+    filterButton.textContent = savedFilterButtonState.textContent;
+    filterButton.parentNode.style.backgroundColor =
+      savedFilterButtonState.parentBackgroundColor;
+    filterButton.parentNode.style.border = savedFilterButtonState.parentBorder;
+    filterButton.parentNode.style.color = savedFilterButtonState.parentColor;
+  }
+};
 
 // ─── Datepicker ───────────────────────────────────────────────
 function toggleDatePicker() {

@@ -7,7 +7,7 @@ date_default_timezone_set('Asia/Singapore');
 session_start();
 
 
-function logUserActivity($conn, $action)
+function logUserActivity($conn, $action, $Lastname, $Firstname)
 {
     // Assuming you store user data in session after they log in
     $staffId = $_SESSION['idnumber'];
@@ -17,9 +17,9 @@ function logUserActivity($conn, $action)
     $actionDate = date('Y-m-d H:i:s');
     $type = 'Resident Record';
 
-    $sql = "INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type) VALUES (?, ?, ?, ?, ?, ?,?)";
+    $sql = "INSERT INTO useractivity (StaffID, FirstName, LastName, Role, Action, ActionDate,type,ResidentFirstName,ResidentLastName) VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type);
+    $stmt->bind_param("sssssssss", $staffId, $firstName, $lastName, $role, $action, $actionDate, $type, $Lastname, $Firstname);
     $stmt->execute();
 }
 
@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Execute the query and get the ID of the inserted record
     if ($stmt->execute()) {
         $resident_id = $conn->insert_id;
-        logUserActivity($conn, 'Added a resident');
+        logUserActivity($conn, 'Added a resident', $Lastname, $Firstname);
     } else {
         $_SESSION['invalid_insert'] = true;
         header("Location: ../Dashboard/ResidentsRecord.php");
@@ -107,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         $_SESSION['success_insert'] = true;
-        logUserActivity($conn, 'Added a household member');
+        logUserActivity($conn, 'Added a household member', $mLastname, $mFirstname);
         header("Location: ../Dashboard/ResidentsRecord.php");
     } else {
         $_SESSION['invalid_insert'] = true;

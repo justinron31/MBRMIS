@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -229,12 +230,14 @@ $_SESSION['show_login_message'] = false;
                             ?>
                         </div>
 
-                        <button type="button" class="export__file-btn2" style="margin-left:10px;" onclick="displayElements()">
+                        <button type="button" class="export__file-btn2" style="margin-left:10px;"
+                            onclick="displayElements()">
                             <i class='bx bxs-plus-circle'></i>
                             <p class="exportTitle1">Add Staff </p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File" style="margin-left:10px;" onclick="toggleExport()">
+                        <button type="button" class="export__file-btn" title="Export File" style="margin-left:10px;"
+                            onclick="toggleExport()">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -255,7 +258,8 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Datetime Added <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> Datetime Updated <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Updated <i
+                                            class='bx bx-sort'></i>
                                     </th>
                                     <th class="center"> Action </th>
                                 </tr>
@@ -333,98 +337,98 @@ $_SESSION['show_login_message'] = false;
 
 
         <script>
-            // ─── Delete MODAL ──────────────────────────────────────────────
-            var intervalId;
+        // ─── Delete MODAL ──────────────────────────────────────────────
+        var intervalId;
 
-            function showDeleteModal1(id) {
-                document.querySelector(".overlayD").style.display = "block";
-                document.querySelector(".modalD").style.display = "block";
+        function showDeleteModal1(id) {
+            document.querySelector(".overlayD").style.display = "block";
+            document.querySelector(".modalD").style.display = "block";
 
-                var yesButton = document.querySelector(".yes1");
+            var yesButton = document.querySelector(".yes1");
+            yesButton.disabled = true;
+
+            var counter = 5;
+            yesButton.innerText = `Yes (${counter})`;
+            var intervalId = startTimer(yesButton, counter);
+
+            yesButton.addEventListener("click", function() {
+                deleteUserStaff(id);
+                clearInterval(intervalId);
+            });
+
+            document.querySelector(".no1").addEventListener("click", function() {
+                document.querySelector(".overlayD").style.display = "none";
+                document.querySelector(".modalD").style.display = "none";
+                clearInterval(intervalId);
+                yesButton.innerText = "Yes";
                 yesButton.disabled = true;
+            });
+        }
 
-                var counter = 5;
-                yesButton.innerText = `Yes (${counter})`;
-                var intervalId = startTimer(yesButton, counter);
-
-                yesButton.addEventListener("click", function() {
-                    deleteUserStaff(id);
-                    clearInterval(intervalId);
-                });
-
-                document.querySelector(".no1").addEventListener("click", function() {
-                    document.querySelector(".overlayD").style.display = "none";
-                    document.querySelector(".modalD").style.display = "none";
-                    clearInterval(intervalId);
+        function startTimer(yesButton, counter) {
+            return setInterval(function() {
+                counter--;
+                if (counter >= 0) {
+                    yesButton.innerText = `Yes (${counter})`;
+                } else {
+                    yesButton.disabled = false;
                     yesButton.innerText = "Yes";
-                    yesButton.disabled = true;
-                });
-            }
+                    clearInterval(intervalId);
+                }
+            }, 1000);
+        }
 
-            function startTimer(yesButton, counter) {
-                return setInterval(function() {
-                    counter--;
-                    if (counter >= 0) {
-                        yesButton.innerText = `Yes (${counter})`;
+        // ─── Delete Function ──────────────────────────────────────────
+        function deleteUserStaff(id) {
+            console.log("Deleting user with id: ", id);
+            $.ajax({
+                type: "POST",
+                url: "../Php/deleteUserStaff.php",
+                data: {
+                    id: id,
+                },
+                dataType: "json",
+                success: function(data) {
+                    // Check the status in the response
+                    if (data.status === "success") {
+                        // Set session storage value
+                        sessionStorage.setItem("showCustomPopup", data.message);
+                        // Refresh the page
+                        location.reload();
                     } else {
-                        yesButton.disabled = false;
-                        yesButton.innerText = "Yes";
-                        clearInterval(intervalId);
-                    }
-                }, 1000);
-            }
-
-            // ─── Delete Function ──────────────────────────────────────────
-            function deleteUserStaff(id) {
-                console.log("Deleting user with id: ", id);
-                $.ajax({
-                    type: "POST",
-                    url: "../Php/deleteUserStaff.php",
-                    data: {
-                        id: id,
-                    },
-                    dataType: "json",
-                    success: function(data) {
-                        // Check the status in the response
-                        if (data.status === "success") {
-                            // Set session storage value
-                            sessionStorage.setItem("showCustomPopup", data.message);
-                            // Refresh the page
-                            location.reload();
-                        } else {
-                            // Show a custom error popup
-                            showCustomPopup(data.message);
-                        }
-                    },
-                    error: function(error) {
-                        console.log("Error deleting user: ", error);
-
                         // Show a custom error popup
-                        showCustomPopup("Error deleting user");
-                    },
-                });
-            }
+                        showCustomPopup(data.message);
+                    }
+                },
+                error: function(error) {
+                    console.log("Error deleting user: ", error);
 
-            // Function to show a custom popup
-            function showCustomPopup(message) {
-                var popupContainer = $('<div class="custom-popup"></div>').text(message);
-                $("body").append(popupContainer);
+                    // Show a custom error popup
+                    showCustomPopup("Error deleting user");
+                },
+            });
+        }
 
-                popupContainer
-                    .css("display", "none")
-                    .fadeIn(200, function() {
-                        $(this).animate({
-                                top: "-20px",
-                                opacity: 0,
-                            },
-                            300,
-                            function() {
-                                $(this).remove();
-                            }
-                        );
-                    })
-                    .delay(2000);
-            }
+        // Function to show a custom popup
+        function showCustomPopup(message) {
+            var popupContainer = $('<div class="custom-popup"></div>').text(message);
+            $("body").append(popupContainer);
+
+            popupContainer
+                .css("display", "none")
+                .fadeIn(200, function() {
+                    $(this).animate({
+                            top: "-20px",
+                            opacity: 0,
+                        },
+                        300,
+                        function() {
+                            $(this).remove();
+                        }
+                    );
+                })
+                .delay(2000);
+        }
         </script>
 
 
@@ -434,93 +438,83 @@ $_SESSION['show_login_message'] = false;
 </body>
 
 <script>
-    new DataTable("#managestaff", {
-        autoWidth: true,
-        paging: false,
-        searching: true,
-        info: false,
-        order: false,
-        layout: {
-            topStart: {
-                buttons: [{
-                        extend: 'excel',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ManageStaffTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(6))'
-                        }
+new DataTable("#managestaff", {
+
+
+    language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search"
+    },
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ManageStaffTable_' + dateStr;
                     },
-                    {
-                        extend: 'csv',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ManageStaffTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(6))'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ManageStaffTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(6))'
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'print',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ManageStaffTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(6))'
-                        },
-                        autoPrint: true
+                    exportOptions: {
+                        columns: ':not(:nth-child(6))'
                     }
-                ],
-            },
+                },
+                {
+                    extend: 'csv',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ManageStaffTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(6))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ManageStaffTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(6))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+
+            ],
         },
-        // Use a custom search input
-        initComplete: function() {
-            let input = document.querySelector(".input-group input");
-            this.api().columns().every(function() {
-                let that = this;
-                $(input).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
             });
-        },
-    });
+        });
+    },
+});
 </script>
 
 </html>

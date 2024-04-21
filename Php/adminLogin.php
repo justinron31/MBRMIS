@@ -58,8 +58,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $updateLoginTimestamp->execute();
 
                 // Insert login activity into UserActivity table
-                $insertUserActivity = $conn->prepare("INSERT INTO UserActivity (StaffID, FirstName, LastName, Role, Action, ActionDate) VALUES (?, ?, ?, ?, 'Logged in', NOW())");
-                $insertUserActivity->bind_param("isss", $user_id, $name, $lastname, $role);
+                $insertUserActivity = $conn->prepare("INSERT INTO useractivity (StaffID, FirstName, LastName, Role, Action, ActionDate, type) VALUES (?, ?, ?, ?, 'Logged in', NOW(), ?)");
+                $insertUserActivity->bind_param("issss", $user_id, $name, $lastname, $role, $type);
+
+                // Define the type
+                $type = "System";
+
                 $insertUserActivity->execute();
 
                 // Redirect based on user type

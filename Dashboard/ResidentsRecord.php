@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
 
     <!--CSS-->
@@ -43,7 +44,7 @@
 
 
 
-    <title>MAKILING BRMI SYSTEM - Resident's Record</title>
+    <title>MAKILING BRMI SYSTEM - Residents Record</title>
 </head>
 
 
@@ -116,6 +117,7 @@ $_SESSION['show_login_message'] = false;
         <p>Error Creating a new resident record!</p>
     </div>
 
+
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup4" class="popup2">
         <p>Error deleting resident record!</p>
@@ -125,6 +127,28 @@ $_SESSION['show_login_message'] = false;
     <!--VALIDATION MESSAGE-->
     <div id="validationPopup3" class="popup2">
         <p>You cannot select a month in the future.</p>
+    </div>
+
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup12" class="popup">
+        <p>Household member added!</p>
+    </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup11" class="popup2">
+        <p>Error Adding a new household record!</p>
+    </div>
+
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup13" class="popup">
+        <p>Household member deleted!</p>
+    </div>
+
+    <!--VALIDATION MESSAGE-->
+    <div id="validationPopup14" class="popup2">
+        <p>Error deleting household record!</p>
     </div>
 
 
@@ -190,6 +214,46 @@ $_SESSION['show_login_message'] = false;
             });
           </script>';
         unset($_SESSION['failure_delete']);
+    } elseif (isset($_SESSION['success_household'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup12").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup12").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['success_household']);
+    } elseif (isset($_SESSION['error_household'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup11").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup11").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['error_household']);
+    } elseif (isset($_SESSION['success_deletemember'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup13").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup13").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['success_deletemember']);
+    } elseif (isset($_SESSION['error_deletemember'])) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("validationPopup14").style.display = "block";
+                setTimeout(function() {
+                    document.getElementById("validationPopup14").style.display = "none";
+                }, 3000);
+            });
+          </script>';
+        unset($_SESSION['error_deletemember']);
     }
     ?>
 
@@ -203,7 +267,7 @@ $_SESSION['show_login_message'] = false;
             <div class="header">
 
                 <h1 class="maintitle">
-                    RESIDENT'S RECORD
+                    RESIDENTS RECORD
                 </h1>
 
                 <div class="access">
@@ -260,13 +324,15 @@ $_SESSION['show_login_message'] = false;
 
 
 
-                            <button type="button" class="filterB" style="margin-right:5px;" onclick="toggleDatePicker()">
+                            <button type="button" class="filterB" style="margin-right:5px;"
+                                onclick="toggleDatePicker()">
                                 <i class='bx bxs-calendar'></i>
                             </button>
                         </div>
 
 
-                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;" onclick="toggleTableFilter()">
+                        <button type=" button" id="calen" class="filterB" style="margin-right:10px; z-index:50;"
+                            onclick="toggleTableFilter()">
                             <i class='bx bxs-filter-alt'></i>
                             <p class="filterT1">Filter</p>
                         </button>
@@ -276,12 +342,14 @@ $_SESSION['show_login_message'] = false;
                         <div class="tableHead">
                             <h1 class="titleTable">Total Residents: <span id="totalReq3">0</span></h1>
                         </div>
-                        <button type="button" id="addResident" class="export__file-btn2" style="margin-left:10px;" onclick="toggleResidentForm()">
+                        <button type="button" id="addResident" class="export__file-btn2" style="margin-left:10px;"
+                            onclick="toggleResidentForm()">
                             <i class='bx bxs-plus-circle'></i>
                             <p class="exportTitle1">Add Resident</p>
                         </button>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
                         </button>
@@ -310,16 +378,21 @@ $_SESSION['show_login_message'] = false;
                                     <th title="Filter: Ascending/Descending"> Middlename <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Gender <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Age <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Household Number <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Purok/Sitio/Subdivision <i
+                                            class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> Household Number <i
+                                            class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> NHTS Household <i class='bx bx-sort'></i>
                                     </th>
                                     <th title="Filter: Ascending/Descending"> IP or Non-IP <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member <i class='bx bx-sort'></i></th>
+                                    <th title="Filter: Ascending/Descending"> HH Head PhilHealth Member <i
+                                            class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Category <i class='bx bx-sort'></i></th>
-                                    <th title="Filter: Ascending/Descending"> Datetime Inserted <i class='bx bx-sort'></i>
-                                    <th title="Filter: Ascending/Descending"> Datetime Updated <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Inserted <i
+                                            class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Datetime Updated <i
+                                            class='bx bx-sort'></i>
                                     </th>
                                     <th class="center"> Action </th>
                                 </tr>
@@ -394,146 +467,153 @@ $_SESSION['show_login_message'] = false;
 
 
 <script>
-    $(document).ready(function() {
-        var urlParams = new URLSearchParams(window.location.search);
-        var update = urlParams.get('update');
+$(document).ready(function() {
+    var urlParams = new URLSearchParams(window.location.search);
+    var update = urlParams.get('update');
 
-        var popupId;
-        if (update === 'success') {
-            popupId = 'validationPopup6';
-        } else if (update === 'error') {
-            popupId = 'validationPopup7';
-        }
+    var popupId;
+    if (update === 'success') {
+        popupId = 'validationPopup6';
+    } else if (update === 'error') {
+        popupId = 'validationPopup7';
+    }
 
-        if (popupId) {
-            var popup = document.getElementById(popupId);
-            popup.style.display = 'block';
+    if (popupId) {
+        var popup = document.getElementById(popupId);
+        popup.style.display = 'block';
 
-            setTimeout(function() {
-                popup.style.display = 'none';
-            }, 3000);
-        }
-    });
+        setTimeout(function() {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+});
 </script>
 
 
 <script>
-    var table = new DataTable("#residentsRec", {
-        paging: false,
-        searching: true,
-        info: false,
-        order: false,
-        layout: {
-            topStart: {
-                buttons: [{
-                        extend: 'excel',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ResidentsRecordTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(17))'
-                        }
+var table = new DataTable("#residentsRec", {
+
+    language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search"
+    },
+
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ResidentsRecordTable_' + dateStr;
                     },
-                    {
-                        extend: 'csv',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ResidentsRecordTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(17))'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ResidentsRecordTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(17))'
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'print',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'ResidentsRecordTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(17))'
-                        },
-                        autoPrint: true
+                    exportOptions: {
+                        columns: ':not(:nth-child(17))'
                     }
-                ],
-            },
+                },
+                {
+                    extend: 'csv',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ResidentsRecordTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(17))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    filename: function() {
+                        var d = new Date();
+                        var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
+                                '0') + '-' + d.getDate().toString().padStart(2, '0') +
+                            '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
+                            .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
+                                '0');
+                        return 'ResidentsRecordTable_' + dateStr;
+                    },
+                    exportOptions: {
+                        columns: ':not(:nth-child(17))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+
+            ],
         },
-        // Use a custom search input
-        initComplete: function() {
-            let input = document.querySelector(".input-group input");
-            this.api().columns().every(function() {
-                let that = this;
-                $(input).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
             });
-        },
-    });
-
-    function applyFilter(filter) {
-        if (filter) {
-            table.search(filter).draw();
-            $('input[type="search"]').val(''); // Clear the search input
-        } else {
-            table.search('').draw();
-        }
-    }
-
-
-    document.querySelector(".filterR").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        dateInput.value = '';
-        applyFilter('');
-    });
-
-    // Apply the filter from localStorage when the page loads
-    applyFilter(localStorage.getItem('filter'));
-
-    document.querySelector(".filterB").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        var date = new Date(dateInput.value);
-        var formattedDate = date.toLocaleString('en-US', {
-            month: 'long',
-            year: 'numeric'
         });
-        applyFilter(formattedDate);
+    },
+});
 
+function applyFilter(filter) {
+    if (filter) {
+        table.search(filter).draw();
+        $('input[type="search"]').val(''); // Clear the search input
+    } else {
+        table.search('').draw();
+    }
+}
+
+
+document.querySelector(".filterB").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    var date = new Date(dateInput.value);
+    var formattedDate = date.toLocaleString('en-US', {
+        month: 'long',
+        year: 'numeric'
     });
+    localStorage.setItem('filter_residentRecord', formattedDate); // Save filter state
+    applyFilter(formattedDate);
+    updateFilterButtonText(formattedDate);
+
+
+});
+
+document.querySelector(".filterR").addEventListener("click", function() {
+    localStorage.removeItem('filter_residentRecord'); // Remove filter state
+    var dateInput = document.querySelector("#date");
+    dateInput.value = '';
+    applyFilter('');
+    updateFilterButtonText('');
+});
+
+function updateFilterButtonText(filterText) {
+    var buttonText = 'Filter';
+    if (filterText) {
+        buttonText += ' (' + filterText + ')';
+        $('#calen').css('background-color', 'green');
+    } else {
+        $('#calen').css('background-color', '#336996'); // Set to default color
+    }
+    $('#calen .filterT1').text(buttonText);
+}
+
+
+applyFilter(localStorage.getItem('filter_residentRecord')); // Apply filter on page load
 </script>
 
 </html>

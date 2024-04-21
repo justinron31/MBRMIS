@@ -155,6 +155,7 @@ body {
   transition: all 0.3s ease;
   color: white;
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .sidebar.close .title {
@@ -246,7 +247,6 @@ li.item.active a {
   border-radius: 0px 0px 0px 10px;
   width: calc(100% - 17%);
   transition: width 0.3s ease;
-
 }
 
 .sidebar.close ~ .headermain {
@@ -328,13 +328,20 @@ p.name {
   #sidebar-close {
     margin-left: 58px;
   }
-  
+
   .sidebar.close ~ .headermain {
     width: 95.5%;
-}
+  }
 
- body {
+  body {
     zoom: 90%;
+  }
+
+  .Req {
+    zoom: 80%;
+  }
+  #calendar {
+    zoom: 82%;
   }
 }
 
@@ -364,10 +371,10 @@ p.name {
     margin-left: 18px;
     /*ICON LOCK SPACE*/
   }
-  
+
   .sidebar.close ~ .headermain {
     width: 95.3%;
-}
+  }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -400,42 +407,44 @@ p.name {
   .logo_name {
     font-size: 18px;
   }
-  
-    .sidebar.close ~ .headermain {
-    width: 94.5%;
-}
 
- body {
+  .sidebar.close ~ .headermain {
+    width: 94.5%;
+  }
+
+  body {
     zoom: 75%;
   }
-  
+
+  .cards {
+    margin-top: 40px !important;
+    zoom: 80%;
+  }
 }
 
-.incomp{
-    display:none;
+.incomp {
+  display: none;
 }
-
 
 @media only screen and (max-width: 768px) {
-    .headermain{
-        display:none;
-    }
-    .masterCOn{
-        display:none;
-    }
-    .incomp {
+  .headermain {
+    display: none;
+  }
+  .masterCOn {
+    display: none;
+  }
+  .incomp {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
     width: 100%;
     height: 100vh;
-    }
-   .incomp h3{
-       font-weight:400;
-   }
-
+  }
+  .incomp h3 {
+    font-weight: 400;
+  }
 }
 
 /** MAIN CONTENT ------------------------------------------------------------------------------------------------------*/
@@ -547,7 +556,6 @@ p.name {
 
 .lowerCon {
   display: flex;
-
 }
 
 .Pending {
@@ -957,6 +965,21 @@ label {
 
 .profileCon {
   padding: 25px;
+  width: 1200px;
+}
+
+.profilefirst {
+  flex-grow: 1;
+}
+
+#passForm {
+  flex-grow: 1;
+  margin-left: 12px;
+}
+
+.profilewrapper {
+  display: flex;
+  flex-direction: row;
 }
 
 .firstcon,
@@ -964,6 +987,10 @@ label {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+.passCon {
+  justify-content: flex-end;
 }
 
 .f1,
@@ -1042,7 +1069,7 @@ label {
 .badge,
 .badge1,
 .badge2,
-.badge3{
+.badge3 {
   display: inline-block;
   position: absolute;
   min-width: 10px;

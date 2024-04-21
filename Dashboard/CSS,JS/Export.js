@@ -1,11 +1,3 @@
-// ─── Search Placeholder ───────────────────────────────────────
-window.onload = function () {
-  var input = document.querySelector('.dt-search input[type="search"]');
-  if (input) {
-    input.placeholder = "Search";
-  }
-};
-
 // ─── Toggle Exportbutton ──────────────────────────────────────
 function toggleExport() {
   var exportTitle = document.querySelector(".exportTitle");

@@ -10,7 +10,8 @@
 
     <!--IMPORT-->
     <link flex href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0" />
 
     <!--CSS-->
     <link rel="shortcut icon" type="image/x-icon" href="../images/logo.png" />
@@ -186,6 +187,7 @@ if (isset($_SESSION['error_update'])) {
 
                         <div class="tablefilter">
 
+
                             <button type="button" id="reviewingButton" class=" filterB" style="margin-left:5px;">
                                 <p class="filterT">Indigency</p>
                             </button>
@@ -194,17 +196,20 @@ if (isset($_SESSION['error_update'])) {
                                 <p class="filterT">Residency</p>
                             </button>
 
-                            <button type="button" id="processingButton" class="filterB" style="margin-left:5px; margin-right:5px;">
+                            <button type="button" id="processingButton" class="filterB"
+                                style="margin-left:5px; margin-right:5px;">
                                 <p class="filterT">Job Seeker</p>
                             </button>
 
-                            <button type="button" class="filterB" style="margin-right:5px;" onclick="toggleDatePicker()">
+                            <button type="button" class="filterB" style="margin-right:5px;"
+                                onclick="toggleDatePicker()">
                                 <i class='bx bxs-calendar'></i>
                             </button>
                         </div>
 
 
-                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;" onclick="toggleTableFilter()">
+                        <button type=" button" id="calen" class="filterB" style="margin-right:10px; z-index:50;"
+                            onclick="toggleTableFilter()">
                             <i class='bx bxs-filter-alt'></i>
                             <p class="filterT1">Filter</p>
                         </button>
@@ -229,7 +234,8 @@ if (isset($_SESSION['error_update'])) {
                             <h1 class="titleTable">Total File: <span><?php echo $total; ?></span></h1>
                         </div>
 
-                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()" style="margin-left:10px;">
+                        <button type="button" class="export__file-btn" title="Export File" onclick="toggleExport()"
+                            style="margin-left:10px;">
                             <i class='bx bxs-file-export'></i>
                             <p class="exportTitle">Export</p>
 
@@ -248,14 +254,16 @@ if (isset($_SESSION['error_update'])) {
                                 <tr>
                                     <th title="Filter: Ascending/Descending"> Document Type <i class='bx bx-sort'></i>
                                     </th>
-                                    <th class="center" title="Filter: Ascending/Descending"> Status <i class='bx bx-sort'></i></th>
+                                    <th class="center" title="Filter: Ascending/Descending"> Status <i
+                                            class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Firstname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Lastname <i class='bx bx-sort'></i></th>
                                     <th title="Filter: Ascending/Descending"> Tracking Number <i class='bx bx-sort'></i>
                                     </th>
                                     <th title="Filter: Ascending/Descending"> Contact Number <i class='bx bx-sort'></i>
                                     </th>
-                                    <th title="Filter: Ascending/Descending"> Residency length <i class='bx bx-sort'></i>
+                                    <th title="Filter: Ascending/Descending"> Residency length <i
+                                            class='bx bx-sort'></i>
                                     </th>
 
                                     <th title="Filter: Ascending/Descending"> Purpose <i class='bx bx-sort'></i></th>
@@ -287,7 +295,7 @@ if (isset($_SESSION['error_update'])) {
                                         $file_status = strtolower(trim($row["file_status"]));
                                         if ($file_status == 'ready for pickup') {
                                             $class = 'delivered';
-                                            $printButton = "<td ><button class='viewMore3'>DONE</button></td>";
+                                            $printButton = "<td style='display: flex; align-items: center; justify-content: center;'><button class='viewMore3'>DONE</button></td>";
                                         } elseif ($file_status == 'declined') {
                                             $class = 'cancelled';
                                             $printButton = "<td style='display: flex; align-items: center; justify-content: center;'><i class='bx bxs-edit' onclick='toggleCertEdit(" . $row['id'] . ")' ></i><button class='viewMore' onclick=\"if(confirm('Print the selected file request?')) { generateCertificate('" . $row["firstname"] . ' ' . $row["lastname"] . "', '" . $row["pickup_datetime"] . "', '" . $row["type"] . "', '" . $row["purpose_description"] . "', '" . $row["purok"] . "', '" . $row["residency"] . "', '" . $row["tracking_number"] . "', " . $row["id"] . ") }\" data-file-id='" . $row["id"] . "'>Print</button></td>";
@@ -342,115 +350,180 @@ if (isset($_SESSION['error_update'])) {
 </body>
 <?php include '../Components/editCert.php'; ?>
 <script>
-    var table = new DataTable("#reqdocu", {
-        paging: false,
-        searching: true,
-        info: false,
-        order: false,
-        layout: {
-            topStart: {
-                buttons: [{
-                        extend: 'excel',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        },
-                        orientation: 'landscape',
-                        pageSize: 'A4'
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: ':not(:nth-child(10))'
-                        },
-                        autoPrint: true
+var table = new DataTable("#reqdocu", {
+
+
+    language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search"
+    },
+    paging: false,
+    searching: true,
+    info: false,
+    order: false,
+    columnDefs: [{
+        targets: [8],
+        searchable: false
+    }],
+    layout: {
+        topStart: {
+            buttons: [{
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':not(:nth-child(10))'
                     }
-                ],
-            },
+                },
+                {
+                    extend: 'csv',
+                    exportOptions: {
+                        columns: ':not(:nth-child(10))'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    exportOptions: {
+                        columns: ':not(:nth-child(10))'
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'A4'
+                },
+
+            ],
         },
-        // Use a custom search input
-        initComplete: function() {
-            let input = document.querySelector(".input-group input");
-            this.api().columns().every(function() {
-                let that = this;
-                $(input).on('keyup change clear', function() {
-                    if (that.search() !== this.value) {
-                        that.search(this.value).draw();
-                    }
-                });
+    },
+    // Use a custom search input
+    initComplete: function() {
+        let input = document.querySelector(".input-group input");
+        this.api().columns().every(function() {
+            let that = this;
+            $(input).on('keyup change clear', function() {
+                if (that.search() !== this.value) {
+                    that.search(this.value).draw();
+                }
             });
-        },
-    });
-
-    function applyFilter(filter) {
-        if (filter) {
-            table.search(filter).draw();
-            $('input[type="search"]').val(''); // Clear the search input
-        } else {
-            table.search('').draw();
-        }
-    }
-
-    $('#reviewingButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Indigency');
-            applyFilter('Indigency');
-        }
-    });
-
-    $('#declinedButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'Residency');
-            applyFilter('Residency');
-        }
-    });
-
-    $('#processingButton').on('click', function() {
-        if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
-            applyFilter(null);
-        } else {
-            localStorage.setItem('filter', 'First Time Job Seeker');
-            applyFilter('First Time Job Seeker');
-        }
-    });
-
-
-    document.querySelector(".filterR").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        dateInput.value = '';
-        applyFilter('');
-    });
-
-    // Apply the filter from localStorage when the page loads
-    applyFilter(localStorage.getItem('filter'));
-
-    document.querySelector(".filterB").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        var date = new Date(dateInput.value);
-        var formattedDate = date.toLocaleString('en-US', {
-            month: 'long',
-            year: 'numeric'
         });
-        applyFilter(formattedDate);
+    },
+});
+
+function applyFilter(filter) {
+    if (filter) {
+        table.search(filter).draw();
+        $('input[type="search"]').val(''); // Clear the search input
+    } else {
+        table.search('').draw();
+    }
+}
+
+
+
+$('#reviewingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter_reqDoc');
+        applyFilter(null);
+        updateFilterButtonText('');
+    } else {
+        localStorage.setItem('filter', 'Indigency');
+        applyFilter('Indigency');
+        updateFilterButtonText('Indigency');
+    }
+});
+
+$('#declinedButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter_reqDoc');
+        applyFilter(null);
+        updateFilterButtonText('');
+    } else {
+        localStorage.setItem('filter', 'Residency');
+        applyFilter('Residency');
+        updateFilterButtonText('Residency');
+    }
+});
+
+$('#processingButton').on('click', function() {
+    if ($(this).hasClass('active')) {
+        localStorage.removeItem('filter_reqDoc');
+        applyFilter(null);
+        updateFilterButtonText('');
+    } else {
+        localStorage.setItem('filter_reqDoc', 'First Time Job Seeker');
+        applyFilter('First Time Job Seeker');
+        updateFilterButtonText('Job Seeker');
+    }
+});
+
+
+document.querySelector(".filterB").addEventListener("click", function() {
+    var dateInput = document.querySelector("#date");
+    var date = new Date(dateInput.value);
+    var formattedDate = date.toLocaleString('en-US', {
+        month: 'long',
+        year: 'numeric'
     });
+    localStorage.setItem('filter_reqDoc', formattedDate); // Save filter state
+    applyFilter(formattedDate);
+    updateFilterButtonText(formattedDate);
+});
+
+document.querySelector(".filterR").addEventListener("click", function() {
+    localStorage.removeItem('filter_reqDoc'); // Remove filter state
+    var dateInput = document.querySelector("#date");
+    dateInput.value = '';
+    applyFilter('');
+    updateFilterButtonText('');
+});
+
+function updateFilterButtonText(filterText) {
+    var buttonText = 'Filter';
+    if (filterText) {
+        buttonText += ' (' + filterText + ')';
+        $('#calen').css('background-color', 'green');
+    } else {
+        $('#calen').css('background-color', '#336996'); // Set to default color
+    }
+    $('#calen .filterT1').text(buttonText);
+
+    // Save filter text to local storage
+    localStorage.setItem('filter_button_text', buttonText);
+}
+
+$(document).ready(function() {
+    // Retrieve filter button text from local storage
+    var savedFilterButtonText = localStorage.getItem('filter_button_text');
+    if (savedFilterButtonText) {
+        $('#calen .filterT1').text(savedFilterButtonText);
+    }
+});
+
+applyFilter(localStorage.getItem('filter_reqDoc'));
+
+
+// ─── Filterbuttons ────────────────────────────────────────────
+var filterButtons = document.querySelectorAll(".tablefilter .filterB");
+
+filterButtons.forEach(function(button) {
+    button.addEventListener("click", function() {
+        // If the clicked button is already active, remove the active class
+        if (this.classList.contains("active")) {
+            this.classList.remove("active");
+            localStorage.removeItem("activeButton_reqDoc");
+        } else {
+            // If the clicked button is not active, make it active and remove active class from other buttons
+            filterButtons.forEach(function(btn) {
+                btn.classList.remove("active");
+            });
+            this.classList.add("active");
+            localStorage.setItem("activeButton_reqDoc", this
+                .id); // Store the id of the active button
+        }
+    });
+});
+
+// When the page loads, activate the button stored in localStorage
+var activeButtonId = localStorage.getItem("activeButton_reqDoc");
+if (activeButtonId) {
+    document.getElementById(activeButtonId).classList.add("active");
+}
 </script>
 
 

@@ -210,13 +210,7 @@
 
         <div class="uploadContent">
           <label for="stay" class="required">Number of Years/Months residing in the Barangay</label>
-          <select class="selectbox" id="bussSelect4" name="stay" onchange="changeFontColor('bussSelect4')">
-            <option value="">Select Number of Years/Months residing in the Barangay</option>
-            <option value="Less than a year">Less than a Year</option>
-            <option value="More than a year">More than a Year</option>
-          </select>
-
-
+          <input type="text" id="bussSelect4" name="stay" placeholder="Enter your Residency length" required />
         </div>
       </div>
 
@@ -318,17 +312,17 @@
 
       <!-- ─── Captcha ──────────────────────────── -->
       <div class="error-shadow">
-        <div class="g-recaptcha" data-sitekey="6LeXJaspAAAAAFlki9u4Cja_VhMZjWNHT6iRwoX7" data-callback="onCaptchaVerify"
+        <!-- <div class="g-recaptcha" data-sitekey="6LeXJaspAAAAAFlki9u4Cja_VhMZjWNHT6iRwoX7" data-callback="onCaptchaVerify"
           data-expired-callback="onCaptchaExpired" required></div>
-      </div>
-      <br />
+      </div> -->
+        <br />
 
-      <!-- ─── Submit Button ────────────── -->
-      <button type="submit" id="submitBtn" class="login-button">
-        SUBMIT
-      </button>
-      <br />
-      <br />
+        <!-- ─── Submit Button ────────────── -->
+        <button type="submit" id="submitBtn" class="login-button">
+          SUBMIT
+        </button>
+        <br />
+        <br />
     </form>
 
   </div>

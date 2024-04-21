@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $row = $result->fetch_assoc();
 
     // Check if a record was found and if it was created within the last 60 seconds
-    if ($row && strtotime($row['datetime_created']) > strtotime('-12 hours')) {
+    if ($row && strtotime($row['datetime_created']) > strtotime('-1 hours')) {
         echo "<script type='text/javascript'>
     alert('You must wait 12 hours between submissions.');
     window.location.href = '../Website/homepage.html';

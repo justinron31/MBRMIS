@@ -158,7 +158,7 @@ $_SESSION['show_login_message'] = false;
                         </div>
 
 
-                        <button type=" button" class="filterB" style="margin-right:10px; z-index:50;" onclick="toggleTableFilter()">
+                        <button type=" button" id="calen" class="filterB" style="margin-right:10px; z-index:50;" onclick="toggleTableFilter()">
                             <i class='bx bxs-filter-alt'></i>
                             <p class="filterT1">Filter</p>
                         </button>
@@ -311,10 +311,20 @@ $_SESSION['show_login_message'] = false;
 
 <script>
     var table = new DataTable("#firsttime", {
+
+
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search"
+        },
         paging: false,
         searching: true,
         info: false,
         order: false,
+        columnDefs: [{
+            targets: [5, 18],
+            searchable: false
+        }],
         layout: {
             topStart: {
                 buttons: [{
@@ -364,22 +374,7 @@ $_SESSION['show_login_message'] = false;
                         orientation: 'landscape',
                         pageSize: 'A4'
                     },
-                    {
-                        extend: 'print',
-                        filename: function() {
-                            var d = new Date();
-                            var dateStr = d.getFullYear() + '-' + (d.getMonth() + 1).toString().padStart(2,
-                                    '0') + '-' + d.getDate().toString().padStart(2, '0') +
-                                '_' + d.getHours().toString().padStart(2, '0') + '-' + d.getMinutes()
-                                .toString().padStart(2, '0') + '-' + d.getSeconds().toString().padStart(2,
-                                    '0');
-                            return 'FirstTimeJobSeekerTable_' + dateStr;
-                        },
-                        exportOptions: {
-                            columns: ':not(:nth-child(17)):not(:nth-child(21))'
-                        },
-                        autoPrint: true
-                    }
+
                 ],
             },
         },
@@ -406,46 +401,52 @@ $_SESSION['show_login_message'] = false;
         }
     }
 
+    function applyFilter(filter) {
+
+        if (filter) {
+            table.search(filter).draw();
+            $('input[type="search"]').val(''); // Clear the search input
+        } else {
+            table.search('').draw();
+        }
+    }
+
     $('#reviewingButton').on('click', function() {
         if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
+            localStorage.removeItem('filter_firsttimejob');
             applyFilter(null);
+            updateFilterButtonText('');
         } else {
-            localStorage.setItem('filter', 'reviewing');
+            localStorage.setItem('filter_firsttimejob', 'reviewing');
             applyFilter('reviewing');
+            updateFilterButtonText('Reviewing');
         }
     });
 
     $('#declinedButton').on('click', function() {
         if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
+            localStorage.removeItem('filter_firsttimejob');
             applyFilter(null);
+            updateFilterButtonText('');
         } else {
-            localStorage.setItem('filter', 'declined');
+            localStorage.setItem('filter_firsttimejob', 'declined');
             applyFilter('declined');
+            updateFilterButtonText('Declined');
         }
     });
 
     $('#processingButton').on('click', function() {
         if ($(this).hasClass('active')) {
-            localStorage.removeItem('filter');
+            localStorage.removeItem('filter_firsttimejob');
             applyFilter(null);
+            updateFilterButtonText('');
         } else {
-            localStorage.setItem('filter', 'processing');
+            localStorage.setItem('filter_firsttimejob', 'processing');
             applyFilter('processing');
+            updateFilterButtonText('Processing');
         }
     });
 
-
-
-    document.querySelector(".filterR").addEventListener("click", function() {
-        var dateInput = document.querySelector("#date");
-        dateInput.value = '';
-        applyFilter('');
-    });
-
-    // Apply the filter from localStorage when the page loads
-    applyFilter(localStorage.getItem('filter'));
 
     document.querySelector(".filterB").addEventListener("click", function() {
         var dateInput = document.querySelector("#date");
@@ -454,8 +455,61 @@ $_SESSION['show_login_message'] = false;
             month: 'long',
             year: 'numeric'
         });
+        localStorage.setItem('filter_firsttimejob', formattedDate); // Save filter state
         applyFilter(formattedDate);
+        updateFilterButtonText(formattedDate);
+
+
     });
+
+    document.querySelector(".filterR").addEventListener("click", function() {
+        localStorage.removeItem('filter_firsttimejob'); // Remove filter state
+        var dateInput = document.querySelector("#date");
+        dateInput.value = '';
+        applyFilter('');
+        updateFilterButtonText('');
+    });
+
+    function updateFilterButtonText(filterText) {
+        var buttonText = 'Filter';
+        if (filterText) {
+            buttonText += ' (' + filterText + ')';
+            $('#calen').css('background-color', 'green');
+        } else {
+            $('#calen').css('background-color', '#336996'); // Set to default color
+        }
+        $('#calen .filterT1').text(buttonText);
+    }
+
+
+    applyFilter(localStorage.getItem('filter_firsttimejob'));
+
+    // ─── Filterbuttons ────────────────────────────────────────────
+    var filterButtons = document.querySelectorAll(".tablefilter .filterB");
+
+    filterButtons.forEach(function(button) {
+        button.addEventListener("click", function() {
+            // If the clicked button is already active, remove the active class
+            if (this.classList.contains("active")) {
+                this.classList.remove("active");
+                localStorage.removeItem("activeButton_firstitmjob");
+            } else {
+                // If the clicked button is not active, make it active and remove active class from other buttons
+                filterButtons.forEach(function(btn) {
+                    btn.classList.remove("active");
+                });
+                this.classList.add("active");
+                localStorage.setItem("activeButton_firstitmjob", this
+                    .id); // Store the id of the active button
+            }
+        });
+    });
+
+    // When the page loads, activate the button stored in localStorage
+    var activeButtonId = localStorage.getItem("activeButton_firstitmjob");
+    if (activeButtonId) {
+        document.getElementById(activeButtonId).classList.add("active");
+    }
 </script>
 
 </html>

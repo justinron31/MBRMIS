@@ -10,7 +10,7 @@
 
              <div class="rheadcon">
                  <div class="line"></div>
-                 <p>ADD RESIDENT'S INFORMATION</p>
+                 <p>ADD RESIDENTS INFORMATION</p>
                  <div class="line"></div>
                  <i class='bx bxs-x-circle' onclick="hideResidentForm()"></i>
              </div>
@@ -20,7 +20,7 @@
      <!-- form  -->
 
 
-     <form id="formContainer" action="../Php/addResidents.php" method="post" enctype="multipart/form-data">
+     <form id="formContainer" action="../Php/addResidents.php" method="post" enctype="multipart/form-data" autocomplete="off">
          <div class=" rform1">
 
              <input type="hidden" id="memberCount" name="memberCount" value="0">
@@ -37,8 +37,7 @@
 
              <div class="rInput">
                  <label for="Household">Household Number</label>
-                 <input type="text" id="textbox" name="Household" placeholder="Enter Household Number"
-                     oninput="validateNumberInput(this)" required>
+                 <input type="text" id="textbox" name="Household" placeholder="Enter Household Number" oninput="validateNumberInput(this)" required>
              </div>
 
          </div>
@@ -66,14 +65,12 @@
 
              <div class="rInput">
                  <label for="Age">Age</label>
-                 <input type="text" id="textbox" name="Age" placeholder="Enter Age" oninput="validateAge(this)"
-                     required>
+                 <input type="text" id="textbox" name="Age" placeholder="Enter Age" oninput="validateAge(this)" required>
              </div>
 
              <div class="rInput">
                  <label for="Gender">Gender</label>
-                 <select class="selectbox" id="bussSelect3" name="Gender" required
-                     onchange="changeFontColor('bussSelect3')">
+                 <select class="selectbox" id="bussSelect3" name="Gender" required onchange="changeFontColor('bussSelect3')">
                      <option value="">Select Gender</option>
                      <option value="Male">Male</option>
                      <option value="Female">Female</option>
@@ -100,8 +97,7 @@
 
              <div class="rInput">
                  <label for="NHTS">NHTS Household</label>
-                 <select class="selectbox" id="bussSelect1" name="NHTS" required
-                     onchange="changeFontColor('bussSelect1')">
+                 <select class="selectbox" id="bussSelect1" name="NHTS" required onchange="changeFontColor('bussSelect1')">
                      <option value="">Select</option>
                      <option value="NHTS-4Ps">NHTS-4Ps</option>
                      <option value="NHTS-Non-4Ps">NHTS-Non-4Ps</option>
@@ -111,8 +107,7 @@
 
              <div class="rInput">
                  <label for="IP">IP or Non-IP</label>
-                 <select class="selectbox" id="bussSelect8" name="IP" required
-                     onchange="changeFontColor('bussSelect8')">
+                 <select class="selectbox" id="bussSelect8" name="IP" required onchange="changeFontColor('bussSelect8')">
                      <option value="">Select</option>
                      <option value="IP">IP</option>
                      <option value="Non-IP">Non-IP</option>
@@ -131,8 +126,7 @@
 
              <div class="rInput">
                  <label for="Category">Category</label>
-                 <select class="selectbox" id="Category" name="Category" required disabled
-                     onchange="changeToTextbox(this)">
+                 <select class="selectbox" id="Category" name="Category" required disabled onchange="changeToTextbox(this)">
                      <option value="">Select</option>
                      <option value="FORMAL ECONOMY">FORMAL ECONOMY</option>
                      <option value="INFORMAL ECONOMY">INFORMAL ECONOMY</option>
@@ -179,8 +173,7 @@
 
                  <div class="rInput">
                      <label for="mRelationship">Relationship</label>
-                     <select class="selectbox" id="bussSelect6" name="mRelationship" required
-                         onchange="changeToTextbox2(this)">
+                     <select class="selectbox" id="bussSelect6" name="mRelationship" required onchange="changeToTextbox2(this)">
                          <option value="">Select Relationship</option>
                          <option value="Head">Head</option>
                          <option value="Spouse">Spouse</option>
@@ -192,8 +185,7 @@
 
                  <div class="rInput">
                      <label for="mGender">Gender</label>
-                     <select class="selectbox" id="bussSelect7" name="mGender" required
-                         onchange="changeFontColor('bussSelect7')">
+                     <select class="selectbox" id="bussSelect7" name="mGender" required onchange="changeFontColor('bussSelect7')">
                          <option value="">Select</option>
                          <option value="Male">Male</option>
                          <option value="Female">Female</option>
@@ -205,8 +197,7 @@
 
                  <div class="rInput">
                      <label for="mAge">Age</label>
-                     <input type="text" id="textbox" name="mAge" placeholder="Enter Age" oninput="validateAge(this)"
-                         required>
+                     <input type="text" id="textbox" name="mAge" placeholder="Enter Age" oninput="validateAge(this)" required>
                  </div>
 
              </div>
@@ -214,8 +205,7 @@
              <div class="rform1">
                  <div class="rInput">
                      <label for="mRisk">Classification by Age/Health Risk</label>
-                     <select class="selectbox" id="bussSelect9" name="mRisk" required
-                         onchange="changeFontColor('bussSelect9')">
+                     <select class="selectbox" id="bussSelect9" name="mRisk" required onchange="changeFontColor('bussSelect9')">
                          <option value="">Select</option>
                          <option value="Newborn">Newborn</option>
                          <option value="Infant (29days-11 months old)">Infant (29days-11 months old)</option>
@@ -236,8 +226,7 @@
 
                  <div class="rInput">
                      <label for="mQuarter">Quarter</label>
-                     <select class="selectbox" id="bussSelect10" name="mQuarter" required
-                         onchange="changeFontColor('bussSelect10')">
+                     <select class="selectbox" id="bussSelect10" name="mQuarter" required onchange="changeFontColor('bussSelect10')">
                          <option value="">Select Quarter</option>
                          <option value="First">First</option>
                          <option value="Second">Second</option>
@@ -265,39 +254,39 @@
  </div>
 
  <script>
-function remove() {
-    // Your existing code
-    var memberDiv = document.querySelector('.addmember');
-    if (memberDiv) {
-        var inputs = memberDiv.querySelectorAll('input, select, textarea');
-        inputs.forEach(function(input) {
-            input.disabled = !input.disabled;
-            input.value = '';
-        });
-    }
-}
+     function remove() {
+         // Your existing code
+         var memberDiv = document.querySelector('.addmember');
+         if (memberDiv) {
+             var inputs = memberDiv.querySelectorAll('input, select, textarea');
+             inputs.forEach(function(input) {
+                 input.disabled = !input.disabled;
+                 input.value = '';
+             });
+         }
+     }
 
-function changeText() {
-    var memberDiv = document.querySelector('.addMember7');
-    if (memberDiv) {
-        var span = memberDiv.querySelector('span');
-        if (span.textContent.trim() === 'No HouseHold Member') {
-            span.textContent = '+ Add household Member';
-        } else {
-            span.textContent = 'No HouseHold Member';
-        }
-    }
-}
+     function changeText() {
+         var memberDiv = document.querySelector('.addMember7');
+         if (memberDiv) {
+             var span = memberDiv.querySelector('span');
+             if (span.textContent.trim() === 'No HouseHold Member') {
+                 span.textContent = '+ Add household Member';
+             } else {
+                 span.textContent = 'No HouseHold Member';
+             }
+         }
+     }
 
-// New function to handle display property
-function toggleDisplay() {
-    var memberDiv = document.querySelector('.addMember');
-    if (memberDiv) {
-        if (memberDiv.style.display !== 'none') {
-            memberDiv.style.display = 'none';
-        } else {
-            memberDiv.style.display = 'block';
-        }
-    }
-}
+     // New function to handle display property
+     function toggleDisplay() {
+         var memberDiv = document.querySelector('.addMember');
+         if (memberDiv) {
+             if (memberDiv.style.display !== 'none') {
+                 memberDiv.style.display = 'none';
+             } else {
+                 memberDiv.style.display = 'block';
+             }
+         }
+     }
  </script>
